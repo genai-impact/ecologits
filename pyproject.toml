@@ -1,0 +1,120 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "python_template"
+version = "0.1.0"
+description = "Template"
+authors = ["DataForGood"]
+license = " MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+# numpy = "^1.21.1"
+# pandas = "^1.1.1"
+# jupyter = "^1.0.0"
+# ipykernel = "^5.3.4"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^2.20.0"
+pytest = "^7.2.0"
+# ruff = "^0.0.254"
+tox = "^4.4.8"
+
+[tool.ruff]
+select = [
+    "A",
+    "ANN",
+    "ARG",
+    "B",
+    "C",
+    "COM",
+    "C90",
+    "E",
+    "ERA",
+    "F",
+    "I",
+    "N",
+    "PGH",
+    "PL",
+    "PLE",
+    "PLR",
+    "PLW",
+    "PT",
+    "PTH",
+    "Q",
+    "RET",
+    "RUF",
+    "SLF",
+    "SIM",
+    "TID",
+    "TRY",
+    "UP",
+    "W",
+    "YTT",
+]
+ignore = ["A003", "ANN101", "ANN401", "N805", "N818", "PLR0913", "RET504", "RET505"]
+
+fixable = [
+    "A",
+    "ANN",
+    "ARG",
+    "B",
+    "C",
+    "COM",
+    "C90",
+    "E",
+    "ERA",
+    "F",
+    "I",
+    "PGH",
+    "PL",
+    "PLE",
+    "PLR",
+    "PLW",
+    "PT",
+    "PTH",
+    "Q",
+    "RET",
+    "RUF",
+    "SLF",
+    "SIM",
+    "TID",
+    "TRY",
+    "UP",
+    "W",
+    "YTT",
+]
+unfixable = []
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "venv",
+    "pages",
+    "tests"
+]
+
+line-length = 96
+
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+target-version = "py310"
+
+[tool.ruff.mccabe]
+max-complexity = 10
