@@ -1,9 +1,20 @@
-import openai
+from typing import Optional
+
+from openai import OpenAI
+
 
 class GenAIImpacts:
-    def __init__(self, api_key=None):
-        openai.api_key = api_key or openai.api_key
-        self._openai_client = openai
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        base_url: Optional[str] = None,
+        **kwargs
+    ):
+        self._openai_client = OpenAI(
+            api_key=api_key,
+            base_url=base_url,
+            **kwargs
+        )
 
     def get_impacts(self, response):
         return Impacts(
