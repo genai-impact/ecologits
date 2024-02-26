@@ -1,12 +1,12 @@
-from genai_impact.gen_ai_impacts import GenAIImpacts
+from genai_impact.client_wrapper import OpenAI
 
-client = GenAIImpacts()
+client = OpenAI()
 
 response = client.chat.completions.create(
     model="gpt-3.5-turbo",
-    messages=[...]  # Your messages here
+    messages=[
+        {"role": "user", "content": "Hello World!"}
+    ]
 )
 
-impacts = client.get_impacts(response)
-print(impacts)
-# Outputs: Impacts(energy=42, energy_unit='kWh', gwp=15, gwp_unit='kgCO2eq')
+print(response.impacts)
