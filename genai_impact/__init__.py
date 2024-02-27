@@ -1,1 +1,1 @@
-from client_wrapper import OpenAI
+from .client_wrapper import OpenAI
