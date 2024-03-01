@@ -1,0 +1,7 @@
+site_name: GenAI Impact
+theme:
+  name: material
+  palette:
+    primary: green
+  logo: assets/logo.png
+repo_url: https://github.com/dataforgoodfr/12_genai_impact
