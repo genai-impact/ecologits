@@ -63,7 +63,7 @@ pip install poetry
 ## Install project
 
 ```shell
-poetry install
+poetry install --with dev,docs
 ```
 
 
