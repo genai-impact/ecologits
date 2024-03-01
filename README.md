@@ -4,11 +4,11 @@ GenAI Impact
 **GenAI Impact** tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs.
 
 
-# ⚙️ Installation
+## ⚙️ Installation
 
 Coming soon...
 
-# 🚀 Usage
+## 🚀 Usage
 
 ```python
 from genai_impact import OpenAI
@@ -32,9 +32,9 @@ print(response.impacts)        # Impacts(energy=0.025, energy_unit='Wh', ...)
 
 See package documentation on [GenAI Impact](<link-to-mkdocs-material>)
 
-# 💪 Contributing
+## 💪 Contributing
 
-## Requirements
+### Requirements
 
 Have [poetry](https://python-poetry.org/docs/#installation) installed on your system.
 
@@ -60,14 +60,14 @@ pip install poetry
 </details>
 
 
-## Install project
+### Install project
 
 ```shell
 poetry install --with dev,docs
 ```
 
 
-## Run tests
+### Run tests
 
 ```shell
 tox -vv
@@ -80,7 +80,7 @@ poetry run pytest
 ```
 
 
-## Run pre-commit hooks locally
+### Run pre-commit hooks locally
 
 [Install pre-commit](https://pre-commit.com/)
 
