@@ -32,6 +32,7 @@ optional = true
 [tool.poetry.group.docs.dependencies]
 mkdocs-material = "^9.5.12"
 
+
 [tool.ruff]
 select = [
     "A",
@@ -62,9 +63,21 @@ select = [
     "TRY",
     "UP",
     "W",
-    "YTT",
+    "YTT"
 ]
-ignore = ["A003", "ANN101", "ANN401", "N805", "N818", "PLR0913", "RET504", "RET505"]
+
+ignore = [
+    "A003",
+    "ANN101",
+    "ANN102",
+    "ANN401",
+    "N805",
+    "N818",
+    "PLR0913",
+    "RET504",
+    "RET505",
+    "COM812"
+]
 
 fixable = [
     "A",
@@ -94,7 +107,7 @@ fixable = [
     "TRY",
     "UP",
     "W",
-    "YTT",
+    "YTT"
 ]
 unfixable = []
 

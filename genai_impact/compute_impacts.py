@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-
 ENERGY_PROFILE = 1.17e-4
 
 MODEL_SIZES = {
@@ -27,13 +26,11 @@ MODEL_SIZES = {
 @dataclass
 class Impacts:
     energy: float
-    energy_unit: str = 'Wh'
+    energy_unit: str = "Wh"
 
 
 def compute_llm_impact(
     model_parameter_count: float,
     output_token_count: int,
 ) -> Impacts:
-    return Impacts(
-        energy=ENERGY_PROFILE * model_parameter_count * output_token_count
-    )
+    return Impacts(energy=ENERGY_PROFILE * model_parameter_count * output_token_count)
