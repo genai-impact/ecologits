@@ -1,44 +1,89 @@
 GenAI Impact
-================
+============
+
+**GenAI Impact** tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs.
+
+
+# ⚙️ Installation
+
+Coming soon...
+
+# 🚀 Usage
+
+```python
+from genai_impact import OpenAI
+
+client = OpenAI(
+    api_key="<OPENAI_API_KEY>",
+)
+
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "user", "content": "Hello, can you explain what is the GenAI Impact project?"}
+    ]
+)
+
+# Get estimated environmental impacts for that inference.
+print(response.impacts)        # Impacts(energy=0.025, energy_unit='Wh', ...)
+```
+
+
 
 See package documentation on [GenAI Impact](<link-to-mkdocs-material>)
 
-# Contributing
+# 💪 Contributing
+
+## Requirements
+
+Have [poetry](https://python-poetry.org/docs/#installation) installed on your system.
 
 
-## Use a venv
+<details>
+<summary>
+Easy install using a virtualenv:
+</summary>
 
-    python3 -m venv name-of-your-venv
+Create a venv:
 
-    source name-of-your-venv/bin/activate
+```shell
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Install poetry:
+
+```shell
+pip install poetry
+```
+
+</details>
 
 
-## Install dependencies using Poetry
+## Install project
 
-[Install Poetry](https://python-poetry.org/docs/):
+```shell
+poetry install
+```
 
-    python3 -m pip install "poetry==1.4.0"
 
-Install dependencies:
+## Run tests
 
-    poetry install
+```shell
+tox -vv
+```
 
-## Set up API keys
+OR:
 
-    export OPENAI_API_KEY="<your-key>"  # OpenAI
+```shell
+poetry run pytest
+```
 
-## Call API and get the impact
-
-    python genai_impact/__main__.py
 
 ## Run pre-commit hooks locally
 
 [Install pre-commit](https://pre-commit.com/)
 
-
-    pre-commit run --all-files
-
-
-## Utiliser Tox pour tester votre code
-
-    tox -vv
+```shell
+pre-commit run --all-files
+```
