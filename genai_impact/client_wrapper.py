@@ -22,26 +22,10 @@ def chat_wrapper(
     return response
 
 
-class OpenAI:
-    def __init__(
-        self,
-        api_key: Optional[str] = None,
-        base_url: Optional[str] = None,
-        **kwargs: Any
-    ) -> None:
-        self.__client = _OpenAI(
-            api_key=api_key,
-            base_url=base_url,
-            **kwargs,
-        )
+class OpenAI(_OpenAI):
+    def __init__(self, api_key: Optional[str] = None, base_url: Optional[str] = None, **kwargs: Any) -> None:
+        super().__init__(api_key=api_key, base_url=base_url)
 
     wrap_function_wrapper(
         "openai.resources.chat.completions", "Completions.create", chat_wrapper
     )
-
-    def __getattr__(self, name: str) -> Callable:
-        """
-        Redirect attribute access to the underlying openai client if the attribute
-        is not defined in this class.
-        """
-        return getattr(self.__client, name)
