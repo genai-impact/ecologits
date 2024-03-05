@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
 ENERGY_PROFILE = 1.17e-4
 
@@ -22,9 +22,7 @@ MODEL_SIZES = {
     "gpt-3.5-turbo-16k-0613": 20,
 }
 
-
-@dataclass
-class Impacts:
+class Impacts(BaseModel):
     energy: float
     energy_unit: str = "Wh"
 
