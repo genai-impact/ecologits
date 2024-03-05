@@ -12,7 +12,7 @@ pip install genai_impact
 ## Basic example for OpenAI
 
 ```python
-from genai_impact.client_wrapper import OpenAI
+from genai_impact import OpenAI
 
 client = OpenAI()
 
