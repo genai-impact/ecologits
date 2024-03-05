@@ -1,7 +1,3 @@
-from genai_impact.client import OpenAI
-from genai_impact.client import MistralClient
+from genai_impact.client import MistralClient, OpenAI
 
-__all__ = [
-    "OpenAI",
-    "MistralClient"
-]
+__all__ = ["OpenAI", "MistralClient"]

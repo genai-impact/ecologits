@@ -5,8 +5,7 @@ from openai.resources.chat import Completions
 from openai.types.chat import ChatCompletion as _ChatCompletion
 from wrapt import wrap_function_wrapper
 
-from genai_impact.compute_impacts import compute_llm_impact, Impacts
-
+from genai_impact.compute_impacts import Impacts, compute_llm_impact
 
 _MODEL_SIZES = {
     "gpt-4-0125-preview": None,
@@ -34,7 +33,7 @@ class ChatCompletion(_ChatCompletion):
 
 
 def chat_wrapper(
-    wrapped: Callable, instance: Completions, args: Any, kwargs: Any    # noqa: ARG001
+    wrapped: Callable, instance: Completions, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletion:
     response = wrapped(*args, **kwargs)
     model_size = _MODEL_SIZES.get(response.model)
