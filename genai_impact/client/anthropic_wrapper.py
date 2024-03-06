@@ -12,11 +12,11 @@ except ImportError:
     _Message = object()
 
 
-#model names found here: https://docs.anthropic.com/claude/docs/models-overview#model-recommendations
-#TODO update model sizes for anthropic
+# model names found here: https://docs.anthropic.com/claude/docs/models-overview#model-recommendations
+# TODO update model sizes for anthropic
 _MODEL_SIZES = {
-    "claude-3-opus-20240229": 70, # fake data
-    "claude-3-sonnet-20240229" : 10 # fake data
+    "claude-3-opus-20240229": 70,  # fake data
+    "claude-3-sonnet-20240229": 10,  # fake data
 }
 
 
