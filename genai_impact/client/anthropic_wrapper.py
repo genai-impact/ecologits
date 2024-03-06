@@ -6,12 +6,10 @@ from genai_impact.compute_impacts import Impacts, compute_llm_impact
 
 try:
     from anthropic import Anthropic as _Anthropic
-    # from mistralai.models.chat_completion import (
-    #     ChatCompletionResponse as _ChatCompletionResponse,
-    # )
+    from anthropic.types import Message as _Message
 except ImportError:
     _Anthropic = object()
-    # _ChatCompletionResponse = object()
+    _Message = object()
 
 
 #model names found here: https://docs.anthropic.com/claude/docs/models-overview#model-recommendations
@@ -22,24 +20,24 @@ _MODEL_SIZES = {
 }
 
 
-class ChatCompletionResponse(_ChatCompletionResponse):
+class Message(_Message):
     impacts: Impacts
 
 
 def chat_wrapper(
     wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
-) -> ChatCompletionResponse:
+) -> Message:
     response = wrapped(*args, **kwargs)
     model_size = _MODEL_SIZES.get(response.model)
-    output_tokens = response.usage.completion_tokens
+    output_tokens = response.usage.output_tokens
     impacts = compute_llm_impact(
         model_parameter_count=model_size, output_token_count=output_tokens
     )
-    return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
+    return Message(**response.model_dump(), impacts=impacts)
 
 
 class Anthropic(_Anthropic):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
 
-    wrap_function_wrapper("anthropic.messages.create", chat_wrapper)
+    wrap_function_wrapper("anthropic.resources", "Messages.create", chat_wrapper)
