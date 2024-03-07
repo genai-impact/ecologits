@@ -15,11 +15,12 @@ python = ">=3.9,<4"
 openai = "^1.12.0"
 wrapt = "^1.16.0"
 pydantic = ">=2,<3"
-mistralai = {version = "^0.1.3", optional = true}
-anthropic = "^0.18.1"
+mistralai = { version = "^0.1.3", optional = true }
+anthropic = { version = "^0.18.1", optional = true }
 
 [tool.poetry.extras]
 mistralai = ["mistralai"]
+anthropic = ["anthropic"]
 
 
 [tool.poetry.group.dev]
