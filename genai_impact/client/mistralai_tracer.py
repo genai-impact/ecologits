@@ -18,7 +18,7 @@ _MODEL_SIZES = {
     "mistral-tiny": 7.3,
     "mistral-small": 12.9,  # mixtral active parameters count
     "mistral-medium": 70,
-    "mistral-large": 220,
+    "mistral-large": 440,
 }
 
 
@@ -26,7 +26,7 @@ class ChatCompletionResponse(_ChatCompletionResponse):
     impacts: Impacts
 
 
-def chat_wrapper(
+def mistralai_chat_wrapper(
     wrapped: Callable, instance: _MistralClient, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletionResponse:
     response = wrapped(*args, **kwargs)
@@ -35,11 +35,24 @@ def chat_wrapper(
     impacts = compute_llm_impact(
         model_parameter_count=model_size, output_token_count=output_tokens
     )
+    print(response.model_dump())
     return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
 
 
-class MistralClient(_MistralClient):
-    def __init__(self, **kwargs: Any) -> None:
-        super().__init__(**kwargs)
+class MistralAIInstrumentor:
+    def __init__(self):
+        self.wrapped_methods = [
+            {
+                "module": "mistralai.client",
+                "name": "MistralClient.chat",
+                "wrapper": mistralai_chat_wrapper,
+            },
+        ]
 
-    wrap_function_wrapper("mistralai.client", "MistralClient.chat", chat_wrapper)
+    def instrument(self):
+        for wrapper in self.wrapped_methods:
+            wrap_function_wrapper(
+                wrapper["module"],
+                wrapper["name"],
+                wrapper["wrapper"]
+            )

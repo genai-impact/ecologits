@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict
+from typing import Any, Callable
 
 from wrapt import wrap_function_wrapper
 
@@ -13,12 +13,15 @@ except ImportError:
     _Message = object()
 
 _MODEL_SIZES = {
-    "claude-3-opus-20240229": 70,  # fake data
+    "claude-3-haiku-20240307": 10,
     "claude-3-sonnet-20240229": 10,  # fake data
+    "claude-3-opus-20240229": 440,  # fake data
 }
+
 
 class Message(_Message):
     impacts: Impacts
+
 
 def _set_impacts(response):
     model_size = _MODEL_SIZES.get(response.model)
@@ -28,40 +31,29 @@ def _set_impacts(response):
     )
     return impacts
 
-# @wrap_function_wrapper
-def chat_wrapper(
+
+def anthropic_chat_wrapper(
     wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
     response = wrapped(*args, **kwargs)
     impacts = _set_impacts(response)
-    model_dump = response.model_dump()
-    model_dump["impacts"] = impacts
-    return Message(**model_dump)
+    return Message(**response.model_dump(), impacts=impacts)
+
 
 class AnthropicInstrumentor:
     def __init__(self):
         self.wrapped_methods = [
             {
-                "object": "Messages",
-                "method": "create",
-                "wrapper": chat_wrapper,
+                "module": "anthropic.resources",
+                "name": "Messages.create",
+                "wrapper": anthropic_chat_wrapper,
             },
         ]
 
     def instrument(self):
-        for wrapped_method in self.wrapped_methods:
-            wrap_object = wrapped_method["object"]
-            wrap_method = wrapped_method["method"]
+        for wrapper in self.wrapped_methods:
             wrap_function_wrapper(
-                "anthropic.resources",
-                f"{wrap_object}.{wrap_method}",
-                wrapped_method["wrapper"],
+                wrapper["module"],
+                wrapper["name"],
+                wrapper["wrapper"]
             )
-
-    # def uninstrument(self):
-    #     for wrapped_method in self.wrapped_methods:
-    #         wrap_object = wrapped_method["object"]
-    #         unwrap(
-    #             f"anthropic.resources.{wrap_object}",
-    #             wrapped_method["method"],
-    #         )
