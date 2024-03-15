@@ -40,7 +40,6 @@ def openai_chat_wrapper(
     impacts = compute_llm_impact(
         model_parameter_count=model_size, output_token_count=output_tokens
     )
-    print(response.model_dump())
     return ChatCompletion(**response.model_dump(), impacts=impacts)
 
 

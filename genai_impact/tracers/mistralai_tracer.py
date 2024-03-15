@@ -35,7 +35,6 @@ def mistralai_chat_wrapper(
     impacts = compute_llm_impact(
         model_parameter_count=model_size, output_token_count=output_tokens
     )
-    print(response.model_dump())
     return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
 
 
