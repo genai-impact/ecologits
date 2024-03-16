@@ -1,0 +1,79 @@
+interactions:
+- request:
+    body: '{"messages": [{"role": "user", "content": "Hello World!"}], "safe_prompt":
+      false, "model": "mistral-tiny", "stream": false}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '123'
+      content-type:
+      - application/json
+      host:
+      - api.mistral.ai
+      user-agent:
+      - mistral-client-python/0.1.3
+    method: POST
+    uri: https://api.mistral.ai/v1/chat/completions
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA2SSQW/bMAyF/wrHSy9uELvtkviy6/ILemiHQJFom5ssqhK9zAjy3wc1cVGgV+Lx
+        e096PCM7bNF1Zl03u/ph7dxj/dgcO0vbp3rrGtM8NPUaK5Tjb7KKLdrB6MrKGD0pS8AKbSKj5LCt
+        N/X6qd7smrrCURx5bHHkrMn4e+UwF+0gbClj+3JGDo7+YbuucKScTU/YnjGJJ2zR5MxZTdCyI0Ep
+        FO+f5L2ADpToG+z1LkNgS6ACI5HCLNMKXm+qZ0nevSJwBgPWF6CFjlNWiEn6ZEboJMGReg6BUgYO
+        UJ41KaVFMXLoV7BXyDxGP0NMHDSDTFpCwC32F8vTQAHSFFawz9e0YCBHstyx/cwGb0I/FcQsEwzG
+        lRAjB3dFlOEpiX51kARObkt/C/1tolzqgES+lFH+RAfO1+S0mP6A/Z2DI8FgYpyLaCAf4cQ6gAnz
+        52z3C+ltosSU391G7gd991xhhSriD9Z4n7ENk/eXCjsOnIdDIpMlYItZJWKFXvqY5LjoflU4LYXH
+        JGPUg8ofChnbui5cNf5jstuUE1ju7WO8/X65/AcAAP//AwCNxZ5XvwIAAA==
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 864dab117d622a0e-CDG
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 15 Mar 2024 15:52:02 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      ratelimitbysize-limit:
+      - '2000000'
+      ratelimitbysize-query-cost:
+      - '32003'
+      ratelimitbysize-remaining:
+      - '1905656'
+      ratelimitbysize-reset:
+      - '59'
+      x-kong-proxy-latency:
+      - '7'
+      x-kong-request-id:
+      - 81e7b23b80d8e47f7bb61062adf2c73c
+      x-kong-upstream-latency:
+      - '1120'
+      x-ratelimitbysize-limit-minute:
+      - '2000000'
+      x-ratelimitbysize-limit-month:
+      - '10000000000'
+      x-ratelimitbysize-remaining-minute:
+      - '1905656'
+      x-ratelimitbysize-remaining-month:
+      - '9999513077'
+    status:
+      code: 200
+      message: OK
+version: 1

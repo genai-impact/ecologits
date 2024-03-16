@@ -1,6 +1,5 @@
 from typing import Any, Callable
 
-from openai import OpenAI as _OpenAI
 from openai.resources.chat import Completions
 from openai.types.chat import ChatCompletion as _ChatCompletion
 from wrapt import wrap_function_wrapper
@@ -12,19 +11,19 @@ _MODEL_SIZES = {
     "gpt-4-turbo-preview": None,
     "gpt-4-1106-preview": None,
     "gpt-4-vision-preview": None,
-    "gpt-4": 220,
-    "gpt-4-0314": 220,
-    "gpt-4-0613": 220,
-    "gpt-4-32k": 220,
-    "gpt-4-32k-0314": 220,
-    "gpt-4-32k-0613": 220,
-    "gpt-3.5-turbo": 20,
-    "gpt-3.5-turbo-16k": 20,
-    "gpt-3.5-turbo-0301": 20,
-    "gpt-3.5-turbo-0613": 20,
-    "gpt-3.5-turbo-1106": 20,
-    "gpt-3.5-turbo-0125": 20,
-    "gpt-3.5-turbo-16k-0613": 20,
+    "gpt-4": 440,
+    "gpt-4-0314": 440,
+    "gpt-4-0613": 440,
+    "gpt-4-32k": 440,
+    "gpt-4-32k-0314": 440,
+    "gpt-4-32k-0613": 440,
+    "gpt-3.5-turbo": 70,
+    "gpt-3.5-turbo-16k": 70,
+    "gpt-3.5-turbo-0301": 70,
+    "gpt-3.5-turbo-0613": 70,
+    "gpt-3.5-turbo-1106": 70,
+    "gpt-3.5-turbo-0125": 70,
+    "gpt-3.5-turbo-16k-0613": 70,
 }
 
 
@@ -32,7 +31,7 @@ class ChatCompletion(_ChatCompletion):
     impacts: Impacts
 
 
-def chat_wrapper(
+def openai_chat_wrapper(
     wrapped: Callable, instance: Completions, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletion:
     response = wrapped(*args, **kwargs)
@@ -44,10 +43,20 @@ def chat_wrapper(
     return ChatCompletion(**response.model_dump(), impacts=impacts)
 
 
-class OpenAI(_OpenAI):
-    def __init__(self, **kwargs: Any) -> None:
-        super().__init__(**kwargs)
+class OpenAIInstrumentor:
+    def __init__(self) -> None:
+        self.wrapped_methods = [
+            {
+                "module": "openai.resources.chat.completions",
+                "name": "Completions.create",
+                "wrapper": openai_chat_wrapper,
+            },
+        ]
 
-    wrap_function_wrapper(
-        "openai.resources.chat.completions", "Completions.create", chat_wrapper
-    )
+    def instrument(self) -> None:
+        for wrapper in self.wrapped_methods:
+            wrap_function_wrapper(
+                wrapper["module"],
+                wrapper["name"],
+                wrapper["wrapper"]
+            )
