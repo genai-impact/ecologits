@@ -44,7 +44,7 @@ def openai_chat_wrapper(
 
 
 class OpenAIInstrumentor:
-    def __init__(self):
+    def __init__(self) -> None:
         self.wrapped_methods = [
             {
                 "module": "openai.resources.chat.completions",
@@ -53,7 +53,7 @@ class OpenAIInstrumentor:
             },
         ]
 
-    def instrument(self):
+    def instrument(self) -> None:
         for wrapper in self.wrapped_methods:
             wrap_function_wrapper(
                 wrapper["module"],

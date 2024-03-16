@@ -15,7 +15,7 @@ def init_instruments() -> None:
 
 
 def init_openai_instrumentor() -> None:
-    if importlib.util.find_spec('openai') is not None:
+    if importlib.util.find_spec("openai") is not None:
         from genai_impact.tracers.openai_tracer import OpenAIInstrumentor
 
         instrumentor = OpenAIInstrumentor()
@@ -23,7 +23,7 @@ def init_openai_instrumentor() -> None:
 
 
 def init_anthropic_instrumentor() -> None:
-    if importlib.util.find_spec('anthropic') is not None:
+    if importlib.util.find_spec("anthropic") is not None:
         from genai_impact.tracers.anthropic_tracer import AnthropicInstrumentor
 
         instrumentor = AnthropicInstrumentor()
@@ -31,7 +31,7 @@ def init_anthropic_instrumentor() -> None:
 
 
 def init_mistralai_instrumentor() -> None:
-    if importlib.util.find_spec('mistralai') is not None:
+    if importlib.util.find_spec("mistralai") is not None:
         from genai_impact.tracers.mistralai_tracer import MistralAIInstrumentor
 
         instrumentor = MistralAIInstrumentor()

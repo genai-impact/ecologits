@@ -4,7 +4,6 @@ from wrapt import wrap_function_wrapper
 
 from genai_impact.compute_impacts import Impacts, compute_llm_impact
 
-
 try:
     from anthropic import Anthropic as _Anthropic
     from anthropic.types import Message as _Message
@@ -23,7 +22,7 @@ class Message(_Message):
     impacts: Impacts
 
 
-def _set_impacts(response):
+def _set_impacts(response: Message) -> Impacts:
     model_size = _MODEL_SIZES.get(response.model)
     output_tokens = response.usage.output_tokens
     impacts = compute_llm_impact(
@@ -41,7 +40,7 @@ def anthropic_chat_wrapper(
 
 
 class AnthropicInstrumentor:
-    def __init__(self):
+    def __init__(self) -> None:
         self.wrapped_methods = [
             {
                 "module": "anthropic.resources",
@@ -50,7 +49,7 @@ class AnthropicInstrumentor:
             },
         ]
 
-    def instrument(self):
+    def instrument(self) -> None:
         for wrapper in self.wrapped_methods:
             wrap_function_wrapper(
                 wrapper["module"],

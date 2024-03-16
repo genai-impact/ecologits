@@ -39,7 +39,7 @@ def mistralai_chat_wrapper(
 
 
 class MistralAIInstrumentor:
-    def __init__(self):
+    def __init__(self) -> None:
         self.wrapped_methods = [
             {
                 "module": "mistralai.client",
@@ -48,7 +48,7 @@ class MistralAIInstrumentor:
             },
         ]
 
-    def instrument(self):
+    def instrument(self) -> None:
         for wrapper in self.wrapped_methods:
             wrap_function_wrapper(
                 wrapper["module"],
