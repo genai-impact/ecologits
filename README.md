@@ -11,7 +11,10 @@ Coming soon...
 ## 🚀 Usage
 
 ```python
-from genai_impact import OpenAI
+from genai_impact import Tracer
+from openai import OpenAI
+
+Tracer.init()
 
 client = OpenAI(
     api_key="<OPENAI_API_KEY>",
