@@ -1,12 +1,16 @@
 import importlib.util
 
+from genai_impact.exceptions import TracerInitializationError
+
 
 class Tracer:
-
+    initialized = False
     @staticmethod
     def init() -> None:
+        if Tracer.initialized:
+            raise TracerInitializationError()
         init_instruments()
-
+        Tracer.initialized = True
 
 def init_instruments() -> None:
     init_openai_instrumentor()
