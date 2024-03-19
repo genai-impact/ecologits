@@ -1,12 +1,11 @@
 import importlib.util
 
-
 class Tracer:
     initialized = False
     @staticmethod
     def init() -> None:
         if Tracer.initialized:
-            print("Tracer already initialized")
+            raise Exception("Tracer is already initialized")
         else:
             init_instruments()
             Tracer.initialized = True
