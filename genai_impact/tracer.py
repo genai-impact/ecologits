@@ -6,11 +6,9 @@ class Tracer:
     @staticmethod
     def init() -> None:
         if Tracer.initialized:
-            raise Exception("Tracer is already initialized")
-        else:
-            init_instruments()
-            Tracer.initialized = True
-
+            raise TracerInitializationError()
+        init_instruments()
+        Tracer.initialized = True
 
 def init_instruments() -> None:
     init_openai_instrumentor()
@@ -40,3 +38,7 @@ def init_mistralai_instrumentor() -> None:
 
         instrumentor = MistralAIInstrumentor()
         instrumentor.instrument()
+
+class TracerInitializationError(Exception):
+    "Tracer is initialized twice"
+    pass
