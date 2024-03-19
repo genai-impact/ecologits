@@ -3,6 +3,7 @@ from typing import Any, Callable
 from wrapt import wrap_function_wrapper
 
 from genai_impact.compute_impacts import Impacts, compute_llm_impact
+from genai_impact.model_repository import models
 
 try:
     from mistralai.client import MistralClient as _MistralClient
@@ -14,14 +15,6 @@ except ImportError:
     _ChatCompletionResponse = object()
 
 
-_MODEL_SIZES = {
-    "mistral-tiny": 7.3,
-    "mistral-small": 12.9,  # mixtral active parameters count
-    "mistral-medium": 70,
-    "mistral-large": 440,
-}
-
-
 class ChatCompletionResponse(_ChatCompletionResponse):
     impacts: Impacts
 
@@ -30,10 +23,16 @@ def mistralai_chat_wrapper(
     wrapped: Callable, instance: _MistralClient, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletionResponse:
     response = wrapped(*args, **kwargs)
-    model_size = _MODEL_SIZES.get(response.model)
+    model = models.find_model(provider="mistralai", model_name=response.model)
+    if model is None:
+        # TODO: Replace with proper logging
+        print(f"Could not find model `{response.model}` for mistralai provider.")
+        return response
     output_tokens = response.usage.completion_tokens
+    model_size = model.active_parameters or model.active_parameters_range
     impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=output_tokens
+        model_parameter_count=model_size,
+        output_token_count=output_tokens
     )
     return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
 

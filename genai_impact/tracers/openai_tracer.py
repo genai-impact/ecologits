@@ -5,26 +5,7 @@ from openai.types.chat import ChatCompletion as _ChatCompletion
 from wrapt import wrap_function_wrapper
 
 from genai_impact.compute_impacts import Impacts, compute_llm_impact
-
-_MODEL_SIZES = {
-    "gpt-4-0125-preview": None,
-    "gpt-4-turbo-preview": None,
-    "gpt-4-1106-preview": None,
-    "gpt-4-vision-preview": None,
-    "gpt-4": 440,
-    "gpt-4-0314": 440,
-    "gpt-4-0613": 440,
-    "gpt-4-32k": 440,
-    "gpt-4-32k-0314": 440,
-    "gpt-4-32k-0613": 440,
-    "gpt-3.5-turbo": 70,
-    "gpt-3.5-turbo-16k": 70,
-    "gpt-3.5-turbo-0301": 70,
-    "gpt-3.5-turbo-0613": 70,
-    "gpt-3.5-turbo-1106": 70,
-    "gpt-3.5-turbo-0125": 70,
-    "gpt-3.5-turbo-16k-0613": 70,
-}
+from genai_impact.model_repository import models
 
 
 class ChatCompletion(_ChatCompletion):
@@ -35,10 +16,16 @@ def openai_chat_wrapper(
     wrapped: Callable, instance: Completions, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletion:
     response = wrapped(*args, **kwargs)
-    model_size = _MODEL_SIZES.get(response.model)
+    model = models.find_model(provider="openai", model_name=response.model)
+    if model is None:
+        # TODO: Replace with proper logging
+        print(f"Could not find model `{response.model}` for openai provider.")
+        return response
     output_tokens = response.usage.completion_tokens
+    model_size = model.active_parameters or model.active_parameters_range
     impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=output_tokens
+        model_parameter_count=model_size,
+        output_token_count=output_tokens
     )
     return ChatCompletion(**response.model_dump(), impacts=impacts)
 
