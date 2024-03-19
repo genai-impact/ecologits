@@ -46,21 +46,35 @@ class ModelRepository:
         with open(filepath) as fd:
             csv = DictReader(fd)
             for row in csv:
-                total_parameters = row["total_parameters"]
-                active_parameters = row["active_parameters"]
+                total_parameters = None
+                total_parameters_range = None
+                if ";" in row["total_parameters"]:
+                    total_parameters_range = [float(p) for p in row["total_parameters"].split(";")]
+                elif row["total_parameters"] != "":
+                    total_parameters = float(row["total_parameters"])
+
+                active_parameters = None
+                active_parameters_range = None
+                if ";" in row["active_parameters"]:
+                    active_parameters_range = [float(p) for p in row["active_parameters"].split(";")]
+                elif row["active_parameters"] != "":
+                    active_parameters = float(row["active_parameters"])
+
                 warnings = None
                 if row["warnings"] != "":
                     warnings = [Warnings(w).name for w in row["warnings"].split(";")]
+
                 sources = None
                 if row["sources"] != "":
                     sources = row["sources"].split(";")
+
                 models.append(Model(
                     provider=Providers(row["provider"]).name,
                     name=row["name"],
-                    total_parameters=total_parameters if ";" not in total_parameters else None,
-                    active_parameters=active_parameters if ";" not in active_parameters else None,
-                    total_parameters_range=total_parameters.split(";") if ";" in total_parameters else None,
-                    active_parameters_range=active_parameters.split(";") if ";" in active_parameters else None,
+                    total_parameters=total_parameters,
+                    active_parameters=active_parameters,
+                    total_parameters_range=total_parameters_range,
+                    active_parameters_range=active_parameters_range,
                     warnings=warnings,
                     sources=sources
                 ))
