@@ -1,5 +1,7 @@
 import importlib.util
 
+from genai_impact.exceptions import TracerInitializationError
+
 
 class Tracer:
     initialized = False
@@ -38,7 +40,3 @@ def init_mistralai_instrumentor() -> None:
 
         instrumentor = MistralAIInstrumentor()
         instrumentor.instrument()
-
-class TracerInitializationError(Exception):
-    "Tracer is initialized twice"
-    pass

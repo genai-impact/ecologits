@@ -1,3 +1,3 @@
-from .tracer import Tracer, TracerInitializationError
+from .tracer import Tracer
 
-__all__ = ["Tracer", "TracerInitializationError"]
+__all__ = ["Tracer"]
