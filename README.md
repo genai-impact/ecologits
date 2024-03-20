@@ -73,12 +73,6 @@ poetry install --all-extras --with dev,docs
 ### Run tests
 
 ```shell
-tox -vv
-```
-
-OR:
-
-```shell
 poetry run pytest
 ```
 
