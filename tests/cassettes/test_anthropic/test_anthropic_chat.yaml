@@ -38,18 +38,15 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA0yRQWsbQQyF/4qqiy9rs7HTFPaWhpS6JlB8KpRiJrPy7tSz0makcboY//cy26b0
-        JND73uMJXTC02OCg3aG+eZCnT7v9bff0uNnv18O3L7vx4/sdVmjTSIUiVdcRVpgkloVTDWqODSv0
-        wkZs2Hy/vPFGv4oyjwY/U4zyDra2UODgCUxgIDKYJK9guxjAMdxv4V8o+ETOqIXnCe7Z+iRj8H/I
-        ntLs7ymO8BqsBxcjqCRTkCOY05NWcEwyQCIll3wPjltw7OKkQYt3Tg9ngjHJT/KmMzEmeY40LFXi
-        OXC3gq+RnBJEMhgITiyvEI6lM/TuTOB4gpdMakFYQVIRrdRblLzJ+sAdbME7/nvYbC2VV3j9UeEg
-        LUVs0EeXW1pulr0Lp7xc1+vbelN/wArVZDwkciqMDRK3B8uJ3wSll0zsCRvOMVaY5w81Fww8ZjuY
-        nIgVm5u6Qsn2/+ru7nr9DQAA//8DADh7Jxn/AQAA
+        H4sIAAAAAAAAA1SOPUvEQBRF/8p4G5uJZLPiwnSiiKKFjeAHEmYnjxh28iab9wYMIf9dsrCF1YVz
+        TnFndA0cemnrcnPf3r28v/FztXu92X/cfsoQHo4TLHQaaK1IxLcEizHFFXiRTtSzwiIkVmKF+5rP
+        vdLvak7j8EgxpgvzpJdiuAtkNJmeSM2U8hWWb4s+NRThEKLPDRXb4sd3h1xUZXVdbssdLETTUI/k
+        JTEciJta88hnIXTMxIHgOMdokU9v3YyOh6y1pgOxwG1Ki5T1H6qW5Q8AAP//AwCtDZkVCwEAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 864d545f6cd46ed5-CDG
+      - 868008b87ae8016f-CDG
       Connection:
       - keep-alive
       Content-Encoding:
@@ -57,7 +54,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 15 Mar 2024 14:52:51 GMT
+      - Thu, 21 Mar 2024 18:34:06 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -67,19 +64,19 @@ interactions:
       anthropic-ratelimit-requests-remaining:
       - '4'
       anthropic-ratelimit-requests-reset:
-      - '2024-03-15T14:53:00Z'
+      - '2024-03-21T18:35:00Z'
       anthropic-ratelimit-tokens-limit:
       - '25000'
       anthropic-ratelimit-tokens-remaining:
       - '25000'
       anthropic-ratelimit-tokens-reset:
-      - '2024-03-15T14:53:00Z'
+      - '2024-03-21T18:35:00Z'
       request-id:
-      - req_01GHVFuPYLKjEQ3NJrXQ6xT7
+      - req_01KV5KU4VsALRtYd3BqmjyZs
       via:
       - 1.1 google
       x-cloud-trace-context:
-      - 271f88ca0cdf436206bef3aa6635c9cd
+      - 394baab1879793eea863a5934cbe39d8
     status:
       code: 200
       message: OK
