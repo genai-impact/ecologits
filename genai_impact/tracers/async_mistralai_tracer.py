@@ -40,8 +40,8 @@ class AsyncMistralAIInstrumentor:
     def __init__(self) -> None:
         self.wrapped_methods = [
             {
-                "module": "mistralai.client",
-                "name": "MistralClient.chat",
+                "module": "mistralai.async_client",
+                "name": "MistralAsyncClient.chat",
                 "wrapper": mistralai_chat_wrapper,
             },
         ]
