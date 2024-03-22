@@ -17,7 +17,6 @@ wrapt = "^1.16.0"
 pydantic = ">=2,<3"
 mistralai = { version = "^0.1.3", optional = true }
 anthropic = { version = "^0.18.1", optional = true }
-pytest-asyncio = "^0.23.6"
 
 [tool.poetry.extras]
 mistralai = ["mistralai"]
@@ -33,6 +32,7 @@ pytest = "^7.2.0"
 # ruff = "^0.0.254"
 pytest-recording = "^0.13.1"
 pytest-dotenv = "^0.5.2"
+pytest-asyncio = "^0.23.6"
 
 
 [tool.poetry.group.docs]

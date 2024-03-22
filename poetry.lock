@@ -2081,4 +2081,4 @@ mistralai = ["mistralai"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "2829d05dd14554498264a0180ff19e6e8c1a23b4dc1057640f403be3427aa87a"
+content-hash = "eb29ebd64e250f36f82834fdf8ad5cd6c94c5f46659006088790cb0ddded4acb"
