@@ -15,7 +15,7 @@ def test_mistralai_chat(tracer_init):
 
 @pytest.mark.vcr
 @pytest.mark.asyncio
-async def test_async_mistralai_chat(tracer_init):
+async def test_mistralai_async_chat(tracer_init):
     client = MistralAsyncClient()
     response = await client.chat(
         messages=[{"role": "user", "content": "Hello World!"}], model="mistral-tiny"
