@@ -20,6 +20,7 @@ def init_instruments() -> None:
     init_anthropic_instrumentor()
     init_async_anthropic_instrumentor()
     init_mistralai_instrumentor()
+    init_async_mistralai_instrumentor()
 
 
 def init_openai_instrumentor() -> None:
@@ -61,4 +62,14 @@ def init_mistralai_instrumentor() -> None:
         from genai_impact.tracers.mistralai_tracer import MistralAIInstrumentor
 
         instrumentor = MistralAIInstrumentor()
+        instrumentor.instrument()
+
+
+def init_async_mistralai_instrumentor() -> None:
+    if importlib.util.find_spec("mistralai") is not None:
+        from genai_impact.tracers.async_mistralai_tracer import (
+            AsyncMistralAIInstrumentor,
+        )
+
+        instrumentor = AsyncMistralAIInstrumentor()
         instrumentor.instrument()
