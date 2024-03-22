@@ -20,7 +20,6 @@ class Message(_Message):
 async def anthropic_chat_wrapper(
     wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
-    print("anthropic_chat_wrapper")
     response = await wrapped(*args, **kwargs)
     model = models.find_model(provider="anthropic", model_name=response.model)
     if model is None:
