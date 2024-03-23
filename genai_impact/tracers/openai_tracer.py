@@ -33,7 +33,7 @@ def openai_chat_wrapper(
 
 async def openai_async_chat_wrapper(
     wrapped: Callable,
-    instance: AsyncCompletions,
+    instance: AsyncCompletions, # noqa: ARG001
     args: Any,
     kwargs: Any,
 ) -> ChatCompletion:
