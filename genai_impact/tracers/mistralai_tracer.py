@@ -7,11 +7,13 @@ from genai_impact.model_repository import models
 
 try:
     from mistralai.client import MistralClient as _MistralClient
+    from mistralai.async_client import MistralAsyncClient as _MistralAsyncClient
     from mistralai.models.chat_completion import (
         ChatCompletionResponse as _ChatCompletionResponse,
     )
 except ImportError:
     _MistralClient = object()
+    _MistralAsyncClient = object()
     _ChatCompletionResponse = object()
 
 
@@ -31,8 +33,24 @@ def mistralai_chat_wrapper(
     output_tokens = response.usage.completion_tokens
     model_size = model.active_parameters or model.active_parameters_range
     impacts = compute_llm_impact(
-        model_parameter_count=model_size,
-        output_token_count=output_tokens
+        model_parameter_count=model_size, output_token_count=output_tokens
+    )
+    return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
+
+
+async def mistralai_async_chat_wrapper(
+    wrapped: Callable, instance: _MistralAsyncClient, args: Any, kwargs: Any  # noqa: ARG001
+) -> ChatCompletionResponse:
+    response = await wrapped(*args, **kwargs)
+    model = models.find_model(provider="mistralai", model_name=response.model)
+    if model is None:
+        # TODO: Replace with proper logging
+        print(f"Could not find model `{response.model}` for mistralai provider.")
+        return response
+    output_tokens = response.usage.completion_tokens
+    model_size = model.active_parameters or model.active_parameters_range
+    impacts = compute_llm_impact(
+        model_parameter_count=model_size, output_token_count=output_tokens
     )
     return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
 
@@ -45,12 +63,15 @@ class MistralAIInstrumentor:
                 "name": "MistralClient.chat",
                 "wrapper": mistralai_chat_wrapper,
             },
+            {
+                "module": "mistralai.async_client",
+                "name": "MistralAsyncClient.chat",
+                "wrapper": mistralai_async_chat_wrapper,
+            },
         ]
 
     def instrument(self) -> None:
         for wrapper in self.wrapped_methods:
             wrap_function_wrapper(
-                wrapper["module"],
-                wrapper["name"],
-                wrapper["wrapper"]
+                wrapper["module"], wrapper["name"], wrapper["wrapper"]
             )
