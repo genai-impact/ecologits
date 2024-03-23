@@ -1,7 +1,6 @@
 from typing import Any, Callable
 
-from openai.resources.chat import Completions, AsyncCompletions
-
+from openai.resources.chat import AsyncCompletions, Completions
 from openai.types.chat import ChatCompletion as _ChatCompletion
 from wrapt import wrap_function_wrapper
 
@@ -36,7 +35,7 @@ async def openai_async_chat_wrapper(
     wrapped: Callable,
     instance: AsyncCompletions,
     args: Any,
-    kwargs: Any,  # noqa: ARG001
+    kwargs: Any,
 ) -> ChatCompletion:
     response = await wrapped(*args, **kwargs)
     return compute_impacts_and_return_response(response)

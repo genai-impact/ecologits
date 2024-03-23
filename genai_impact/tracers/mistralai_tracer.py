@@ -6,8 +6,8 @@ from genai_impact.compute_impacts import Impacts, compute_llm_impact
 from genai_impact.model_repository import models
 
 try:
-    from mistralai.client import MistralClient as _MistralClient
     from mistralai.async_client import MistralAsyncClient as _MistralAsyncClient
+    from mistralai.client import MistralClient as _MistralClient
     from mistralai.models.chat_completion import (
         ChatCompletionResponse as _ChatCompletionResponse,
     )
@@ -46,7 +46,7 @@ async def mistralai_async_chat_wrapper(
     wrapped: Callable,
     instance: _MistralAsyncClient,
     args: Any,
-    kwargs: Any,  # noqa: ARG001
+    kwargs: Any,
 ) -> ChatCompletionResponse:
     response = await wrapped(*args, **kwargs)
     return compute_impacts_and_return_response(response)
