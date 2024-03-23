@@ -19,10 +19,7 @@ class Message(_Message):
     impacts: Impacts
 
 
-def anthropic_chat_wrapper(
-    wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
-) -> Message:
-    response = wrapped(*args, **kwargs)
+def compute_impacts_and_return_response(response: Any) -> Message:
     model = models.find_model(provider="anthropic", model_name=response.model)
     if model is None:
         # TODO: Replace with proper logging
@@ -34,23 +31,20 @@ def anthropic_chat_wrapper(
         model_parameter_count=model_size, output_token_count=output_tokens
     )
     return Message(**response.model_dump(), impacts=impacts)
+
+
+def anthropic_chat_wrapper(
+    wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
+) -> Message:
+    response = wrapped(*args, **kwargs)
+    return compute_impacts_and_return_response(response)
 
 
 async def anthropic_async_chat_wrapper(
     wrapped: Callable, instance: _AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
     response = await wrapped(*args, **kwargs)
-    model = models.find_model(provider="anthropic", model_name=response.model)
-    if model is None:
-        # TODO: Replace with proper logging
-        print(f"Could not find model `{response.model}` for anthropic provider.")
-        return response
-    output_tokens = response.usage.output_tokens
-    model_size = model.active_parameters or model.active_parameters_range
-    impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=output_tokens
-    )
-    return Message(**response.model_dump(), impacts=impacts)
+    return compute_impacts_and_return_response(response)
 
 
 class AnthropicInstrumentor:

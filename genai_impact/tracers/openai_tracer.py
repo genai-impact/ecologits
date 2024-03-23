@@ -13,10 +13,7 @@ class ChatCompletion(_ChatCompletion):
     impacts: Impacts
 
 
-def openai_chat_wrapper(
-    wrapped: Callable, instance: Completions, args: Any, kwargs: Any  # noqa: ARG001
-) -> ChatCompletion:
-    response = wrapped(*args, **kwargs)
+def compute_impacts_and_return_response(response: Any) -> ChatCompletion:
     model = models.find_model(provider="openai", model_name=response.model)
     if model is None:
         # TODO: Replace with proper logging
@@ -29,6 +26,11 @@ def openai_chat_wrapper(
     )
     return ChatCompletion(**response.model_dump(), impacts=impacts)
 
+def openai_chat_wrapper(
+    wrapped: Callable, instance: Completions, args: Any, kwargs: Any  # noqa: ARG001
+) -> ChatCompletion:
+    response = wrapped(*args, **kwargs)
+    return compute_impacts_and_return_response(response)
 
 async def openai_async_chat_wrapper(
     wrapped: Callable,
@@ -37,17 +39,8 @@ async def openai_async_chat_wrapper(
     kwargs: Any,  # noqa: ARG001
 ) -> ChatCompletion:
     response = await wrapped(*args, **kwargs)
-    model = models.find_model(provider="openai", model_name=response.model)
-    if model is None:
-        # TODO: Replace with proper logging
-        print(f"Could not find model `{response.model}` for openai provider.")
-        return response
-    output_tokens = response.usage.completion_tokens
-    model_size = model.active_parameters or model.active_parameters_range
-    impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=output_tokens
-    )
-    return ChatCompletion(**response.model_dump(), impacts=impacts)
+    return compute_impacts_and_return_response(response)
+
 
 
 class OpenAIInstrumentor:
