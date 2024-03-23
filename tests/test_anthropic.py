@@ -16,7 +16,7 @@ def test_anthropic_chat(tracer_init):
 
 @pytest.mark.vcr
 @pytest.mark.asyncio
-async def test_anthropic_chat_async(tracer_init):
+async def test_anthropic_async_chat(tracer_init):
     client = AsyncAnthropic()
     response = await client.messages.create(
         max_tokens=100,
