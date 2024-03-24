@@ -44,7 +44,7 @@ def mistralai_chat_wrapper(
 
 async def mistralai_async_chat_wrapper(
     wrapped: Callable,
-    instance: _MistralAsyncClient, # noqa: ARG001
+    instance: _MistralAsyncClient,  # noqa: ARG001
     args: Any,
     kwargs: Any,
 ) -> ChatCompletionResponse:

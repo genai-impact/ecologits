@@ -25,11 +25,13 @@ def compute_impacts_and_return_response(response: Any) -> ChatCompletion:
     )
     return ChatCompletion(**response.model_dump(), impacts=impacts)
 
+
 def openai_chat_wrapper(
     wrapped: Callable, instance: Completions, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletion:
     response = wrapped(*args, **kwargs)
     return compute_impacts_and_return_response(response)
+
 
 async def openai_async_chat_wrapper(
     wrapped: Callable,
@@ -39,7 +41,6 @@ async def openai_async_chat_wrapper(
 ) -> ChatCompletion:
     response = await wrapped(*args, **kwargs)
     return compute_impacts_and_return_response(response)
-
 
 
 class OpenAIInstrumentor:
