@@ -1,6 +1,6 @@
 from typing import Any, Callable
 
-from openai.resources.chat import Completions
+from openai.resources.chat import AsyncCompletions, Completions
 from openai.types.chat import ChatCompletion as _ChatCompletion
 from wrapt import wrap_function_wrapper
 
@@ -12,10 +12,7 @@ class ChatCompletion(_ChatCompletion):
     impacts: Impacts
 
 
-def openai_chat_wrapper(
-    wrapped: Callable, instance: Completions, args: Any, kwargs: Any  # noqa: ARG001
-) -> ChatCompletion:
-    response = wrapped(*args, **kwargs)
+def compute_impacts_and_return_response(response: Any) -> ChatCompletion:
     model = models.find_model(provider="openai", model_name=response.model)
     if model is None:
         # TODO: Replace with proper logging
@@ -24,10 +21,26 @@ def openai_chat_wrapper(
     output_tokens = response.usage.completion_tokens
     model_size = model.active_parameters or model.active_parameters_range
     impacts = compute_llm_impact(
-        model_parameter_count=model_size,
-        output_token_count=output_tokens
+        model_parameter_count=model_size, output_token_count=output_tokens
     )
     return ChatCompletion(**response.model_dump(), impacts=impacts)
+
+
+def openai_chat_wrapper(
+    wrapped: Callable, instance: Completions, args: Any, kwargs: Any  # noqa: ARG001
+) -> ChatCompletion:
+    response = wrapped(*args, **kwargs)
+    return compute_impacts_and_return_response(response)
+
+
+async def openai_async_chat_wrapper(
+    wrapped: Callable,
+    instance: AsyncCompletions, # noqa: ARG001
+    args: Any,
+    kwargs: Any,
+) -> ChatCompletion:
+    response = await wrapped(*args, **kwargs)
+    return compute_impacts_and_return_response(response)
 
 
 class OpenAIInstrumentor:
@@ -38,12 +51,15 @@ class OpenAIInstrumentor:
                 "name": "Completions.create",
                 "wrapper": openai_chat_wrapper,
             },
+            {
+                "module": "openai.resources.chat.completions",
+                "name": "AsyncCompletions.create",
+                "wrapper": openai_async_chat_wrapper,
+            },
         ]
 
     def instrument(self) -> None:
         for wrapper in self.wrapped_methods:
             wrap_function_wrapper(
-                wrapper["module"],
-                wrapper["name"],
-                wrapper["wrapper"]
+                wrapper["module"], wrapper["name"], wrapper["wrapper"]
             )

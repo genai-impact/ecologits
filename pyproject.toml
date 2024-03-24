@@ -32,6 +32,7 @@ pytest = "^7.2.0"
 # ruff = "^0.0.254"
 pytest-recording = "^0.13.1"
 pytest-dotenv = "^0.5.2"
+pytest-asyncio = "^0.23.6"
 
 
 [tool.poetry.group.docs]
