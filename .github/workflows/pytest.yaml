@@ -18,7 +18,7 @@ jobs:
         poetry export --with dev --format=requirements.txt --output=requirements.txt
 
     - name: Install dependencies
-      run: poetry install --with dev
+      run: poetry install --all-extras --with dev
 
     - name: Run tests
       run: poetry run pytest
