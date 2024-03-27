@@ -9,13 +9,19 @@ try:
     from anthropic import Anthropic as _Anthropic
     from anthropic import AsyncAnthropic as _AsyncAnthropic
     from anthropic.types import Message as _Message
+    from anthropic.lib.streaming import MessageStreamManager as _MessageStreamManager
 except ImportError:
     _Anthropic = object()
     _AsyncAnthropic = object()
     _Message = object()
+    _MessageStreamManager = object()
 
 
 class Message(_Message):
+    impacts: Impacts
+
+
+class MessageStreamManager(_MessageStreamManager):
     impacts: Impacts
 
 
@@ -32,11 +38,12 @@ def compute_impacts_and_return_response(response: Any) -> Message:
     )
     return Message(**response.model_dump(), impacts=impacts)
 
-
 def anthropic_chat_wrapper(
     wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
     response = wrapped(*args, **kwargs)
+    print("Print regular chat wrapper here ")
+    print(vars(response))
     return compute_impacts_and_return_response(response)
 
 
@@ -45,6 +52,19 @@ async def anthropic_async_chat_wrapper(
 ) -> Message:
     response = await wrapped(*args, **kwargs)
     return compute_impacts_and_return_response(response)
+
+
+def compute_impacts_and_return_stream_response(response: Any) -> MessageStreamManager:
+    #TODO
+    return MessageStreamManager(**response.model_dump(), impacts=impacts)
+
+def anthropic_stream_chat_wrapper(
+    wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
+) -> MessageStreamManager:
+    response = wrapped(*args, **kwargs)
+    print("Print stream chat wrapper here")
+    print(vars(response))
+    return compute_impacts_and_return_stream_response(response)
 
 
 class AnthropicInstrumentor:
@@ -59,6 +79,11 @@ class AnthropicInstrumentor:
                 "module": "anthropic.resources",
                 "name": "AsyncMessages.create",
                 "wrapper": anthropic_async_chat_wrapper,
+            },
+            {
+                "module": "anthropic.resources",
+                "name": "Messages.stream",
+                "wrapper": anthropic_stream_chat_wrapper,
             },
         ]
 
