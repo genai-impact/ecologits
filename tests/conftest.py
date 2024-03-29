@@ -7,9 +7,14 @@ from genai_impact import Tracer
 
 @pytest.fixture(autouse=True)
 def environment():
-    os.environ["ANTHROPIC_API_KEY"] = "test-api-key"
-    os.environ["MISTRAL_API_KEY"] = "test-api-key"
-    os.environ["OPENAI_API_KEY"] = "test-api-key"
+    set_envvar_if_unset("ANTHROPIC_API_KEY", "test-api-key")
+    set_envvar_if_unset("MISTRAL_API_KEY", "test-api-key")
+    set_envvar_if_unset("OPENAI_API_KEY", "test-api-key")
+
+
+def set_envvar_if_unset(name: str, value: str):
+    if os.getenv(name) is None:
+        os.environ[name] = value
 
 
 @pytest.fixture(scope="session")
