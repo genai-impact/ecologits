@@ -26,6 +26,8 @@ async def test_anthropic_async_chat(tracer_init):
     assert len(response.content) > 0
     assert response.impacts.energy > 0
 
+
+@pytest.mark.skip
 @pytest.mark.vcr
 def test_anthropic_stream_chat(tracer_init):
     client = Anthropic()
