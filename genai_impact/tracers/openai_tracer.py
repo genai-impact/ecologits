@@ -1,4 +1,3 @@
-import types
 from typing import Any, Callable, Optional, Union
 
 from openai import Stream, AsyncStream
