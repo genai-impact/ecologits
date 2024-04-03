@@ -9,7 +9,7 @@ class Providers(Enum):
     anthropic = "anthropic"
     mistralai = "mistralai"
     openai = "openai"
-    HuggingFaceH4 = "HuggingFaceH4"
+    huggingface_hub = "huggingface_hub"
 
 
 class Warnings(Enum):

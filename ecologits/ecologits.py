@@ -45,7 +45,7 @@ def init_mistralai_instrumentor() -> None:
         instrumentor.instrument()
 
 def init_huggingface_instrumentor() -> None:
-    if importlib.util.find_spec("HuggingFaceH4") is not None:
+    if importlib.util.find_spec("huggingface_hub") is not None:
         from genai_impact.tracers.huggingface_tracer import HuggingfaceInstrumentor
 
         instrumentor = HuggingfaceInstrumentor()
