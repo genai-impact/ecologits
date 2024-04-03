@@ -8,7 +8,7 @@ from genai_impact.model_repository import models
 
 try:
     import tiktoken
-    from huggingface_hub import InferenceClient as _InferenceClient, ChatCompletionOutputChoice
+    from huggingface_hub import InferenceClient as _InferenceClient
     from huggingface_hub import AsyncInferenceClient as _AsyncInferenceClient
     from huggingface_hub import ChatCompletionOutput as _ChatCompletionOutput
 except ImportError:
