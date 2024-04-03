@@ -4,7 +4,7 @@ from openai.resources.chat import AsyncCompletions, Completions
 from openai.types.chat import ChatCompletion as _ChatCompletion
 from wrapt import wrap_function_wrapper
 
-from genai_impact.compute_impacts import Impacts, compute_llm_impact
+from genai_impact.impacts import Impacts, compute_llm_impacts
 from genai_impact.model_repository import models
 
 
@@ -20,8 +20,10 @@ def compute_impacts_and_return_response(response: Any) -> ChatCompletion:
         return response
     output_tokens = response.usage.completion_tokens
     model_size = model.active_parameters or model.active_parameters_range
-    impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=output_tokens
+    impacts = compute_llm_impacts(
+        model_parameter_count=model_size,
+        output_token_count=output_tokens,
+        generation_latency=1,   # TODO: Either measure of estimate de latency
     )
     return ChatCompletion(**response.model_dump(), impacts=impacts)
 
