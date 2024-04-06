@@ -32,3 +32,15 @@ def test_mistralai_stream_chat(tracer_init):
     )
     for chunk in stream:
         assert chunk.impacts.energy >= 0
+
+
+@pytest.mark.vcr
+@pytest.mark.asyncio
+async def test_mistralai_async_stream_chat(tracer_init):
+    client = MistralAsyncClient()
+    stream = client.chat_stream(
+        messages=[{"role": "user", "content": "Hello World!"}], model="mistral-tiny"
+    )
+    async for chunk in stream:
+        if hasattr(chunk, "impacts"):
+            assert chunk.impacts.energy >= 0
