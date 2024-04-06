@@ -29,8 +29,7 @@ async def test_mistralai_async_chat(tracer_init):
 def test_mistralai_stream_chat(tracer_init):
     client = MistralClient()
     stream = client.chat_stream(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": "Hello World!"}],
+        messages=[{"role": "user", "content": "Hello World!"}], model="mistral-tiny"
     )
     for chunk in stream:
         assert chunk.impacts.energy >= 0
