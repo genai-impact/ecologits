@@ -1,4 +1,4 @@
-from typing import Any, Callable, Iterable
+from typing import Any, Callable, Iterable, Optional
 
 from wrapt import wrap_function_wrapper
 
@@ -43,6 +43,19 @@ def compute_impacts_and_return_response(response: Any) -> ChatCompletionResponse
     return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
 
 
+def compute_impacts_stream(chunk: Any, token_count: int) -> Optional[Impacts]:
+    model = models.find_model(provider="mistralai", model_name=chunk.model)
+    if model is None:
+        # TODO: Replace with proper logging
+        print(f"Could not find model `{chunk.model}` for openai provider.")
+        return None
+    model_size = model.active_parameters or model.active_parameters_range
+    impacts = compute_llm_impact(
+        model_parameter_count=model_size, output_token_count=token_count
+    )
+    return impacts
+
+
 def mistralai_chat_wrapper(
     wrapped: Callable, instance: _MistralClient, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletionResponse:
@@ -58,7 +71,7 @@ def mistralai_chat_wrapper_stream(
     for i, chunk in enumerate(stream):
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1
-        impacts = compute_impacts_and_return_response(chunk, token_count)
+        impacts = compute_impacts_stream(chunk, token_count)
         if impacts is not None:
             yield ChatCompletionStreamResponse(**chunk.model_dump(), impacts=impacts)
         else:
