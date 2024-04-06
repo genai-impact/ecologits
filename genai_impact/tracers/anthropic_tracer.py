@@ -8,10 +8,10 @@ from genai_impact.model_repository import models
 try:
     from anthropic import Anthropic as _Anthropic
     from anthropic import AsyncAnthropic as _AsyncAnthropic
-    from anthropic.types import Message as _Message
     from anthropic.lib.streaming import MessageStreamManager as _MessageStreamManager
-    from anthropic.types.message_start_event import MessageStartEvent
+    from anthropic.types import Message as _Message
     from anthropic.types.message_delta_event import MessageDeltaEvent
+    from anthropic.types.message_start_event import MessageStartEvent
 except ImportError:
     _Anthropic = object()
     _AsyncAnthropic = object()
@@ -23,7 +23,7 @@ class Message(_Message):
 
 class MessageStreamManager(_MessageStreamManager):
     impacts: Impacts
-    def __init__(self, parent, impacts):
+    def __init__(self, parent, impacts) -> None:
         self.__stream = parent._MessageStreamManager__stream
         print(type(self.__stream))
         self.__api_request = parent._MessageStreamManager__api_request
@@ -62,13 +62,13 @@ def compute_impacts_and_return_stream_response(response: Any) -> MessageStreamMa
     output_tokens = 0
     with response as stream:
         for i, event in enumerate(stream):
-            if i == 0: 
+            if i == 0:
                 if type(event) is MessageStartEvent:
                     message = event.message
                     model = models.find_model(provider="anthropic", model_name=message.model)
                     output_tokens += message.usage.output_tokens
                 else:
-                    print(f"Stream is not initialized with MessageStartEvent")
+                    print("Stream is not initialized with MessageStartEvent")
                     return response
             elif type(event) is MessageDeltaEvent:
                 output_tokens += event.usage.output_tokens
@@ -81,7 +81,7 @@ def compute_impacts_and_return_stream_response(response: Any) -> MessageStreamMa
 
 def anthropic_stream_chat_wrapper(
     wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
-) -> MessageStreamManager:  
+) -> MessageStreamManager:
     response = wrapped(*args, **kwargs)
     return compute_impacts_and_return_stream_response(response)
 

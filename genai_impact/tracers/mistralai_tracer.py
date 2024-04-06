@@ -10,6 +10,8 @@ try:
     from mistralai.client import MistralClient as _MistralClient
     from mistralai.models.chat_completion import (
         ChatCompletionResponse as _ChatCompletionResponse,
+    )
+    from mistralai.models.chat_completion import (
         ChatCompletionStreamResponse as _ChatCompletionStreamResponse,
     )
 except ImportError:
