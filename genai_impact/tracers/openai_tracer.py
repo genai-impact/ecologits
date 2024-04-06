@@ -1,6 +1,6 @@
 from typing import Any, Callable, Optional, Union
 
-from openai import Stream, AsyncStream
+from openai import AsyncStream, Stream
 from openai.resources.chat import AsyncCompletions, Completions
 from openai.types.chat import ChatCompletion as _ChatCompletion
 from openai.types.chat import ChatCompletionChunk as _ChatCompletionChunk
@@ -23,7 +23,7 @@ def compute_impacts(response: Any) -> Optional[Impacts]:
     if model is None:
         # TODO: Replace with proper logging
         print(f"Could not find model `{response.model}` for openai provider.")
-        return
+        return None
     output_tokens = response.usage.completion_tokens
     model_size = model.active_parameters or model.active_parameters_range
     impacts = compute_llm_impacts(
@@ -39,7 +39,7 @@ def compute_impacts_stream(chunk: Any, token_count: int) -> Optional[Impacts]:
     if model is None:
         # TODO: Replace with proper logging
         print(f"Could not find model `{chunk.model}` for openai provider.")
-        return
+        return None
     model_size = model.active_parameters or model.active_parameters_range
     impacts = compute_llm_impact(
         model_parameter_count=model_size, output_token_count=token_count
@@ -53,7 +53,7 @@ def openai_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletion, Stream[ChatCompletionChunk]]:
-    if kwargs.get('stream', False):
+    if kwargs.get("stream", False):
         return openai_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
         return openai_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
@@ -97,7 +97,7 @@ async def openai_async_chat_wrapper(
     args: Any,
     kwargs: Any,
 ) -> Union[ChatCompletion, AsyncStream[ChatCompletionChunk]]:
-    if kwargs.get('stream', False):
+    if kwargs.get("stream", False):
         return openai_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
         return await openai_async_chat_wrapper_base(wrapped, instance, args, kwargs)
