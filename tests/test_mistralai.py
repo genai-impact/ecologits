@@ -24,7 +24,6 @@ async def test_mistralai_async_chat(tracer_init):
     assert response.impacts.energy > 0
 
 
-@pytest.mark.skip
 @pytest.mark.vcr
 def test_mistralai_stream_chat(tracer_init):
     client = MistralClient()
