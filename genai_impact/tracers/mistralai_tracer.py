@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Any, Callable, Iterable
 
 from wrapt import wrap_function_wrapper
 
@@ -10,14 +10,20 @@ try:
     from mistralai.client import MistralClient as _MistralClient
     from mistralai.models.chat_completion import (
         ChatCompletionResponse as _ChatCompletionResponse,
+        ChatCompletionStreamResponse as _ChatCompletionStreamResponse,
     )
 except ImportError:
     _MistralClient = object()
     _MistralAsyncClient = object()
     _ChatCompletionResponse = object()
+    _ChatCompletionStreamResponse = object()
 
 
 class ChatCompletionResponse(_ChatCompletionResponse):
+    impacts: Impacts
+
+
+class ChatCompletionStreamResponse(_ChatCompletionStreamResponse):
     impacts: Impacts
 
 
@@ -42,6 +48,21 @@ def mistralai_chat_wrapper(
     return compute_impacts_and_return_response(response)
 
 
+def mistralai_chat_wrapper_stream(
+    wrapped: Callable, instance: _MistralClient, args: Any, kwargs: Any  # noqa: ARG001
+) -> Iterable[ChatCompletionStreamResponse]:
+    stream = wrapped(*args, **kwargs)
+    token_count = 0
+    for i, chunk in enumerate(stream):
+        if i > 0 and chunk.choices[0].finish_reason is None:
+            token_count += 1
+        impacts = compute_impacts_and_return_response(chunk, token_count)
+        if impacts is not None:
+            yield ChatCompletionStreamResponse(**chunk.model_dump(), impacts=impacts)
+        else:
+            yield chunk
+
+
 async def mistralai_async_chat_wrapper(
     wrapped: Callable,
     instance: _MistralAsyncClient,  # noqa: ARG001
@@ -64,6 +85,11 @@ class MistralAIInstrumentor:
                 "module": "mistralai.async_client",
                 "name": "MistralAsyncClient.chat",
                 "wrapper": mistralai_async_chat_wrapper,
+            },
+            {
+                "module": "mistralai.client",
+                "name": "MistralClient.chat_stream",
+                "wrapper": mistralai_chat_wrapper_stream,
             },
         ]
 

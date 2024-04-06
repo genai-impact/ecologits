@@ -22,3 +22,14 @@ async def test_mistralai_async_chat(tracer_init):
     )
     assert len(response.choices) > 0
     assert response.impacts.energy > 0
+
+
+@pytest.mark.vcr
+def test_mistralai_stream_chat(tracer_init):
+    client = MistralClient()
+    stream = client.chat_stream(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": "Hello World!"}],
+    )
+    for chunk in stream:
+        assert chunk.impacts.energy >= 0
