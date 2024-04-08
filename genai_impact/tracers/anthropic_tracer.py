@@ -1,4 +1,5 @@
-from typing import Any, Callable
+from typing import Any, Callable, Iterator, Union
+from typing_extensions import override
 
 from wrapt import wrap_function_wrapper
 
@@ -8,7 +9,7 @@ from genai_impact.model_repository import models
 try:
     from anthropic import Anthropic as _Anthropic
     from anthropic import AsyncAnthropic as _AsyncAnthropic
-    from anthropic.lib.streaming import MessageStreamManager as _MessageStreamManager
+    from anthropic.lib.streaming import MessageStream as _MessageStream
     from anthropic.types import Message as _Message
     from anthropic.types.message_delta_event import MessageDeltaEvent
     from anthropic.types.message_start_event import MessageStartEvent
@@ -16,17 +17,25 @@ except ImportError:
     _Anthropic = object()
     _AsyncAnthropic = object()
     _Message = object()
-    _MessageStreamManager = object()
+    _MessageStream = object()
 
 class Message(_Message):
     impacts: Impacts
 
-class MessageStreamManager(_MessageStreamManager):
+class MessageStream(_MessageStream):
     impacts: Impacts
+
+    @override
+    def __stream_text__(self) -> Iterator[str]:
+        return self.stream_save
+
     def __init__(self, parent, impacts) -> None:
-        self.__stream = parent._MessageStreamManager__stream
-        print(type(self.__stream))
-        self.__api_request = parent._MessageStreamManager__api_request
+        self.stream_save = parent.text_stream
+        super().__init__(
+            cast_to = parent._cast_to, 
+            response = parent.response, 
+            client = parent._client
+        )
         self.impacts = impacts
 
 def compute_impacts_and_return_response(response: Any) -> Message:
@@ -57,8 +66,7 @@ async def anthropic_async_chat_wrapper(
     response = await wrapped(*args, **kwargs)
     return compute_impacts_and_return_response(response)
 
-
-def compute_impacts_and_return_stream_response(response: Any) -> MessageStreamManager:
+def compute_impacts_and_return_stream_response(response: Any) -> MessageStream:
     output_tokens = 0
     with response as stream:
         for i, event in enumerate(stream):
@@ -69,19 +77,19 @@ def compute_impacts_and_return_stream_response(response: Any) -> MessageStreamMa
                     output_tokens += message.usage.output_tokens
                 else:
                     print("Stream is not initialized with MessageStartEvent")
-                    return response
+                    return stream
             elif type(event) is MessageDeltaEvent:
                 output_tokens += event.usage.output_tokens
-    model_size = model.active_parameters or model.active_parameters_range
-    impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=output_tokens
-    )
-    return MessageStreamManager(response, impacts)
+        model_size = model.active_parameters or model.active_parameters_range
+        impacts = compute_llm_impact(
+            model_parameter_count=model_size, output_token_count=output_tokens
+        )
 
-
+        return MessageStream(stream, impacts)
+        
 def anthropic_stream_chat_wrapper(
     wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
-) -> MessageStreamManager:
+) -> MessageStream:
     response = wrapped(*args, **kwargs)
     return compute_impacts_and_return_stream_response(response)
 
