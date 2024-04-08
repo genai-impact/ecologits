@@ -1,4 +1,4 @@
-from typing import Any, Callable, Iterator, Union
+from typing import Any, Callable, Iterator
 from typing_extensions import override
 
 from wrapt import wrap_function_wrapper
@@ -55,8 +55,6 @@ def anthropic_chat_wrapper(
     wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
     response = wrapped(*args, **kwargs)
-    print("Print regular chat wrapper here ")
-    print(vars(response))
     return compute_impacts_and_return_response(response)
 
 
