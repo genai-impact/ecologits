@@ -161,7 +161,7 @@ async def anthropic_async_chat_wrapper(
 
 def anthropic_stream_chat_wrapper(
     wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
-) -> MessageStreamManager[MessageStream]:
+) -> MessageStreamManager:
     response = wrapped(*args, **kwargs)
     return MessageStreamManager(response._MessageStreamManager__api_request)    # noqa: SLF001
 
@@ -170,10 +170,7 @@ def anthropic_async_stream_chat_wrapper(
     wrapped: Callable, instance: AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> AsyncMessageStreamManager:
     response = wrapped(*args, **kwargs)
-
-    print(type(response))
-
-    return AsyncMessageStreamManager(response._AsyncMessageStreamManager__api_request)
+    return AsyncMessageStreamManager(response._AsyncMessageStreamManager__api_request)  # noqa: SLF001
 
 
 class AnthropicInstrumentor:
