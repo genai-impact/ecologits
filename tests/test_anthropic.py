@@ -42,4 +42,21 @@ def test_anthropic_stream_chat(tracer_init):
         assert stream.impacts.energy >= 0
 
     assert len(text_response) > 0
+
+
+@pytest.mark.vcr
+@pytest.mark.asyncio
+async def test_openai_async_stream_chat(tracer_init):
+    client = AsyncAnthropic()
+
+    text_response = ''
+    async with client.messages.stream(
+        max_tokens=100,
+        messages=[{"role": "user", "content": "Hello World!"}],
+        model="claude-3-haiku-20240307",
+    ) as stream:
+        async for text in stream.text_stream:
+            text_response += text
+        assert stream.impacts.energy >= 0
     
+    assert len(text_response) > 0
