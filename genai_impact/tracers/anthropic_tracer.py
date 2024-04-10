@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any, Callable, Iterator, Generic, TypeVar
+from typing import Any, Callable, Iterator, Generic, TypeVar, Optional
 from typing_extensions import override
 
 from wrapt import wrap_function_wrapper
@@ -62,9 +62,9 @@ class MessageStreamManager(Generic[MessageStreamT]):
 
     def __exit__(
         self,
-        exc_type: type[BaseException] | None,
-        exc: BaseException | None,
-        exc_tb: TracebackType | None,
+        exc_type: Optional[type[BaseException]],
+        exc: Optional[BaseException],
+        exc_tb: Optional[TracebackType]
     ) -> None:
         if self.__stream is not None:
             self.__stream.close()
