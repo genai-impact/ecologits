@@ -1,15 +1,14 @@
 from types import TracebackType
-from typing import Any, Callable, Iterator, Generic, TypeVar, Optional
-from typing_extensions import override
+from typing import Any, Callable, Generic, Iterator, Optional, TypeVar
 
+from typing_extensions import override
 from wrapt import wrap_function_wrapper
 
 from genai_impact.compute_impacts import Impacts, compute_llm_impact
 from genai_impact.model_repository import models
 
 try:
-    from anthropic import Anthropic
-    from anthropic import AsyncAnthropic
+    from anthropic import Anthropic, AsyncAnthropic
     from anthropic.lib.streaming import MessageStream as _MessageStream
     from anthropic.types import Message as _Message
     from anthropic.types.message_delta_event import MessageDeltaEvent
@@ -50,11 +49,11 @@ class MessageStream(_MessageStream):
         )
         self.impacts = impacts
 
-    def __init__(self, parent):
+    def __init__(self, parent) -> None:     # noqa: ANN001
         super().__init__(
-            cast_to=parent._cast_to,
+            cast_to=parent._cast_to,        # noqa: SLF001
             response=parent.response,
-            client=parent._client
+            client=parent._client           # noqa: SLF001
         )
 
 
@@ -110,7 +109,7 @@ def anthropic_stream_chat_wrapper(
     wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> MessageStreamManager:
     response = wrapped(*args, **kwargs)
-    return MessageStreamManager(response._MessageStreamManager__api_request)
+    return MessageStreamManager(response._MessageStreamManager__api_request)    # noqa: SLF001
 
 
 class AnthropicInstrumentor:
