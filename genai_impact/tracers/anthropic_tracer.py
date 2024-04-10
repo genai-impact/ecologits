@@ -8,25 +8,33 @@ from genai_impact.compute_impacts import Impacts, compute_llm_impact
 from genai_impact.model_repository import models
 
 try:
-    from anthropic import Anthropic as _Anthropic
-    from anthropic import AsyncAnthropic as _AsyncAnthropic
+    from anthropic import Anthropic
+    from anthropic import AsyncAnthropic
     from anthropic.lib.streaming import MessageStream as _MessageStream
     from anthropic.types import Message as _Message
     from anthropic.types.message_delta_event import MessageDeltaEvent
     from anthropic.types.message_start_event import MessageStartEvent
 except ImportError:
-    _Anthropic = object()
-    _AsyncAnthropic = object()
+    Anthropic = object()
+    AsyncAnthropic = object()
     _Message = object()
     _MessageStream = object()
+    MessageDeltaEvent = object()
+    MessageStartEvent = object()
+
+
+MessageStreamT = TypeVar("MessageStreamT", bound=_MessageStream)
+
 
 class Message(_Message):
     impacts: Impacts
+
 
 class MessageStream(_MessageStream):
     @override
     def __stream_text__(self) -> Iterator[str]:
         output_tokens = 0
+        model = None
         for chunk in self:
             if type(chunk) is MessageStartEvent:
                 message = chunk.message
@@ -44,15 +52,15 @@ class MessageStream(_MessageStream):
 
     def __init__(self, parent):
         super().__init__(
-            cast_to = parent._cast_to, 
-            response = parent.response, 
-            client = parent._client
+            cast_to=parent._cast_to,
+            response=parent.response,
+            client=parent._client
         )
-        
-MessageStreamT = TypeVar("MessageStreamT", bound=MessageStream)
+
+
 class MessageStreamManager(Generic[MessageStreamT]):
     def __init__(self, api_request: Callable[[], MessageStreamT]) -> None:
-        self.__stream: MessageStreamT | None = None
+        self.__stream: Optional[MessageStreamT] = None
         self.__api_request = api_request
 
     def __enter__(self) -> MessageStreamT:
@@ -69,6 +77,7 @@ class MessageStreamManager(Generic[MessageStreamT]):
         if self.__stream is not None:
             self.__stream.close()
 
+
 def compute_impacts_and_return_response(response: Any) -> Message:
     model = models.find_model(provider="anthropic", model_name=response.model)
     if model is None:
@@ -82,24 +91,27 @@ def compute_impacts_and_return_response(response: Any) -> Message:
     )
     return Message(**response.model_dump(), impacts=impacts)
 
+
 def anthropic_chat_wrapper(
-    wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
+    wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
     response = wrapped(*args, **kwargs)
     return compute_impacts_and_return_response(response)
 
 
 async def anthropic_async_chat_wrapper(
-    wrapped: Callable, instance: _AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
+    wrapped: Callable, instance: AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
     response = await wrapped(*args, **kwargs)
     return compute_impacts_and_return_response(response)
-        
+
+
 def anthropic_stream_chat_wrapper(
-    wrapped: Callable, instance: _Anthropic, args: Any, kwargs: Any  # noqa: ARG001
+    wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> MessageStreamManager:
     response = wrapped(*args, **kwargs)
     return MessageStreamManager(response._MessageStreamManager__api_request)
+
 
 class AnthropicInstrumentor:
     def __init__(self) -> None:
