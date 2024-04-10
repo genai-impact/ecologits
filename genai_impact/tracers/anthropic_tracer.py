@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any, Callable, Generic, Iterator, Optional, TypeVar, AsyncIterator, Awaitable
+from typing import Any, AsyncIterator, Awaitable, Callable, Generic, Iterator, Optional, TypeVar
 
 from typing_extensions import override
 from wrapt import wrap_function_wrapper
@@ -9,8 +9,8 @@ from genai_impact.model_repository import models
 
 try:
     from anthropic import Anthropic, AsyncAnthropic
-    from anthropic.lib.streaming import MessageStream as _MessageStream
     from anthropic.lib.streaming import AsyncMessageStream as _AsyncMessageStream
+    from anthropic.lib.streaming import MessageStream as _MessageStream
     from anthropic.types import Message as _Message
     from anthropic.types.message_delta_event import MessageDeltaEvent
     from anthropic.types.message_start_event import MessageStartEvent
@@ -170,6 +170,9 @@ def anthropic_async_stream_chat_wrapper(
     wrapped: Callable, instance: AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> AsyncMessageStreamManager:
     response = wrapped(*args, **kwargs)
+
+    print(type(response))
+
     return AsyncMessageStreamManager(response._AsyncMessageStreamManager__api_request)
 
 
