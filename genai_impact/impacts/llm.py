@@ -50,9 +50,11 @@ def generation_latency(
     model_parameter_count: float,
     output_token_count: float,
     gpu_latency_alpha: float,
-    gpu_latency_beta: float
+    gpu_latency_beta: float,
+    request_latency: float,
 ) -> float:
-    return output_token_count * (gpu_latency_alpha * model_parameter_count + gpu_latency_beta)
+    gpu_latency = output_token_count * (gpu_latency_alpha * model_parameter_count + gpu_latency_beta)
+    return min(gpu_latency, request_latency)
 
 
 @dag.asset
@@ -175,6 +177,7 @@ def request_embodied_pe(
 def compute_llm_impacts(
     model_parameter_count: float,
     output_token_count: float,
+    request_latency: float,
     model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
     gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
     gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
@@ -199,6 +202,7 @@ def compute_llm_impacts(
         model_parameter_count=model_parameter_count,
         model_quantization_bits=model_quantization_bits,
         output_token_count=output_token_count,
+        request_latency=request_latency,
         gpu_energy_alpha=gpu_energy_alpha,
         gpu_energy_beta=gpu_energy_beta,
         gpu_latency_alpha=gpu_latency_alpha,
@@ -245,4 +249,4 @@ def compute_llm_impacts(
 
 
 if __name__ == '__main__':
-    print(compute_llm_impacts(70, 200))
+    print(compute_llm_impacts(70, 200, 10))
