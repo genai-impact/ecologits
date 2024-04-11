@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from genai_impact import Tracer
+from ecologits import Ecologits
 
 
 @pytest.fixture(autouse=True)
@@ -28,4 +28,4 @@ def vcr_config():
 
 @pytest.fixture(scope="session")
 def tracer_init():
-    Tracer.init()
+    Ecologits.init()

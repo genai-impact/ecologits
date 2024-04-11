@@ -1,8 +1,8 @@
 from math import ceil
 from typing import Optional
 
-from genai_impact.impacts.dag import DAG
-from genai_impact.impacts.models import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
+from ecologits.impacts.dag import DAG
+from ecologits.impacts.models import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
 
 MODEL_QUANTIZATION_BITS = 4
 

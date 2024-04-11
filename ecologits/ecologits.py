@@ -1,17 +1,17 @@
 import importlib.util
 
-from genai_impact.exceptions import TracerInitializationError
+from ecologits.exceptions import TracerInitializationError
 
 
-class Tracer:
+class Ecologits:
     initialized = False
 
     @staticmethod
     def init() -> None:
-        if Tracer.initialized:
+        if Ecologits.initialized:
             raise TracerInitializationError()
         init_instruments()
-        Tracer.initialized = True
+        Ecologits.initialized = True
 
 
 def init_instruments() -> None:
@@ -22,7 +22,7 @@ def init_instruments() -> None:
 
 def init_openai_instrumentor() -> None:
     if importlib.util.find_spec("openai") is not None:
-        from genai_impact.tracers.openai_tracer import OpenAIInstrumentor
+        from ecologits.tracers.openai_tracer import OpenAIInstrumentor
 
         instrumentor = OpenAIInstrumentor()
         instrumentor.instrument()
@@ -30,7 +30,7 @@ def init_openai_instrumentor() -> None:
 
 def init_anthropic_instrumentor() -> None:
     if importlib.util.find_spec("anthropic") is not None:
-        from genai_impact.tracers.anthropic_tracer import AnthropicInstrumentor
+        from ecologits.tracers.anthropic_tracer import AnthropicInstrumentor
 
         instrumentor = AnthropicInstrumentor()
         instrumentor.instrument()
@@ -38,7 +38,7 @@ def init_anthropic_instrumentor() -> None:
 
 def init_mistralai_instrumentor() -> None:
     if importlib.util.find_spec("mistralai") is not None:
-        from genai_impact.tracers.mistralai_tracer import MistralAIInstrumentor
+        from ecologits.tracers.mistralai_tracer import MistralAIInstrumentor
 
         instrumentor = MistralAIInstrumentor()
         instrumentor.instrument()
