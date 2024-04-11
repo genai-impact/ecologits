@@ -14,7 +14,7 @@ def compute_llm_impacts(
     model = models.find_model(provider=provider, model_name=model_name)
     if model is None:
         # TODO: Replace with proper logging
-        print(f"Could not find model `{model_name}` for openai provider.")
+        print(f"Could not find model `{model_name}` for {provider} provider.")
         return None
     model_size = model.active_parameters or model.active_parameters_range
     if isinstance(model_size, (tuple, list)):
