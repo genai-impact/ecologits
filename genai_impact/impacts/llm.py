@@ -27,9 +27,9 @@ HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 
 DATACENTER_PUE = 1.2
 
-IF_ELECTRICITY_MIX_GWP = 5.90478e-1     # kgCO2eq / kWh
-IF_ELECTRICITY_MIX_ADPE = 7.37708e-8    # kgSbeq / kWh
-IF_ELECTRICITY_MIX_PE = 9.988           # MJ / kWh
+IF_ELECTRICITY_MIX_GWP = 5.90478e-1     # kgCO2eq / kWh (World)
+IF_ELECTRICITY_MIX_ADPE = 7.37708e-8    # kgSbeq / kWh (World)
+IF_ELECTRICITY_MIX_PE = 9.988           # MJ / kWh (World)
 
 
 dag = DAG()
