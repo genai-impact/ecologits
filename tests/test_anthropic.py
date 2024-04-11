@@ -11,7 +11,7 @@ def test_anthropic_chat(tracer_init):
         model="claude-3-haiku-20240307",
     )
     assert len(response.content) > 0
-    assert response.impacts.energy > 0
+    assert response.impacts.energy.value > 0
 
 
 @pytest.mark.vcr
@@ -24,7 +24,7 @@ async def test_anthropic_async_chat(tracer_init):
         model="claude-3-haiku-20240307",
     )
     assert len(response.content) > 0
-    assert response.impacts.energy > 0
+    assert response.impacts.energy.value > 0
 
 
 @pytest.mark.vcr
@@ -39,7 +39,7 @@ def test_anthropic_stream_chat(tracer_init):
     ) as stream:
         for text in stream.text_stream:
             text_response += text
-        assert stream.impacts.energy >= 0
+        assert stream.impacts.energy.value >= 0
 
     assert len(text_response) > 0
 
@@ -57,6 +57,6 @@ async def test_anthropic_async_stream_chat(tracer_init):
     ) as stream:
         async for text in stream.text_stream:
             text_response += text
-        assert stream.impacts.energy >= 0
+        assert stream.impacts.energy.value >= 0
     
     assert len(text_response) > 0
