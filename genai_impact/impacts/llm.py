@@ -36,32 +36,32 @@ dag = DAG()
 
 @dag.asset
 def gpu_energy(
-    model_parameter_count: float,
+    model_active_parameter_count: float,
     output_token_count: float,
     gpu_energy_alpha: float,
     gpu_energy_beta: float
 ) -> float:
-    return output_token_count * (gpu_energy_alpha * model_parameter_count + gpu_energy_beta)
+    return output_token_count * (gpu_energy_alpha * model_active_parameter_count + gpu_energy_beta)
 
 
 @dag.asset
 def generation_latency(
-    model_parameter_count: float,
+    model_active_parameter_count: float,
     output_token_count: float,
     gpu_latency_alpha: float,
     gpu_latency_beta: float,
     request_latency: float,
 ) -> float:
-    gpu_latency = output_token_count * (gpu_latency_alpha * model_parameter_count + gpu_latency_beta)
+    gpu_latency = output_token_count * (gpu_latency_alpha * model_active_parameter_count + gpu_latency_beta)
     return min(gpu_latency, request_latency)
 
 
 @dag.asset
 def model_required_memory(
-    model_parameter_count: float,
+    model_total_parameter_count: float,
     model_quantization_bits: int,
 ) -> float:
-    return 1.2 * model_parameter_count * model_quantization_bits / 8
+    return 1.2 * model_total_parameter_count * model_quantization_bits / 8
 
 
 @dag.asset
@@ -174,7 +174,8 @@ def request_embodied_pe(
 
 
 def compute_llm_impacts(
-    model_parameter_count: float,
+    model_active_parameter_count: float,
+    model_total_parameter_count: float,
     output_token_count: float,
     request_latency: float,
     model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
@@ -198,7 +199,8 @@ def compute_llm_impacts(
     if_electricity_mix_pe: Optional[float] = IF_ELECTRICITY_MIX_PE,
 ) -> Impacts:
     results = dag.execute(
-        model_parameter_count=model_parameter_count,
+        model_active_parameter_count=model_active_parameter_count,
+        model_total_parameter_count=model_total_parameter_count,
         model_quantization_bits=model_quantization_bits,
         output_token_count=output_token_count,
         request_latency=request_latency,
@@ -245,7 +247,3 @@ def compute_llm_impacts(
             pe=pe_embodied
         )
     )
-
-
-if __name__ == "__main__":
-    print(compute_llm_impacts(70, 200, 10))
