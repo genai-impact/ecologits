@@ -7,3 +7,6 @@ test:
 
 test-record:
 	poetry run pytest --record-mode=once
+
+pre-commit:
+	pre-commit run --all-files
