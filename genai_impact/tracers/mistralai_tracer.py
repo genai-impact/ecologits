@@ -1,13 +1,14 @@
+import time
 from typing import Any, AsyncGenerator, Callable, Iterable, Optional
 
 from wrapt import wrap_function_wrapper
 
-from genai_impact.compute_impacts import Impacts, compute_llm_impact
-from genai_impact.model_repository import models
+from genai_impact.impacts.models import Impacts
+from genai_impact.tracers.utils import compute_llm_impacts
 
 try:
-    from mistralai.async_client import MistralAsyncClient as _MistralAsyncClient
-    from mistralai.client import MistralClient as _MistralClient
+    from mistralai.async_client import MistralAsyncClient
+    from mistralai.client import MistralClient
     from mistralai.models.chat_completion import (
         ChatCompletionResponse as _ChatCompletionResponse,
     )
@@ -15,8 +16,8 @@ try:
         ChatCompletionStreamResponse as _ChatCompletionStreamResponse,
     )
 except ImportError:
-    _MistralClient = object()
-    _MistralAsyncClient = object()
+    MistralClient = object()
+    MistralAsyncClient = object()
     _ChatCompletionResponse = object()
     _ChatCompletionStreamResponse = object()
 
@@ -29,49 +30,41 @@ class ChatCompletionStreamResponse(_ChatCompletionStreamResponse):
     impacts: Impacts
 
 
-def compute_impacts_and_return_response(response: Any) -> ChatCompletionResponse:
-    model = models.find_model(provider="mistralai", model_name=response.model)
-    if model is None:
-        # TODO: Replace with proper logging
-        print(f"Could not find model `{response.model}` for mistralai provider.")
-        return response
-    output_tokens = response.usage.completion_tokens
-    model_size = model.active_parameters or model.active_parameters_range
-    impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=output_tokens
-    )
-    return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
-
-
-def compute_impacts_stream(chunk: Any, token_count: int) -> Optional[Impacts]:
-    model = models.find_model(provider="mistralai", model_name=chunk.model)
-    if model is None:
-        # TODO: Replace with proper logging
-        print(f"Could not find model `{chunk.model}` for openai provider.")
-        return None
-    model_size = model.active_parameters or model.active_parameters_range
-    impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=token_count
-    )
-    return impacts
-
-
 def mistralai_chat_wrapper(
-    wrapped: Callable, instance: _MistralClient, args: Any, kwargs: Any  # noqa: ARG001
+    wrapped: Callable, instance: MistralClient, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletionResponse:
+    timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
-    return compute_impacts_and_return_response(response)
+    request_latency = time.perf_counter() - timer_start
+    impacts = compute_llm_impacts(
+        provider="mistralai",
+        model_name=response.model,
+        output_token_count=response.usage.completion_tokens,
+        request_latency=request_latency,
+    )
+    if impacts is not None:
+        return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
+    else:
+        return response
 
 
 def mistralai_chat_wrapper_stream_wrapper(
-    wrapped: Callable, instance: _MistralClient, args: Any, kwargs: Any  # noqa: ARG001
+    wrapped: Callable, instance: MistralClient, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Iterable[ChatCompletionStreamResponse]:
+    timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
     token_count = 0
     for i, chunk in enumerate(stream):
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1
-        impacts = compute_impacts_stream(chunk, token_count)
+        request_latency = time.perf_counter() - timer_start
+        model_name = chunk.model
+        impacts = compute_llm_impacts(
+            provider="mistralai",
+            model_name=model_name,
+            output_token_count=token_count,
+            request_latency=request_latency,
+        )
         if impacts is not None:
             yield ChatCompletionStreamResponse(**chunk.model_dump(), impacts=impacts)
         else:
@@ -80,27 +73,46 @@ def mistralai_chat_wrapper_stream_wrapper(
 
 async def mistralai_async_chat_wrapper(
     wrapped: Callable,
-    instance: _MistralAsyncClient,  # noqa: ARG001
+    instance: MistralAsyncClient,  # noqa: ARG001
     args: Any,
     kwargs: Any,
 ) -> ChatCompletionResponse:
+    timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
-    return compute_impacts_and_return_response(response)
+    request_latency = time.perf_counter() - timer_start
+    impacts = compute_llm_impacts(
+        provider="mistralai",
+        model_name=response.model,
+        output_token_count=response.usage.completion_tokens,
+        request_latency=request_latency,
+    )
+    if impacts is not None:
+        return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
+    else:
+        return response
 
 
 async def mistralai_async_chat_wrapper_stream_wrapper(
     wrapped: Callable,
-    instance: _MistralAsyncClient,  # noqa: ARG001
+    instance: MistralAsyncClient,  # noqa: ARG001
     args: Any,
     kwargs: Any,
 ) -> AsyncGenerator[ChatCompletionStreamResponse, None]:
+    timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
     token_count = 0
     async for chunk in stream:
         if chunk.usage is not None:
             token_count = chunk.usage.completion_tokens
-        impacts = compute_impacts_stream(chunk, token_count)
-        if impacts.energy > 0:
+        request_latency = time.perf_counter() - timer_start
+        model_name = chunk.model
+        impacts = compute_llm_impacts(
+            provider="mistralai",
+            model_name=model_name,
+            output_token_count=token_count,
+            request_latency=request_latency,
+        )
+        if impacts is not None:
             yield ChatCompletionStreamResponse(**chunk.model_dump(), impacts=impacts)
         else:
             yield chunk
