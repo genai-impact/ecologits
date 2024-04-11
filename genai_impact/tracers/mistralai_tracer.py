@@ -33,6 +33,7 @@ class ChatCompletionStreamResponse(_ChatCompletionStreamResponse):
     impacts: Impacts
 
 
+
 def mistralai_chat_wrapper(
     wrapped: Callable, instance: MistralClient, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletionResponse:
