@@ -10,7 +10,7 @@ def test_openai_chat(tracer_init):
         messages=[{"role": "user", "content": "Hello World!"}]
     )
     assert len(response.choices) > 0
-    assert response.impacts.energy > 0
+    assert response.impacts.energy.value > 0
 
 
 @pytest.mark.vcr
@@ -22,7 +22,7 @@ async def test_openai_async_chat(tracer_init):
         messages=[{"role": "user", "content": "Hello World!"}]
     )
     assert len(response.choices) > 0
-    assert response.impacts.energy > 0
+    assert response.impacts.energy.value > 0
 
 
 @pytest.mark.vcr
@@ -34,7 +34,7 @@ def test_openai_stream_chat(tracer_init):
         stream=True
     )
     for chunk in stream:
-        assert chunk.impacts.energy >= 0
+        assert chunk.impacts.energy.value >= 0
 
 
 @pytest.mark.vcr
@@ -47,4 +47,4 @@ async def test_openai_async_stream_chat(tracer_init):
         stream=True
     )
     async for chunk in stream:
-        assert chunk.impacts.energy >= 0
+        assert chunk.impacts.energy.value >= 0
