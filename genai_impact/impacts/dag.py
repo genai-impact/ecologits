@@ -1,16 +1,17 @@
 from functools import wraps
+from typing import Any, Callable, Dict
+
 from graphlib import TopologicalSorter
-from typing import Callable, Dict, Any
 
 
 class DAG:
-    def __init__(self):
+    def __init__(self) -> None:
         self.tasks = {}
         self.dependencies = {}
 
     def asset(self, func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             return func(*args, **kwargs)
 
         # Register the task and its dependencies
@@ -23,7 +24,7 @@ class DAG:
     def build_dag(self) -> TopologicalSorter:
         return TopologicalSorter(self.dependencies)
 
-    def execute(self, **kwargs) -> Dict[str, Any]:
+    def execute(self, **kwargs: Any) -> Dict[str, Any]:
         ts = self.build_dag()
         results = kwargs.copy()  # Use initial params as the starting point
 

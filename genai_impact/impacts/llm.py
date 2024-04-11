@@ -2,8 +2,7 @@ from math import ceil
 from typing import Optional
 
 from genai_impact.impacts.dag import DAG
-from genai_impact.impacts.models import Impacts, Embodied, Usage, GWP, ADPe, PE, Energy
-
+from genai_impact.impacts.models import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
 
 MODEL_QUANTIZATION_BITS = 4
 
@@ -222,13 +221,13 @@ def compute_llm_impacts(
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe
     )
-    energy = Energy(value=results['request_energy'])
-    gwp_usage = GWP(value=results['request_usage_gwp'])
-    adpe_usage = ADPe(value=results['request_usage_adpe'])
-    pe_usage = PE(value=results['request_usage_pe'])
-    gwp_embodied = GWP(value=results['request_embodied_gwp'])
-    adpe_embodied = ADPe(value=results['request_embodied_adpe'])
-    pe_embodied = PE(value=results['request_embodied_pe'])
+    energy = Energy(value=results["request_energy"])
+    gwp_usage = GWP(value=results["request_usage_gwp"])
+    adpe_usage = ADPe(value=results["request_usage_adpe"])
+    pe_usage = PE(value=results["request_usage_pe"])
+    gwp_embodied = GWP(value=results["request_embodied_gwp"])
+    adpe_embodied = ADPe(value=results["request_embodied_adpe"])
+    pe_embodied = PE(value=results["request_embodied_pe"])
     return Impacts(
         energy=energy,
         gwp=gwp_usage + gwp_embodied,
@@ -248,5 +247,5 @@ def compute_llm_impacts(
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(compute_llm_impacts(70, 200, 10))

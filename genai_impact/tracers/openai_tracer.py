@@ -1,5 +1,5 @@
 import time
-from typing import Any, Callable, Optional, Union
+from typing import Any, Callable, Union
 
 from openai import AsyncStream, Stream
 from openai.resources.chat import AsyncCompletions, Completions
@@ -9,7 +9,6 @@ from wrapt import wrap_function_wrapper
 
 from genai_impact.impacts import Impacts
 from genai_impact.tracers.utils import compute_llm_impacts
-
 
 PROVIDER = "openai"
 

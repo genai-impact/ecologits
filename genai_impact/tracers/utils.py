@@ -1,8 +1,8 @@
 from typing import Optional
 
-from genai_impact.model_repository import models
 from genai_impact.impacts.llm import compute_llm_impacts as _compute_llm_impacts
 from genai_impact.impacts.models import Impacts
+from genai_impact.model_repository import models
 
 
 def compute_llm_impacts(

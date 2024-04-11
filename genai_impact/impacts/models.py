@@ -7,7 +7,7 @@ class Impact(BaseModel):
     value: float
     unit: str
 
-    def __add__(self, other):
+    def __add__(self, other: "Impact") -> "Impact":
         if not isinstance(other, Impact):
             RuntimeError(f"Error occurred, cannot add an Impact with {type(other)}.")
         if self.type != other.type:
