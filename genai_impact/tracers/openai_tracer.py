@@ -11,6 +11,9 @@ from genai_impact.impacts import Impacts
 from genai_impact.tracers.utils import compute_llm_impacts
 
 
+PROVIDER = "openai"
+
+
 class ChatCompletion(_ChatCompletion):
     impacts: Impacts
 
@@ -42,7 +45,7 @@ def openai_chat_wrapper_non_stream(
     request_latency = time.perf_counter() - timer_start
     model_name = response.model
     impacts = compute_llm_impacts(
-        provider="openai",
+        provider=PROVIDER,
         model_name=model_name,
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
@@ -68,7 +71,7 @@ def openai_chat_wrapper_stream(
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
         impacts = compute_llm_impacts(
-            provider="openai",
+            provider=PROVIDER,
             model_name=model_name,
             output_token_count=token_count,
             request_latency=request_latency,
@@ -102,7 +105,7 @@ async def openai_async_chat_wrapper_base(
     request_latency = time.perf_counter() - timer_start
     model_name = response.model
     impacts = compute_llm_impacts(
-        provider="openai",
+        provider=PROVIDER,
         model_name=model_name,
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
@@ -129,7 +132,7 @@ async def openai_async_chat_wrapper_stream(
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
         impacts = compute_llm_impacts(
-            provider="openai",
+            provider=PROVIDER,
             model_name=model_name,
             output_token_count=token_count,
             request_latency=request_latency,

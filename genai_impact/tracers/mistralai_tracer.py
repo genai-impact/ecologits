@@ -22,6 +22,9 @@ except ImportError:
     _ChatCompletionStreamResponse = object()
 
 
+PROVIDER = "mistralai"
+
+
 class ChatCompletionResponse(_ChatCompletionResponse):
     impacts: Impacts
 
@@ -37,7 +40,7 @@ def mistralai_chat_wrapper(
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
     impacts = compute_llm_impacts(
-        provider="mistralai",
+        provider=PROVIDER,
         model_name=response.model,
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
@@ -60,7 +63,7 @@ def mistralai_chat_wrapper_stream_wrapper(
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
         impacts = compute_llm_impacts(
-            provider="mistralai",
+            provider=PROVIDER,
             model_name=model_name,
             output_token_count=token_count,
             request_latency=request_latency,
@@ -81,7 +84,7 @@ async def mistralai_async_chat_wrapper(
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
     impacts = compute_llm_impacts(
-        provider="mistralai",
+        provider=PROVIDER,
         model_name=response.model,
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
@@ -107,7 +110,7 @@ async def mistralai_async_chat_wrapper_stream_wrapper(
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
         impacts = compute_llm_impacts(
-            provider="mistralai",
+            provider=PROVIDER,
             model_name=model_name,
             output_token_count=token_count,
             request_latency=request_latency,

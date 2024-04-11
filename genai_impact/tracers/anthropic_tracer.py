@@ -26,6 +26,8 @@ except ImportError:
     MessageStartEvent = object()
 
 
+PROVIDER = "anthropic"
+
 MessageStreamT = TypeVar("MessageStreamT", bound=_MessageStream)
 AsyncMessageStreamT = TypeVar("AsyncMessageStreamT", bound=_AsyncMessageStream)
 
@@ -53,7 +55,7 @@ class MessageStream(_MessageStream):
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
         self.impacts = compute_llm_impacts(
-            provider="anthropic",
+            provider=PROVIDER,
             model_name=model_name,
             output_token_count=output_tokens,
             request_latency=requests_latency,
@@ -86,7 +88,7 @@ class AsyncMessageStream(_AsyncMessageStream):
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
         self.impacts = compute_llm_impacts(
-            provider="anthropic",
+            provider=PROVIDER,
             model_name=model_name,
             output_token_count=output_tokens,
             request_latency=requests_latency,
@@ -148,7 +150,7 @@ def anthropic_chat_wrapper(
     request_latency = time.perf_counter() - timer_start
     model_name = response.model
     impacts = compute_llm_impacts(
-        provider="anthropic",
+        provider=PROVIDER,
         model_name=model_name,
         output_token_count=response.usage.output_tokens,
         request_latency=request_latency,
@@ -167,7 +169,7 @@ async def anthropic_async_chat_wrapper(
     request_latency = time.perf_counter() - timer_start
     model_name = response.model
     impacts = compute_llm_impacts(
-        provider="anthropic",
+        provider=PROVIDER,
         model_name=model_name,
         output_token_count=response.usage.output_tokens,
         request_latency=request_latency,
