@@ -9,6 +9,8 @@ MODEL_QUANTIZATION_BITS = 4
 
 GPU_ENERGY_ALPHA = 8.91e-8
 GPU_ENERGY_BETA = 1.43e-6
+GPU_LATENCY_ALPHA = 8.02e-4
+GPU_LATENCY_BETA = 2.23e-2
 GPU_MEMORY = 80     # GB
 GPU_EMBODIED_IMPACT_GWP = 143
 GPU_EMBODIED_IMPACT_ADPE = 5.1e-3
@@ -37,10 +39,20 @@ dag = DAG()
 def gpu_energy(
     model_parameter_count: float,
     output_token_count: float,
-    gpu_alpha: float,
-    gpu_beta: float
+    gpu_energy_alpha: float,
+    gpu_energy_beta: float
 ) -> float:
-    return output_token_count * (gpu_alpha * model_parameter_count + gpu_beta)
+    return output_token_count * (gpu_energy_alpha * model_parameter_count + gpu_energy_beta)
+
+
+@dag.asset
+def generation_latency(
+    model_parameter_count: float,
+    output_token_count: float,
+    gpu_latency_alpha: float,
+    gpu_latency_beta: float
+) -> float:
+    return output_token_count * (gpu_latency_alpha * model_parameter_count + gpu_latency_beta)
 
 
 @dag.asset
@@ -163,10 +175,11 @@ def request_embodied_pe(
 def compute_llm_impacts(
     model_parameter_count: float,
     output_token_count: float,
-    generation_latency: float,
     model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
-    gpu_alpha: Optional[float] = GPU_ENERGY_ALPHA,
-    gpu_beta: Optional[float] = GPU_ENERGY_BETA,
+    gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
+    gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
+    gpu_latency_alpha: Optional[float] = GPU_LATENCY_ALPHA,
+    gpu_latency_beta: Optional[float] = GPU_LATENCY_BETA,
     gpu_memory: Optional[float] = GPU_MEMORY,
     gpu_embodied_gwp: Optional[float] = GPU_EMBODIED_IMPACT_GWP,
     gpu_embodied_adpe: Optional[float] = GPU_EMBODIED_IMPACT_ADPE,
@@ -186,9 +199,10 @@ def compute_llm_impacts(
         model_parameter_count=model_parameter_count,
         model_quantization_bits=model_quantization_bits,
         output_token_count=output_token_count,
-        generation_latency=generation_latency,
-        gpu_alpha=gpu_alpha,
-        gpu_beta=gpu_beta,
+        gpu_energy_alpha=gpu_energy_alpha,
+        gpu_energy_beta=gpu_energy_beta,
+        gpu_latency_alpha=gpu_latency_alpha,
+        gpu_latency_beta=gpu_latency_beta,
         gpu_memory=gpu_memory,
         gpu_embodied_gwp=gpu_embodied_gwp,
         gpu_embodied_adpe=gpu_embodied_adpe,
@@ -231,4 +245,4 @@ def compute_llm_impacts(
 
 
 if __name__ == '__main__':
-    print(compute_llm_impacts(70, 200, 2.3))
+    print(compute_llm_impacts(70, 200))
