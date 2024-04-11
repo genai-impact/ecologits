@@ -1,4 +1,4 @@
-from genai_impact.model_repository import ModelRepository, Model
+from ecologits.model_repository import ModelRepository, Model
 
 
 def test_create_model_repository_default():

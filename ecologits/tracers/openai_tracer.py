@@ -7,8 +7,8 @@ from openai.types.chat import ChatCompletion as _ChatCompletion
 from openai.types.chat import ChatCompletionChunk as _ChatCompletionChunk
 from wrapt import wrap_function_wrapper
 
-from genai_impact.impacts import Impacts
-from genai_impact.tracers.utils import compute_llm_impacts
+from ecologits.impacts import Impacts
+from ecologits.tracers.utils import compute_llm_impacts
 
 PROVIDER = "openai"
 

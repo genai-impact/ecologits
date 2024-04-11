@@ -5,8 +5,8 @@ from typing import Any, AsyncIterator, Awaitable, Callable, Generic, Iterator, O
 from typing_extensions import override
 from wrapt import wrap_function_wrapper
 
-from genai_impact.impacts.models import Impacts
-from genai_impact.tracers.utils import compute_llm_impacts
+from ecologits.impacts.models import Impacts
+from ecologits.tracers.utils import compute_llm_impacts
 
 try:
     from anthropic import Anthropic, AsyncAnthropic

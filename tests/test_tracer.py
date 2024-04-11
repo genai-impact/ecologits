@@ -1,8 +1,8 @@
 import pytest
-from genai_impact import Tracer
-from genai_impact.exceptions import GenAIImpactError
+from ecologits import Ecologits
+from ecologits.exceptions import EcologitsError
 
 
 def test_double_init(tracer_init):
-    with pytest.raises(GenAIImpactError) as e:  
-        Tracer.init()   # Second initialization
+    with pytest.raises(EcologitsError) as e:
+        Ecologits.init()   # Second initialization

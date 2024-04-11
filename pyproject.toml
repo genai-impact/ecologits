@@ -3,9 +3,9 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "genai_impact"
+name = "ecologits"
 version = "0.1.0"
-description = "GenAI Impact projet"
+description = "Ecologits tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs."
 authors = ["DataForGood"]
 license = "MIT"
 readme = "README.md"

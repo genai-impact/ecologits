@@ -1,7 +1,7 @@
-GenAI Impact
+Ecologits
 ============
 
-**GenAI Impact** tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs.
+**Ecologits** tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs.
 
 
 ## ⚙️ Installation
@@ -11,10 +11,10 @@ Coming soon...
 ## 🚀 Usage
 
 ```python
-from genai_impact import Tracer
+from ecologits import Ecologits
 from openai import OpenAI
 
-Tracer.init()
+Ecologits.init()
 
 client = OpenAI(
     api_key="<OPENAI_API_KEY>",
@@ -33,7 +33,7 @@ print(response.impacts)        # Impacts(energy=0.025, energy_unit='Wh', ...)
 
 
 
-See package documentation on [GenAI Impact](<link-to-mkdocs-material>)
+See package documentation on [Ecologits](<link-to-mkdocs-material>)
 
 ## 💪 Contributing
 

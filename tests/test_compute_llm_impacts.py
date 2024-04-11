@@ -1,6 +1,6 @@
 import pytest
 
-from genai_impact.impacts.llm import compute_llm_impacts
+from ecologits.impacts.llm import compute_llm_impacts
 
 
 @pytest.mark.parametrize(
