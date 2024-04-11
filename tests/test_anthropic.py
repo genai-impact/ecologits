@@ -46,7 +46,7 @@ def test_anthropic_stream_chat(tracer_init):
 
 @pytest.mark.vcr
 @pytest.mark.asyncio
-async def test_openai_async_stream_chat(tracer_init):
+async def test_anthropic_async_stream_chat(tracer_init):
     client = AsyncAnthropic()
 
     text_response = ''

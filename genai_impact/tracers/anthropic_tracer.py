@@ -27,6 +27,7 @@ except ImportError:
 MessageStreamT = TypeVar("MessageStreamT", bound=_MessageStream)
 AsyncMessageStreamT = TypeVar("AsyncMessageStreamT", bound=_AsyncMessageStream)
 
+
 class Message(_Message):
     impacts: Impacts
 
