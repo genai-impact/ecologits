@@ -1,11 +1,12 @@
+import time
 from types import TracebackType
 from typing import Any, AsyncIterator, Awaitable, Callable, Generic, Iterator, Optional, TypeVar
 
 from typing_extensions import override
 from wrapt import wrap_function_wrapper
 
-from genai_impact.compute_impacts import Impacts, compute_llm_impact
-from genai_impact.model_repository import models
+from genai_impact.impacts.models import Impacts
+from genai_impact.tracers.utils import compute_llm_impacts
 
 try:
     from anthropic import Anthropic, AsyncAnthropic
@@ -24,6 +25,8 @@ except ImportError:
     MessageStartEvent = object()
 
 
+PROVIDER = "anthropic"
+
 MessageStreamT = TypeVar("MessageStreamT", bound=_MessageStream)
 AsyncMessageStreamT = TypeVar("AsyncMessageStreamT", bound=_AsyncMessageStream)
 
@@ -37,22 +40,25 @@ class MessageStream(_MessageStream):
 
     @override
     def __stream_text__(self) -> Iterator[str]:
+        timer_start = time.perf_counter()
         output_tokens = 0
-        model = None
+        model_name = None
         for chunk in self:
             if type(chunk) is MessageStartEvent:
                 message = chunk.message
-                model = models.find_model(provider="anthropic", model_name=message.model)
+                model_name = message.model
                 output_tokens += message.usage.output_tokens
             elif type(chunk) is MessageDeltaEvent:
                 output_tokens += chunk.usage.output_tokens
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
-        model_size = model.active_parameters or model.active_parameters_range
-        impacts = compute_llm_impact(
-            model_parameter_count=model_size, output_token_count=output_tokens
+        requests_latency = time.perf_counter() - timer_start
+        self.impacts = compute_llm_impacts(
+            provider=PROVIDER,
+            model_name=model_name,
+            output_token_count=output_tokens,
+            request_latency=requests_latency,
         )
-        self.impacts = impacts
 
     def __init__(self, parent) -> None:     # noqa: ANN001
         super().__init__(
@@ -67,22 +73,25 @@ class AsyncMessageStream(_AsyncMessageStream):
 
     @override
     async def __stream_text__(self) -> AsyncIterator[str]:
+        timer_start = time.perf_counter()
         output_tokens = 0
-        model = None
+        model_name = None
         async for chunk in self:
             if type(chunk) is MessageStartEvent:
                 message = chunk.message
-                model = models.find_model(provider="anthropic", model_name=message.model)
+                model_name = message.model
                 output_tokens += message.usage.output_tokens
             elif type(chunk) is MessageDeltaEvent:
                 output_tokens += chunk.usage.output_tokens
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
-        model_size = model.active_parameters or model.active_parameters_range
-        impacts = compute_llm_impact(
-            model_parameter_count=model_size, output_token_count=output_tokens
+        requests_latency = time.perf_counter() - timer_start
+        self.impacts = compute_llm_impacts(
+            provider=PROVIDER,
+            model_name=model_name,
+            output_token_count=output_tokens,
+            request_latency=requests_latency,
         )
-        self.impacts = impacts
 
     def __init__(self, parent) -> None:     # noqa: ANN001
         super().__init__(
@@ -132,32 +141,42 @@ class AsyncMessageStreamManager(Generic[AsyncMessageStreamT]):
             await self.__stream.close()
 
 
-def compute_impacts_and_return_response(response: Any) -> Message:
-    model = models.find_model(provider="anthropic", model_name=response.model)
-    if model is None:
-        # TODO: Replace with proper logging
-        print(f"Could not find model `{response.model}` for anthropic provider.")
-        return response
-    output_tokens = response.usage.output_tokens
-    model_size = model.active_parameters or model.active_parameters_range
-    impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=output_tokens
-    )
-    return Message(**response.model_dump(), impacts=impacts)
-
-
 def anthropic_chat_wrapper(
     wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
+    timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
-    return compute_impacts_and_return_response(response)
+    request_latency = time.perf_counter() - timer_start
+    model_name = response.model
+    impacts = compute_llm_impacts(
+        provider=PROVIDER,
+        model_name=model_name,
+        output_token_count=response.usage.output_tokens,
+        request_latency=request_latency,
+    )
+    if impacts is not None:
+        return Message(**response.model_dump(), impacts=impacts)
+    else:
+        return response
 
 
 async def anthropic_async_chat_wrapper(
     wrapped: Callable, instance: AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
+    timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
-    return compute_impacts_and_return_response(response)
+    request_latency = time.perf_counter() - timer_start
+    model_name = response.model
+    impacts = compute_llm_impacts(
+        provider=PROVIDER,
+        model_name=model_name,
+        output_token_count=response.usage.output_tokens,
+        request_latency=request_latency,
+    )
+    if impacts is not None:
+        return Message(**response.model_dump(), impacts=impacts)
+    else:
+        return response
 
 
 def anthropic_stream_chat_wrapper(

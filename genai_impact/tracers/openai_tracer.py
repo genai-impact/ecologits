@@ -1,4 +1,5 @@
-from typing import Any, Callable, Optional, Union
+import time
+from typing import Any, Callable, Union
 
 from openai import AsyncStream, Stream
 from openai.resources.chat import AsyncCompletions, Completions
@@ -6,8 +7,10 @@ from openai.types.chat import ChatCompletion as _ChatCompletion
 from openai.types.chat import ChatCompletionChunk as _ChatCompletionChunk
 from wrapt import wrap_function_wrapper
 
-from genai_impact.compute_impacts import Impacts, compute_llm_impact
-from genai_impact.model_repository import models
+from genai_impact.impacts import Impacts
+from genai_impact.tracers.utils import compute_llm_impacts
+
+PROVIDER = "openai"
 
 
 class ChatCompletion(_ChatCompletion):
@@ -16,33 +19,6 @@ class ChatCompletion(_ChatCompletion):
 
 class ChatCompletionChunk(_ChatCompletionChunk):
     impacts: Impacts
-
-
-def compute_impacts(response: Any) -> Optional[Impacts]:
-    model = models.find_model(provider="openai", model_name=response.model)
-    if model is None:
-        # TODO: Replace with proper logging
-        print(f"Could not find model `{response.model}` for openai provider.")
-        return None
-    output_tokens = response.usage.completion_tokens
-    model_size = model.active_parameters or model.active_parameters_range
-    impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=output_tokens
-    )
-    return impacts
-
-
-def compute_impacts_stream(chunk: Any, token_count: int) -> Optional[Impacts]:
-    model = models.find_model(provider="openai", model_name=chunk.model)
-    if model is None:
-        # TODO: Replace with proper logging
-        print(f"Could not find model `{chunk.model}` for openai provider.")
-        return None
-    model_size = model.active_parameters or model.active_parameters_range
-    impacts = compute_llm_impact(
-        model_parameter_count=model_size, output_token_count=token_count
-    )
-    return impacts
 
 
 def openai_chat_wrapper(
@@ -63,8 +39,16 @@ def openai_chat_wrapper_non_stream(
     args: Any,
     kwargs: Any
 ) -> ChatCompletion:
+    timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
-    impacts = compute_impacts(response)
+    request_latency = time.perf_counter() - timer_start
+    model_name = response.model
+    impacts = compute_llm_impacts(
+        provider=PROVIDER,
+        model_name=model_name,
+        output_token_count=response.usage.completion_tokens,
+        request_latency=request_latency,
+    )
     if impacts is not None:
         return ChatCompletion(**response.model_dump(), impacts=impacts)
     else:
@@ -77,12 +61,20 @@ def openai_chat_wrapper_stream(
     args: Any,
     kwargs: Any
 ) -> Stream[ChatCompletionChunk]:
+    timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
     token_count = 0
     for i, chunk in enumerate(stream):
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1
-        impacts = compute_impacts_stream(chunk, token_count)
+        request_latency = time.perf_counter() - timer_start
+        model_name = chunk.model
+        impacts = compute_llm_impacts(
+            provider=PROVIDER,
+            model_name=model_name,
+            output_token_count=token_count,
+            request_latency=request_latency,
+        )
         if impacts is not None:
             yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
         else:
@@ -107,8 +99,16 @@ async def openai_async_chat_wrapper_base(
     args: Any,
     kwargs: Any,
 ) -> ChatCompletion:
+    timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
-    impacts = compute_impacts(response)
+    request_latency = time.perf_counter() - timer_start
+    model_name = response.model
+    impacts = compute_llm_impacts(
+        provider=PROVIDER,
+        model_name=model_name,
+        output_token_count=response.usage.completion_tokens,
+        request_latency=request_latency,
+    )
     if impacts is not None:
         return ChatCompletion(**response.model_dump(), impacts=impacts)
     else:
@@ -121,13 +121,21 @@ async def openai_async_chat_wrapper_stream(
     args: Any,
     kwargs: Any,
 ) -> AsyncStream[ChatCompletionChunk]:
+    timer_start = time.perf_counter()
     stream = await wrapped(*args, **kwargs)
     i = 0
     token_count = 0
     async for chunk in stream:
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1
-        impacts = compute_impacts_stream(chunk, token_count)
+        request_latency = time.perf_counter() - timer_start
+        model_name = chunk.model
+        impacts = compute_llm_impacts(
+            provider=PROVIDER,
+            model_name=model_name,
+            output_token_count=token_count,
+            request_latency=request_latency,
+        )
         if impacts is not None:
             yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
         else:

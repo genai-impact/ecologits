@@ -10,7 +10,7 @@ def test_mistralai_chat(tracer_init):
         messages=[{"role": "user", "content": "Hello World!"}], model="mistral-tiny"
     )
     assert len(response.choices) > 0
-    assert response.impacts.energy > 0
+    assert response.impacts.energy.value > 0
 
 
 @pytest.mark.vcr
@@ -21,7 +21,7 @@ async def test_mistralai_async_chat(tracer_init):
         messages=[{"role": "user", "content": "Hello World!"}], model="mistral-tiny"
     )
     assert len(response.choices) > 0
-    assert response.impacts.energy > 0
+    assert response.impacts.energy.value > 0
 
 
 @pytest.mark.vcr
@@ -31,7 +31,7 @@ def test_mistralai_stream_chat(tracer_init):
         messages=[{"role": "user", "content": "Hello World!"}], model="mistral-tiny"
     )
     for chunk in stream:
-        assert chunk.impacts.energy >= 0
+        assert chunk.impacts.energy.value >= 0
 
 
 @pytest.mark.vcr
@@ -43,4 +43,4 @@ async def test_mistralai_async_stream_chat(tracer_init):
     )
     async for chunk in stream:
         if hasattr(chunk, "impacts"):
-            assert chunk.impacts.energy >= 0
+            assert chunk.impacts.energy.value >= 0
