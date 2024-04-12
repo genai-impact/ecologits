@@ -9,8 +9,7 @@ from ecologits.tracers.utils import compute_llm_impacts
 
 try:
     import tiktoken
-    from huggingface_hub import InferenceClient
-    from huggingface_hub import AsyncInferenceClient
+    from huggingface_hub import AsyncInferenceClient, InferenceClient
     from huggingface_hub import ChatCompletionOutput as _ChatCompletionOutput
     from huggingface_hub import ChatCompletionStreamOutput as _ChatCompletionStreamOutput
 except ImportError:

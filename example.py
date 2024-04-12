@@ -1,5 +1,5 @@
-from openai import OpenAI
 from genai_impact import Tracer
+from openai import OpenAI
 
 Tracer.init()
 
@@ -16,4 +16,3 @@ response = client.chat.completions.create(
 print(response)
 
 # Outputs environmental impacts
-# print(response.impacts)
