@@ -1,0 +1,37 @@
+interactions:
+- request:
+    body: null
+    headers:
+      user-agent:
+      - unknown/None; hf_hub/0.22.2; python/3.9.18
+    method: POST
+    uri: https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta/v1/chat/completions
+  response:
+    body:
+      string: '{"id":"","object":"text_completion","created":1712924581,"model":"HuggingFaceH4/zephyr-7b-beta","system_fingerprint":"1.4.3-sha-e6bb3ff","choices":[{"index":0,"message":{"role":"assistant","content":"I
+        am not capable of saying \"hello world!\" in real life, but"},"logprobs":null,"finish_reason":"length"}],"usage":{"prompt_tokens":26,"completion_tokens":15,"total_tokens":41}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '377'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 12 Apr 2024 12:24:40 GMT
+      Vary:
+      - Origin, Access-Control-Request-Method, Access-Control-Request-Headers
+      x-compute-time:
+      - '0.542638346'
+      x-compute-type:
+      - cache
+      x-request-id:
+      - pGSzmshX4eO_b-5bd_Ane
+      x-sha:
+      - b70e0c9a2d9e14bd1e812d3c398e5f313e93b473
+    status:
+      code: 200
+      message: OK
+version: 1
