@@ -1,6 +1,6 @@
 import time
 from dataclasses import asdict, dataclass
-from typing import Any, Callable
+from typing import Any, AsyncIterable, Callable, Iterable, Union
 
 from wrapt import wrap_function_wrapper
 
@@ -12,10 +12,15 @@ try:
     from huggingface_hub import InferenceClient
     from huggingface_hub import AsyncInferenceClient
     from huggingface_hub import ChatCompletionOutput as _ChatCompletionOutput
+    from huggingface_hub import ChatCompletionStreamOutput as _ChatCompletionStreamOutput
 except ImportError:
     InferenceClient = object()
     AsyncInferenceClient = object()
     _ChatCompletionOutput = object()
+    _ChatCompletionStreamOutput = object()
+
+
+PROVIDER = "huggingface_hub"
 
 
 @dataclass
@@ -23,7 +28,24 @@ class ChatCompletionOutput(_ChatCompletionOutput):
     impacts: Impacts
 
 
+@dataclass
+class ChatCompletionStreamOutput(_ChatCompletionStreamOutput):
+    impacts: Impacts
+
+
 def huggingface_chat_wrapper(
+    wrapped: Callable,
+    instance: InferenceClient,
+    args: Any,
+    kwargs: Any
+) -> Union[ChatCompletionOutput, Iterable[ChatCompletionStreamOutput]]:
+    if kwargs.get("stream", False):
+        return huggingface_chat_wrapper_stream(wrapped, instance, args, kwargs)
+    else:
+        return huggingface_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
+
+
+def huggingface_chat_wrapper_non_stream(
     wrapped: Callable,
     instance: InferenceClient,
     args: Any,
@@ -35,7 +57,7 @@ def huggingface_chat_wrapper(
     encoder = tiktoken.get_encoding("cl100k_base")
     output_tokens = len(encoder.encode(response.choices[0].message.content))
     impacts = compute_llm_impacts(
-        provider="huggingface_hub",
+        provider=PROVIDER,
         model_name=instance.model,
         output_token_count=output_tokens,
         request_latency=request_latency
@@ -46,11 +68,47 @@ def huggingface_chat_wrapper(
         return response
 
 
+def huggingface_chat_wrapper_stream(
+    wrapped: Callable,
+    instance: InferenceClient,
+    args: Any,
+    kwargs: Any
+) -> Iterable[ChatCompletionStreamOutput]:
+    timer_start = time.perf_counter()
+    stream = wrapped(*args, **kwargs)
+    token_count = 0
+    for chunk in stream:
+        token_count += 1
+        request_latency = time.perf_counter() - timer_start
+        impacts = compute_llm_impacts(
+            provider=PROVIDER,
+            model_name=instance.model,
+            output_token_count=token_count,
+            request_latency=request_latency
+        )
+        if impacts is not None:
+            yield ChatCompletionStreamOutput(**asdict(chunk), impacts=impacts)
+        else:
+            yield chunk
+
+
 async def huggingface_async_chat_wrapper(
     wrapped: Callable,
     instance: AsyncInferenceClient,
     args: Any,
-    kwargs: Any,
+    kwargs: Any
+) -> Union[ChatCompletionOutput, AsyncIterable[ChatCompletionStreamOutput]]:
+    if kwargs.get("stream", False):
+        return huggingface_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
+    else:
+        return await huggingface_async_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
+
+
+async def huggingface_async_chat_wrapper_non_stream(
+    wrapped: Callable,
+    instance: AsyncInferenceClient,
+    args: Any,
+    kwargs: Any
 ) -> ChatCompletionOutput:
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
@@ -58,7 +116,7 @@ async def huggingface_async_chat_wrapper(
     encoder = tiktoken.get_encoding("cl100k_base")
     output_tokens = len(encoder.encode(response.choices[0].message.content))
     impacts = compute_llm_impacts(
-        provider="huggingface_hub",
+        provider=PROVIDER,
         model_name=instance.model,
         output_token_count=output_tokens,
         request_latency=request_latency
@@ -67,6 +125,30 @@ async def huggingface_async_chat_wrapper(
         return ChatCompletionOutput(**asdict(response), impacts=impacts)
     else:
         return response
+
+
+async def huggingface_async_chat_wrapper_stream(
+    wrapped: Callable,
+    instance: AsyncInferenceClient,
+    args: Any,
+    kwargs: Any
+) -> AsyncIterable[ChatCompletionStreamOutput]:
+    timer_start = time.perf_counter()
+    stream = await wrapped(*args, **kwargs)
+    token_count = 0
+    async for chunk in stream:
+        token_count += 1
+        request_latency = time.perf_counter() - timer_start
+        impacts = compute_llm_impacts(
+            provider=PROVIDER,
+            model_name=instance.model,
+            output_token_count=token_count,
+            request_latency=request_latency
+        )
+        if impacts is not None:
+            yield ChatCompletionStreamOutput(**asdict(chunk), impacts=impacts)
+        else:
+            yield chunk
 
 
 class HuggingfaceInstrumentor:
