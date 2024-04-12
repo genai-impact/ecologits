@@ -1,5 +1,5 @@
 import time
-from typing import Callable, Any, Iterator
+from typing import Callable, Any, Iterator, AsyncIterator
 
 from cohere import Client, AsyncClient
 from cohere.types.non_streamed_chat_response import NonStreamedChatResponse as _NonStreamedChatResponse
@@ -81,6 +81,27 @@ def cohere_stream_chat_wrapper(
             yield event
 
 
+async def cohere_async_stream_chat_wrapper(
+    wrapped: Callable, instance: AsyncClient, args: Any, kwargs: Any  
+) -> AsyncIterator[StreamedChatResponse]:
+    model_name = kwargs.get("model", "command-r")
+    timer_start = time.perf_counter()
+    stream = wrapped(*args, **kwargs)
+    async for event in stream:
+        if event.event_type == "stream-end":
+            request_latency = time.perf_counter() - timer_start
+            output_tokens = event.response.meta.tokens.output_tokens
+            impacts = compute_llm_impacts(
+                provider=PROVIDER,
+                model_name=model_name,
+                output_token_count=output_tokens,
+                request_latency=request_latency,
+            )
+            yield StreamedChatResponse_StreamEnd(**event.dict(), impacts=impacts)
+        else:
+            yield event
+
+
 class CohereInstrumentor:
     def __init__(self) -> None:
         self.wrapped_methods = [
@@ -98,7 +119,12 @@ class CohereInstrumentor:
                 "module": "cohere.base_client",
                 "name": "BaseCohere.chat_stream",
                 "wrapper": cohere_stream_chat_wrapper,
-            }
+            }, 
+            {
+                "module": "cohere.base_client",
+                "name": "AsyncBaseCohere.chat_stream",
+                "wrapper": cohere_async_stream_chat_wrapper,
+            }, 
         ]
 
     def instrument(self) -> None:
