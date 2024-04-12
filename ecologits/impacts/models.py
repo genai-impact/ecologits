@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-
 class Impact(BaseModel):
     type: str
     name: str
