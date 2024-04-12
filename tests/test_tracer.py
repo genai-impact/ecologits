@@ -1,8 +1,8 @@
 import pytest
-from ecologits import Ecologits
-from ecologits.exceptions import EcologitsError
+from ecologits import EcoLogits
+from ecologits.exceptions import EcoLogitsError
 
 
 def test_double_init(tracer_init):
-    with pytest.raises(EcologitsError) as e:
-        Ecologits.init()   # Second initialization
+    with pytest.raises(EcoLogitsError) as e:
+        EcoLogits.init()   # Second initialization
