@@ -19,6 +19,7 @@ def init_instruments() -> None:
     init_anthropic_instrumentor()
     init_mistralai_instrumentor()
     init_huggingface_instrumentor()
+    init_cohere_instrumentor()
 
 
 def init_openai_instrumentor() -> None:
@@ -44,9 +45,18 @@ def init_mistralai_instrumentor() -> None:
         instrumentor = MistralAIInstrumentor()
         instrumentor.instrument()
 
+
 def init_huggingface_instrumentor() -> None:
     if importlib.util.find_spec("huggingface_hub") is not None:
         from ecologits.tracers.huggingface_tracer import HuggingfaceInstrumentor
 
         instrumentor = HuggingfaceInstrumentor()
+        instrumentor.instrument()
+
+
+def init_cohere_instrumentor() -> None:
+    if importlib.util.find_spec("cohere") is not None:
+        from ecologits.tracers.cohere_tracer import CohereInstrumentor
+
+        instrumentor = CohereInstrumentor()
         instrumentor.instrument()
