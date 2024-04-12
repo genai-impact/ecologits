@@ -1,7 +1,7 @@
 import time
-from typing import Callable, Any, Iterator, AsyncIterator
+from typing import Any, AsyncIterator, Callable, Iterator
 
-from cohere import Client, AsyncClient
+from cohere import AsyncClient, Client
 from cohere.types.non_streamed_chat_response import NonStreamedChatResponse as _NonStreamedChatResponse
 from cohere.types.streamed_chat_response import StreamedChatResponse
 from cohere.types.streamed_chat_response import StreamedChatResponse_StreamEnd as _StreamedChatResponse_StreamEnd
@@ -16,14 +16,14 @@ class NonStreamedChatResponse(_NonStreamedChatResponse):
     impacts: Impacts
 
     class Config:
-        arbitrary_types_allowed = True    
+        arbitrary_types_allowed = True
 
 
-class StreamedChatResponse_StreamEnd(_StreamedChatResponse_StreamEnd):
+class StreamedChatResponse_StreamEnd(_StreamedChatResponse_StreamEnd):  # noqa: N801
     impacts: Impacts
 
     class Config:
-        arbitrary_types_allowed = True    
+        arbitrary_types_allowed = True
 
 
 def cohere_chat_wrapper(
@@ -44,7 +44,7 @@ def cohere_chat_wrapper(
 
 
 async def cohere_async_chat_wrapper(
-    wrapped: Callable, instance: AsyncClient, args: Any, kwargs: Any  # noqa: ARG001
+    wrapped: Callable, instance: AsyncClient, args: Any, kwargs: Any    # noqa: ARG001
 ) -> NonStreamedChatResponse:
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
@@ -61,7 +61,7 @@ async def cohere_async_chat_wrapper(
 
 
 def cohere_stream_chat_wrapper(
-    wrapped: Callable, instance: Client, args: Any, kwargs: Any  
+    wrapped: Callable, instance: Client, args: Any, kwargs: Any # noqa: ARG001
 ) -> Iterator[StreamedChatResponse]:
     model_name = kwargs.get("model", "command-r")
     timer_start = time.perf_counter()
@@ -82,7 +82,7 @@ def cohere_stream_chat_wrapper(
 
 
 async def cohere_async_stream_chat_wrapper(
-    wrapped: Callable, instance: AsyncClient, args: Any, kwargs: Any  
+    wrapped: Callable, instance: AsyncClient, args: Any, kwargs: Any # noqa: ARG001
 ) -> AsyncIterator[StreamedChatResponse]:
     model_name = kwargs.get("model", "command-r")
     timer_start = time.perf_counter()
@@ -109,22 +109,22 @@ class CohereInstrumentor:
                 "module": "cohere.base_client",
                 "name": "BaseCohere.chat",
                 "wrapper": cohere_chat_wrapper,
-            }, 
+            },
             {
                 "module": "cohere.base_client",
                 "name": "AsyncBaseCohere.chat",
                 "wrapper": cohere_async_chat_wrapper,
-            }, 
+            },
             {
                 "module": "cohere.base_client",
                 "name": "BaseCohere.chat_stream",
                 "wrapper": cohere_stream_chat_wrapper,
-            }, 
+            },
             {
                 "module": "cohere.base_client",
                 "name": "AsyncBaseCohere.chat_stream",
                 "wrapper": cohere_async_stream_chat_wrapper,
-            }, 
+            },
         ]
 
     def instrument(self) -> None:
