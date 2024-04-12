@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from ecologits import Ecologits
+from ecologits import EcoLogits
 
 
 @pytest.fixture(autouse=True)
@@ -28,4 +28,4 @@ def vcr_config():
 
 @pytest.fixture(scope="session")
 def tracer_init():
-    Ecologits.init()
+    EcoLogits.init()

@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "ecologits"
 version = "0.1.0"
-description = "Ecologits tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs."
+description = "EcoLogits tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs."
 authors = ["DataForGood"]
 license = "MIT"
 readme = "README.md"

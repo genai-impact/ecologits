@@ -3,15 +3,15 @@ import importlib.util
 from ecologits.exceptions import TracerInitializationError
 
 
-class Ecologits:
+class EcoLogits:
     initialized = False
 
     @staticmethod
     def init() -> None:
-        if Ecologits.initialized:
+        if EcoLogits.initialized:
             raise TracerInitializationError()
         init_instruments()
-        Ecologits.initialized = True
+        EcoLogits.initialized = True
 
 
 def init_instruments() -> None:

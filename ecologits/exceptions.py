@@ -1,7 +1,7 @@
-class EcologitsError(Exception):
+class EcoLogitsError(Exception):
     pass
 
 
-class TracerInitializationError(EcologitsError):
+class TracerInitializationError(EcoLogitsError):
     """Tracer is initialized twice"""
     pass

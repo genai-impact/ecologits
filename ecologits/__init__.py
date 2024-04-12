@@ -1,3 +1,3 @@
-from .ecologits import Ecologits
+from .ecologits import EcoLogits
 
-__all__ = ["Ecologits"]
+__all__ = ["EcoLogits"]
