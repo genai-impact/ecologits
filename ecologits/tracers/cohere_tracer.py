@@ -1,7 +1,7 @@
 import time
 from typing import Callable, Any
 
-from cohere import Client
+from cohere import Client, AsyncClient
 from cohere.types.non_streamed_chat_response import NonStreamedChatResponse as _NonStreamedChatResponse
 from wrapt import wrap_function_wrapper
 
@@ -14,7 +14,7 @@ class NonStreamedChatResponse(_NonStreamedChatResponse):
     impacts: Impacts
 
     class Config:
-        arbitrary_types_allowed = True
+        arbitrary_types_allowed = True    
 
 
 def cohere_chat_wrapper(
@@ -33,14 +33,21 @@ def cohere_chat_wrapper(
     )
     return NonStreamedChatResponse(**response.dict(), impacts=impacts)
 
-
-# async def anthropic_async_chat_wrapper(
-#     wrapped: Callable, instance: AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
-# ) -> Message:
-#     timer_start = time.perf_counter()
-#     response = await wrapped(*args, **kwargs)
-#     request_latency = time.perf_counter() - timer_start
-#     return ...
+async def cohere_async_chat_wrapper(
+    wrapped: Callable, instance: AsyncClient, args: Any, kwargs: Any  # noqa: ARG001
+) -> NonStreamedChatResponse:
+    timer_start = time.perf_counter()
+    response = await wrapped(*args, **kwargs)
+    request_latency = time.perf_counter() - timer_start
+    output_tokens = response.meta.tokens.output_tokens
+    model_name = kwargs.get("model", "command-r")
+    impacts = compute_llm_impacts(
+        provider=PROVIDER,
+        model_name=model_name,
+        output_token_count=output_tokens,
+        request_latency=request_latency,
+    )
+    return NonStreamedChatResponse(**response.dict(), impacts=impacts)
 
 
 class CohereInstrumentor:
@@ -50,7 +57,12 @@ class CohereInstrumentor:
                 "module": "cohere.base_client",
                 "name": "BaseCohere.chat",
                 "wrapper": cohere_chat_wrapper,
-            }
+            }, 
+            {
+                "module": "cohere.base_client",
+                "name": "AsyncBaseCohere.chat",
+                "wrapper": cohere_async_chat_wrapper,
+            }, 
         ]
 
     def instrument(self) -> None:
