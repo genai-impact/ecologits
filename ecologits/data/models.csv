@@ -33,4 +33,4 @@ anthropic,claude-3-haiku-20240307,300,75;150,model_architecture_not_released,
 anthropic,claude-2.1,130,130,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
 anthropic,claude-2.0,130,130,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
 anthropic,claude-instant-1.2,20;70,20;70,model_architecture_not_released,
-huggingface_hub,HuggingFaceH4/zephyr-7b-beta,20;70,20;70,model_architecture_not_released,
+huggingface_hub,HuggingFaceH4/zephyr-7b-beta,7.24,7.24,model_architecture_not_released,
