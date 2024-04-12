@@ -1,10 +1,16 @@
 import pytest
 
+import tiktoken
 from huggingface_hub import InferenceClient, AsyncInferenceClient
 
 
+@pytest.fixture(autouse=True)
+def tiktoken_init() -> None:
+    tiktoken.get_encoding("cl100k_base")
+
+
 @pytest.mark.vcr
-def test_huggingface_hub_chat(tracer_init):
+def test_huggingface_hub_chat(tracer_init, tiktoken_init):
     client = InferenceClient(model="HuggingFaceH4/zephyr-7b-beta")
     response = client.chat_completion(
         messages=[{"role": "user", "content": "Hello World!"}],
@@ -16,7 +22,7 @@ def test_huggingface_hub_chat(tracer_init):
 
 @pytest.mark.vcr
 @pytest.mark.asyncio
-async def test_huggingface_hub_async_chat(tracer_init):
+async def test_huggingface_hub_async_chat(tracer_init, tiktoken_init):
     client = AsyncInferenceClient(model="HuggingFaceH4/zephyr-7b-beta")
     response = await client.chat_completion(
         messages=[{"role": "user", "content": "Hello World!"}],
