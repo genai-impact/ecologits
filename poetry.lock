@@ -808,6 +808,23 @@ files = [
 ]
 
 [[package]]
+name = "minijinja"
+version = "1.0.16"
+description = "An experimental Python binding of the Rust MiniJinja template engine."
+optional = true
+python-versions = ">=3.8"
+files = [
+    {file = "minijinja-1.0.16-cp38-abi3-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:b7c1640d23ad719da999ab434fd58e895125e067d310d512c9a45ec7e7f301dc"},
+    {file = "minijinja-1.0.16-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f83ca4a37d73b57b87cee4d50f7ce2ade2d6c04fbede49faabc37f7244161bd6"},
+    {file = "minijinja-1.0.16-cp38-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:87c61c94c014c3a6d2ef83ee2f67229ee23b13b3586c8d4d3a7d090ba19f1b6c"},
+    {file = "minijinja-1.0.16-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:beeb7fd7552e351b071b1d01fa80600a332b364c83f0f4a5c96b96d74d162434"},
+    {file = "minijinja-1.0.16-cp38-abi3-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:38cc378dd256bd3766f1c83754c9a4407356b6d992defc725eab8a7c203e07b9"},
+    {file = "minijinja-1.0.16-cp38-abi3-win32.whl", hash = "sha256:f7f0da6c0d2b78bce9aa0f2bbfebc0ece18cdf8dae9430b4001055b8eb77911c"},
+    {file = "minijinja-1.0.16-cp38-abi3-win_amd64.whl", hash = "sha256:0a41541c28fd7ce64b38ddc60974930f81c163440c348393bd5143debeb309b3"},
+    {file = "minijinja-1.0.16.tar.gz", hash = "sha256:57f6e98bc735794eb87648f251e68fbfd9cf50333f6a4053b398751483350826"},
+]
+
+[[package]]
 name = "mistralai"
 version = "0.1.8"
 description = ""
@@ -2183,10 +2200,10 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 
 [extras]
 anthropic = ["anthropic"]
-huggingface-hub = ["aiohttp", "huggingface-hub", "tiktoken"]
+huggingface-hub = ["aiohttp", "huggingface-hub", "minijinja", "tiktoken"]
 mistralai = ["mistralai"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "9433b15f4928ce67933b32a1304ae67bbc629969740d82f18570726aa1f43da6"
+content-hash = "c523709f66cb25fb06b870f1fc7c57c8966a74a6a6bb7ffdae90d63494f6d624"
