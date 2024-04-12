@@ -14,6 +14,7 @@ def environment():
     set_envvar_if_unset("ANTHROPIC_API_KEY", "test-api-key")
     set_envvar_if_unset("MISTRAL_API_KEY", "test-api-key")
     set_envvar_if_unset("OPENAI_API_KEY", "test-api-key")
+    set_envvar_if_unset("CO_API_KEY", "test-api-key")
 
 
 def set_envvar_if_unset(name: str, value: str):
