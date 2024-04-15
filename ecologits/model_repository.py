@@ -10,6 +10,7 @@ class Providers(Enum):
     mistralai = "mistralai"
     openai = "openai"
     huggingface_hub = "huggingface_hub"
+    cohere = "cohere"
 
 
 class Warnings(Enum):
