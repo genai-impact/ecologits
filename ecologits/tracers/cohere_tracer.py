@@ -1,16 +1,26 @@
 import time
 from typing import Any, AsyncIterator, Callable, Iterator
 
-from cohere import AsyncClient, Client
-from cohere.types.non_streamed_chat_response import NonStreamedChatResponse as _NonStreamedChatResponse
-from cohere.types.streamed_chat_response import StreamedChatResponse
-from cohere.types.streamed_chat_response import StreamedChatResponse_StreamEnd as _StreamedChatResponse_StreamEnd
 from wrapt import wrap_function_wrapper
 
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import compute_llm_impacts
 
+try:
+    from cohere import AsyncClient, Client
+    from cohere.types.non_streamed_chat_response import NonStreamedChatResponse as _NonStreamedChatResponse
+    from cohere.types.streamed_chat_response import StreamedChatResponse
+    from cohere.types.streamed_chat_response import StreamedChatResponse_StreamEnd as _StreamedChatResponse_StreamEnd
+except ImportError:
+    Client = object()
+    AsyncClient = object()
+    _NonStreamedChatResponse = object()
+    StreamedChatResponse = object()
+    _StreamedChatResponse_StreamEnd = object()
+
+
 PROVIDER = "cohere"
+
 
 class NonStreamedChatResponse(_NonStreamedChatResponse):
     impacts: Impacts
