@@ -6,9 +6,31 @@ build-backend = "poetry.core.masonry.api"
 name = "ecologits"
 version = "0.1.0"
 description = "EcoLogits tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs."
-authors = ["DataForGood"]
-license = "MIT"
+authors = ["GenAI Impact"]
+license = "MPL-2.0"
 readme = "README.md"
+repository = "https://github.com/genai-impact/ecologits"
+classifiers = [
+#    "Programming Language :: Python",
+#    "Programming Language :: Python :: 3.8",
+#    "Programming Language :: Python :: 3.9",
+#    "Programming Language :: Python :: 3.10",
+#    "Programming Language :: Python :: 3.11",
+#    "Programming Language :: Python :: 3.12",
+#    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Topic :: Internet",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: System Administrators",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: OS Independent",
+    "Operating System :: POSIX",
+    "Operating System :: POSIX :: Linux"
+]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4"
