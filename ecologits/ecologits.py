@@ -1,4 +1,5 @@
 import importlib.util
+
 from packaging.version import Version
 
 
@@ -48,7 +49,7 @@ def init_huggingface_instrumentor() -> None:
     if importlib.util.find_spec("huggingface_hub") is not None:
         from huggingface_hub import __version__
 
-        if Version(__version__) >= Version('0.22.0'):
+        if Version(__version__) >= Version("0.22.0"):
             from ecologits.tracers.huggingface_tracer import HuggingfaceInstrumentor
 
             instrumentor = HuggingfaceInstrumentor()
