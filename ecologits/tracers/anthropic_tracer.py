@@ -1,6 +1,7 @@
 import time
+from collections.abc import AsyncIterator, Awaitable, Iterator
 from types import TracebackType
-from typing import Any, AsyncIterator, Awaitable, Callable, Generic, Iterator, Optional, TypeVar
+from typing import Any, Callable, Generic, Optional, TypeVar
 
 from typing_extensions import override
 from wrapt import wrap_function_wrapper
