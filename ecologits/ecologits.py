@@ -1,7 +1,5 @@
 import importlib.util
 
-from ecologits.exceptions import TracerInitializationError
-
 
 class EcoLogits:
     initialized = False
