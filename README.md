@@ -6,7 +6,9 @@ EcoLogits
 
 ## ⚙️ Installation
 
-Coming soon...
+```shell
+pip install ecologits
+```
 
 ## 🚀 Usage
 
@@ -23,7 +25,7 @@ client = OpenAI(
 response = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
-        {"role": "user", "content": "Hello, can you explain what is the GenAI Impact project?"}
+        {"role": "user", "content": "Tell me a funny joke!"}
     ]
 )
 

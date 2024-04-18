@@ -1,6 +1,7 @@
 import time
+from collections.abc import AsyncIterable, Iterable
 from dataclasses import asdict, dataclass
-from typing import Any, AsyncIterable, Callable, Iterable, Union
+from typing import Any, Callable, Union
 
 from wrapt import wrap_function_wrapper
 

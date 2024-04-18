@@ -1,5 +1,6 @@
 import time
-from typing import Any, AsyncGenerator, Callable, Iterable
+from collections.abc import AsyncGenerator, Iterable
+from typing import Any, Callable
 
 from wrapt import wrap_function_wrapper
 

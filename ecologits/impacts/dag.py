@@ -1,7 +1,6 @@
 from functools import wraps
-from typing import Any, Callable, Dict
-
 from graphlib import TopologicalSorter
+from typing import Any, Callable
 
 
 class DAG:
@@ -24,7 +23,7 @@ class DAG:
     def build_dag(self) -> TopologicalSorter:
         return TopologicalSorter(self.dependencies)
 
-    def execute(self, **kwargs: Any) -> Dict[str, Any]:
+    def execute(self, **kwargs: Any) -> dict[str, Any]:
         ts = self.build_dag()
         results = kwargs.copy()  # Use initial params as the starting point
 
