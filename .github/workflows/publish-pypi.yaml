@@ -1,9 +1,8 @@
-name: publish-testpypi
+name: publish-pypi
 
 on:
-  push:
-    tags:
-      - '*.*.*'
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -28,9 +27,7 @@ jobs:
 
       # configure credentials
       - name: Configure credentials
-        run: |
-          poetry config repositories.testpypi https://test.pypi.org/legacy/
-          poetry config pypi-token.testpypi ${{ secrets.TEST_PYPI_API_KEY }}
+        run: poetry config pypi-token.pypi ${{ secrets.PYPI_API_KEY }}
 
       # build package
       - name: Build package
@@ -38,4 +35,4 @@ jobs:
 
       # publish package
       - name: Publish package
-        run: poetry publish --repository testpypi
+        run: poetry publish

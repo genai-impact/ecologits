@@ -149,7 +149,7 @@ vertex = ["google-auth (>=2,<3)"]
 name = "anyio"
 version = "4.3.0"
 description = "High level compatibility layer for multiple asynchronous event loop implementations"
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "anyio-4.3.0-py3-none-any.whl", hash = "sha256:048e05d0f6caeed70d731f3db756d35dcc1f35747c8c403364a8332c630441b8"},
@@ -392,7 +392,7 @@ files = [
 name = "distro"
 version = "1.9.0"
 description = "Distro - an OS platform information API"
-optional = false
+optional = true
 python-versions = ">=3.6"
 files = [
     {file = "distro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2"},
@@ -617,7 +617,7 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 name = "h11"
 version = "0.14.0"
 description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
-optional = false
+optional = true
 python-versions = ">=3.7"
 files = [
     {file = "h11-0.14.0-py3-none-any.whl", hash = "sha256:e3fe4ac4b851c468cc8363d500db52c2ead036020723024a109d37346efaa761"},
@@ -628,7 +628,7 @@ files = [
 name = "httpcore"
 version = "1.0.5"
 description = "A minimal low-level HTTP client."
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "httpcore-1.0.5-py3-none-any.whl", hash = "sha256:421f18bac248b25d310f3cacd198d55b8e6125c107797b609ff9b7a6ba7991b5"},
@@ -649,7 +649,7 @@ trio = ["trio (>=0.22.0,<0.26.0)"]
 name = "httpx"
 version = "0.25.2"
 description = "The next generation HTTP client."
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "httpx-0.25.2-py3-none-any.whl", hash = "sha256:a05d3d052d9b2dfce0e3896636467f8a5342fb2b902c819428e1ac65413ca118"},
@@ -1094,7 +1094,7 @@ setuptools = "*"
 name = "openai"
 version = "1.16.1"
 description = "The official Python library for the openai API"
-optional = false
+optional = true
 python-versions = ">=3.7.1"
 files = [
     {file = "openai-1.16.1-py3-none-any.whl", hash = "sha256:77ef3db6110071f7154859e234250fb945a36554207a30a4491092eadb73fcb5"},
@@ -1726,7 +1726,7 @@ files = [
 name = "sniffio"
 version = "1.3.1"
 description = "Sniff out which async library your code is running under"
-optional = false
+optional = true
 python-versions = ">=3.7"
 files = [
     {file = "sniffio-1.3.1-py3-none-any.whl", hash = "sha256:2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2"},
@@ -1927,7 +1927,7 @@ files = [
 name = "tqdm"
 version = "4.66.2"
 description = "Fast, Extensible Progress Meter"
-optional = false
+optional = true
 python-versions = ">=3.7"
 files = [
     {file = "tqdm-4.66.2-py3-none-any.whl", hash = "sha256:1ee4f8a893eb9bef51c6e35730cebf234d5d0b6bd112b0271e10ed7c24a02bd9"},
@@ -2277,8 +2277,9 @@ anthropic = ["anthropic"]
 cohere = ["cohere"]
 huggingface-hub = ["aiohttp", "huggingface-hub", "minijinja", "tiktoken"]
 mistralai = ["mistralai"]
+openai = ["openai"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "9a06fd4df441197d69d4f8d5272cf6ca0fa8640b1a364eec49d5d1a59a902401"
+content-hash = "018cfd368499cfc3a31d11bf7ad4dcbd96adaf855767c515985a74952306587d"
