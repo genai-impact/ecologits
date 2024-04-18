@@ -16,8 +16,14 @@ try:
 except ImportError:
     InferenceClient = object()
     AsyncInferenceClient = object()
-    _ChatCompletionOutput = object()
-    _ChatCompletionStreamOutput = object()
+
+    @dataclass
+    class _ChatCompletionOutput:
+        pass
+
+    @dataclass
+    class _ChatCompletionStreamOutput:
+        pass
 
 
 PROVIDER = "huggingface_hub"
