@@ -1,4 +1,5 @@
 import importlib.util
+from packaging.version import Version
 
 
 class EcoLogits:
@@ -45,10 +46,13 @@ def init_mistralai_instrumentor() -> None:
 
 def init_huggingface_instrumentor() -> None:
     if importlib.util.find_spec("huggingface_hub") is not None:
-        from ecologits.tracers.huggingface_tracer import HuggingfaceInstrumentor
+        from huggingface_hub import __version__
 
-        instrumentor = HuggingfaceInstrumentor()
-        instrumentor.instrument()
+        if Version(__version__) >= Version('0.22.0'):
+            from ecologits.tracers.huggingface_tracer import HuggingfaceInstrumentor
+
+            instrumentor = HuggingfaceInstrumentor()
+            instrumentor.instrument()
 
 
 def init_cohere_instrumentor() -> None:
