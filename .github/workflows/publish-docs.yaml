@@ -40,4 +40,4 @@ jobs:
 
       # deploy github pages
       - name: Deploy GitHub Pages
-        run: mkdocs gh-deploy --force
+        run: poetry run mkdocs gh-deploy --force
