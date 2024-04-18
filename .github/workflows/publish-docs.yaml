@@ -3,7 +3,7 @@ name: publish-docs
 on:
   push:
     branches:
-      - ci/publish-pypi
+      - main
 
 permissions:
   contents: write

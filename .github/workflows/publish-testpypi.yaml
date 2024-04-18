@@ -3,7 +3,7 @@ name: publish-testpypi
 on:
   push:
     tags:
-      - '*.*.*'
+      - '*.*.*-test.*'
 
 jobs:
   build:
