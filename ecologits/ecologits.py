@@ -8,10 +8,9 @@ class EcoLogits:
 
     @staticmethod
     def init() -> None:
-        if EcoLogits.initialized:
-            raise TracerInitializationError()
-        init_instruments()
-        EcoLogits.initialized = True
+        if not EcoLogits.initialized:
+            init_instruments()
+            EcoLogits.initialized = True
 
 
 def init_instruments() -> None:
