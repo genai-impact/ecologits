@@ -1,7 +1,7 @@
-site_name: GenAI Impact
-
-repo_name: dataforgoodfr/12_genai_impact
-repo_url: https://github.com/dataforgoodfr/12_genai_impact
+site_name: EcoLogits
+site_url: https://ecologits.ai
+repo_name: genai-impact/ecologits
+repo_url: https://github.com/genai-impact/ecologits
 
 
 nav:
