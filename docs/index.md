@@ -1,27 +1,33 @@
 # Getting Started
 
-GenAI Impact is an open-source project built by [Data For Good](https://dataforgood.fr/) to highlight GenAI tools' energy consumption.
+**EcoLogits** tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs.
 
 ## Installation
 
 ```shell
-pip install genai_impact
+pip install ecologits
 ```
 
 
-## Basic example for OpenAI
+## Usage
 
 ```python
-from genai_impact import OpenAI
+from ecologits import EcoLogits
+from openai import OpenAI
 
-client = OpenAI()
+EcoLogits.init()
+
+client = OpenAI(
+    api_key="<OPENAI_API_KEY>",
+)
 
 response = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
-        {"role": "user", "content": "Hello World!"}
+        {"role": "user", "content": "Tell me a funny joke!"}
     ]
 )
 
-print(response.impacts)
+# Get estimated environmental impacts for that inference.
+print(response.impacts)  # Impacts(energy=0.025, energy_unit='Wh', ...)
 ```
