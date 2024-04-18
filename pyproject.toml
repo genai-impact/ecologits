@@ -69,6 +69,7 @@ pytest-asyncio = "^0.23.6"
 optional = true
 
 [tool.poetry.group.docs.dependencies]
+mkdocs = "^1.5.3"
 mkdocs-material = "^9.5.12"
 
 
