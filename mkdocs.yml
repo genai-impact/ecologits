@@ -4,7 +4,12 @@ repo_name: genai-impact/ecologits
 repo_url: https://github.com/genai-impact/ecologits
 
 nav:
-  - 'Getting Started': index.md
+  - 'Get Started':
+    - 'Welcome to EcoLogits': index.md
+  - 'Tutorial': coming_soon.md
+  - 'Methodology': coming_soon.md
+  - 'API Reference': coming_soon.md
+
 
 theme:
   name: material
@@ -24,6 +29,7 @@ theme:
         icon: material/lightbulb
         name: Switch to light mode
   features:
+    - navigation.tabs
     - content.tabs.link
     - content.code.copy
     - content.code.annotate
