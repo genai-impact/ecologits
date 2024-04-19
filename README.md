@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./docs/assets/logo_dark.png">
-    <img alt="EcoLogits" width="500" height="118" src="./docs/assets/logo_light.png">
+    <img alt="EcoLogits" src="./docs/assets/logo_light.png">
   </picture>
 </p>
 
