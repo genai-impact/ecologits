@@ -3,24 +3,23 @@ site_url: https://ecologits.ai
 repo_name: genai-impact/ecologits
 repo_url: https://github.com/genai-impact/ecologits
 
-
 nav:
   - 'Getting Started': index.md
 
-
 theme:
   name: material
-#  logo: assets/logo.png
+  logo: assets/leaf.svg
+  favicon: assets/leaf.svg
   font:
     text: Roboto
   palette:
-    - scheme: default
-      primary: green
+    - scheme: ecologits
+      primary: custom
+      accsent: custom
       toggle:
         icon: material/lightbulb-outline
         name: Switch to dark mode
     - scheme: slate
-      primary: green
       toggle:
         icon: material/lightbulb
         name: Switch to light mode
@@ -29,21 +28,28 @@ theme:
     - content.code.copy
     - content.code.annotate
 
+extra_css:
+  - css/extra.css
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
 
+extra_javascript:
+  - js/katex.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
 
 watch:
   - docs
 
-
 plugins:
   - search
-
 
 markdown_extensions:
   - attr_list
   - md_in_html
   - tables
   - admonition
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -57,4 +63,3 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.tabbed:
       alternate_style: true
-
