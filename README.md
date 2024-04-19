@@ -1,7 +1,9 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./docs/assets/logo_dark.png">
-  <img alt="EcoLogits" width="500" height="118" src="./docs/assets/logo_light.png">
-</picture>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./docs/assets/logo_dark.png">
+    <img alt="EcoLogits" width="500" height="118" src="./docs/assets/logo_light.png">
+  </picture>
+</p>
 
 **EcoLogits** tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs.
 
