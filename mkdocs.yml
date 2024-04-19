@@ -10,7 +10,7 @@ nav:
 
 theme:
   name: material
-  logo: assets/logo.png
+#  logo: assets/logo.png
   font:
     text: Roboto
   palette:
