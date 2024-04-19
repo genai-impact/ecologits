@@ -1,0 +1,32 @@
+/*:root {*/
+/*  --md-primary-fg-color: #0b3b36;*/
+/*  !*--md-primary-fg-color: #0b3b36;*!*/
+/*  !*--md-primary-fg-color--light: #ff0000;*!*/
+/*  !*--md-primary-fg-color--dark: #ffea00;*!*/
+/*  --md-primary-bg-color--light: #0b3b36*/
+/*}*/
+
+/*
+Dark green: 0b3b36
+Light green: 00bf63
+*/
+
+
+[data-md-color-scheme="ecologits"] {
+  --md-primary-fg-color: #0b3b36;
+  --md-typeset-a-color: #00914b;
+  --md-accent-fg-color: #00bf63;
+}
+
+[data-md-color-scheme="ecologits"] img[src$="#only-dark"],
+[data-md-color-scheme="ecologits"] img[src$="#gh-dark-mode-only"] {
+  display: none; /* Hide dark images in light mode */
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #0b3b36;
+  --md-hue: 200;
+  --md-default-fg-color: hsla(var(--md-hue), 15%, 95%, 1);
+  --md-typeset-a-color: #00bf63 !important;
+  --md-accent-fg-color: #008343;
+}
