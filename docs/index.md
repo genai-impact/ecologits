@@ -5,7 +5,7 @@
   ![EcoLogits](assets/logo_dark.png#only-dark)
 </figure>
 
-**EcoLogits** tracks the energy and environmental footprint of using generative AI models through APIs.
+**EcoLogits** tracks the energy consumption and environmental impacts of using generative AI models through APIs.
 
 
 ## Installation
