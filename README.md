@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-**EcoLogits** tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs.
+🌱 **EcoLogits** tracks the energy consumption and environmental impacts of using generative AI models through APIs.
 
 
 ## ⚙️ Installation
