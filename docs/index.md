@@ -1,4 +1,4 @@
-# Getting Started
+#
 
 <figure markdown="span">
   ![EcoLogits](assets/logo_light.png#only-light)
