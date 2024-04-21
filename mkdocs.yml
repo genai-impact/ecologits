@@ -6,9 +6,13 @@ repo_url: https://github.com/genai-impact/ecologits
 nav:
   - 'Get Started':
     - 'Welcome to EcoLogits': index.md
-  - 'Tutorial': coming_soon.md
-  - 'Methodology': coming_soon.md
-  - 'API Reference': coming_soon.md
+    - 'Why use EcoLogits': why.md
+    - 'Supported providers': providers.md
+    - 'Roadmap': roadmap.md
+    - 'Contributing': contributing.md
+  - 'Tutorial': tutorial.md
+  - 'Methodology': methodology.md
+  - 'API Reference': api_reference.md
 
 
 theme:
