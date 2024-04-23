@@ -26,7 +26,7 @@ To install EcoLogits, use the following command:
 pip install ecologits
 ```
 
-For integration with specific Large Language Model (LLM) providers like OpenAI, additional dependencies can be installed using:
+For integration with specific providers like OpenAI, additional dependencies can be installed using:
 
 ```shell
 pip install ecologits[openai]
