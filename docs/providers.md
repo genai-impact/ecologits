@@ -10,5 +10,4 @@
 | Mistral AI      | :material-checkbox-marked-circle:  | :material-checkbox-marked-circle: | :material-checkbox-marked-circle: | :material-checkbox-marked-circle: |
 | OpenAI          | :material-checkbox-marked-circle:  | :material-checkbox-marked-circle: | :material-checkbox-marked-circle: | :material-checkbox-marked-circle: |
 
-[//]: # (TODO: Add anthropic page)
-Partial support for Anthropic streams, see full documentation: [Anthropic provider](anthropic.md).
+Partial support for Anthropic streams, see full documentation: [Anthropic provider](tutorial/providers/anthropic.md).
