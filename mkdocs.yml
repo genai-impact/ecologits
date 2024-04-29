@@ -11,7 +11,7 @@ nav:
     - 'Roadmap': roadmap.md
     - 'Contributing': contributing.md
   - 'Tutorial':
-      - 'Quickstart': tutorial/quickstart.md
+      - 'Introduction': tutorial/introduction.md
       - 'Providers':
           - 'Anthropic': tutorial/providers/anthropic.md
           - 'Cohere': tutorial/providers/cohere.md
