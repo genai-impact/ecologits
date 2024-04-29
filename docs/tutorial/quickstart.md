@@ -11,7 +11,7 @@ It achieves this by **patching the Python client libraries**, ensuring that each
 In the following sections we will didactically demonstrate **how the library works and how you can integrate it in your own projects**. As of today we only support text generation models, but we plan to expand to other modalities (image generation, embeddings for RAG, etc.) in the near future.
 
 
-## Chat completions with OpenAI
+## Chat Completions with OpenAI
 
 An example on how to integrate :seedling: EcoLogits when using OpenAI GPT-3.5-Turbo model. To learn about all integrations with OpenAI, see the following page: [OpenAI provider](providers/openai.md).
 
