@@ -21,7 +21,6 @@ nav:
   - 'Methodology': methodology.md
   - 'API Reference': api_reference.md
 
-
 theme:
   name: material
   logo: assets/leaf.svg
