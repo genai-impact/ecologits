@@ -45,7 +45,7 @@ print(f"Energy consumption: {response.impacts.energy.value} kWh")
 print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
 ```
 
-See package documentation on [EcoLogits](<link-to-mkdocs-material>)
+See package documentation on [EcoLogits](https://ecologits.ai/)
 
 ## 💪 Contributing
 
