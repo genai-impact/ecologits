@@ -136,7 +136,7 @@ def server_energy(
     Returns:
         The energy consumption of the server (GPUs are not included).
     """
-    return (generation_latency / 3600) * server_power * (gpu_required_count / server_gpu_count)
+    return generation_latency * server_power * (gpu_required_count / server_gpu_count)
 
 
 @dag.asset
