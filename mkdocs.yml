@@ -19,7 +19,7 @@ nav:
           - 'Mistral AI': tutorial/providers/mistralai.md
           - 'OpenAI': tutorial/providers/openai.md
   - 'Methodology': methodology.md
-  - 'API Reference': api_reference.md
+  - 'API Reference': reference/
 
 theme:
   name: material
@@ -56,9 +56,29 @@ extra_javascript:
 
 watch:
   - docs
+  - ecologits
 
 plugins:
   - search
+  - autorefs
+  - gen-files:
+      scripts:
+        - docs/scripts/gen_references.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [ ecologits ]
+          options:
+            members_order: source
+            docstring_style: google
+            docstring_options:
+              ignore_init_summary: yes
+            merge_init_into_class: yes
+            inherited_members: true
+
+
 
 markdown_extensions:
   - attr_list

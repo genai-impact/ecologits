@@ -4,10 +4,40 @@ from packaging.version import Version
 
 
 class EcoLogits:
+    """
+    EcoLogits instrumentor to initialize function patching for each provider.
+
+    By default, the initialization will be done on all available and compatible providers that are supported by the
+    library.
+
+    Examples:
+        EcoLogits initialization example with OpenAI.
+        ```python
+        from ecologits import EcoLogits
+        from openai import OpenAI
+
+        EcoLogits.init()
+
+        client = OpenAI(api_key="<OPENAI_API_KEY>")
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "user", "content": "Tell me a funny joke!"}
+            ]
+        )
+
+        # Get estimated environmental impacts of the inference
+        print(f"Energy consumption: {response.impacts.energy.value} kWh")
+        print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
+        ```
+
+    """
+
     initialized = False
 
     @staticmethod
     def init() -> None:
+        """Initialization static method."""
         if not EcoLogits.initialized:
             init_instruments()
             EcoLogits.initialized = True
