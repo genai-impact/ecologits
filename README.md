@@ -11,7 +11,7 @@
 [![Python version](https://img.shields.io/pypi/pyversions/ecologits)](https://pypi.org/project/ecologits/)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1VxrpJ5xuWZKQLsSN12kdqUqkppHRct3G?usp=sharing)
 
-Documentation: [ecologits.ai](https://ecologits.ai/)
+**Documentation: [ecologits.ai](https://ecologits.ai/)**
 
 
 ## ⚙️ Installation
