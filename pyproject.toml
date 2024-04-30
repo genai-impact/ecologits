@@ -15,7 +15,9 @@ maintainers = [
 ]
 license = "MPL-2.0"
 readme = "README.md"
+homepage = "https://ecologits.ai"
 repository = "https://github.com/genai-impact/ecologits"
+documentation = "https://ecologits.ai"
 classifiers = [
     "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
     "Topic :: Internet",
