@@ -15,6 +15,18 @@ def compute_llm_impacts(
     output_token_count: int,
     request_latency: float,
 ) -> Optional[Impacts]:
+    """
+    High-level function to compute the impacts of an LLM generation request.
+
+    Args:
+        provider: Name of the provider.
+        model_name: Name of the LLM used.
+        output_token_count: Number of generated tokens.
+        request_latency: Measured request latency.
+
+    Returns:
+        The impacts of an LLM generation request.
+    """
     model = models.find_model(provider=provider, model_name=model_name)
     if model is None:
         # TODO: Replace with proper logging
