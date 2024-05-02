@@ -1,3 +1,4 @@
+import json
 from math import ceil
 from typing import Optional
 
@@ -136,7 +137,7 @@ def server_energy(
     Returns:
         The energy consumption of the server (GPUs are not included).
     """
-    return generation_latency * server_power * (gpu_required_count / server_gpu_count)
+    return (generation_latency / 3600) * server_power * (gpu_required_count / server_gpu_count)
 
 
 @dag.asset
@@ -422,6 +423,7 @@ def compute_llm_impacts(
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe
     )
+    print(json.dumps(results, indent=4))
     energy = Energy(value=results["request_energy"])
     gwp_usage = GWP(value=results["request_usage_gwp"])
     adpe_usage = ADPe(value=results["request_usage_adpe"])
@@ -446,3 +448,14 @@ def compute_llm_impacts(
             pe=pe_embodied
         )
     )
+
+
+if __name__ == '__main__':
+    impacts = compute_llm_impacts(
+        model_active_parameter_count=45,
+        model_total_parameter_count=45,
+        output_token_count=250,
+        request_latency=10000,
+    )
+    print('Energy:', impacts.energy.value)
+
