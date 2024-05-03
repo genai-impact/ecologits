@@ -17,6 +17,7 @@ nav:
 
 theme:
   name: material
+  custom_dir: docs/theme
   logo: assets/leaf.svg
   favicon: assets/leaf.svg
   font:
@@ -37,6 +38,16 @@ theme:
     - content.tabs.link
     - content.code.copy
     - content.code.annotate
+    - announce.dismiss
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/genai-impact
+      name: GenAI Impact GitHub organization
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/genai-impact/
+      name: GenAI Impact LinkedIn
 
 extra_css:
   - css/extra.css
