@@ -8,7 +8,7 @@
 | Cohere           | `cohere`               | [Guide for Cohere :octicons-link-16:](tutorial/providers/cohere.md)                    |
 | Hugging Face Hub | `huggingface-hub`      | [Guide for Hugging Face Hub :octicons-link-16:](tutorial/providers/huggingface_hub.md) |
 | Mistral AI       | `mistralai`            | [Guide for Mistral AI :octicons-link-16:](tutorial/providers/mistralai.md)             |
-| OpenAI           | `openai`               | [Guide for OpenAI :octicons-link-16:](tutorial/providers/mistralai.md)                 |
+| OpenAI           | `openai`               | [Guide for OpenAI :octicons-link-16:](tutorial/providers/openai.md)                    |
 
 
 ## Chat Completions
