@@ -1,6 +1,6 @@
 # Mistral AI
 
-This guide is focuses on integration :seedling: **EcoLogits** with the [Mistral AI official python client :octicons-link-external-16:](https://github.com/mistralai/client-python).
+This guide is focuses on the integration of :seedling: **EcoLogits** with the [Mistral AI official python client :octicons-link-external-16:](https://github.com/mistralai/client-python).
 
 Official links:
 
