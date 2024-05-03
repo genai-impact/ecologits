@@ -73,8 +73,8 @@ optional = true
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.5.3"
-mkdocs-material = "^9.5.12"
-mkdocstrings = {version = "^0.25.0", extras = ["python"]}
+mkdocs-material = { version = "^9.5.12", extras = ["imaging"] }
+mkdocstrings = { version = "^0.25.0", extras = ["python"] }
 mkdocs-gen-files = "^0.5.0"
 mkdocs-autorefs = "^1.0.1"
 mkdocs-literate-nav = "^0.6.1"

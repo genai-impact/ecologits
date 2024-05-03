@@ -64,6 +64,9 @@ watch:
 
 plugins:
   - search
+  - social:
+      cards_layout_options:
+        background_color: "#0b3b36"
   - autorefs
   - gen-files:
       scripts:
