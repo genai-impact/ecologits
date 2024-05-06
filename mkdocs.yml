@@ -10,10 +10,16 @@ nav:
     - 'Supported providers': providers.md
     - 'Roadmap': roadmap.md
     - 'Contributing': contributing.md
-  - 'Tutorial': tutorial.md
+  - 'Tutorial':
+      - 'Introduction': tutorial/introduction.md
+      - 'Providers':
+          - 'Anthropic': tutorial/providers/anthropic.md
+          - 'Cohere': tutorial/providers/cohere.md
+          - 'Hugging Face Hub': tutorial/providers/huggingface_hub.md
+          - 'Mistral AI': tutorial/providers/mistralai.md
+          - 'OpenAI': tutorial/providers/openai.md
   - 'Methodology': methodology.md
   - 'API Reference': reference/
-
 
 theme:
   name: material
@@ -35,6 +41,7 @@ theme:
         name: Switch to light mode
   features:
     - navigation.tabs
+    - navigation.sections
     - content.tabs.link
     - content.code.copy
     - content.code.annotate

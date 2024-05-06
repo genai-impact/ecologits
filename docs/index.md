@@ -32,7 +32,7 @@ For integration with specific providers like OpenAI, additional dependencies can
 pip install ecologits[openai]
 ```
 
-EcoLogits currently supports the following LLM providers:
+EcoLogits currently supports the following providers:
 
 - `anthropic`
 - `cohere`
@@ -40,14 +40,22 @@ EcoLogits currently supports the following LLM providers:
 - `mistralai`
 - `openai`
 
-Check out the complete list of [supported providers and features](providers.md).
+For detailed instructions on each provider, refer to the complete list of [supported providers and features](providers.md). 
 
+
+??? info "Installation with multiple providers"
+
+    If you need to install extra dependencies for **multiple providers** at once, you can do so by separating them with a comma, like this:
+
+    ```shell
+    pip install ecologits[openai,anthropic]
+    ```
 
 ## Usage Example
 
 Below is a simple example demonstrating how to use the GPT-3.5-Turbo model from OpenAI with EcoLogits to track environmental impacts.
 
-```python hl_lines="5"
+```python
 from ecologits import EcoLogits
 from openai import OpenAI
 
