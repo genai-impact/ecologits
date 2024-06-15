@@ -94,3 +94,4 @@ huggingface_hub,databricks/dolly-v1-6b,6,6,,https://huggingface.co/databricks/do
 huggingface_hub,databricks/dolly-v2-12b,12,12,,https://huggingface.co/databricks/dolly-v2-12b
 huggingface_hub,databricks/dolly-v2-7b,7,7,,https://huggingface.co/databricks/dolly-v2-7b
 huggingface_hub,databricks/dolly-v2-3b,3,3,,https://huggingface.co/databricks/dolly-v2-3b
+google,gemini-1.5-flash,7.3,7.3,model_architecture_not_released,https://deepmind.google/technologies/gemini/flash/

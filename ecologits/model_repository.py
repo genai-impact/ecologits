@@ -11,6 +11,7 @@ class Providers(Enum):
     openai = "openai"
     huggingface_hub = "huggingface_hub"
     cohere = "cohere"
+    google = "google"
 
 
 class Warnings(Enum):
@@ -43,7 +44,9 @@ class ModelRepository:
     @classmethod
     def from_csv(cls, filepath: Optional[str] = None) -> "ModelRepository":
         if filepath is None:
-            filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "models.csv")
+            filepath = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "data", "models.csv"
+            )
         models = []
         with open(filepath) as fd:
             csv = DictReader(fd)
@@ -51,14 +54,18 @@ class ModelRepository:
                 total_parameters = None
                 total_parameters_range = None
                 if ";" in row["total_parameters"]:
-                    total_parameters_range = [float(p) for p in row["total_parameters"].split(";")]
+                    total_parameters_range = [
+                        float(p) for p in row["total_parameters"].split(";")
+                    ]
                 elif row["total_parameters"] != "":
                     total_parameters = float(row["total_parameters"])
 
                 active_parameters = None
                 active_parameters_range = None
                 if ";" in row["active_parameters"]:
-                    active_parameters_range = [float(p) for p in row["active_parameters"].split(";")]
+                    active_parameters_range = [
+                        float(p) for p in row["active_parameters"].split(";")
+                    ]
                 elif row["active_parameters"] != "":
                     active_parameters = float(row["active_parameters"])
 
@@ -70,16 +77,18 @@ class ModelRepository:
                 if row["sources"] != "":
                     sources = row["sources"].split(";")
 
-                models.append(Model(
-                    provider=Providers(row["provider"]).name,
-                    name=row["name"],
-                    total_parameters=total_parameters,
-                    active_parameters=active_parameters,
-                    total_parameters_range=total_parameters_range,
-                    active_parameters_range=active_parameters_range,
-                    warnings=warnings,
-                    sources=sources
-                ))
+                models.append(
+                    Model(
+                        provider=Providers(row["provider"]).name,
+                        name=row["name"],
+                        total_parameters=total_parameters,
+                        active_parameters=active_parameters,
+                        total_parameters_range=total_parameters_range,
+                        active_parameters_range=active_parameters_range,
+                        warnings=warnings,
+                        sources=sources,
+                    )
+                )
         return cls(models)
 
 
