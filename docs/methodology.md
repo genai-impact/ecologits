@@ -17,7 +17,7 @@ Hypotheses:
 - Production-like deployment (quantization + high-end servers) A100
 
 
-The environmental impacts of a request $I_{request}$ will be split into the usage impacts $I_{request}^u$ to account for energy consumption and the embodied impacts $I_{request}^e$ to account for ressource extraction, hardware manufacturing and transportation.
+The environmental impacts of a request $I_{request}$ will be split into the usage impacts $I_{request}^u$ to account for energy consumption and the embodied impacts $I_{request}^e$ to account for resource extraction, hardware manufacturing and transportation.
 
 $$
 \begin{equation*}
@@ -28,7 +28,7 @@ I_{request}&=I_{request}^u  + I_{request}^e \\
 \end{equation*}
 $$
 
-Where $E_{request}$ denotes the energy consumption of the IT ressources in Wh for the request, $F_{em}$ is the impact factor of the electricity consumption that depends on the location and time, $I_{server}^e$ the emboddied impacts of the IT ressources and finally $\frac{\Delta T}{\Delta L}$  is the ratio of usage of hardware a.k.a the computation time over the life time of the hardware.
+Where $E_{request}$ denotes the energy consumption of the IT resources for the request, $F_{em}$ is the impact factor of the electricity consumption that depends on the location and time, $I_{server}^e$ the embodied impacts of the IT resources and finally $\frac{\Delta T}{\Delta L}$  is the ratio of usage of hardware i.e. the computation time over the lifetime of the hardware.
 
 
 ## Usage impacts
