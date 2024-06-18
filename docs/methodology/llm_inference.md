@@ -255,6 +255,11 @@ I^e_{request}=\frac{\Delta T}{\Delta L} * I^e_{server}
 $$
 
 
+### Conclusion
+
+This paper presents a methodology to assess the environmental impacts of Large Language Model (LLM) inference, considering both usage and embodied impacts. We model server and GPU energy consumption based on various parameters and incorporate PUE and electricity mix impact factors. For embodied impacts, we use the BoaviztAPI tool to estimate environmental impacts of IT hardware. Our methodology offers a comprehensive understanding of the environmental footprint of LLM inference, guiding researchers and practitioners towards more sustainable AI practices. Future work may involve refining the methodology and exploring the impacts of multi-modal models or RAG applications.
+
+
 ## References
 
 - [LLM-Perf Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard) to estimate GPU energy consumption and latency based on the model architecture and number of output tokens.
