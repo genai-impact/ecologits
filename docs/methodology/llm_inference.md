@@ -1,7 +1,7 @@
 
 !!! warning "Page still under construction"
 
-    This page is still under construction. If you spot any inaccuracies or have questions on the methodology itself, feel free to contact us.
+    This page is still under construction. If you spot any inaccuracies or have questions on the methodology itself, feel free to open an issue on [GitHub](https://github.com/genai-impact/ecologits/issues/new?assignees=&labels=documentation&title=LLM%20Inference%20Methodology:%20%3CIssue%20Title%3E).
 
 
 !!! warning "Early Publication"
