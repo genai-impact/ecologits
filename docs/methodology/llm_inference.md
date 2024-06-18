@@ -129,7 +129,7 @@ $$
 
 To estimate the number of required GPUs $\#GPU_{required}$ used to load the model in virtual memory we simply use divide the required memory to host the LLM for inference $M_{model}$ by the memory available on one GPU $M_{GPU}$.
 
-The required memory to host the LLM for inference is estimated based on the total number of parameters and the number of bits used for model weights related to quantization. We also apply a memory overhead of $1.2$. [REF]
+The required memory to host the LLM for inference is estimated based on the total number of parameters and the number of bits used for model weights related to quantization. We also apply a memory overhead of $1.2$ (see [Transformers Math 101 :octicons-link-external-16:](https://blog.eleuther.ai/transformer-math/#total-inference-memory)). 
 
 $$
 M_{model}(P_{total},Q)=\frac{P_{total}*Q}{8}*1.2
