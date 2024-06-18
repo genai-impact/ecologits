@@ -268,6 +268,8 @@ This paper presents a methodology to assess the environmental impacts of Large L
 
 ## :material-bookshelf: Citation
 
+Please cite **GenAI Impact** non-profit organization and **link to this documentation page**. 
+
 ```bibtex
 Coming soon...
 ```
