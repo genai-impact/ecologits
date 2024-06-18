@@ -228,7 +228,7 @@ Embodied environmental impacts of the cloud instance:
 
 #### GPU embodied impacts
 
-Boavizta is working internally on a methodology to provide multicriteria embodied impacts for GPU cards. We have access to the numbers computed for a NVIDIA A100 80GB GPU. These numbers will be used to estimate the embodied impacts of a single GPU $I^e_{GPU}$ 
+Boavizta is working internally on a methodology to provide multicriteria embodied impacts for GPU cards. We have access to the numbers computed for a NVIDIA A100 80GB GPU. These numbers will be used to estimate the embodied impacts of a single GPU $I^e_{GPU}$.
 
 |                 | NIDIA A100 80GB  |
 |-----------------|------------------|
@@ -250,7 +250,7 @@ $$
 
 ### Modeling request embodied environmental impacts
 
-To allocate the server embodied impacts to the request we use a allocation based on the hardware utilization factor \frac{\Delta T}{\Delat L}. With \Delta L being the lifetime of the server and GPU fixed to 5 years.
+To allocate the server embodied impacts to the request we use a allocation based on the hardware utilization factor $\frac{\Delta T}{\Delta L}$. With $\Delta L$ being the lifetime of the server and GPU fixed to 5 years.
 
 $$
 I^e_{request}=\frac{\Delta T}{\Delta L} * I^e_{server}
