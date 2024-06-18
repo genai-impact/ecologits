@@ -101,6 +101,9 @@ markdown_extensions:
   - md_in_html
   - tables
   - admonition
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.emoji:
