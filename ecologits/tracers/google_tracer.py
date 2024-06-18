@@ -3,7 +3,6 @@ from typing import Any, Callable, Union
 
 from wrapt import wrap_function_wrapper
 
-from ecologits.impacts import Impacts
 from ecologits.tracers.utils import compute_llm_impacts
 
 try:
@@ -20,23 +19,23 @@ PROVIDER = "google"
 
 
 class GenerateContentResponse(_GenerateContentResponse):
-    def __init__(self, done, iterator, result, impacts, *args, **kwargs):
+    def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None: # noqa: ANN001 ANN002 ANN003
         super().__init__(done, iterator, result, impacts, *args, **kwargs)
         self.impacts = impacts
 
-    def __str__(self):
-        return f"GenerateContentResponse(done={self._done}, iterator={self._iterator}, result={self._result}, impacts={self.impacts})"
+    def __str__(self): # noqa: ANN204
+        return f"GenerateContentResponse(done={self._done}, iterator={self._iterator}, result={self._result}, impacts={self.impacts})" # noqa: E501
 
 
 def google_chat_wrapper(
-    wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any  # noqa: ARG001
+    wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any
 ) -> Union[GenerateContentResponse]:
     return google_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
 
 
 def google_chat_wrapper_non_stream(
     wrapped: Callable,
-    instance: GenerativeModel,  # noqa: ARG001
+    instance: GenerativeModel,
     args: Any,
     kwargs: Any,
 ) -> GenerateContentResponse:
