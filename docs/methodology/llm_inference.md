@@ -54,12 +54,6 @@ We fit a linear regression model on the dataset modeling the energy consumption 
     * For a dense model: $P_{active} = P_{total}$
     * For a SMoE model: $P_{active} =  P_{total} / \text{number of active experts}$
 
-!!! danger "Missing Image"
-
-$$
-\frac{E_{GPU}}{\#T_{out}} = \alpha * P_{active} + \beta
-$$
-
 ??? info "On the LLM Perf Leaderboard dataset filtering"
     
     We have filtered the dataset to keep relevant data points for the analysis. In particular we have applied the following conditions:
@@ -69,6 +63,16 @@ $$
     * GPU model is "NVIDIA A100-SXM4-80GB"
     * No optimization
     * 8bit and 4bit quantization excluding bitsandbytes (bnb)
+
+
+<figure markdown="span">
+  ![Figure: Energy consumption per output token vs. number of active parameters ](../assets/methodology/llm/figure_energy.png)
+  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions)</figcaption>
+</figure>
+
+$$
+\frac{E_{GPU}}{\#T_{out}} = \alpha * P_{active} + \beta
+$$
 
 
 We found $\alpha=8.91e-5$ and $\beta=1.43e-3$. Then we can estimate the energy consumption of the GPU for the whole request given the number of output tokens $\#T_{out}$ and the number of active parameters $P_{active}$.
@@ -100,13 +104,16 @@ The generation latency $\Delta T$ is the duration of the inference measured on t
 
 We fit a linear regression model on the dataset modeling the generation latency per output token given the number of active parameters of the LLM $P_{active}$.
 
-!!! danger "Missing Image"
+<figure markdown="span">
+  ![Figure: Latency per output token vs. number of active parameters ](../assets/methodology/llm/figure_latency.png)
+  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions)</figcaption>
+</figure>
 
 $$
 \frac{\Delta T}{\#T_{out}} = A * P_{active} + B
 $$
 
-We found $A=8.02e-4$ and $\beta=2.23e-2$. Then we can estimate the generation latency for the whole request given the number of output tokens $\#T_{out}$ and the number of active parameters $P_{active}$. When possible we also measure the request latency $\Delta T_{request}$ and use it has maximum bound for the generation latency. 
+We found $A=8.02e-4$ and $B=2.23e-2$. Then we can estimate the generation latency for the whole request given the number of output tokens $\#T_{out}$ and the number of active parameters $P_{active}$. When possible we also measure the request latency $\Delta T_{request}$ and use it has maximum bound for the generation latency. 
 
 $$
 \Delta T(\#T_{out}, P_{active}) = \#T_{out} * (A * P_{active} + B)
