@@ -19,8 +19,8 @@ nav:
           - 'Mistral AI': tutorial/providers/mistralai.md
           - 'OpenAI': tutorial/providers/openai.md
   - 'Methodology':
-      'Introduction': methodology/index.md
-      'LLM Inference': methodology/llm_inference.md
+      - 'Introduction': methodology/index.md
+      - 'LLM Inference': methodology/llm_inference.md
   - 'API Reference': reference/
 
 theme:
