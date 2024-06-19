@@ -19,6 +19,8 @@ openai,gpt-4-turbo-preview,880,110;440,model_architecture_not_released,
 openai,gpt-4-vision-preview,1760,220;880,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit
 openai,gpt-4-turbo,880,110;440,model_architecture_not_released,
 openai,gpt-4-turbo-2024-04-09,880,110;440,model_architecture_not_released,
+openai,gpt-4o,440,55;220,model_architecture_not_released,
+openai,gpt-4o-2024-05-13,440,55;220,model_architecture_not_released,
 mistralai,mistral-large-2402,540,135;540,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
 mistralai,mistral-large-latest,540,135;540,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
 mistralai,mistral-medium,70;180,45;180,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
