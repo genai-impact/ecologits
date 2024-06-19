@@ -18,7 +18,9 @@ nav:
           - 'Hugging Face Hub': tutorial/providers/huggingface_hub.md
           - 'Mistral AI': tutorial/providers/mistralai.md
           - 'OpenAI': tutorial/providers/openai.md
-  - 'Methodology': methodology.md
+  - 'Methodology':
+      - 'Introduction': methodology/index.md
+      - 'LLM Inference': methodology/llm_inference.md
   - 'API Reference': reference/
 
 theme:
@@ -99,6 +101,9 @@ markdown_extensions:
   - md_in_html
   - tables
   - admonition
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.emoji:

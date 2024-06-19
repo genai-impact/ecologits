@@ -13,7 +13,7 @@ interactions:
       content-type:
       - application/json
       host:
-      - api.cohere.ai
+      - api.cohere.com
       user-agent:
       - python-httpx/0.25.2
       x-fern-language:
@@ -23,7 +23,7 @@ interactions:
       x-fern-sdk-version:
       - 5.2.5
     method: POST
-    uri: https://api.cohere.ai/v1/chat
+    uri: https://api.cohere.com/v1/chat
   response:
     body:
       string: '{"response_id":"85411c88-dcf9-4ed8-87f9-d32b2c06edfa","text":"Hello!

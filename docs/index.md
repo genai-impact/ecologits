@@ -90,7 +90,7 @@ Phases:
 - **Usage** (usage): Represents the phase of energy consumption during model execution,
 - **Embodied** (embodied): Encompasses resource extraction, manufacturing, and transportation phases associated with the model's lifecycle.
 
-!!! info "Learn more about environmental impacts assessment in the [methodology](methodology.md) section."
+!!! info "Learn more about environmental impacts assessment in the [methodology](methodology/index.md) section."
 
 
 ## License
