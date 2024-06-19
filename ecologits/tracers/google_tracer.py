@@ -1,5 +1,5 @@
 import time
-from typing import Any, Callable, Union
+from typing import Any, Callable, Iterable
 
 from wrapt import wrap_function_wrapper
 
@@ -27,10 +27,35 @@ class GenerateContentResponse(_GenerateContentResponse):
         return f"GenerateContentResponse(done={self._done}, iterator={self._iterator}, result={self._result}, impacts={self.impacts})" # noqa: E501
 
 
+def wrap_from_dict(response_dict: dict, impacts) -> GenerateContentResponse:
+    # Retrieve the required arguments from the response_dict object
+    done = response_dict.get("_done")
+    iterator = response_dict.get("_iterator")
+    result = response_dict.get("_result")
+
+    # Remove problematic keys from the dictionary, if they exist
+    if "_done" in response_dict:
+        del response_dict["_done"]
+    if "_iterator" in response_dict:
+        del response_dict["_iterator"]
+    if "_result" in response_dict:
+        del response_dict["_result"]
+    if "_chunks" in response_dict:
+        del response_dict["_chunks"]
+    if "_error" in response_dict:
+        del response_dict["_error"]
+
+    return GenerateContentResponse(
+        done, iterator, result, impacts, **response_dict
+    )
+
 def google_chat_wrapper(
     wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any
-) -> Union[GenerateContentResponse]:
-    return google_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
+) -> GenerateContentResponse:
+    if kwargs.get("stream", False):
+        return google_chat_wrapper_stream(wrapped, instance, args, kwargs)
+    else:
+        return google_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
 
 
 def google_chat_wrapper_non_stream(
@@ -51,33 +76,31 @@ def google_chat_wrapper_non_stream(
     )
     if impacts is not None:
         # Convert the response object to a dictionary (model_dump() is not available in the response object)
-        response_dict = response.__dict__
+        response = wrap_from_dict(response.__dict__, impacts)
+    return response
+    
 
-        # Retrieve the required arguments from the response_dict object
-        done = response_dict.get("_done")
-        iterator = response_dict.get("_iterator")
-        result = response_dict.get("_result")
-
-        # Remove problematic keys from the dictionary, if they exist
-        if "_done" in response_dict:
-            del response_dict["_done"]
-        if "_iterator" in response_dict:
-            del response_dict["_iterator"]
-        if "_result" in response_dict:
-            del response_dict["_result"]
-        if "_chunks" in response_dict:
-            del response_dict["_chunks"]
-        if "_error" in response_dict:
-            del response_dict["_error"]
-
-        return GenerateContentResponse(
-            done, iterator, result, impacts, **response_dict
+def google_chat_wrapper_stream(
+    wrapped: Callable,
+    instance: GenerativeModel,
+    args: Any,
+    kwargs: Any,
+) -> Iterable[GenerateContentResponse]:
+    model_name = instance.model_name.replace("models/", "")
+    timer_start = time.perf_counter()
+    stream = wrapped(*args, **kwargs)
+    for chunk in stream:
+        request_latency = time.perf_counter() - timer_start
+        impacts = compute_llm_impacts(
+            provider=PROVIDER,
+            model_name=model_name,  # ?
+            output_token_count=chunk.usage_metadata.total_token_count,
+            request_latency=request_latency,
         )
-    else:
-        return response
+        if impacts is not None:
+            chunk = wrap_from_dict(chunk.__dict__, impacts)
+        yield chunk
 
-
-# TODO def google_chat_wrapper_stream(
 
 # TODO async def google_async_chat_wrapper(
 # TODO async def google_async_chat_wrapper_base(
