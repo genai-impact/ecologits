@@ -100,6 +100,8 @@ huggingface_hub,CohereForAI/c4ai-command-r-v01,35,35,,https://huggingface.co/Coh
 huggingface_hub,CohereForAI/c4ai-command-r-v01-4bit,19.1,19.1,,https://huggingface.co/CohereForAI/c4ai-command-r-v01-4bit
 huggingface_hub,CohereForAI/c4ai-command-r-plus,104,104,,https://huggingface.co/CohereForAI/c4ai-command-r-plus
 huggingface_hub,CohereForAI/c4ai-command-r-plus-4bit,55.1,55.1,,https://huggingface.co/CohereForAI/c4ai-command-r-plus-4bit
+huggingface_hub,CohereForAI/aya-23-8B,8.03,8.03,,https://huggingface.co/CohereForAI/aya-23-8B
+huggingface_hub,CohereForAI/aya-23-35B,35,35,,https://huggingface.co/CohereForAI/aya-23-35B
 huggingface_hub,databricks/dbrx-base,132,36,,https://huggingface.co/databricks/dbrx-base
 huggingface_hub,databricks/dbrx-instruct,132,36,,https://huggingface.co/databricks/dbrx-instruct
 huggingface_hub,databricks/dolly-v1-6b,6,6,,https://huggingface.co/databricks/dolly-v1-6b
