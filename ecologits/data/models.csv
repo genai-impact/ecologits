@@ -76,7 +76,7 @@ huggingface_hub,meta-llama/CodeLlama-13b-Instruct-hf,13,13,,https://huggingface.
 huggingface_hub,meta-llama/CodeLlama-34b-Instruct-hf,33.7,33.7,,https://huggingface.co/meta-llama/CodeLlama-34b-Instruct-hf
 huggingface_hub,meta-llama/CodeLlama-70b-Instruct-hf,69,69,,https://huggingface.co/meta-llama/CodeLlama-70b-Instruct-hf
 huggingface_hub,mistralai/Mistral-7B-v0.1,7.24,7.24,,https://huggingface.co/mistralai/Mistral-7B-v0.1
-huggingface_hub,mistralai/Mistral-7B-v0.3,7.24.7,7.24,,https://huggingface.co/mistralai/Mistral-7B-v0.3
+huggingface_hub,mistralai/Mistral-7B-v0.3,7.24,7.24,,https://huggingface.co/mistralai/Mistral-7B-v0.3
 huggingface_hub,mistralai/Mistral-7B-Instruct-v0.1,7.24,7.24,,https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1
 huggingface_hub,mistralai/Mistral-7B-Instruct-v0.2,7.24,7.24,,https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2
 huggingface_hub,mistralai/Mistral-7B-Instruct-v0.3,7.24,7.24,,https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3
