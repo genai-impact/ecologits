@@ -36,6 +36,8 @@ mistralai,open-mistral-7b,7.3,7.3,,https://docs.mistral.ai/models/#sizes
 mistralai,open-mixtral-8x7b,46.7,46.7,,https://docs.mistral.ai/models/#sizes 
 mistralai,open-mixtral-8x22b,140.6,39.1,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
 mistralai,open-mixtral-8x22b-2404,140.6,39.1,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
+mistralai,codestral-2405,22.2,22.2,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
+mistralai,codestral-latest,22.2,22.2,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
 anthropic,claude-3-opus-20240229,2000,250;1000,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
 anthropic,claude-3-sonnet-20240229,800,100;400,model_architecture_not_released,
 anthropic,claude-3-haiku-20240307,300,75;150,model_architecture_not_released,
