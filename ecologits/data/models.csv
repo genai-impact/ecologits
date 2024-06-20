@@ -40,6 +40,7 @@ mistralai,codestral-2405,22.2,22.2,,https://docs.mistral.ai/getting-started/open
 mistralai,codestral-latest,22.2,22.2,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
 anthropic,claude-3-opus-20240229,2000,250;1000,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
 anthropic,claude-3-sonnet-20240229,800,100;400,model_architecture_not_released,
+anthropic,claude-3-5-sonnet-20240620,800,100;400,model_architecture_not_released,
 anthropic,claude-3-haiku-20240307,300,75;150,model_architecture_not_released,
 anthropic,claude-2.1,130,130,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
 anthropic,claude-2.0,130,130,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
