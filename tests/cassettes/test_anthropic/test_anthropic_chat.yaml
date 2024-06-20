@@ -1,7 +1,7 @@
 interactions:
 - request:
     body: '{"max_tokens": 100, "messages": [{"role": "user", "content": "Hello World!"}],
-      "model": "claude-3-haiku-20240307"}'
+      "model": "claude-3-5-sonnet-20240620"}'
     headers:
       accept:
       - application/json
@@ -12,15 +12,15 @@ interactions:
       connection:
       - keep-alive
       content-length:
-      - '114'
+      - '117'
       content-type:
       - application/json
       host:
       - api.anthropic.com
       user-agent:
-      - Anthropic/Python 0.18.1
+      - Anthropic/Python 0.29.0
       x-stainless-arch:
-      - x64
+      - arm64
       x-stainless-async:
       - 'false'
       x-stainless-lang:
@@ -28,25 +28,27 @@ interactions:
       x-stainless-os:
       - MacOS
       x-stainless-package-version:
-      - 0.18.1
+      - 0.29.0
       x-stainless-runtime:
       - CPython
       x-stainless-runtime-version:
-      - 3.9.18
+      - 3.11.8
     method: POST
     uri: https://api.anthropic.com/v1/messages
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1SOPUvEQBRF/8p4G5uJZLPiwnSiiKKFjeAHEmYnjxh28iab9wYMIf9dsrCF1YVz
-        TnFndA0cemnrcnPf3r28v/FztXu92X/cfsoQHo4TLHQaaK1IxLcEizHFFXiRTtSzwiIkVmKF+5rP
-        vdLvak7j8EgxpgvzpJdiuAtkNJmeSM2U8hWWb4s+NRThEKLPDRXb4sd3h1xUZXVdbssdLETTUI/k
-        JTEciJta88hnIXTMxIHgOMdokU9v3YyOh6y1pgOxwG1Ki5T1H6qW5Q8AAP//AwCtDZkVCwEAAA==
+        H4sIAAAAAAAAA0yQXUvDUAyG/0rMzW7a0X04sTfeiGx4KW6ISDm22XboabI1Ocw69t+ldYJXgSfv
+        8wZyRl9hjo3uimyyudvMH2d3C9bN+v779bSO3cvbMyZo3YH6FKm6HWGCrYQeOFWv5tgwwUYqCphj
+        GVysKJ2lt6kKM1k6zabzbDHNMMFS2IgN8/fzX6nRV68PI8clhSA3sLKRAvuSwAQaIoNO4hiWcoLS
+        Mazg93JPwaRy3QM8EQXYtjQoTmtoCBx3cIyk5oUVpIVA1vOa5QR+C7anlkba52zvedf3jSoIvh5a
+        Kq9l1KvoWgb3KdHGePlIUE0ORUtOhTFH4qqw2DJeF0rHSFwS5hxDSDAOf8vP6PkQrTCpiRXzSZag
+        RPuP5rPL5QcAAP//AwASGTzqlQEAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 868008b87ae8016f-CDG
+      - 896c7b42aad666ce-AMS
       Connection:
       - keep-alive
       Content-Encoding:
@@ -54,7 +56,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 21 Mar 2024 18:34:06 GMT
+      - Thu, 20 Jun 2024 14:34:46 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -64,19 +66,19 @@ interactions:
       anthropic-ratelimit-requests-remaining:
       - '4'
       anthropic-ratelimit-requests-reset:
-      - '2024-03-21T18:35:00Z'
+      - '2024-06-20T14:35:43Z'
       anthropic-ratelimit-tokens-limit:
-      - '25000'
+      - '20000'
       anthropic-ratelimit-tokens-remaining:
-      - '25000'
+      - '20000'
       anthropic-ratelimit-tokens-reset:
-      - '2024-03-21T18:35:00Z'
+      - '2024-06-20T14:35:43Z'
       request-id:
-      - req_01KV5KU4VsALRtYd3BqmjyZs
+      - req_01SmACUx6QLvmd5BaVxLK4Eo
       via:
       - 1.1 google
       x-cloud-trace-context:
-      - 394baab1879793eea863a5934cbe39d8
+      - 5c9beda97b0e29c3071ac01662ca63e1
     status:
       code: 200
       message: OK
