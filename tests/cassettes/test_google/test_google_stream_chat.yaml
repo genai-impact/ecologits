@@ -1,0 +1,204 @@
+interactions:
+- request:
+    body: "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\":
+      \"Write a story about a magic backpack.\"\n        }\n      ]\n    }\n  ],\n
+      \ \"generationConfig\": {}\n}"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '164'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.3
+      x-goog-api-client:
+      - genai-py/0.6.0 gl-python/3.11.8 grpc/1.64.1 gax/2.19.0
+      x-goog-request-params:
+      - model=models/gemini-1.5-flash
+    method: POST
+    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?%24alt=json%3Benum-encoding%3Dint
+  response:
+    body:
+      string: "[{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
+        [\n          {\n            \"text\": \"The\"\n          }\n        ],\n        \"role\":
+        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0\n    }\n
+        \ ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n    \"candidatesTokenCount\":
+        1,\n    \"totalTokenCount\": 9\n  }\n}\n,\r\n{\n  \"candidates\": [\n    {\n
+        \     \"content\": {\n        \"parts\": [\n          {\n            \"text\":
+        \" dusty attic was a haven for forgotten treasures.  Ten-year-old Amelia\"\n
+        \         }\n        ],\n        \"role\": \"model\"\n      },\n      \"finishReason\":
+        1,\n      \"index\": 0,\n      \"safetyRatings\": [\n        {\n          \"category\":
+        9,\n          \"probability\": 1\n        },\n        {\n          \"category\":
+        8,\n          \"probability\": 1\n        },\n        {\n          \"category\":
+        7,\n          \"probability\": 1\n        },\n        {\n          \"category\":
+        10,\n          \"probability\": 1\n        }\n      ]\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 8,\n    \"candidatesTokenCount\": 17,\n    \"totalTokenCount\":
+        25\n  }\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
+        [\n          {\n            \"text\": \" loved rummaging through its cobweb-laden
+        corners, discovering chipped teacups\"\n          }\n        ],\n        \"role\":
+        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 33,\n    \"totalTokenCount\": 41\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \" and faded photographs. But nothing compared to the
+        day she found the backpack. \\n\\nIt was leather, worn and faded, with intricate
+        silver buckles that shimmered\"\n          }\n        ],\n        \"role\":
+        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 65,\n    \"totalTokenCount\": 73\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \" in the dim light.  It felt strangely warm to the
+        touch. Amelia opened it, expecting cobwebs and moth-eaten fabric, but instead,
+        found\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
+        \     \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 97,\n    \"totalTokenCount\": 105\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \" a soft, velvety lining and a single, shimmering gold
+        feather.\\n\\nThat night, Amelia couldn't sleep.  She crept back to the attic
+        and, clutching the feather, whispered a wish: \u201CI wish I could see the
+        world\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
+        \     \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 145,\n    \"totalTokenCount\": 153\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \".\u201D The feather glowed faintly, then vanished.\\n\\nThe
+        next morning, Amelia woke to find her bedroom transformed. The dusty attic
+        furniture was gone, replaced by a vibrant jungle scene.  A parrot perched
+        on her desk, chattering excitedly.  \"\n          }\n        ],\n        \"role\":
+        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 192,\n    \"totalTokenCount\": 200\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \"Amelia stared in awe, then realized the backpack was
+        gone.  She was wearing it!\\n\\nAs the day progressed, Amelia found she could
+        pull out anything she needed from the backpack.  A juicy mango for breakfast,
+        a map of the jungle for exploration, even a pair of butterfly wings to glide
+        through the trees!\"\n          }\n        ],\n        \"role\": \"model\"\n
+        \     },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 256,\n    \"totalTokenCount\": 264\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \"  It was like magic!\\n\\nThe backpack led Amelia
+        on an incredible journey.  She explored ancient ruins, climbed snow-capped
+        mountains, and even swam with dolphins in the ocean. Each experience was a
+        new wonder, each item she needed magically appearing from the backpack.\\n\\nBut
+        with each adventure, the backpack grew heavier\"\n          }\n        ],\n
+        \       \"role\": \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\":
+        0,\n      \"safetyRatings\": [\n        {\n          \"category\": 9,\n          \"probability\":
+        1\n        },\n        {\n          \"category\": 8,\n          \"probability\":
+        1\n        },\n        {\n          \"category\": 7,\n          \"probability\":
+        1\n        },\n        {\n          \"category\": 10,\n          \"probability\":
+        1\n        }\n      ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
+        8,\n    \"candidatesTokenCount\": 319,\n    \"totalTokenCount\": 327\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \".  The constant wish-fulfillment began to weigh on
+        Amelia. She craved the simplicity of her old life, the comfort of her familiar
+        bedroom.  She realized that the magic was a burden, keeping her from true
+        connection, from experiencing life's natural joys and challenges.\\n\\nOne
+        day, Amelia found herself\"\n          }\n        ],\n        \"role\": \"model\"\n
+        \     },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 383,\n    \"totalTokenCount\": 391\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \" standing before a shimmering waterfall.  The backpack
+        pulsed with energy, offering her a ride on a flying carpet.  But Amelia hesitated.
+        \ She took a deep breath and whispered, \\\"I wish I could go home.\\\"  The
+        feather glowed again, and Amelia felt a familiar warmth.\\n\\nWhen she woke,
+        she was\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
+        \     \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 447,\n    \"totalTokenCount\": 455\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \" back in her room, the attic walls surrounding her.
+        \ The backpack sat beside her, empty.  Amelia reached for it, knowing it held
+        no more magic. She smiled, realizing the true magic wasn't in the objects,
+        but in the memories she had created, the experiences that shaped her, and
+        the freedom\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
+        \     \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 511,\n    \"totalTokenCount\": 519\n  }\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \" to choose her own path. \\n\\nThe magic backpack
+        was gone, but the world it opened up remained within her.  She knew she could
+        always find adventure, even in the most ordinary of days, and that sometimes,
+        the greatest magic was in letting go. \\n\"\n          }\n        ],\n        \"role\":
+        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
+        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
+        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
+        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
+        \   \"candidatesTokenCount\": 564,\n    \"totalTokenCount\": 572\n  }\n}\n]"
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Cache-Control:
+      - private
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 21 Jun 2024 16:17:11 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Server-Timing:
+      - gfet4t7; dur=875
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      - X-Origin
+      - Referer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,106 @@
+interactions:
+- request:
+    body: "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\":
+      \"Write a story about a magic backpack.\"\n        }\n      ]\n    }\n  ],\n
+      \ \"generationConfig\": {}\n}"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '164'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.3
+      x-goog-api-client:
+      - genai-py/0.6.0 gl-python/3.11.8 grpc/1.64.1 gax/2.19.0
+      x-goog-request-params:
+      - model=models/gemini-1.5-flash
+    method: POST
+    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint
+  response:
+    body:
+      string: "{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
+        [\n          {\n            \"text\": \"Twelve-year-old Maya had always been
+        a dreamer. She\u2019d spend hours gazing out her window, imagining herself
+        as a fearless explorer, charting uncharted territories. So when her eccentric
+        aunt Agnes gifted her a worn, leather backpack, Maya was ecstatic. Aunt Agnes
+        winked, \\\"This isn't just any backpack, Maya. It's a portal to adventure.\\\"\\n\\nThe
+        backpack was indeed peculiar. It was heavier than it looked, the leather smelling
+        of ancient woods and distant seas. Maya, skeptical but excited, packed it
+        with her favorite travel journal and a compass, just in case. She went to
+        bed dreaming of distant lands and wild creatures.\\n\\nThe next morning, Maya
+        woke with a strange feeling. The backpack, nestled beside her bed, pulsed
+        faintly. Reaching for it, she felt a jolt of energy. As she opened it, a swirling
+        mist erupted, filling her room with the scent of pine and salt. When the mist
+        cleared, a tiny, furry creature with luminous green eyes stared back at her.\\n\\n\\\"Greetings,
+        young traveler,\\\" it chirped in a voice that sounded like wind chimes. \\\"I
+        am Lumi, your guide.\\\"\\n\\nMaya's jaw dropped. \\\"A talking squirrel?\\\"\\n\\nLumi
+        chuckled, his tiny body shaking. \\\"Not a squirrel, dear Maya. A Lumis, a
+        magical being bound to this backpack. It's your gateway to the World of Whispers,
+        a place where imagination takes flight.\\\"\\n\\nMaya, still stunned, decided
+        to trust Lumi. He led her to the attic, where a dusty map hung on the wall.
+        \\\"This map,\\\" Lumi explained, \\\"holds the key to the World of Whispers.
+        Each location on the map is a portal to a new adventure.\\\"\\n\\nThe first
+        adventure took them to a shimmering meadow where talking flowers sang whimsical
+        songs. The next, to a snowy mountain where Maya learned to speak with the
+        wind. Each experience filled her with wonder, teaching her valuable lessons
+        about friendship, courage, and the power of imagination.\\n\\nAs Maya explored,
+        she realised the backpack wasn't just a portal to different places, it was
+        a portal to different versions of herself. In one world, she was a fearless
+        warrior, in another, a brilliant scientist. Each experience challenged her,
+        pushed her boundaries, and made her stronger.\\n\\nOne day, Maya found herself
+        in a dark, desolate land. The air was thick with despair. The inhabitants
+        were trapped in a cycle of fear and distrust. She realised that the magic
+        of the backpack was not just about adventure, but also about using her imagination
+        to make a difference.\\n\\nMaya, with Lumi's help, found a way to restore
+        hope to the land. She used her courage and wisdom, learned through her adventures,
+        to unite the people and create a brighter future.\\n\\nReturning home, Maya
+        realized that the backpack wasn't just a magical object, it was a symbol of
+        her own potential. She learned that adventure wasn't about escaping reality,
+        but about facing it with an open heart and an adventurous spirit. And she
+        knew that no matter where she went, the magic of the backpack and the lessons
+        she learned would always be with her, guiding her on her journey of discovery.
+        \\n\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"finishReason\":
+        1,\n      \"index\": 0,\n      \"safetyRatings\": [\n        {\n          \"category\":
+        9,\n          \"probability\": 1\n        },\n        {\n          \"category\":
+        8,\n          \"probability\": 1\n        },\n        {\n          \"category\":
+        7,\n          \"probability\": 1\n        },\n        {\n          \"category\":
+        10,\n          \"probability\": 1\n        }\n      ]\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 8,\n    \"candidatesTokenCount\": 649,\n    \"totalTokenCount\":
+        657\n  }\n}\n"
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Cache-Control:
+      - private
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 21 Jun 2024 16:15:09 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Server-Timing:
+      - gfet4t7; dur=7600
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      - X-Origin
+      - Referer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+version: 1
