@@ -1,8 +1,8 @@
 interactions:
 - request:
     body: "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\":
-      \"Write a story about a magic backpack.\"\n        }\n      ]\n    }\n  ],\n
-      \ \"generationConfig\": {}\n}"
+      \"Write a story about a magic backpack.\"\n        }\n      ],\n      \"role\":
+      \"user\"\n    }\n  ],\n  \"generationConfig\": {}\n}"
     headers:
       Accept:
       - '*/*'
@@ -11,166 +11,55 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '164'
+      - '186'
       Content-Type:
       - application/json
       User-Agent:
       - python-requests/2.32.3
       x-goog-api-client:
-      - genai-py/0.6.0 gl-python/3.11.8 grpc/1.64.1 gax/2.19.0
+      - genai-py/0.7.0 gl-python/3.11.8 grpc/1.64.1 gax/2.19.0
       x-goog-request-params:
       - model=models/gemini-1.5-flash
     method: POST
     uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?%24alt=json%3Benum-encoding%3Dint
   response:
     body:
-      string: "[{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
-        [\n          {\n            \"text\": \"The\"\n          }\n        ],\n        \"role\":
-        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0\n    }\n
-        \ ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n    \"candidatesTokenCount\":
-        1,\n    \"totalTokenCount\": 9\n  }\n}\n,\r\n{\n  \"candidates\": [\n    {\n
-        \     \"content\": {\n        \"parts\": [\n          {\n            \"text\":
-        \" dusty attic was a haven for forgotten treasures.  Ten-year-old Amelia\"\n
-        \         }\n        ],\n        \"role\": \"model\"\n      },\n      \"finishReason\":
-        1,\n      \"index\": 0,\n      \"safetyRatings\": [\n        {\n          \"category\":
-        9,\n          \"probability\": 1\n        },\n        {\n          \"category\":
-        8,\n          \"probability\": 1\n        },\n        {\n          \"category\":
-        7,\n          \"probability\": 1\n        },\n        {\n          \"category\":
-        10,\n          \"probability\": 1\n        }\n      ]\n    }\n  ],\n  \"usageMetadata\":
-        {\n    \"promptTokenCount\": 8,\n    \"candidatesTokenCount\": 17,\n    \"totalTokenCount\":
-        25\n  }\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
-        [\n          {\n            \"text\": \" loved rummaging through its cobweb-laden
-        corners, discovering chipped teacups\"\n          }\n        ],\n        \"role\":
-        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 33,\n    \"totalTokenCount\": 41\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \" and faded photographs. But nothing compared to the
-        day she found the backpack. \\n\\nIt was leather, worn and faded, with intricate
-        silver buckles that shimmered\"\n          }\n        ],\n        \"role\":
-        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 65,\n    \"totalTokenCount\": 73\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \" in the dim light.  It felt strangely warm to the
-        touch. Amelia opened it, expecting cobwebs and moth-eaten fabric, but instead,
-        found\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
-        \     \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 97,\n    \"totalTokenCount\": 105\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \" a soft, velvety lining and a single, shimmering gold
-        feather.\\n\\nThat night, Amelia couldn't sleep.  She crept back to the attic
-        and, clutching the feather, whispered a wish: \u201CI wish I could see the
-        world\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
-        \     \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 145,\n    \"totalTokenCount\": 153\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \".\u201D The feather glowed faintly, then vanished.\\n\\nThe
-        next morning, Amelia woke to find her bedroom transformed. The dusty attic
-        furniture was gone, replaced by a vibrant jungle scene.  A parrot perched
-        on her desk, chattering excitedly.  \"\n          }\n        ],\n        \"role\":
-        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 192,\n    \"totalTokenCount\": 200\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \"Amelia stared in awe, then realized the backpack was
-        gone.  She was wearing it!\\n\\nAs the day progressed, Amelia found she could
-        pull out anything she needed from the backpack.  A juicy mango for breakfast,
-        a map of the jungle for exploration, even a pair of butterfly wings to glide
-        through the trees!\"\n          }\n        ],\n        \"role\": \"model\"\n
-        \     },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 256,\n    \"totalTokenCount\": 264\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \"  It was like magic!\\n\\nThe backpack led Amelia
-        on an incredible journey.  She explored ancient ruins, climbed snow-capped
-        mountains, and even swam with dolphins in the ocean. Each experience was a
-        new wonder, each item she needed magically appearing from the backpack.\\n\\nBut
-        with each adventure, the backpack grew heavier\"\n          }\n        ],\n
-        \       \"role\": \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\":
-        0,\n      \"safetyRatings\": [\n        {\n          \"category\": 9,\n          \"probability\":
-        1\n        },\n        {\n          \"category\": 8,\n          \"probability\":
-        1\n        },\n        {\n          \"category\": 7,\n          \"probability\":
-        1\n        },\n        {\n          \"category\": 10,\n          \"probability\":
-        1\n        }\n      ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
-        8,\n    \"candidatesTokenCount\": 319,\n    \"totalTokenCount\": 327\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \".  The constant wish-fulfillment began to weigh on
-        Amelia. She craved the simplicity of her old life, the comfort of her familiar
-        bedroom.  She realized that the magic was a burden, keeping her from true
-        connection, from experiencing life's natural joys and challenges.\\n\\nOne
-        day, Amelia found herself\"\n          }\n        ],\n        \"role\": \"model\"\n
-        \     },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 383,\n    \"totalTokenCount\": 391\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \" standing before a shimmering waterfall.  The backpack
-        pulsed with energy, offering her a ride on a flying carpet.  But Amelia hesitated.
-        \ She took a deep breath and whispered, \\\"I wish I could go home.\\\"  The
-        feather glowed again, and Amelia felt a familiar warmth.\\n\\nWhen she woke,
-        she was\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
-        \     \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 447,\n    \"totalTokenCount\": 455\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \" back in her room, the attic walls surrounding her.
-        \ The backpack sat beside her, empty.  Amelia reached for it, knowing it held
-        no more magic. She smiled, realizing the true magic wasn't in the objects,
-        but in the memories she had created, the experiences that shaped her, and
-        the freedom\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
-        \     \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 511,\n    \"totalTokenCount\": 519\n  }\n}\n,\r\n{\n
-        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \" to choose her own path. \\n\\nThe magic backpack
-        was gone, but the world it opened up remained within her.  She knew she could
-        always find adventure, even in the most ordinary of days, and that sometimes,
-        the greatest magic was in letting go. \\n\"\n          }\n        ],\n        \"role\":
-        \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n
-        \   \"candidatesTokenCount\": 564,\n    \"totalTokenCount\": 572\n  }\n}\n]"
+      string: !!binary |
+        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
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
@@ -181,11 +70,11 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Fri, 21 Jun 2024 16:17:11 GMT
+      - Fri, 21 Jun 2024 16:52:39 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=875
+      - gfet4t7; dur=1023
       Transfer-Encoding:
       - chunked
       Vary:
