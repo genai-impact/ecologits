@@ -39,6 +39,7 @@ EcoLogits currently supports the following providers:
 - `huggingface-hub` (Hugging Face Inference Endpoints)
 - `mistralai`
 - `openai`
+- `google-generativeai`
 
 For detailed instructions on each provider, refer to the complete list of [supported providers and features](providers.md). 
 
