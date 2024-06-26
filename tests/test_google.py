@@ -11,7 +11,7 @@ def test_google_chat(tracer_init):
     assert response.impacts.energy.value > 0
 
 
-# See https://github.com/genai-impact/ecologits/pull/50
+# See https://github.com/genai-impact/ecologits/issues/54
 # @pytest.mark.vcr
 # @pytest.mark.asyncio
 # async def test_google_async_chat(tracer_init):
@@ -34,7 +34,7 @@ def test_google_stream_chat(tracer_init):
         assert chunk.impacts.energy.value > 0
 
 
-# See https://github.com/genai-impact/ecologits/pull/50
+# See https://github.com/genai-impact/ecologits/issues/54
 # @pytest.mark.vcr
 # @pytest.mark.asyncio
 # async def test_google_async_stream_chat(tracer_init):
