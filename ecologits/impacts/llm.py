@@ -1,8 +1,9 @@
+import math
 from math import ceil
 from typing import Optional
 
 from ecologits.impacts.dag import DAG
-from ecologits.impacts.models import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
+from ecologits.impacts.models import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage, ValueOrRange, RangeValue
 
 MODEL_QUANTIZATION_BITS = 4
 
@@ -365,7 +366,7 @@ def compute_llm_impacts(
     if_electricity_mix_gwp: Optional[float] = IF_ELECTRICITY_MIX_GWP,
     if_electricity_mix_adpe: Optional[float] = IF_ELECTRICITY_MIX_ADPE,
     if_electricity_mix_pe: Optional[float] = IF_ELECTRICITY_MIX_PE,
-) -> Impacts:
+) -> dict[str, float]:
     """
     Compute the impacts of an LLM generation request.
 
@@ -422,6 +423,49 @@ def compute_llm_impacts(
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe
     )
+    return results
+
+
+def llm_impacts(
+    model_active_parameter_count: ValueOrRange,
+    model_total_parameter_count: ValueOrRange,
+    output_token_count: float,
+    request_latency: Optional[float] = None,
+    **kwargs
+) -> Impacts:
+    if request_latency is None:
+        request_latency = math.inf
+
+    active_params = [model_active_parameter_count]
+    total_params = [model_total_parameter_count]
+
+    if isinstance(model_active_parameter_count, RangeValue) or isinstance(model_total_parameter_count, RangeValue):
+        if isinstance(model_active_parameter_count, RangeValue):
+            active_params = [model_active_parameter_count.min, model_active_parameter_count.max]
+        else:
+            active_params = [model_active_parameter_count, model_active_parameter_count]
+        if isinstance(model_total_parameter_count, RangeValue):
+            total_params = [model_total_parameter_count.min, model_total_parameter_count.max]
+        else:
+            total_params = [model_total_parameter_count, model_total_parameter_count]
+
+    results = {}
+    fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
+              "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
+    for act_param, tot_param in zip(active_params, total_params):
+        res = compute_llm_impacts(
+            model_active_parameter_count=act_param,
+            model_total_parameter_count=tot_param,
+            output_token_count=output_token_count,
+            request_latency=request_latency,
+            **kwargs
+        )
+        for field in fields:
+            if field in results:
+                results[field] = RangeValue(min=results[field], max=res[field])
+            else:
+                results[field] = res[field]
+
     energy = Energy(value=results["request_energy"])
     gwp_usage = GWP(value=results["request_usage_gwp"])
     adpe_usage = ADPe(value=results["request_usage_adpe"])
@@ -446,3 +490,16 @@ def compute_llm_impacts(
             pe=pe_embodied
         )
     )
+
+
+if __name__ == '__main__':
+    import json
+
+    impacts = llm_impacts(
+        model_active_parameter_count=RangeValue(min=5, max=10),
+        model_total_parameter_count=RangeValue(min=15, max=25),
+        output_token_count=100
+    )
+    print(impacts)
+    print(json.dumps(impacts.model_dump(), indent=4))
+
