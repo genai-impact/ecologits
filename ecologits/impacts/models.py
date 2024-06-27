@@ -1,6 +1,50 @@
-from pydantic import BaseModel
+from functools import total_ordering
+from typing import Union
+from typing_extensions import Self
+
+from pydantic import BaseModel, model_validator
 
 
+@total_ordering
+class RangeValue(BaseModel):
+    min: float
+    max: float
+
+    @model_validator(mode='after')
+    def check_order(self) -> Self:
+        if self.min > self.max:
+            raise ValueError('min value must be lower than max value')
+        return self
+
+    def __add__(self, other):
+        if isinstance(other, RangeValue):
+            return RangeValue(
+                min=self.min + other.min,
+                max=self.max + other.max,
+            )
+        else:
+            return RangeValue(
+                min=self.min + other,
+                max=self.max + other
+            )
+
+    def __lt__(self, other):
+        if isinstance(other, RangeValue):
+            return self.max < other.min
+        else:
+            return self.max < other and self.min < other
+
+    def __eq__(self, other):
+        if isinstance(other, RangeValue):
+            return self.min == other.min and self.max == other.max
+        else:
+            return self.min == other and self.max == other
+
+
+ValueOrRange = Union[float, RangeValue]
+
+
+@total_ordering
 class Impact(BaseModel):
     """
     Base impact data model.
@@ -13,7 +57,7 @@ class Impact(BaseModel):
     """
     type: str
     name: str
-    value: float
+    value: ValueOrRange
     unit: str
 
     def __add__(self, other: "Impact") -> "Impact":
@@ -27,6 +71,12 @@ class Impact(BaseModel):
             value=self.value + other.value,
             unit=self.unit
         )
+
+    def __lt__(self, other):
+        return self.value < other.value
+
+    def __eq__(self, other):
+        return self.value == other.value
 
 
 class Energy(Impact):

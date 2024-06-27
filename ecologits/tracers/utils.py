@@ -1,7 +1,7 @@
 from typing import Optional
 
-from ecologits.impacts.llm import compute_llm_impacts as _compute_llm_impacts
-from ecologits.impacts.models import Impacts
+from ecologits.impacts.llm import llm_impacts
+from ecologits.impacts.models import Impacts, RangeValue
 from ecologits.model_repository import models
 
 
@@ -32,9 +32,11 @@ def compute_llm_impacts(
         # TODO: Replace with proper logging
         print(f"Could not find model `{model_name}` for {provider} provider.")
         return None
-    model_active_params = model.active_parameters or _avg(model.active_parameters_range)    # TODO: handle ranges
-    model_total_params = model.total_parameters or _avg(model.total_parameters_range)       # TODO: handle ranges
-    return _compute_llm_impacts(
+    model_active_params = model.active_parameters \
+        or RangeValue(min=model.active_parameters_range[0], max=model.active_parameters_range[1])
+    model_total_params = model.total_parameters \
+        or RangeValue(min=model.total_parameters_range[0], max=model.total_parameters_range[1])
+    return llm_impacts(
         model_active_parameter_count=model_active_params,
         model_total_parameter_count=model_total_params,
         output_token_count=output_token_count,
