@@ -85,7 +85,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     model = genai.GenerativeModel("gemini-1.5-flash")
     stream = model.generate_content(
         "Write a story about a magic backpack.", 
-        stream = True
+        stream=True
     )
 
     # Get cumulative estimated environmental impacts of the inference
@@ -109,7 +109,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
         model = genai.GenerativeModel("gemini-1.5-flash")
         stream = await model.generate_content_async(
             "Write a story about a magic backpack.", 
-            stream = True
+            stream=True
         )
 
         # Get cumulative estimated environmental impacts of the inference
