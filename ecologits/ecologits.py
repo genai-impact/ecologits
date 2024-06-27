@@ -49,6 +49,7 @@ def init_instruments() -> None:
     init_mistralai_instrumentor()
     init_huggingface_instrumentor()
     init_cohere_instrumentor()
+    init_google_instrumentor()
 
 
 def init_openai_instrumentor() -> None:
@@ -91,4 +92,12 @@ def init_cohere_instrumentor() -> None:
         from ecologits.tracers.cohere_tracer import CohereInstrumentor
 
         instrumentor = CohereInstrumentor()
+        instrumentor.instrument()
+
+
+def init_google_instrumentor() -> None:
+    if importlib.util.find_spec("google") is not None:
+        from ecologits.tracers.google_tracer import GoogleInstrumentor
+
+        instrumentor = GoogleInstrumentor()
         instrumentor.instrument()

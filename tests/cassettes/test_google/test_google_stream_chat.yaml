@@ -1,0 +1,93 @@
+interactions:
+- request:
+    body: "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\":
+      \"Write a story about a magic backpack.\"\n        }\n      ],\n      \"role\":
+      \"user\"\n    }\n  ],\n  \"generationConfig\": {}\n}"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '186'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.3
+      x-goog-api-client:
+      - genai-py/0.7.0 gl-python/3.11.8 grpc/1.64.1 gax/2.19.0
+      x-goog-request-params:
+      - model=models/gemini-1.5-flash
+    method: POST
+    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?%24alt=json%3Benum-encoding%3Dint
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Cache-Control:
+      - private
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 21 Jun 2024 16:52:39 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Server-Timing:
+      - gfet4t7; dur=1023
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      - X-Origin
+      - Referer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+version: 1

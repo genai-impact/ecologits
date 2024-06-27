@@ -1,0 +1,87 @@
+interactions:
+- request:
+    body: "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\":
+      \"Write a story about a magic backpack.\"\n        }\n      ],\n      \"role\":
+      \"user\"\n    }\n  ],\n  \"generationConfig\": {}\n}"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '186'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.3
+      x-goog-api-client:
+      - genai-py/0.7.0 gl-python/3.11.8 grpc/1.64.1 gax/2.19.0
+      x-goog-request-params:
+      - model=models/gemini-1.5-flash
+    method: POST
+    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Cache-Control:
+      - private
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 21 Jun 2024 16:52:34 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Server-Timing:
+      - gfet4t7; dur=7383
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      - X-Origin
+      - Referer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+version: 1
