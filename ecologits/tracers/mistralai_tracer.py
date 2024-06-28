@@ -5,7 +5,7 @@ from typing import Any, Callable
 from wrapt import wrap_function_wrapper
 
 from ecologits.impacts.models import Impacts
-from ecologits.tracers.utils import compute_llm_impacts
+from ecologits.tracers.utils import llm_impacts
 
 try:
     from mistralai.async_client import MistralAsyncClient
@@ -41,7 +41,7 @@ def mistralai_chat_wrapper(
     timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=response.model,
         output_token_count=response.usage.completion_tokens,
@@ -64,7 +64,7 @@ def mistralai_chat_wrapper_stream_wrapper(
             token_count += 1
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
-        impacts = compute_llm_impacts(
+        impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,
             output_token_count=token_count,
@@ -85,7 +85,7 @@ async def mistralai_async_chat_wrapper(
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=response.model,
         output_token_count=response.usage.completion_tokens,
@@ -111,7 +111,7 @@ async def mistralai_async_chat_wrapper_stream_wrapper(
             token_count = chunk.usage.completion_tokens
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
-        impacts = compute_llm_impacts(
+        impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,
             output_token_count=token_count,

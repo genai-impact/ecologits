@@ -6,7 +6,7 @@ from typing import Any, Callable, Union
 from wrapt import wrap_function_wrapper
 
 from ecologits.impacts.models import Impacts
-from ecologits.tracers.utils import compute_llm_impacts
+from ecologits.tracers.utils import llm_impacts
 
 try:
     import tiktoken
@@ -62,7 +62,7 @@ def huggingface_chat_wrapper_non_stream(
     request_latency = time.perf_counter() - timer_start
     encoder = tiktoken.get_encoding("cl100k_base")
     output_tokens = len(encoder.encode(response.choices[0].message.content))
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=instance.model,
         output_token_count=output_tokens,
@@ -86,7 +86,7 @@ def huggingface_chat_wrapper_stream(
     for chunk in stream:
         token_count += 1
         request_latency = time.perf_counter() - timer_start
-        impacts = compute_llm_impacts(
+        impacts = llm_impacts(
             provider=PROVIDER,
             model_name=instance.model,
             output_token_count=token_count,
@@ -121,7 +121,7 @@ async def huggingface_async_chat_wrapper_non_stream(
     request_latency = time.perf_counter() - timer_start
     encoder = tiktoken.get_encoding("cl100k_base")
     output_tokens = len(encoder.encode(response.choices[0].message.content))
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=instance.model,
         output_token_count=output_tokens,
@@ -145,7 +145,7 @@ async def huggingface_async_chat_wrapper_stream(
     async for chunk in stream:
         token_count += 1
         request_latency = time.perf_counter() - timer_start
-        impacts = compute_llm_impacts(
+        impacts = llm_impacts(
             provider=PROVIDER,
             model_name=instance.model,
             output_token_count=token_count,

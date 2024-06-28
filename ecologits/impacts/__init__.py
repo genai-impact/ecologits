@@ -1,7 +1,7 @@
-from .llm import llm_impacts
+from .llm import compute_llm_impacts
 from .models import Impacts
 
 __all__ = [
     "Impacts",
-    "llm_impacts"
+    "compute_llm_impacts"
 ]

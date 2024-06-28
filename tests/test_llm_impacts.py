@@ -3,7 +3,7 @@ import pytest
 import numpy as np
 from operator import gt, ge
 
-from ecologits.impacts.llm import llm_impacts
+from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.models import Impacts, Energy, GWP, ADPe, PE, Usage, Embodied
 
 
@@ -14,11 +14,11 @@ from ecologits.impacts.models import Impacts, Energy, GWP, ADPe, PE, Usage, Embo
         (12.9, 46.7, 200, 10)       # Mixtral 8x7B
     ]
 )
-def test_llm_impacts(model_active_parameter_count: float,
-                     model_total_parameter_count: float,
-                     output_token_count: int,
-                     request_latency: float) -> None:
-    impacts = llm_impacts(
+def test_compute_llm_impacts(model_active_parameter_count: float,
+                             model_total_parameter_count: float,
+                             output_token_count: int,
+                             request_latency: float) -> None:
+    impacts = compute_llm_impacts(
         model_active_parameter_count=model_active_parameter_count,
         model_total_parameter_count=model_total_parameter_count,
         output_token_count=output_token_count,
@@ -72,7 +72,7 @@ def test_compute_llm_impacts_monotonicity_on_parameters():
     prev_impacts = zero_impacts.model_copy(deep=True)
 
     for total_parameters in np.logspace(-4, 4, num=20):
-        impacts = llm_impacts(
+        impacts = compute_llm_impacts(
             model_active_parameter_count=total_parameters,
             model_total_parameter_count=total_parameters,
             output_token_count=100,
@@ -83,7 +83,7 @@ def test_compute_llm_impacts_monotonicity_on_parameters():
 
         prev_impacts_moe = zero_impacts.model_copy(deep=True)
         for active_parameters in np.linspace(start=total_parameters/10, stop=total_parameters, num=10):
-            impacts_moe = llm_impacts(
+            impacts_moe = compute_llm_impacts(
                 model_active_parameter_count=active_parameters,
                 model_total_parameter_count=total_parameters,
                 output_token_count=100,

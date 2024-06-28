@@ -342,7 +342,7 @@ def request_embodied_pe(
     return (generation_latency / server_lifetime) * server_gpu_embodied_pe
 
 
-def compute_llm_impacts(
+def compute_llm_impacts_dag(
     model_active_parameter_count: float,
     model_total_parameter_count: float,
     output_token_count: float,
@@ -426,7 +426,7 @@ def compute_llm_impacts(
     return results
 
 
-def llm_impacts(
+def compute_llm_impacts(
     model_active_parameter_count: ValueOrRange,
     model_total_parameter_count: ValueOrRange,
     output_token_count: float,
@@ -453,7 +453,7 @@ def llm_impacts(
     fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
               "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
     for act_param, tot_param in zip(active_params, total_params):
-        res = compute_llm_impacts(
+        res = compute_llm_impacts_dag(
             model_active_parameter_count=act_param,
             model_total_parameter_count=tot_param,
             output_token_count=output_token_count,
@@ -490,16 +490,3 @@ def llm_impacts(
             pe=pe_embodied
         )
     )
-
-
-if __name__ == '__main__':
-    import json
-
-    impacts = llm_impacts(
-        model_active_parameter_count=RangeValue(min=5, max=10),
-        model_total_parameter_count=RangeValue(min=15, max=25),
-        output_token_count=100
-    )
-    print(impacts)
-    print(json.dumps(impacts.model_dump(), indent=4))
-
