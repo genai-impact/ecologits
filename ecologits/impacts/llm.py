@@ -1,6 +1,6 @@
 import math
 from math import ceil
-from typing import Optional
+from typing import Optional, Any
 
 from ecologits.impacts.dag import DAG
 from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage, ValueOrRange, RangeValue
@@ -431,7 +431,7 @@ def compute_llm_impacts(
     model_total_parameter_count: ValueOrRange,
     output_token_count: float,
     request_latency: Optional[float] = None,
-    **kwargs
+    **kwargs: Any
 ) -> Impacts:
     """
     Compute the impacts of an LLM generation request.
