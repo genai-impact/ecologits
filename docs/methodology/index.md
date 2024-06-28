@@ -1,4 +1,4 @@
-# Introduction
+# Methodology
 
 ## Evaluation methodologies
 
