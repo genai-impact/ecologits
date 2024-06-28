@@ -9,6 +9,13 @@ from ecologits.exceptions import ModelingError
 
 @total_ordering
 class RangeValue(BaseModel):
+    """
+    RangeValue data model to represent intervals.
+
+    Attributes:
+        min: Lower bound of the interval.
+        max: Upper bound of the interval.
+    """
     min: float
     max: float
 

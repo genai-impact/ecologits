@@ -368,7 +368,7 @@ def compute_llm_impacts_dag(
     if_electricity_mix_pe: Optional[float] = IF_ELECTRICITY_MIX_PE,
 ) -> dict[str, float]:
     """
-    Compute the impacts of an LLM generation request.
+    Compute the impacts dag of an LLM generation request.
 
     Args:
         model_active_parameter_count: Number of active parameters of the model.
@@ -396,7 +396,7 @@ def compute_llm_impacts_dag(
         if_electricity_mix_pe: PE impact factor of electricity consumption.
 
     Returns:
-        The impacts of an LLM generation request.
+        The impacts dag with all intermediate states.
     """
     results = dag.execute(
         model_active_parameter_count=model_active_parameter_count,
@@ -433,6 +433,19 @@ def compute_llm_impacts(
     request_latency: Optional[float] = None,
     **kwargs
 ) -> Impacts:
+    """
+    Compute the impacts of an LLM generation request.
+
+    Args:
+        model_active_parameter_count: Number of active parameters of the model.
+        model_total_parameter_count: Number of total parameters of the model.
+        output_token_count: Number of generated tokens.
+        request_latency: Measured request latency.
+        **kwargs: Any other optional parameter.
+
+    Returns:
+        The impacts of an LLM generation request.
+    """
     if request_latency is None:
         request_latency = math.inf
 
