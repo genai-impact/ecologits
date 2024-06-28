@@ -4,6 +4,8 @@ from typing_extensions import Self
 
 from pydantic import BaseModel, model_validator
 
+from ecologits.exceptions import ModelingError
+
 
 @total_ordering
 class RangeValue(BaseModel):
@@ -28,20 +30,26 @@ class RangeValue(BaseModel):
                 max=self.max + other
             )
 
-    def __lt__(self, other):
-        if isinstance(other, RangeValue):
-            return self.max < other.min
-        else:
-            return self.max < other and self.min < other
-
     def __eq__(self, other):
         if isinstance(other, RangeValue):
             return self.min == other.min and self.max == other.max
         else:
             return self.min == other and self.max == other
 
+    def __le__(self, other):
+        if isinstance(other, RangeValue):
+            return self.max <= other.min
+        else:
+            return self.max <= other and self.min <= other
 
-ValueOrRange = Union[float, RangeValue]
+    def __ge__(self, other):
+        if isinstance(other, RangeValue):
+            return self.max >= other.min
+        else:
+            return self.max >= other and self.min >= other
+
+
+ValueOrRange = Union[int, float, RangeValue]
 
 
 @total_ordering
@@ -62,9 +70,9 @@ class Impact(BaseModel):
 
     def __add__(self, other: "Impact") -> "Impact":
         if not isinstance(other, Impact):
-            RuntimeError(f"Error occurred, cannot add an Impact with {type(other)}.")
+            raise ModelingError(f"Error occurred, cannot add an Impact with {type(other)}.")
         if self.type != other.type:
-            TypeError(f"Error occurred, cannot add a {self.type} Impact with {other.type} Impact.")
+            raise ModelingError(f"Error occurred, cannot add a {self.type} Impact with {other.type} Impact.")
         return self.__class__(
             type=self.type,
             name=self.name,
@@ -72,11 +80,26 @@ class Impact(BaseModel):
             unit=self.unit
         )
 
-    def __lt__(self, other):
-        return self.value < other.value
-
     def __eq__(self, other):
+        if not isinstance(other, Impact):
+            raise ModelingError(f"Error occurred, cannot compare an Impact with {type(other)}.")
+        if self.type != other.type:
+            raise ModelingError(f"Error occurred, cannot compare a {self.type} Impact with {other.type} Impact.")
         return self.value == other.value
+
+    def __le__(self, other):
+        if not isinstance(other, Impact):
+            raise ModelingError(f"Error occurred, cannot compare an Impact with {type(other)}.")
+        if self.type != other.type:
+            raise ModelingError(f"Error occurred, cannot compare a {self.type} Impact with {other.type} Impact.")
+        return self.value <= other.value
+
+    def __ge__(self, other):
+        if not isinstance(other, Impact):
+            raise ModelingError(f"Error occurred, cannot compare an Impact with {type(other)}.")
+        if self.type != other.type:
+            raise ModelingError(f"Error occurred, cannot compare a {self.type} Impact with {other.type} Impact.")
+        return self.value >= other.value
 
 
 class Energy(Impact):
