@@ -131,7 +131,8 @@ ignore = [
     "RET504",
     "RET505",
     "COM812",
-    "PTH"
+    "PTH",
+    "TRY003"
 ]
 
 fixable = [
