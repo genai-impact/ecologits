@@ -4,7 +4,7 @@ from typing import Any, Callable, Union
 
 from wrapt import wrap_function_wrapper
 
-from ecologits.tracers.utils import compute_llm_impacts
+from ecologits.tracers.utils import llm_impacts
 
 try:
     from google.generativeai import GenerativeModel
@@ -22,12 +22,13 @@ PROVIDER = "google"
 
 
 class GenerateContentResponse(_GenerateContentResponse):
-    def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None: # noqa: ANN001 ANN002 ANN003
+    def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None:   # noqa: ANN001 ANN002 ANN003
         super().__init__(done, iterator, result, impacts, *args, **kwargs)
         self.impacts = impacts
 
-    def __str__(self): # noqa: ANN204
+    def __str__(self):  # noqa: ANN204
         return f"GenerateContentResponse(done={self._done}, iterator={self._iterator}, result={self._result}, impacts={self.impacts})" # noqa: E501
+
 
 class AsyncGenerateContentResponse(_AsyncGenerateContentResponse):
     def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None: # noqa: ANN001 ANN002 ANN003
@@ -65,6 +66,7 @@ def wrap_from_dict(response_dict: dict, impacts, async_mode = False) -> Union[Ge
         done, iterator, result, impacts, **response_dict
     )
 
+
 def google_chat_wrapper(
     wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any
 ) -> Union[GenerateContentResponse, Iterable[GenerateContentResponse]]:
@@ -84,7 +86,7 @@ def google_chat_wrapper_non_stream(
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
     model_name = instance.model_name.replace("models/", "")
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=model_name,  # ?
         output_token_count=response.usage_metadata.total_token_count,
@@ -107,7 +109,7 @@ def google_chat_wrapper_stream(
     stream = wrapped(*args, **kwargs)
     for chunk in stream:
         request_latency = time.perf_counter() - timer_start
-        impacts = compute_llm_impacts(
+        impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,  # ?
             output_token_count=chunk.usage_metadata.total_token_count,
@@ -117,6 +119,7 @@ def google_chat_wrapper_stream(
             chunk = wrap_from_dict(chunk.__dict__, impacts) # noqa: PLW2901
         yield chunk
 
+
 async def google_async_chat_wrapper(
     wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any
 ) -> Union[AsyncGenerateContentResponse, Iterable[AsyncGenerateContentResponse]]:
@@ -124,6 +127,7 @@ async def google_async_chat_wrapper(
         return google_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
         return await google_async_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
+
 
 async def google_async_chat_wrapper_non_stream(
     wrapped: Callable,
@@ -135,7 +139,7 @@ async def google_async_chat_wrapper_non_stream(
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
     model_name = instance.model_name.replace("models/", "")
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=model_name,  # ?
         output_token_count=response.usage_metadata.total_token_count,
@@ -158,7 +162,7 @@ async def google_async_chat_wrapper_stream(
     stream = await wrapped(*args, **kwargs)
     async for chunk in stream:
         request_latency = time.perf_counter() - timer_start
-        impacts = compute_llm_impacts(
+        impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,  # ?
             output_token_count=chunk.usage_metadata.total_token_count,
@@ -167,6 +171,7 @@ async def google_async_chat_wrapper_stream(
         if impacts is not None:
             chunk = wrap_from_dict(chunk.__dict__, impacts, async_mode = True) # noqa: PLW2901
         yield chunk
+
 
 class GoogleInstrumentor:
     def __init__(self) -> None:
