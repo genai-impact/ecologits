@@ -37,12 +37,20 @@ Impacts(
 You can extract an impact with:
 
 ```python
-response.impacts.usage.gwp.value  # (1)!
-
->>> 0.34    # Expressed in kgCO2eq.
+>>> response.impacts.usage.gwp.value  # (1)!
+0.34    # Expressed in kgCO2eq.
 ```
 
 1. Assuming you have made an inference and get the response in an `response` object.
+
+Or you could get **value range** impact instead:
+
+```python
+>>> response.impacts.usage.gwp.value
+RangeValue(min=0.16, max=0.48) # Expressed in kgCO2eq (1)
+```
+
+1. [`RangeValue`][impacts.modeling.RangeValue] are used to define intervals.
 
 ## Criteria
 
