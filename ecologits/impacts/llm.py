@@ -3,7 +3,7 @@ from math import ceil
 from typing import Any, Optional
 
 from ecologits.impacts.dag import DAG
-from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, RangeValue, Usage, ValueOrRange
+from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Range, Usage, ValueOrRange
 
 MODEL_QUANTIZATION_BITS = 4
 
@@ -452,12 +452,12 @@ def compute_llm_impacts(
     active_params = [model_active_parameter_count]
     total_params = [model_total_parameter_count]
 
-    if isinstance(model_active_parameter_count, RangeValue) or isinstance(model_total_parameter_count, RangeValue):
-        if isinstance(model_active_parameter_count, RangeValue):
+    if isinstance(model_active_parameter_count, Range) or isinstance(model_total_parameter_count, Range):
+        if isinstance(model_active_parameter_count, Range):
             active_params = [model_active_parameter_count.min, model_active_parameter_count.max]
         else:
             active_params = [model_active_parameter_count, model_active_parameter_count]
-        if isinstance(model_total_parameter_count, RangeValue):
+        if isinstance(model_total_parameter_count, Range):
             total_params = [model_total_parameter_count.min, model_total_parameter_count.max]
         else:
             total_params = [model_total_parameter_count, model_total_parameter_count]
@@ -475,7 +475,7 @@ def compute_llm_impacts(
         )
         for field in fields:
             if field in results:
-                results[field] = RangeValue(min=results[field], max=res[field])
+                results[field] = Range(min=results[field], max=res[field])
             else:
                 results[field] = res[field]
 

@@ -8,7 +8,7 @@ from ecologits.exceptions import ModelingError
 
 
 @total_ordering
-class RangeValue(BaseModel):
+class Range(BaseModel):
     """
     RangeValue data model to represent intervals.
 
@@ -25,38 +25,38 @@ class RangeValue(BaseModel):
             raise ValueError("min value must be lower than max value")
         return self
 
-    def __add__(self, other: Any) -> "RangeValue":
-        if isinstance(other, RangeValue):
-            return RangeValue(
+    def __add__(self, other: Any) -> "Range":
+        if isinstance(other, Range):
+            return Range(
                 min=self.min + other.min,
                 max=self.max + other.max,
             )
         else:
-            return RangeValue(
+            return Range(
                 min=self.min + other,
                 max=self.max + other
             )
 
     def __eq__(self, other: Any) -> bool:
-        if isinstance(other, RangeValue):
+        if isinstance(other, Range):
             return self.min == other.min and self.max == other.max
         else:
             return self.min == other and self.max == other
 
     def __le__(self, other: Any) -> bool:
-        if isinstance(other, RangeValue):
+        if isinstance(other, Range):
             return self.max <= other.min
         else:
             return self.max <= other and self.min <= other
 
     def __ge__(self, other: Any) -> bool:
-        if isinstance(other, RangeValue):
+        if isinstance(other, Range):
             return self.max >= other.min
         else:
             return self.max >= other and self.min >= other
 
 
-ValueOrRange = Union[int, float, RangeValue]
+ValueOrRange = Union[int, float, Range]
 
 
 @total_ordering
