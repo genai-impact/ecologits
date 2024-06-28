@@ -11,7 +11,8 @@ nav:
     - 'Roadmap': roadmap.md
     - 'Contributing': contributing.md
   - 'Tutorial':
-      - 'Introduction': tutorial/introduction.md
+      - 'Introduction': tutorial/index.md
+      - 'Environmental Impacts': tutorial/impacts.md
       - 'Providers':
           - 'Anthropic': tutorial/providers/anthropic.md
           - 'Cohere': tutorial/providers/cohere.md
@@ -49,6 +50,7 @@ theme:
     - content.tabs.link
     - content.code.copy
     - content.code.annotate
+    - content.tooltips
     - announce.dismiss
 
 extra:
@@ -99,6 +101,7 @@ plugins:
 
 
 markdown_extensions:
+  - abbr
   - attr_list
   - md_in_html
   - tables
