@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ecologits.impacts.llm import llm_impacts
+from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.models import Impacts, RangeValue
 from ecologits.model_repository import models
 
@@ -9,7 +9,7 @@ def _avg(value_range: tuple) -> float:
     return sum(value_range) / len(value_range)
 
 
-def compute_llm_impacts(
+def llm_impacts(
     provider: str,
     model_name: str,
     output_token_count: int,
@@ -36,7 +36,7 @@ def compute_llm_impacts(
         or RangeValue(min=model.active_parameters_range[0], max=model.active_parameters_range[1])
     model_total_params = model.total_parameters \
         or RangeValue(min=model.total_parameters_range[0], max=model.total_parameters_range[1])
-    return llm_impacts(
+    return compute_llm_impacts(
         model_active_parameter_count=model_active_params,
         model_total_parameter_count=model_total_params,
         output_token_count=output_token_count,

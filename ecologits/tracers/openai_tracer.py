@@ -4,7 +4,7 @@ from typing import Any, Callable, Union
 from wrapt import wrap_function_wrapper
 
 from ecologits.impacts import Impacts
-from ecologits.tracers.utils import compute_llm_impacts
+from ecologits.tracers.utils import llm_impacts
 
 try:
     from openai import AsyncStream, Stream
@@ -53,7 +53,7 @@ def openai_chat_wrapper_non_stream(
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
     model_name = response.model
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=model_name,
         output_token_count=response.usage.completion_tokens,
@@ -79,7 +79,7 @@ def openai_chat_wrapper_stream(
             token_count += 1
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
-        impacts = compute_llm_impacts(
+        impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,
             output_token_count=token_count,
@@ -113,7 +113,7 @@ async def openai_async_chat_wrapper_base(
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
     model_name = response.model
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=model_name,
         output_token_count=response.usage.completion_tokens,
@@ -140,7 +140,7 @@ async def openai_async_chat_wrapper_stream(
             token_count += 1
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
-        impacts = compute_llm_impacts(
+        impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,
             output_token_count=token_count,

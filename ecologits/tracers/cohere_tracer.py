@@ -5,7 +5,7 @@ from typing import Any, Callable
 from wrapt import wrap_function_wrapper
 
 from ecologits.impacts import Impacts
-from ecologits.tracers.utils import compute_llm_impacts
+from ecologits.tracers.utils import llm_impacts
 
 try:
     from cohere import AsyncClient, Client
@@ -45,7 +45,7 @@ def cohere_chat_wrapper(
     request_latency = time.perf_counter() - timer_start
     output_tokens = response.meta.tokens.output_tokens
     model_name = kwargs.get("model", "command-r")
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=model_name,
         output_token_count=output_tokens,
@@ -62,7 +62,7 @@ async def cohere_async_chat_wrapper(
     request_latency = time.perf_counter() - timer_start
     output_tokens = response.meta.tokens.output_tokens
     model_name = kwargs.get("model", "command-r")
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=model_name,
         output_token_count=output_tokens,
@@ -81,7 +81,7 @@ def cohere_stream_chat_wrapper(
         if event.event_type == "stream-end":
             request_latency = time.perf_counter() - timer_start
             output_tokens = event.response.meta.tokens.output_tokens
-            impacts = compute_llm_impacts(
+            impacts = llm_impacts(
                 provider=PROVIDER,
                 model_name=model_name,
                 output_token_count=output_tokens,
@@ -102,7 +102,7 @@ async def cohere_async_stream_chat_wrapper(
         if event.event_type == "stream-end":
             request_latency = time.perf_counter() - timer_start
             output_tokens = event.response.meta.tokens.output_tokens
-            impacts = compute_llm_impacts(
+            impacts = llm_impacts(
                 provider=PROVIDER,
                 model_name=model_name,
                 output_token_count=output_tokens,

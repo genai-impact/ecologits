@@ -7,7 +7,7 @@ from typing_extensions import override
 from wrapt import wrap_function_wrapper
 
 from ecologits.impacts.models import Impacts
-from ecologits.tracers.utils import compute_llm_impacts
+from ecologits.tracers.utils import llm_impacts
 
 try:
     from anthropic import Anthropic, AsyncAnthropic
@@ -54,7 +54,7 @@ class MessageStream(_MessageStream):
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
-        self.impacts = compute_llm_impacts(
+        self.impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,
             output_token_count=output_tokens,
@@ -87,7 +87,7 @@ class AsyncMessageStream(_AsyncMessageStream):
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
-        self.impacts = compute_llm_impacts(
+        self.impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,
             output_token_count=output_tokens,
@@ -149,7 +149,7 @@ def anthropic_chat_wrapper(
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
     model_name = response.model
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=model_name,
         output_token_count=response.usage.output_tokens,
@@ -168,7 +168,7 @@ async def anthropic_async_chat_wrapper(
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
     model_name = response.model
-    impacts = compute_llm_impacts(
+    impacts = llm_impacts(
         provider=PROVIDER,
         model_name=model_name,
         output_token_count=response.usage.output_tokens,
