@@ -1,8 +1,8 @@
 from functools import total_ordering
-from typing import Union
-from typing_extensions import Self
+from typing import Any, Union
 
 from pydantic import BaseModel, model_validator
+from typing_extensions import Self
 
 from ecologits.exceptions import ModelingError
 
@@ -19,13 +19,13 @@ class RangeValue(BaseModel):
     min: float
     max: float
 
-    @model_validator(mode='after')
+    @model_validator(mode="after")
     def check_order(self) -> Self:
         if self.min > self.max:
-            raise ValueError('min value must be lower than max value')
+            raise ValueError("min value must be lower than max value")
         return self
 
-    def __add__(self, other):
+    def __add__(self, other: Any) -> "RangeValue":
         if isinstance(other, RangeValue):
             return RangeValue(
                 min=self.min + other.min,
@@ -37,19 +37,19 @@ class RangeValue(BaseModel):
                 max=self.max + other
             )
 
-    def __eq__(self, other):
+    def __eq__(self, other: Any) -> bool:
         if isinstance(other, RangeValue):
             return self.min == other.min and self.max == other.max
         else:
             return self.min == other and self.max == other
 
-    def __le__(self, other):
+    def __le__(self, other: Any) -> bool:
         if isinstance(other, RangeValue):
             return self.max <= other.min
         else:
             return self.max <= other and self.min <= other
 
-    def __ge__(self, other):
+    def __ge__(self, other: Any) -> bool:
         if isinstance(other, RangeValue):
             return self.max >= other.min
         else:
@@ -87,21 +87,21 @@ class Impact(BaseModel):
             unit=self.unit
         )
 
-    def __eq__(self, other):
+    def __eq__(self, other: "Impact") -> bool:
         if not isinstance(other, Impact):
             raise ModelingError(f"Error occurred, cannot compare an Impact with {type(other)}.")
         if self.type != other.type:
             raise ModelingError(f"Error occurred, cannot compare a {self.type} Impact with {other.type} Impact.")
         return self.value == other.value
 
-    def __le__(self, other):
+    def __le__(self, other: "Impact") -> bool:
         if not isinstance(other, Impact):
             raise ModelingError(f"Error occurred, cannot compare an Impact with {type(other)}.")
         if self.type != other.type:
             raise ModelingError(f"Error occurred, cannot compare a {self.type} Impact with {other.type} Impact.")
         return self.value <= other.value
 
-    def __ge__(self, other):
+    def __ge__(self, other: "Impact") -> bool:
         if not isinstance(other, Impact):
             raise ModelingError(f"Error occurred, cannot compare an Impact with {type(other)}.")
         if self.type != other.type:

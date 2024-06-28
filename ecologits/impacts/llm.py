@@ -1,9 +1,9 @@
 import math
 from math import ceil
-from typing import Optional, Any
+from typing import Any, Optional
 
 from ecologits.impacts.dag import DAG
-from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage, ValueOrRange, RangeValue
+from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, RangeValue, Usage, ValueOrRange
 
 MODEL_QUANTIZATION_BITS = 4
 
