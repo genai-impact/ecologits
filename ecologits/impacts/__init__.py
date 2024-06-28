@@ -1,5 +1,5 @@
 from .llm import compute_llm_impacts
-from .models import Impacts
+from .modeling import Impacts
 
 __all__ = [
     "Impacts",

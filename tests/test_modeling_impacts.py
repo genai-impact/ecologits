@@ -2,7 +2,7 @@ import operator
 
 import pytest
 
-from ecologits.impacts.models import Impact, RangeValue, Energy, GWP, ADPe, PE
+from ecologits.impacts.modeling import Impact, RangeValue, Energy, GWP, ADPe, PE
 from ecologits.exceptions import ModelingError
 
 

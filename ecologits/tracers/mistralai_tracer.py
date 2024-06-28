@@ -4,7 +4,7 @@ from typing import Any, Callable
 
 from wrapt import wrap_function_wrapper
 
-from ecologits.impacts.models import Impacts
+from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
 
 try:
