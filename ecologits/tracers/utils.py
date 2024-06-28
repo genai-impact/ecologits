@@ -1,7 +1,7 @@
 from typing import Optional
 
 from ecologits.impacts.llm import compute_llm_impacts
-from ecologits.impacts.models import Impacts, RangeValue
+from ecologits.impacts.modeling import Impacts, RangeValue
 from ecologits.model_repository import models
 
 

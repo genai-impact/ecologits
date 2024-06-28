@@ -3,7 +3,7 @@ from math import ceil
 from typing import Optional
 
 from ecologits.impacts.dag import DAG
-from ecologits.impacts.models import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage, ValueOrRange, RangeValue
+from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage, ValueOrRange, RangeValue
 
 MODEL_QUANTIZATION_BITS = 4
 

@@ -4,7 +4,7 @@ import numpy as np
 from operator import gt, ge
 
 from ecologits.impacts.llm import compute_llm_impacts
-from ecologits.impacts.models import Impacts, Energy, GWP, ADPe, PE, Usage, Embodied
+from ecologits.impacts.modeling import Impacts, Energy, GWP, ADPe, PE, Usage, Embodied
 
 
 @pytest.mark.parametrize(
