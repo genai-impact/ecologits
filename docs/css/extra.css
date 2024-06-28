@@ -16,6 +16,7 @@ Light green: 00bf63
   --md-primary-fg-color: #0b3b36;
   --md-typeset-a-color: #00914b;
   --md-accent-fg-color: #00bf63;
+  --md-primary-fg-color--dark: #062522;
 }
 
 [data-md-color-scheme="ecologits"] img[src$="#only-dark"],
@@ -29,4 +30,5 @@ Light green: 00bf63
   --md-default-fg-color: hsla(var(--md-hue), 15%, 95%, 1);
   --md-typeset-a-color: #00bf63 !important;
   --md-accent-fg-color: #008343;
+  --md-primary-fg-color--dark: #062522;
 }
