@@ -14,10 +14,10 @@ from ecologits.impacts.models import Impacts, Energy, GWP, ADPe, PE, Usage, Embo
         (12.9, 46.7, 200, 10)       # Mixtral 8x7B
     ]
 )
-def test_compute_llm_impacts(model_active_parameter_count: float,
-                             model_total_parameter_count: float,
-                             output_token_count: int,
-                             request_latency: float) -> None:
+def test_llm_impacts(model_active_parameter_count: float,
+                     model_total_parameter_count: float,
+                     output_token_count: int,
+                     request_latency: float) -> None:
     impacts = llm_impacts(
         model_active_parameter_count=model_active_parameter_count,
         model_total_parameter_count=model_total_parameter_count,
