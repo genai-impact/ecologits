@@ -13,7 +13,7 @@ from ecologits.impacts.modeling import *
 
 Impacts(
     energy=Energy(), # (1)!
-    gwp= GWP(),
+    gwp=GWP(),
     adpe=ADPe(),
     pe=PE(),
     usage=Usage( # (2)!
@@ -56,7 +56,7 @@ Range(min=0.16, max=0.48) # Expressed in kgCO2eq (1)
 
 To evaluate the impact of human activities on the planet or on the climate we use criteria that usually focus on a specific issue such as **GHG emissions for global warming**, **water consumption and pollution** or the **depletion of natural resources**. We currently support three environmental impact criteria in addition with the direct energy consumption. 
 
-**Monitoring multiple criteria is useful to avoid pollution shifting**, which is defined as the transfer of pollution from one medium to another. It is a common pitfall to optimize only one criterion like GHG emissions (e.g. buying new hardware that is more energy efficient), that can lead to higher impacts on minerals and metals depletion for example. (see [encyclopedia.com :octicons-link-external-16:](https://www.encyclopedia.com/environment/educational-magazines/pollution-shifting))
+**Monitoring multiple criteria is useful to avoid pollution shifting**, which is defined as the transfer of pollution from one medium to another. It is a common pitfall to optimize only one criterion like GHG emissions (e.g. buying new hardware that is more energy efficient), that can lead to higher impacts on minerals and metals depletion for example (see [encyclopedia.com :octicons-link-external-16:](https://www.encyclopedia.com/environment/educational-magazines/pollution-shifting)).
 
 ### Energy
 
