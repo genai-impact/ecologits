@@ -48,7 +48,7 @@ class Range(BaseModel):
         else:
             return self.max <= other
 
-    def __lt__(self, other):
+    def __lt__(self, other: Any) -> bool:
         if isinstance(other, Range):
             return self.max < other.min
         else:
