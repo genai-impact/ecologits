@@ -130,6 +130,8 @@ Another **pitfall in environmental impact assessment is to only look at the usag
 
 The [`Usage`][impacts.modeling.Usage] phase accounts for the environmental impacts while using AI models. We report all criteria in addition to direct energy consumption for this phase. 
 
+Note that we use the worldwide average [electricity mix](#electricity-mix) impact factor by default. 
+
 ??? note "Usage model attributes"
     ::: impacts.modeling.Usage
         options:
@@ -149,3 +151,20 @@ The [Embodied][impacts.modeling.Embodied] phase accounts for the upstream enviro
             show_bases: false
             show_docstring_description: false
             docstring_section_style: list
+
+
+## Impact Factors
+
+We use impact factors to quantify environmental harm from human activities, measuring the ratio of greenhouse gases, resource consumption, and other criteria resulting from activities like energy consumption, industrial processes, transportation, waster management and more.
+
+### Electricity Mix
+
+**We currently assume by default a worldwide average impact factor for electricity consumption**. We plan to allow users to change these impact factors dynamically based on a specific country/region or with custom values.
+
+Default values:
+
+| Impact criteria | Value      | Unit            |
+|-----------------|------------|-----------------|
+| GWP             | $5.904e-1$ | $kgCO2eq / kWh$ | 
+| ADPe            | $7.378e-7$ | $kgSbeq / kWh$  |
+| PE              | $9.988$    | $MJ / kWh$      |
