@@ -128,3 +128,50 @@ def test_impact_compare(impact_1, impact_2, op):
 def test_impact_cannot_compare(impact_1, impact_2, op):
     with pytest.raises(ModelingError):
         op(impact_1, impact_2)
+
+
+@pytest.mark.parametrize("val_1,val_2,op,result", [
+    (Range(min=1, max=2), Range(min=1, max=2), operator.eq, True),
+    (Range(min=1, max=2), Range(min=1, max=3), operator.eq, False),
+    (Range(min=1, max=2), Range(min=2, max=3), operator.eq, False),
+    (Range(min=1, max=2), Range(min=1, max=3), operator.ne, True),
+    (Range(min=1, max=2), Range(min=2, max=3), operator.ne, True),
+    (Range(min=1, max=2), Range(min=1, max=2), operator.ne, False),
+    (Range(min=0, max=1), Range(min=2, max=3), operator.le, True),
+    (Range(min=0, max=1), Range(min=2, max=3), operator.lt, True),
+    (Range(min=2, max=3), Range(min=0, max=1), operator.ge, True),
+    (Range(min=2, max=3), Range(min=0, max=1), operator.gt, True),
+    (Range(min=0, max=1), Range(min=1, max=2), operator.le, True),
+    (Range(min=0, max=1), Range(min=1, max=2), operator.lt, False),
+    (Range(min=1, max=2), Range(min=0, max=1), operator.ge, True),
+    (Range(min=1, max=2), Range(min=0, max=1), operator.gt, False),
+    (Range(min=1.5, max=2), Range(min=1, max=2), operator.ge, True),
+    (Range(min=1.5, max=2), Range(min=1, max=2), operator.gt, False),
+    (Range(min=1, max=2), Range(min=1.5, max=2), operator.le, True),
+    (Range(min=1, max=2), Range(min=1.5, max=2), operator.lt, False),
+    (Range(min=0, max=1.5), Range(min=1, max=2), operator.le, True),
+    (Range(min=0, max=1.5), Range(min=1, max=2), operator.lt, False),
+    (Range(min=1, max=2), Range(min=0, max=1.5), operator.ge, True),
+    (Range(min=1, max=2), Range(min=0, max=1.5), operator.gt, False),
+
+    (Range(min=1, max=1), 1, operator.eq, True),
+    (Range(min=1, max=2), 1, operator.eq, False),
+    (Range(min=1, max=2), 2, operator.eq, False),
+    (Range(min=1, max=2), 1, operator.ne, True),
+    (Range(min=2, max=3), 1, operator.ne, True),
+    (Range(min=1, max=1), 1, operator.ne, False),
+    (Range(min=1, max=2), 1.5, operator.ge, False),
+    (Range(min=1, max=2), 0.5, operator.ge, True),
+    (1.5, Range(min=1, max=2), operator.le, False),
+    (0.5, Range(min=1, max=2), operator.le, True),
+    (Range(min=1, max=2), 1, operator.ge, True),
+    (Range(min=1, max=2), 0, operator.ge, True),
+    (1, Range(min=1, max=2), operator.le, True),
+    (0, Range(min=1, max=2), operator.le, True),
+    (Range(min=-2, max=-1), -1.5, operator.ge, False),
+    (Range(min=-2, max=-1), -2.5, operator.ge, True),
+    (-1.5, Range(min=-2, max=-1), operator.le, False),
+    (-2.5, Range(min=-2, max=-1), operator.le, True),
+])
+def test_value_range_compare(val_1, val_2, op, result):
+    assert op(val_1, val_2) == result

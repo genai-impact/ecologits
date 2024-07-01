@@ -7,7 +7,6 @@ from typing_extensions import Self
 from ecologits.exceptions import ModelingError
 
 
-@total_ordering
 class Range(BaseModel):
     """
     RangeValue data model to represent intervals.
@@ -45,15 +44,27 @@ class Range(BaseModel):
 
     def __le__(self, other: Any) -> bool:
         if isinstance(other, Range):
-            return self.max <= other.min
+            return self.max <= other.max
         else:
-            return self.max <= other and self.min <= other
+            return self.max <= other
+
+    def __lt__(self, other):
+        if isinstance(other, Range):
+            return self.max < other.min
+        else:
+            return self.max < other
 
     def __ge__(self, other: Any) -> bool:
         if isinstance(other, Range):
-            return self.max >= other.min
+            return self.min >= other.min
         else:
-            return self.max >= other and self.min >= other
+            return self.min >= other
+
+    def __gt__(self, other: Any) -> bool:
+        if isinstance(other, Range):
+            return self.min > other.max
+        else:
+            return self.min > other
 
 
 ValueOrRange = Union[int, float, Range]
