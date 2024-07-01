@@ -161,7 +161,7 @@ We use impact factors to quantify environmental harm from human activities, meas
 
 **We currently assume by default a worldwide average impact factor for electricity consumption**. We plan to allow users to change these impact factors dynamically based on a specific country/region or with custom values.
 
-Default values:
+Default values (from [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/)):
 
 | Impact criteria | Value      | Unit            |
 |-----------------|------------|-----------------|
