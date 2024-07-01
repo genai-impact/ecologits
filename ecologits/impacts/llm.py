@@ -66,17 +66,17 @@ def generation_latency(
     request_latency: float,
 ) -> float:
     """
-    Compute the token generation latency.
+    Compute the token generation latency in seconds.
 
     Args:
         model_active_parameter_count: Number of active parameters of the model.
         output_token_count: Number of generated tokens.
         gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.
         gpu_latency_beta: Beta parameter of the GPU linear latency profile.
-        request_latency: Measured request latency (upper bound).
+        request_latency: Measured request latency (upper bound) in seconds.
 
     Returns:
-        The token generation latency.
+        The token generation latency in seconds.
     """
     gpu_latency = output_token_count * (gpu_latency_alpha * model_active_parameter_count + gpu_latency_beta)
     return min(gpu_latency, request_latency)
@@ -129,7 +129,7 @@ def server_energy(
     Compute the energy consumption of the server.
 
     Args:
-        generation_latency: Token generation latency.
+        generation_latency: Token generation latency in seconds.
         server_power: Power consumption of the server.
         server_gpu_count: Number of available GPUs in the server.
         gpu_required_count: Number of required GPUs to load the model.
@@ -294,7 +294,7 @@ def request_embodied_gwp(
     Args:
         server_gpu_embodied_gwp: GWP embodied impact of the server and the GPUs.
         server_lifetime: Lifetime duration of the server.
-        generation_latency: Token generation latency.
+        generation_latency: Token generation latency in seconds.
 
     Returns:
         The GWP embodied impact of the request.
@@ -314,7 +314,7 @@ def request_embodied_adpe(
     Args:
         server_gpu_embodied_adpe: ADPe embodied impact of the server and the GPUs.
         server_lifetime: Lifetime duration of the server.
-        generation_latency: Token generation latency.
+        generation_latency: Token generation latency in seconds.
 
     Returns:
         The ADPe embodied impact of the request.
@@ -334,7 +334,7 @@ def request_embodied_pe(
     Args:
         server_gpu_embodied_pe: PE embodied impact of the server and the GPUs.
         server_lifetime: Lifetime duration of the server.
-        generation_latency: Token generation latency.
+        generation_latency: Token generation latency in seconds.
 
     Returns:
         The PE embodied impact of the request.
@@ -374,7 +374,7 @@ def compute_llm_impacts_dag(
         model_active_parameter_count: Number of active parameters of the model.
         model_total_parameter_count: Number of parameters of the model.
         output_token_count: Number of generated tokens.
-        request_latency: Measured request latency.
+        request_latency: Measured request latency in seconds.
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
@@ -440,7 +440,7 @@ def compute_llm_impacts(
         model_active_parameter_count: Number of active parameters of the model.
         model_total_parameter_count: Number of total parameters of the model.
         output_token_count: Number of generated tokens.
-        request_latency: Measured request latency.
+        request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
 
     Returns:
