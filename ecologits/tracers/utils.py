@@ -22,7 +22,7 @@ def llm_impacts(
         provider: Name of the provider.
         model_name: Name of the LLM used.
         output_token_count: Number of generated tokens.
-        request_latency: Measured request latency.
+        request_latency: Measured request latency in seconds.
 
     Returns:
         The impacts of an LLM generation request.
