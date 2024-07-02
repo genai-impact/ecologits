@@ -1,6 +1,6 @@
 # Google Gemini
 
-This guide is focuses on the integration of :seedling: **EcoLogits** with the [Google Gemini official python client :octicons-link-external-16:](https://github.com/google-gemini/generative-ai-python).
+This guide focuses on the integration of :seedling: **EcoLogits** with the [Google Gemini official python client :octicons-link-external-16:](https://github.com/google-gemini/generative-ai-python).
 
 Official links:
 

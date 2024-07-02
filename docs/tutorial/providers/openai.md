@@ -1,6 +1,6 @@
 # OpenAI
 
-This guide is focuses on the integration of :seedling: **EcoLogits** with the [OpenAI official python client :octicons-link-external-16:](https://github.com/openai/openai-python).
+This guide focuses on the integration of :seedling: **EcoLogits** with the [OpenAI official python client :octicons-link-external-16:](https://github.com/openai/openai-python).
 
 Official links:
 

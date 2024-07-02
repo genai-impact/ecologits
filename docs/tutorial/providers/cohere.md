@@ -1,6 +1,6 @@
 # Cohere
 
-This guide is focuses on the integration of :seedling: **EcoLogits** with the [Cohere official python client :octicons-link-external-16:](https://github.com/cohere-ai/cohere-python).
+This guide focuses on the integration of :seedling: **EcoLogits** with the [Cohere official python client :octicons-link-external-16:](https://github.com/cohere-ai/cohere-python).
 
 Official links:
 
