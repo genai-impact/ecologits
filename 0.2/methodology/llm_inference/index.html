@@ -1,0 +1,2168 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ecologits.ai/latest/methodology/llm_inference/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../reference/ecologits/">
+      
+      
+      <link rel="icon" href="../../assets/leaf.svg">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>LLM Inference - EcoLogits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="LLM Inference - EcoLogits" >
+      
+        <meta  property="og:description"  content="None" >
+      
+        <meta  property="og:image"  content="https://ecologits.ai/latest/assets/images/social/methodology/llm_inference.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://ecologits.ai/latest/methodology/llm_inference/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="LLM Inference - EcoLogits" >
+      
+        <meta  name="twitter:description"  content="None" >
+      
+        <meta  name="twitter:image"  content="https://ecologits.ai/latest/assets/images/social/methodology/llm_inference.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ecologits" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#environmental-impacts-of-llm-inference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
+  <b>We have released 🧮 <a href="https://huggingface.co/spaces/genai-impact/ecologits-calculator">EcoLogits Calculator</a></b>! Happy to ear your feedback on <a href="https://github.com/genai-impact/ecologits/discussions/45">GitHub</a> or <a href="https://huggingface.co/spaces/genai-impact/ecologits-calculator/discussions">Hugging Face</a>!
+
+          </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="EcoLogits" class="md-header__button md-logo" aria-label="EcoLogits" data-md-component="logo">
+      
+  <img src="../../assets/leaf.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EcoLogits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LLM Inference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="ecologits" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/genai-impact/ecologits" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    genai-impact/ecologits
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  Get Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorial/" class="md-tabs__link">
+          
+  
+  Tutorial
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Methodology
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/ecologits/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://huggingface.co/spaces/genai-impact/ecologits-calculator" class="md-tabs__link">
+        
+  
+    
+  
+  Online Calculator
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="EcoLogits" class="md-nav__button md-logo" aria-label="EcoLogits" data-md-component="logo">
+      
+  <img src="../../assets/leaf.svg" alt="logo">
+
+    </a>
+    EcoLogits
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/genai-impact/ecologits" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    genai-impact/ecologits
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Get Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Get Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to EcoLogits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../why/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why use EcoLogits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../providers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported providers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/impacts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environmental Impacts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Providers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Providers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/providers/anthropic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Anthropic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/providers/cohere/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cohere
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/providers/google/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Gemini
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/providers/huggingface_hub/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hugging Face Hub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/providers/mistralai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mistral AI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/providers/openai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenAI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Methodology
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Methodology
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    LLM Inference
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    LLM Inference
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage impacts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-gpu-energy-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling GPU energy consumption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling-server-energy-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling server energy consumption
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling server energy consumption">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-energy-consumption-without-gpus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server energy consumption without GPUs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estimating-the-generation-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimating the generation latency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estimating-the-number-of-active-gpus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimating the number of active GPUs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-server-energy-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete server energy consumption
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling-request-energy-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling request energy consumption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling-request-usage-environmental-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling request usage environmental impacts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embodied-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embodied impacts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Embodied impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-server-embodied-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling server embodied impacts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling server embodied impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-embodied-impacts-without-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server embodied impacts without GPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-embodied-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU embodied impacts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-server-embodied-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete server embodied impacts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling-request-embodied-environmental-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling request embodied environmental impacts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Citation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/ecologits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecologits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/exceptions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    exceptions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    impacts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            impacts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/impacts/dag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dag
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/impacts/llm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    llm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/impacts/modeling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    modeling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/model_repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    model_repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    tracers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            tracers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/tracers/anthropic_tracer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    anthropic_tracer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/tracers/cohere_tracer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cohere_tracer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/tracers/google_tracer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    google_tracer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/tracers/huggingface_tracer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    huggingface_tracer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/tracers/mistralai_tracer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mistralai_tracer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/tracers/openai_tracer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openai_tracer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/tracers/utils/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    utils
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://huggingface.co/spaces/genai-impact/ecologits-calculator" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online Calculator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage impacts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-gpu-energy-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling GPU energy consumption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling-server-energy-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling server energy consumption
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling server energy consumption">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-energy-consumption-without-gpus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server energy consumption without GPUs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estimating-the-generation-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimating the generation latency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estimating-the-number-of-active-gpus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimating the number of active GPUs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-server-energy-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete server energy consumption
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling-request-energy-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling request energy consumption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling-request-usage-environmental-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling request usage environmental impacts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embodied-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embodied impacts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Embodied impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-server-embodied-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling server embodied impacts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling server embodied impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-embodied-impacts-without-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server embodied impacts without GPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-embodied-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU embodied impacts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-server-embodied-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete server embodied impacts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling-request-embodied-environmental-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling request embodied environmental impacts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Citation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div class="admonition warning">
+<p class="admonition-title">Page still under construction</p>
+<p>This page is still under construction. If you spot any inaccuracies or have questions about the methodology itself, feel free to open an issue on <a href="https://github.com/genai-impact/ecologits/issues/new?assignees=&amp;labels=documentation&amp;title=LLM%20Inference%20Methodology:%20%3CIssue%20Title%3E">GitHub</a>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Early Publication</p>
+<p>Beware that this is an early version of the methodology to evaluate the environmental impacts of LLMs at inference. We are still testing and reviewing the methodology internally. <strong>Some parts of the methodology may change in the near future.</strong></p>
+</div>
+<h1 id="environmental-impacts-of-llm-inference">Environmental Impacts of LLM Inference</h1>
+<details class="info">
+<summary>Known limitations and hypotheses</summary>
+<ul>
+<li>Based on a production setup: models are quantized, high-end servers with A100...</li>
+<li>Current implementation of EcoLogits assumes a fixed and worldwide impact factor for electricity mix.</li>
+<li>Model architectures are assumed when not dislosed by the provider.</li>
+<li>Not accounting the impacts of unused cloud resources, data center building, network and end-user devices, model training and data collection...</li>
+<li>Not tested on multi-modal models for text-to-text generation only.</li>
+</ul>
+</details>
+<p>The environmental impacts of a request, <span class="arithmatex">\(I_{request}\)</span> to a Large Language Model (LLM) can be divided into two components: the usage impacts, <span class="arithmatex">\(I_{request}^u\)</span>, which account for energy consumption, and the embodied impacts, <span class="arithmatex">\(I_{request}^e\)</span>, which account for resource extraction, hardware manufacturing, and transportation.</p>
+<div class="arithmatex">\[
+\begin{equation*}
+\begin{split}
+I_{request}&amp;=I_{request}^u  + I_{request}^e \\ 
+&amp;= E_{request}*F_{em}+\frac{\Delta T}{\Delta L}*I_{server}^e
+\end{split}
+\end{equation*}
+\]</div>
+<p>Where <span class="arithmatex">\(E_{request}\)</span> represents the energy consumption of the IT resources associated with the request. <span class="arithmatex">\(F_{em}\)</span> denotes the impact factor of electricity consumption, which varies depending on the location and time. Furthermore, <span class="arithmatex">\(I_{server}^e\)</span> captures the embodied impacts of the IT resources, and <span class="arithmatex">\(\frac{\Delta T}{\Delta L}\)</span> signifies the hardware utilization factor, calculated as the computation time divided by the lifetime of the hardware.</p>
+<h2 id="usage-impacts">Usage impacts</h2>
+<p>To assess the usage impacts of an LLM inference, we first need to estimate the energy consumption of the server, which is equipped with one or more GPUs. We will also take into account the energy consumption of cooling equipment integrated with the data center, using the Power Usage Effectiveness (PUE) metric.</p>
+<p>Subsequently, we can calculate the environmental impacts by using the <span class="arithmatex">\(F_{em}\)</span> impact factor of the electricity mix. Ideally, <span class="arithmatex">\(F_{em}\)</span> should vary with location and time to accurately reflect the local energy mix.</p>
+<h3 id="modeling-gpu-energy-consumption">Modeling GPU energy consumption</h3>
+<p>By leveraging the open dataset from the <a href="https://huggingface.co/spaces/optimum/llm-perf-leaderboard">LLM Perf Leaderboard</a>, produced by Hugging Face, we can estimate the energy consumption of the GPU using a parametric model.</p>
+<p>We fit a linear regression model to the dataset, which models the energy consumption per output token as a function of the number of active parameters in the LLM, denoted as <span class="arithmatex">\(P_{active}\)</span>.</p>
+<details class="note">
+<summary>What are active parameters?</summary>
+<p>We distinguish between active parameters and total parameter count for Sparse Mixture-of-Experts (SMoE) models. The total parameter count is used to determine the number of required GPUs to load the model into memory. In contrast, the active parameter count is used to estimate the energy consumption of a single GPU. In practice, SMoE models exhibit lower energy consumption per GPU compared to dense models of equivalent size (in terms of total parameters).</p>
+<ul>
+<li>For a dense model: <span class="arithmatex">\(P_{active} = P_{total}\)</span></li>
+<li>For a SMoE model: <span class="arithmatex">\(P_{active} =  P_{total} / \text{number of active experts}\)</span></li>
+</ul>
+</details>
+<details class="info">
+<summary>On the LLM Perf Leaderboard dataset filtering</summary>
+<p>We have filtered the dataset to keep relevant data points for the analysis. In particular we have applied the following conditions:</p>
+<ul>
+<li>Model number of parameters &gt;= 7B</li>
+<li>Keep dtype set to float16</li>
+<li>GPU model is "NVIDIA A100-SXM4-80GB"</li>
+<li>No optimization</li>
+<li>8bit and 4bit quantization excluding bitsandbytes (bnb)</li>
+</ul>
+</details>
+<figure>
+  <img alt="Figure: Energy consumption per output token vs. number of active parameters " src="../../assets/methodology/llm/figure_energy.png" />
+  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions)</figcaption>
+</figure>
+<div class="arithmatex">\[
+\frac{E_{GPU}}{\#T_{out}} = \alpha * P_{active} + \beta
+\]</div>
+<p>We found that <span class="arithmatex">\(\alpha = 8.91e-5\)</span> and <span class="arithmatex">\(\beta = 1.43e-3\)</span>. Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens <span class="arithmatex">\(\#T_{out}\)</span> and the number of active parameters <span class="arithmatex">\(P_{active}\)</span>:</p>
+<div class="arithmatex">\[
+E_{GPU}(\#T_{out}, P_{active}) = \#T_{out} * (\alpha * P_{active} + \beta)
+\]</div>
+<p>If the model requires multiple GPUs to be loaded into VRAM, the energy consumption <span class="arithmatex">\(E_{GPU}\)</span> should be multiplied by the number of GPUs <span class="arithmatex">\(\#GPU_{required}\)</span> (see <a href="#complete-server-energy-consumption">below</a>).</p>
+<h3 id="modeling-server-energy-consumption">Modeling server energy consumption</h3>
+<p>To estimate the energy consumption of the entire server, we will use the previously estimated GPU energy model and separately estimate the energy consumption of the server itself (without GPUs), denoted as <span class="arithmatex">\(E_{server\backslash GPU}\)</span>.</p>
+<h4 id="server-energy-consumption-without-gpus">Server energy consumption without GPUs</h4>
+<p>To model the energy consumption of the server without GPUs, we consider a fixed power consumption, <span class="arithmatex">\(W_{server\backslash GPU}\)</span>, during inference (or generation latency), denoted as <span class="arithmatex">\(\Delta T\)</span>. We assume that the server hosts multiple GPUs, but not all of them are actively used for the target inference. Therefore, we account for a portion of the energy consumption based on the number of required GPUs, <span class="arithmatex">\(\#GPU_{required}\)</span>:</p>
+<div class="arithmatex">\[
+E_{server\backslash GPU}(\Delta T) = \Delta T * W_{server\backslash GPU} * \frac{\#GPU_{required}}{\#GPU_{installed}}
+\]</div>
+<p>For a typical high-end GPU-accelerated cloud instance, we use <span class="arithmatex">\(W_{server\backslash GPU} = 1\ kW\)</span> and <span class="arithmatex">\(\#GPU_{installed} = 8\)</span>.</p>
+<h4 id="estimating-the-generation-latency">Estimating the generation latency</h4>
+<p>The generation latency, <span class="arithmatex">\(\Delta T\)</span>, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the <a href="https://huggingface.co/spaces/optimum/llm-perf-leaderboard">LLM Perf Leaderboard</a> dataset with the previously mentioned filters applied.</p>
+<p>We fit a linear regression model on the dataset modeling the generation latency per output token given the number of active parameters of the LLM <span class="arithmatex">\(P_{active}\)</span>:</p>
+<figure>
+  <img alt="Figure: Latency per output token vs. number of active parameters " src="../../assets/methodology/llm/figure_latency.png" />
+  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions)</figcaption>
+</figure>
+<div class="arithmatex">\[
+\frac{\Delta T}{\#T_{out}} = A * P_{active} + B
+\]</div>
+<p>We found <span class="arithmatex">\(A = 8.02e-4\)</span> and <span class="arithmatex">\(B = 2.23e-2\)</span>. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, <span class="arithmatex">\(\#T_{out}\)</span>, and the number of active parameters, <span class="arithmatex">\(P_{active}\)</span>. When possible, we also measure the request latency, <span class="arithmatex">\(\Delta T_{request}\)</span>, and use it as the maximum bound for the generation latency:</p>
+<div class="arithmatex">\[
+\Delta T(\#T_{out}, P_{active}) = \#T_{out} * (A * P_{active} + B)
+\]</div>
+<p>With the request latency, the generation latency is defined as follows:</p>
+<div class="arithmatex">\[
+\Delta T(\#T_{out}, P_{active}, \Delta T_{request}) = \min[\#T_{out} * (A * P_{active} + B), \Delta T_{request}]
+\]</div>
+<h4 id="estimating-the-number-of-active-gpus">Estimating the number of active GPUs</h4>
+<p>To estimate the number of required GPUs, <span class="arithmatex">\(\#GPU_{required}\)</span>, to load the model in virtual memory, we divide the required memory to host the LLM for inference, <span class="arithmatex">\(M_{model}\)</span>, by the memory available on one GPU, <span class="arithmatex">\(M_{GPU}\)</span>.</p>
+<p>The required memory to host the LLM for inference is estimated based on the total number of parameters and the number of bits used for model weights related to quantization. We also apply a memory overhead of <span class="arithmatex">\(1.2\)</span> (see <a href="https://blog.eleuther.ai/transformer-math/#total-inference-memory">Transformers Math 101 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"/></svg></span></a>):</p>
+<div class="arithmatex">\[
+M_{model}(P_{total},Q)=\frac{P_{total}*Q}{8}*1.2
+\]</div>
+<p>We then estimate the number of required GPUs, rounded up:</p>
+<div class="arithmatex">\[
+\#GPU_{required}(P_{total},Q,M_{GPU}) = \lceil \frac{M_{model}(P_{total},Q)}{M_{GPU}}\rceil
+\]</div>
+<p>To stay consistent with previous assumptions based on LLM Perf Leaderboard data, we use <span class="arithmatex">\(M_{GPU} = 80\ GB\)</span> for an NVIDIA A100 80GB GPU.</p>
+<h4 id="complete-server-energy-consumption">Complete server energy consumption</h4>
+<p>The total server energy consumption for the request, <span class="arithmatex">\(E_{server}\)</span>, is calculated as follows:</p>
+<div class="arithmatex">\[
+E_{server} = E_{server\backslash GPU} + \#GPU_{required} * E_{GPU}
+\]</div>
+<h3 id="modeling-request-energy-consumption">Modeling request energy consumption</h3>
+<p>To estimate the energy consumption of the request, we multiply the previously computed server energy by the Power Usage Effectiveness (PUE) to account for cooling equipment in the data center:</p>
+<div class="arithmatex">\[
+E_{request} = PUE * E_{server}
+\]</div>
+<p>We typically use a <span class="arithmatex">\(PUE = 1.2\)</span> for hyperscaler data centers or supercomputers.</p>
+<h3 id="modeling-request-usage-environmental-impacts">Modeling request usage environmental impacts</h3>
+<p>To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, <span class="arithmatex">\(F_{em}\)</span>, specific to the target country and time. <strong>We currently use a worldwide average multicriteria impact factor from the <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a></strong>:</p>
+<div class="arithmatex">\[
+I^u_{request} = E_{request} * F_{em}
+\]</div>
+<details class="note">
+<summary>Some values of <span class="arithmatex">\(F_{em}\)</span> per geographical area</summary>
+<table>
+<thead>
+<tr>
+<th>Area or country</th>
+<th>GWP (<span class="arithmatex">\(gCO2eq / kWh\)</span>)</th>
+<th>ADPe (<span class="arithmatex">\(kgSbeq / kWh\)</span>)</th>
+<th>PE (<span class="arithmatex">\(MJ / kWh\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🌐 Worldwide</td>
+<td><span class="arithmatex">\(590.4\)</span></td>
+<td><span class="arithmatex">\(7.378 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(9.99\)</span></td>
+</tr>
+<tr>
+<td>🇪🇺 Europe (<a href="https://en.wikipedia.org/wiki/European_Economic_Area">EEA</a>)</td>
+<td><span class="arithmatex">\(509.4\)</span></td>
+<td><span class="arithmatex">\(6.423 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(12.9\)</span></td>
+</tr>
+<tr>
+<td>🇺🇸 USA</td>
+<td><span class="arithmatex">\(679.8\)</span></td>
+<td><span class="arithmatex">\(9.855 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(11.4\)</span></td>
+</tr>
+<tr>
+<td>🇨🇳 China</td>
+<td><span class="arithmatex">\(1,057\)</span></td>
+<td><span class="arithmatex">\(8.515 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(14.1\)</span></td>
+</tr>
+<tr>
+<td>🇫🇷 France</td>
+<td><span class="arithmatex">\(81.3\)</span></td>
+<td><span class="arithmatex">\(4.858 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(11.3\)</span></td>
+</tr>
+</tbody>
+</table>
+</details>
+<h2 id="embodied-impacts">Embodied impacts</h2>
+<p>To determine the embodied impacts of an LLM inference, we need to estimate the <strong>hardware configuration</strong> used to host the model and its lifetime. Embodied impacts account for resource extraction (e.g., minerals and metals), manufacturing, and transportation of the hardware.</p>
+<h3 id="modeling-server-embodied-impacts">Modeling server embodied impacts</h3>
+<p>To estimate the embodied impacts of IT hardware, we use the <a href="https://github.com/Boavizta/boaviztapi">BoaviztAPI</a> tool from the non-profit organization <a href="https://boavizta.org/en/">Boavizta</a>. This API embeds a bottom-up multicriteria environment impact estimation engine for embodied and usage phases of IT resources and services. We focus on estimating the embodied impacts of a server and a GPU. BoaviztAPI is an open-source project that relies on open databases and open research on environmental impacts of IT equipment.</p>
+<h4 id="server-embodied-impacts-without-gpu">Server embodied impacts without GPU</h4>
+<p>To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the <code>p4de.24xlarge</code> instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA A100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as <span class="arithmatex">\(I^e_{server\backslash GPU}\)</span>.</p>
+<p>The embodied environmental impacts of the cloud instance are:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Server (without GPU)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GWP (<span class="arithmatex">\(kgCO2eq\)</span>)</td>
+<td><span class="arithmatex">\(3000\)</span></td>
+</tr>
+<tr>
+<td>ADPe (<span class="arithmatex">\(kgSbeq\)</span>)</td>
+<td><span class="arithmatex">\(0.25\)</span></td>
+</tr>
+<tr>
+<td>PE (<span class="arithmatex">\(MJ\)</span>)</td>
+<td><span class="arithmatex">\(39,000\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">These impacts does not take into account the eight GPUs. (<a href="#gpu-embodied-impacts">see bellow</a>)</p>
+</div>
+<details class="info">
+<summary>Example request to reproduce this calculation</summary>
+<p>On the cloud instance route (/v1/cloud/instance) you can POST the following JSON.</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">&quot;provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aws&quot;</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;instance_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p4de.24xlarge&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Or you can use the demo available demo API with this command using <code>curl</code> and parsing the JSON output with <code>jq</code>.</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="s1">&#39;https://api.boavizta.org/v1/cloud/instance?verbose=true&amp;criteria=gwp&amp;criteria=adp&amp;criteria=pe&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="s1">    &quot;provider&quot;: &quot;aws&quot;,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="s1">    &quot;instance_type&quot;: &quot;p4de.24xlarge&quot;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="s1">}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</span></code></pre></div>
+</details>
+<h4 id="gpu-embodied-impacts">GPU embodied impacts</h4>
+<p>Boavizta is currently developing a methodology to provide multicriteria embodied impacts for GPU cards. For this analysis, we use the embodied impact data they computed for a NVIDIA A100 80GB GPU. These values will be used to estimate the embodied impacts of a single GPU, denoted as <span class="arithmatex">\(I^e_{GPU}\)</span>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>NIDIA A100 80GB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GWP (<span class="arithmatex">\(kgCO2eq\)</span>)</td>
+<td><span class="arithmatex">\(143\)</span></td>
+</tr>
+<tr>
+<td>ADPe (<span class="arithmatex">\(kgSbeq\)</span>)</td>
+<td><span class="arithmatex">\(5.09 * 10^{-3}\)</span></td>
+</tr>
+<tr>
+<td>PE (<span class="arithmatex">\(MJ\)</span>)</td>
+<td><span class="arithmatex">\(1,828\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">The GPU embodied impacts will be soon available in the BoaviztAPI tool.</p>
+</div>
+<h4 id="complete-server-embodied-impacts">Complete server embodied impacts</h4>
+<p>The final embodied impacts for the server, including the GPUs, are calculated as follows. Note that the embodied impacts of the server without GPUs are scaled by the number of GPUs required to host the model. This allocation is made to account for the fact that the remaining GPUs on the server can be used to host other models or multiple instances of the same model. As we are estimating the impacts of a single LLM inference, we need to exclude the embodied impacts that would be attributed to other services hosted on the same server.</p>
+<div class="arithmatex">\[
+I^e_{server}=\frac{\#GPU_{required}}{\#GPU_{installed}}*I^e_{server\backslash GPU} + \#GPU_{required} * I^e_{GPU}
+\]</div>
+<h3 id="modeling-request-embodied-environmental-impacts">Modeling request embodied environmental impacts</h3>
+<p>To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, <span class="arithmatex">\(\frac{\Delta T}{\Delta L}\)</span>. In this case, <span class="arithmatex">\(\Delta L\)</span> represents the lifetime of the server and GPU, which we fix at 5 years.</p>
+<div class="arithmatex">\[
+I^e_{request}=\frac{\Delta T}{\Delta L} * I^e_{server}
+\]</div>
+<h3 id="conclusion">Conclusion</h3>
+<p>This paper presents a methodology to assess the environmental impacts of Large Language Model (LLM) inference, considering both usage and embodied impacts. We model server and GPU energy consumption based on various parameters and incorporate PUE and electricity mix impact factors. For embodied impacts, we use the BoaviztAPI tool to estimate environmental impacts of IT hardware. Our methodology offers a comprehensive understanding of the environmental footprint of LLM inference, guiding researchers and practitioners towards more sustainable AI practices. Future work may involve refining the methodology and exploring the impacts of multi-modal models or RAG applications.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://huggingface.co/spaces/optimum/llm-perf-leaderboard">LLM-Perf Leaderboard</a> to estimate GPU energy consumption and latency based on the model architecture and number of output tokens.</li>
+<li><a href="https://github.com/Boavizta/boaviztapi">BoaviztAPI</a> to estimate server embodied impacts and base energy consumption.</li>
+<li><a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a> for electricity mix impacts per country.</li>
+</ul>
+<h2 id="citation"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3H9m3 2 4 13 3-1-4-13-3 1M5 5v13h3V5H5M3 19v2h18v-2H3Z"/></svg></span> Citation</h2>
+<p>Please cite <strong>GenAI Impact</strong> non-profit organization and <strong>link to this documentation page</strong>. </p>
+<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c">Coming soon...</span>
+</span></code></pre></div>
+<h2 id="license"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4l1.5-3.75m13 0L20 14h-3l1.5-3.75Z"/></svg></span> License</h2>
+<p><strong>This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></strong>
+<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="">
+<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt="">
+<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/genai-impact" target="_blank" rel="noopener" title="GenAI Impact GitHub organization" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/company/genai-impact/" target="_blank" rel="noopener" title="GenAI Impact LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "content.tabs.link", "content.code.copy", "content.code.annotate", "content.tooltips", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
