@@ -14,6 +14,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
       # check-out repo and set-up python
       - name: Check out repository
         uses: actions/checkout@v4
@@ -39,11 +44,6 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --only docs
-
-      - name: Checkout gh-pages
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
 
       # deploy github pages (dev)
       - name: Deploy GitHub Pages (dev)
