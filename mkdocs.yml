@@ -54,6 +54,9 @@ theme:
     - announce.dismiss
 
 extra:
+  version:
+    alias: true
+    provider: mike
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/genai-impact
@@ -100,7 +103,6 @@ plugins:
   - mike:
       alias_type: symlink
       canonical_version: latest
-
 
 
 markdown_extensions:
