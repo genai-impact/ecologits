@@ -46,7 +46,7 @@ jobs:
         run: poetry run mike deploy -b gh-pages dev --push
 
       # deploy github pages (release)
-      - if: "github.ref == startsWith(github.ref, 'refs/tags/')"
+      - if: startsWith(github.ref, 'refs/tags/')
         id: check-version
         uses: samuelcolvin/check-python-version@v4.1
         with:
@@ -54,5 +54,5 @@ jobs:
           skip_env_check: true
 
       - name: Deploy GitHub Pages (release)
-        if: "github.ref == startsWith(github.ref, 'refs/tags/')"
+        if: startsWith(github.ref, 'refs/tags/')
         run: poetry run mike deploy -b gh-pages ${{ steps.check-version.outputs.VERSION_MAJOR_MINOR }} latest --update-aliases --push
