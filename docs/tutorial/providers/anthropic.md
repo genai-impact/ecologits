@@ -1,6 +1,6 @@
 # Anthropic
 
-This guide is focuses on the integration of :seedling: **EcoLogits** with the [Anthropic official python client :octicons-link-external-16:](https://github.com/anthropics/anthropic-sdk-python).
+This guide focuses on the integration of :seedling: **EcoLogits** with the [Anthropic official python client :octicons-link-external-16:](https://github.com/anthropics/anthropic-sdk-python).
 
 Official links:
 

@@ -1,6 +1,6 @@
 # Hugging Face Hub
 
-This guide is focuses on the integration of :seedling: **EcoLogits** with the [Hugging Face Hub official python client :octicons-link-external-16:](https://github.com/huggingface/huggingface_hub).
+This guide focuses on the integration of :seedling: **EcoLogits** with the [Hugging Face Hub official python client :octicons-link-external-16:](https://github.com/huggingface/huggingface_hub).
 
 Official links:
 
