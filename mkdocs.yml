@@ -97,6 +97,9 @@ plugins:
               ignore_init_summary: yes
             merge_init_into_class: yes
             inherited_members: true
+  - mike:
+      alias_type: symlink
+      canonical_version: latest
 
 
 
