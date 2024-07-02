@@ -40,6 +40,11 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --only docs
 
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
       # deploy github pages (dev)
       - name: Deploy GitHub Pages (dev)
         if: "github.ref == 'refs/heads/main'"
