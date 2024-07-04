@@ -5,6 +5,8 @@
         <script>
             if (!window.location.pathname.startsWith('/latest')) {
                 window.location.href = '/latest' + window.location.pathname;
+            } else {
+                window.location.replace('/latest/404.html');
             }
         </script>
     </head>
