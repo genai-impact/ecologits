@@ -1,0 +1,69 @@
+interactions:
+- request:
+    body: '{"model": "command-r", "message": "Hello World!"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '49'
+      Request-Source:
+      - unspecified:litellm
+      User-Agent:
+      - python-requests/2.32.3
+      accept:
+      - application/json
+      content-type:
+      - application/json
+    method: POST
+    uri: https://api.cohere.ai/v1/chat
+  response:
+    body:
+      string: '{"response_id":"3506e94d-7741-49c0-b820-dd1da203f521","text":"Hello!
+        It''s a pleasure to meet you. How''s it going today?","generation_id":"594c6c99-490a-44f4-9a23-f3c0d1b8aa7f","chat_history":[{"role":"USER","message":"Hello
+        World!"},{"role":"CHATBOT","message":"Hello! It''s a pleasure to meet you.
+        How''s it going today?"}],"finish_reason":"COMPLETE","meta":{"api_version":{"version":"1"},"billed_units":{"input_tokens":3,"output_tokens":16},"tokens":{"input_tokens":69,"output_tokens":16}}}'
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Content-Length:
+      - '490'
+      Via:
+      - 1.1 google
+      access-control-expose-headers:
+      - X-Debug-Trace-ID
+      cache-control:
+      - no-cache, no-store, no-transform, must-revalidate, private, max-age=0
+      content-type:
+      - application/json
+      date:
+      - Tue, 16 Jul 2024 14:51:39 GMT
+      expires:
+      - Thu, 01 Jan 1970 00:00:00 UTC
+      num_chars:
+      - '427'
+      num_tokens:
+      - '19'
+      pragma:
+      - no-cache
+      server:
+      - envoy
+      vary:
+      - Origin
+      x-accel-expires:
+      - '0'
+      x-debug-trace-id:
+      - 827718fd5f18c95038e08ff950dfa86d
+      x-endpoint-monthly-call-limit:
+      - '1000'
+      x-envoy-upstream-service-time:
+      - '238'
+      x-trial-endpoint-call-limit:
+      - '10'
+      x-trial-endpoint-call-remaining:
+      - '9'
+    status:
+      code: 200
+      message: OK
+version: 1

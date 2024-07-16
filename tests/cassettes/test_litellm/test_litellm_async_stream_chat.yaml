@@ -1,0 +1,253 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - identity
+      Connection:
+      - keep-alive
+      X-Amzn-Trace-Id:
+      - c36cfe8d-9ef6-4c18-b8d8-e849709d3e4a
+      user-agent:
+      - unknown/None; hf_hub/0.22.2; python/3.11.8
+    method: HEAD
+    uri: https://huggingface.co/mistral-small-latest/resolve/main/tokenizer.json
+  response:
+    body:
+      string: ''
+    headers:
+      Access-Control-Allow-Origin:
+      - https://huggingface.co
+      Access-Control-Expose-Headers:
+      - X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Tue, 16 Jul 2024 14:51:39 GMT
+      ETag:
+      - W/"1d-DMkJvg8tpLoaQbsiq9Mz7l2CJyI"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Vary:
+      - Origin
+      Via:
+      - 1.1 a752e456797165fcc0a1e5de08b5353c.cloudfront.net (CloudFront)
+      WWW-Authenticate:
+      - Bearer realm="Authentication required", charset="UTF-8"
+      X-Amz-Cf-Id:
+      - Ik70s8EwrGQPLOSTUiGgDehItFLXGK5wZiEcZU2a5e68OOsc9ZceAQ==
+      X-Amz-Cf-Pop:
+      - AMS58-P3
+      X-Cache:
+      - Error from cloudfront
+      X-Error-Message:
+      - Invalid username or password.
+      X-Powered-By:
+      - huggingface-moon
+      X-Request-Id:
+      - Root=1-669688fb-691ad04c22e8006923f0b5e4;c36cfe8d-9ef6-4c18-b8d8-e849709d3e4a
+      cross-origin-opener-policy:
+      - same-origin
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: '{"messages": [{"role": "user", "content": [{"type": "text", "text": "Hello
+      World!"}]}], "max_tokens": 4096, "model": "claude-3-5-sonnet-20240620", "stream":
+      true}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      anthropic-version:
+      - '2023-06-01'
+      connection:
+      - keep-alive
+      content-length:
+      - '162'
+      content-type:
+      - application/json
+      host:
+      - api.anthropic.com
+      user-agent:
+      - litellm/1.41.23
+    method: POST
+    uri: https://api.anthropic.com/v1/messages
+  response:
+    body:
+      string: 'event: message_start
+
+        data: {"type":"message_start","message":{"id":"msg_01ESNRfM1Dm3bhBHJ9BjgYa6","type":"message","role":"assistant","model":"claude-3-5-sonnet-20240620","content":[],"stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":10,"output_tokens":3}}}
+
+
+        event: content_block_start
+
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}    }
+
+
+        event: ping
+
+        data: {"type": "ping"}
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"Hello!
+        It"}   }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"''s
+        great"}       }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        to meet you."}    }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        How"}  }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        can"}             }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        I assist you today"}       }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"?"}       }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        Feel"}           }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        free to ask me"}    }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        anything or"}        }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        let"}            }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        me know if you"}            }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"''d
+        like help with"}     }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        a"}    }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        particular"}  }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        topic"}     }
+
+
+        event: content_block_delta
+
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
+        or task."}          }
+
+
+        event: content_block_stop
+
+        data: {"type":"content_block_stop","index":0       }
+
+
+        event: message_delta
+
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null},"usage":{"output_tokens":41}            }
+
+
+        event: message_stop
+
+        data: {"type":"message_stop"               }
+
+
+        '
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8a42cfc44d26b8fd-AMS
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Date:
+      - Tue, 16 Jul 2024 14:51:40 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      anthropic-ratelimit-requests-limit:
+      - '5'
+      anthropic-ratelimit-requests-remaining:
+      - '4'
+      anthropic-ratelimit-requests-reset:
+      - '2024-07-16T14:51:43Z'
+      anthropic-ratelimit-tokens-limit:
+      - '20000'
+      anthropic-ratelimit-tokens-remaining:
+      - '16000'
+      anthropic-ratelimit-tokens-reset:
+      - '2024-07-16T14:51:51Z'
+      request-id:
+      - req_01P5CsZqBn8Yok4Q95vUjCLb
+      via:
+      - 1.1 google
+    status:
+      code: 200
+      message: OK
+version: 1
