@@ -52,7 +52,7 @@ litellm = {version="^1.41.23", optional = true}
 
 [tool.poetry.extras]
 openai = ["openai"]
-litellm = ["litellm","openai","mistralai","anthropic","cohere","huggingface-hub", "tiktoken", "aiohttp", "minijinja","google-generativeai"]
+litellm = ["litellm"]
 mistralai = ["mistralai"]
 anthropic = ["anthropic"]
 cohere = ["cohere"]
