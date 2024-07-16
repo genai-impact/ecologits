@@ -22,3 +22,7 @@ def test_find_unknown_provider():
 def test_find_unknown_model_name():
     models = ModelRepository.from_csv()
     assert models.find_model(provider="openai", model_name="model-test") is None
+
+def test_find_huggingface_provider():
+    models = ModelRepository.from_csv()
+    assert models.find_provider(model_name="huggingface/HuggingFaceH4/zephyr-7b-beta") == "huggingface_hub"

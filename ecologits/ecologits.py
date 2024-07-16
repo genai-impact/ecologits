@@ -50,6 +50,7 @@ def init_instruments() -> None:
     init_huggingface_instrumentor()
     init_cohere_instrumentor()
     init_google_instrumentor()
+    init_litellm_instrumentor()
 
 
 def init_openai_instrumentor() -> None:
@@ -100,4 +101,11 @@ def init_google_instrumentor() -> None:
         from ecologits.tracers.google_tracer import GoogleInstrumentor
 
         instrumentor = GoogleInstrumentor()
+        instrumentor.instrument()
+
+def init_litellm_instrumentor() -> None:
+    if importlib.util.find_spec("litellm") is not None:
+        from ecologits.tracers.litellm_tracer import LiteLLMInstrumentor
+
+        instrumentor = LiteLLMInstrumentor()
         instrumentor.instrument()
