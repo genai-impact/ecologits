@@ -1,6 +1,6 @@
 # LiteLLM
 
-This guide focuses on the integration of :seedling: **EcoLogits** with the [LiteLLM official python client :octicons-link-external-16:](https://github.com/BerriAI/litellm).
+This guide focuses on the integration of :seedling: **EcoLogits** with the [LiteLLM official Python client :octicons-link-external-16:](https://github.com/BerriAI/litellm).
 
 Official links:
 
