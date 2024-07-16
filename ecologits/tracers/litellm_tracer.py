@@ -4,12 +4,12 @@ from typing import Any, Callable, Union
 from wrapt import wrap_function_wrapper
 
 from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
 from ecologits.model_repository import models
+from ecologits.tracers.utils import llm_impacts
 
 try:
     import litellm
-    from litellm import Completions, AsyncCompletions
+    from litellm import AsyncCompletions, Completions
     from litellm.types.utils import ModelResponse
     from litellm.utils import CustomStreamWrapper
 
@@ -38,7 +38,7 @@ def litellm_chat_wrapper(
         return litellm_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
         return litellm_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
-    
+
 
 def litellm_chat_wrapper_stream(
     wrapped: Callable,
@@ -88,7 +88,7 @@ def litellm_chat_wrapper_non_stream(
 
 async def litellm_async_chat_wrapper(
     wrapped: Callable,
-    instance: AsyncCompletions,      # noqa: ARG001
+    instance: AsyncCompletions,
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletion,CustomStreamWrapper]:
