@@ -18,6 +18,7 @@ nav:
           - 'Cohere': tutorial/providers/cohere.md
           - 'Google Gemini': tutorial/providers/google.md
           - 'Hugging Face Hub': tutorial/providers/huggingface_hub.md
+          - 'LiteLLM': tutorial/providers/litellm.md
           - 'Mistral AI': tutorial/providers/mistralai.md
           - 'OpenAI': tutorial/providers/openai.md
   - 'Methodology':

@@ -32,12 +32,13 @@ For integration with specific providers like OpenAI, additional dependencies can
 pip install ecologits[openai]
 ```
 
-EcoLogits currently supports the following providers:
+EcoLogits currently supports the following providers/clients:
 
 - `anthropic`
 - `cohere`
 - `google-generativeai`
 - `huggingface-hub` (Hugging Face Inference Endpoints)
+- `litellm`
 - `mistralai`
 - `openai`
 
