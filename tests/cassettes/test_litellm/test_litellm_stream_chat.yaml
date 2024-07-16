@@ -1,0 +1,156 @@
+interactions:
+- request:
+    body: '{"messages": [{"role": "user", "content": "Hello World!"}], "model": "mistral-small-latest",
+      "stream": true}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '108'
+      content-type:
+      - application/json
+      host:
+      - api.mistral.ai
+      user-agent:
+      - OpenAI/Python 1.35.14
+      x-stainless-arch:
+      - arm64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - MacOS
+      x-stainless-package-version:
+      - 1.35.14
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.11.8
+    method: POST
+    uri: https://api.mistral.ai/v1/chat/completions
+  response:
+    body:
+      string: 'data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"Hello"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"!"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        It"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"''"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"s"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        great"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        to"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        meet"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        you"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"."},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        How"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        can"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        I"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        assist"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        you"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"
+        today"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":"?"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"aeadd0d4cdc349f89d684afcdb3ed6c4","object":"chat.completion.chunk","created":1721141499,"model":"mistral-small-latest","choices":[{"index":0,"delta":{"content":""},"finish_reason":"stop","logprobs":null}],"usage":{"prompt_tokens":6,"total_tokens":23,"completion_tokens":17}}
+
+
+        data: [DONE]
+
+
+        '
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8a42cfc19e9f0bcb-AMS
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Date:
+      - Tue, 16 Jul 2024 14:51:39 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      ratelimitbysize-limit:
+      - '500000'
+      ratelimitbysize-query-cost:
+      - '32003'
+      ratelimitbysize-remaining:
+      - '434648'
+      ratelimitbysize-reset:
+      - '21'
+      x-envoy-upstream-service-time:
+      - '56'
+      x-kong-proxy-latency:
+      - '2'
+      x-kong-request-id:
+      - 58beaa2d83644c31c175934f0ee04d47
+      x-kong-upstream-latency:
+      - '57'
+      x-ratelimitbysize-limit-minute:
+      - '500000'
+      x-ratelimitbysize-limit-month:
+      - '1000000000'
+      x-ratelimitbysize-remaining-minute:
+      - '434648'
+      x-ratelimitbysize-remaining-month:
+      - '999743976'
+    status:
+      code: 200
+      message: OK
+version: 1

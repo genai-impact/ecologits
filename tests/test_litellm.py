@@ -21,7 +21,7 @@ async def test_litellm_async_chat(tracer_init):
 @pytest.mark.vcr
 def test_litellm_stream_chat(tracer_init):
     stream = litellm.completion(
-        messages=[{"role": "user", "content": "Hello World!"}], model="gpt-3.5-turbo", stream=True
+        messages=[{"role": "user", "content": "Hello World!"}], model="mistral/mistral-small-latest", stream=True
     )
     for chunk in stream:
         assert chunk.impacts.energy.value >= 0
@@ -33,5 +33,4 @@ async def test_litellm_async_stream_chat(tracer_init):
         messages=[{"role": "user", "content": "Hello World!"}], model="claude-3-5-sonnet-20240620", stream=True
     )
     async for chunk in stream:
-        if hasattr(chunk, "impacts"):
-            assert chunk.impacts.energy.value >= 0
+        assert chunk.impacts.energy.value >= 0
