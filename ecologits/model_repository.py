@@ -37,8 +37,14 @@ class ModelRepository:
 
     def find_model(self, provider: str, model_name: str) -> Optional[Model]:
         for model in self.__models:
-            if model.provider == provider and model_name == model.name:
+            if model.provider == provider and model.name in model_name:
                 return model
+        return None
+
+    def find_provider(self, model_name: str) -> Optional[str]:
+        for model in self.__models:
+            if  model.name in model_name:
+                return model.provider
         return None
 
     @classmethod
