@@ -3598,11 +3598,11 @@ anthropic = ["anthropic"]
 cohere = ["cohere"]
 google-generativeai = ["google-generativeai"]
 huggingface-hub = ["aiohttp", "huggingface-hub", "minijinja", "tiktoken"]
-litellm = ["aiohttp", "anthropic", "cohere", "google-generativeai", "huggingface-hub", "litellm", "minijinja", "mistralai", "openai", "tiktoken"]
+litellm = ["litellm"]
 mistralai = ["mistralai"]
 openai = ["openai"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "2db4159d0a2c21b8e309ce89691109de7e2147463fa757f3a27215958059b749"
+content-hash = "fac1619fde0ad36d5cafc9595b28183d2fe09a67afa29fc79d33d6d72553bdc2"
