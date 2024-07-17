@@ -91,6 +91,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://ecologits.ai/latest/reference/tracers/litellm_tracer/</loc>
+         <lastmod>2024-07-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://ecologits.ai/latest/reference/tracers/mistralai_tracer/</loc>
          <lastmod>2024-07-17</lastmod>
          <changefreq>daily</changefreq>
@@ -132,6 +137,11 @@
     </url>
     <url>
          <loc>https://ecologits.ai/latest/tutorial/providers/huggingface_hub/</loc>
+         <lastmod>2024-07-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ecologits.ai/latest/tutorial/providers/litellm/</loc>
          <lastmod>2024-07-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
