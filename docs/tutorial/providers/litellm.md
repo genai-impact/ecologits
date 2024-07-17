@@ -5,7 +5,7 @@ This guide focuses on the integration of :seedling: **EcoLogits** with the [Lite
 Official links:
 
 * Repository: [:simple-github: BerriAI/litellm](https://github.com/BerriAI/litellm)
-* Documentation: [:material-file-document: litellm.vercel.app](https://litellm.vercel.app/docs/#litellm-python-sdk)
+* Documentation: [:material-file-document: litellm.vercel.app](https://docs.litellm.ai/docs/)
 
 
 ## Installation
