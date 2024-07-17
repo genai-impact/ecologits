@@ -65,6 +65,7 @@ def litellm_chat_wrapper_stream(
         else:
             yield chunk
 
+
 def litellm_chat_wrapper_non_stream(
     wrapped: Callable,
     instance: Completions,      # noqa: ARG001
@@ -85,6 +86,7 @@ def litellm_chat_wrapper_non_stream(
         return ChatCompletion(**response.model_dump(), impacts=impacts)
     else:
         return response
+
 
 async def litellm_async_chat_wrapper(
     wrapped: Callable,

@@ -103,6 +103,7 @@ def init_google_instrumentor() -> None:
         instrumentor = GoogleInstrumentor()
         instrumentor.instrument()
 
+
 def init_litellm_instrumentor() -> None:
     if importlib.util.find_spec("litellm") is not None:
         from ecologits.tracers.litellm_tracer import LiteLLMInstrumentor

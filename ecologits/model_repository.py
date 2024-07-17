@@ -44,7 +44,7 @@ class ModelRepository:
 
     def find_provider(self, model_name: str) -> Optional[str]:
         for model in self.__models:
-            if  model.name in model_name:
+            if model.name in model_name:
                 return model.provider
         return None
 
