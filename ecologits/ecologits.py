@@ -96,7 +96,7 @@ def init_cohere_instrumentor() -> None:
 
 
 def init_google_instrumentor() -> None:
-    if importlib.util.find_spec("google-generativeai") is not None:
+    if importlib.util.find_spec("google.generativeai") is not None:
         from ecologits.tracers.google_tracer import GoogleInstrumentor
 
         instrumentor = GoogleInstrumentor()
