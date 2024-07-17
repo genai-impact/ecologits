@@ -37,6 +37,7 @@ class ModelRepository:
 
     def find_model(self, provider: str, model_name: str) -> Optional[Model]:
         for model in self.__models:
+            # To handle specific LiteLLM calling (e.g., mistral/mistral-small)
             if model.provider == provider and model.name in model_name:
                 return model
         return None
