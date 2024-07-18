@@ -38,6 +38,8 @@ mistralai,open-mixtral-8x22b,140.6,39.1,,https://docs.mistral.ai/getting-started
 mistralai,open-mixtral-8x22b-2404,140.6,39.1,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
 mistralai,codestral-2405,22.2,22.2,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
 mistralai,codestral-latest,22.2,22.2,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
+mistralai,open-mistral-nemo,12.2,12.2,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
+mistralai,open-mistral-nemo-2407,12.2,12.2,,https://docs.mistral.ai/getting-started/open_weight_models/#sizes
 anthropic,claude-3-opus-20240229,2000,250;1000,model_architecture_not_released,https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit?usp=sharing
 anthropic,claude-3-sonnet-20240229,800,100;400,model_architecture_not_released,
 anthropic,claude-3-5-sonnet-20240620,800,100;400,model_architecture_not_released,
@@ -86,6 +88,9 @@ huggingface_hub,mistralai/Mixtral-8x22B-v0.1,140.6,39.1,,https://huggingface.co/
 huggingface_hub,mistralai/Mixtral-8x7B-Instruct-v0.1,46.7,12.9,,https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1
 huggingface_hub,mistralai/Mixtral-8x7B-v0.1,46.7,12.9,,https://huggingface.co/mistralai/Mixtral-8x7B-v0.1
 huggingface_hub,mistralai/Codestral-22B-v0.1,22.2,22.2,,https://huggingface.co/mistralai/Codestral-22B-v0.1
+huggingface_hub,mistralai/Mistral-Nemo-Instruct-2407,12.2,12.2,,https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407
+huggingface_hub,mistralai/Mistral-Nemo-Base-2407,12.2,12.2,,https://huggingface.co/mistralai/Mistral-Nemo-Base-2407
+huggingface_hub,mistralai/mathstral-7B-v0.1,7.24,7.25,,https://huggingface.co/mistralai/mathstral-7B-v0.1
 huggingface_hub,mistral-community/Mixtral-8x22B-v0.1-original,140.6,39.1,,https://huggingface.co/mistral-community/Mixtral-8x22B-v0.1-original
 huggingface_hub,mistral-community/Mixtral-8x22B-v0.1,140.6,39.1,,https://huggingface.co/mistral-community/Mixtral-8x22B-v0.1
 huggingface_hub,mistral-community/Mixtral-8x22B-v0.1-AWQ,140.6,39.1,,https://huggingface.co/mistral-community/Mixtral-8x22B-v0.1-AWQ
