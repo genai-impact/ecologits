@@ -18,5 +18,5 @@ body:
         * A demo of how code might look when using the feature
         * Your use case(s) for the feature
         * Why the feature should be added to EcoLogits (as opposed to another library or just implemented in your code)
-      validations:
-        required: true
+    validations:
+      required: true
