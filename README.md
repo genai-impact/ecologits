@@ -49,6 +49,9 @@ See package documentation on [EcoLogits](https://ecologits.ai/)
 
 ## 💪 Contributing
 
+To get started with setting up a development environment and making a contribution to EcoLogits, see [Contributing to EcoLogits](https://ecologits.ai/latest/contributing/).
+
+
 ### Requirements
 
 Have [poetry](https://python-poetry.org/docs/#installation) installed on your system.
