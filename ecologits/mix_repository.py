@@ -178,9 +178,9 @@ class MixRepository:
                 mixes.append(
                     Mix(
                         zone=Zones(row["name"]).name,
-                        adpe=row["adpe"],
-                        pe=row["pe"],
-                        gwp=row["gwp"],
+                        adpe=float(row["adpe"]),
+                        pe=float(row["pe"]),
+                        gwp=float(row["gwp"]),
                     )
                 )
         return cls(mixes)
