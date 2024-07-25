@@ -3,6 +3,7 @@ from typing import Optional
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Range
 from ecologits.model_repository import models
+from ecologits.mix_repository import mixes
 
 
 def _avg(value_range: tuple) -> float:
@@ -39,7 +40,7 @@ def llm_impacts(
     model_total_params = model.total_parameters \
                          or Range(min=model.total_parameters_range[0], max=model.total_parameters_range[1])
 
-    mix = models.find_mix(zone=mix_zone)
+    mix = mixes.find_mix(zone=mix_zone)
     if model is None:
         # TODO: Replace with proper logging
         print(f"Could not find mix `{mix_zone}` in the ADEME database")
