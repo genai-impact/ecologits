@@ -160,7 +160,7 @@ class MixRepository:
         self.__mixes = mixes
 
     def find_mix(self, zone: str) -> Optional[Mix]:
-        for mix in self.mixes:
+        for mix in self.__mixes:
             if mix.zone == zone:
                 return mix
         return None

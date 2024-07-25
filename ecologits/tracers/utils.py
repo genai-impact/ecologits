@@ -2,8 +2,8 @@ from typing import Optional
 
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Range
-from ecologits.model_repository import models
 from ecologits.mix_repository import mixes
+from ecologits.model_repository import models
 
 
 def _avg(value_range: tuple) -> float:
