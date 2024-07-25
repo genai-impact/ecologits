@@ -177,7 +177,7 @@ class MixRepository:
             for row in csv:
                 mixes.append(
                     Mix(
-                        zone=Zones(row["name"]).name, 
+                        zone=Zones(row["name"]).name,
                         adpe=row["adpe"],
                         pe=row["pe"],
                         gwp=row["gwp"],
