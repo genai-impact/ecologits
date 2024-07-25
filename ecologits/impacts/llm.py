@@ -27,10 +27,6 @@ HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 
 DATACENTER_PUE = 1.2
 
-IF_ELECTRICITY_MIX_GWP = 5.90478e-1     # kgCO2eq / kWh (World)
-IF_ELECTRICITY_MIX_ADPE = 7.37708e-8    # kgSbeq / kWh (World)
-IF_ELECTRICITY_MIX_PE = 9.988           # MJ / kWh (World)
-
 
 dag = DAG()
 
@@ -347,6 +343,9 @@ def compute_llm_impacts_dag(
     model_total_parameter_count: float,
     output_token_count: float,
     request_latency: float,
+    if_electricity_mix_adpe: float,
+    if_electricity_mix_pe: float,
+    if_electricity_mix_gwp: float,
     model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
     gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
     gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
@@ -363,9 +362,6 @@ def compute_llm_impacts_dag(
     server_embodied_pe: Optional[float] = SERVER_EMBODIED_IMPACT_PE,
     server_lifetime: Optional[float] = HARDWARE_LIFESPAN,
     datacenter_pue: Optional[float] = DATACENTER_PUE,
-    if_electricity_mix_gwp: Optional[float] = IF_ELECTRICITY_MIX_GWP,
-    if_electricity_mix_adpe: Optional[float] = IF_ELECTRICITY_MIX_ADPE,
-    if_electricity_mix_pe: Optional[float] = IF_ELECTRICITY_MIX_PE,
 ) -> dict[str, float]:
     """
     Compute the impacts dag of an LLM generation request.
@@ -375,6 +371,9 @@ def compute_llm_impacts_dag(
         model_total_parameter_count: Number of parameters of the model.
         output_token_count: Number of generated tokens.
         request_latency: Measured request latency in seconds.
+        if_electricity_mix_adpe: ADPe impact factor of electricity consumption in kg of eq. Sb (Antimony).
+        if_electricity_mix_pe: PE impact factor of electricity consumption in MJ.
+        if_electricity_mix_gwp: GWP impact factor of electricity consumption in kg of eq. CO2.
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
@@ -391,9 +390,6 @@ def compute_llm_impacts_dag(
         server_embodied_pe: PE embodied impact of the server.
         server_lifetime: Lifetime duration of the server.
         datacenter_pue: PUE of the datacenter.
-        if_electricity_mix_gwp: GWP impact factor of electricity consumption.
-        if_electricity_mix_adpe: ADPe impact factor of electricity consumption.
-        if_electricity_mix_pe: PE impact factor of electricity consumption.
 
     Returns:
         The impacts dag with all intermediate states.
@@ -404,6 +400,9 @@ def compute_llm_impacts_dag(
         model_quantization_bits=model_quantization_bits,
         output_token_count=output_token_count,
         request_latency=request_latency,
+        if_electricity_mix_gwp=if_electricity_mix_gwp,
+        if_electricity_mix_adpe=if_electricity_mix_adpe,
+        if_electricity_mix_pe=if_electricity_mix_pe,
         gpu_energy_alpha=gpu_energy_alpha,
         gpu_energy_beta=gpu_energy_beta,
         gpu_latency_alpha=gpu_latency_alpha,
@@ -419,9 +418,6 @@ def compute_llm_impacts_dag(
         server_embodied_pe=server_embodied_pe,
         server_lifetime=server_lifetime,
         datacenter_pue=datacenter_pue,
-        if_electricity_mix_gwp=if_electricity_mix_gwp,
-        if_electricity_mix_adpe=if_electricity_mix_adpe,
-        if_electricity_mix_pe=if_electricity_mix_pe
     )
     return results
 
@@ -430,6 +426,9 @@ def compute_llm_impacts(
     model_active_parameter_count: ValueOrRange,
     model_total_parameter_count: ValueOrRange,
     output_token_count: float,
+    if_electricity_mix_adpe: float,
+    if_electricity_mix_pe: float,
+    if_electricity_mix_gwp: float,
     request_latency: Optional[float] = None,
     **kwargs: Any
 ) -> Impacts:
@@ -441,6 +440,9 @@ def compute_llm_impacts(
         model_total_parameter_count: Number of total parameters of the model.
         output_token_count: Number of generated tokens.
         request_latency: Measured request latency in seconds.
+        if_electricity_mix_adpe: ADPe impact factor of electricity consumption in kg of eq. Sb (Antimony).
+        if_electricity_mix_pe: PE impact factor of electricity consumption in MJ.
+        if_electricity_mix_gwp: GWP impact factor of electricity consumption in kg of eq. CO2.
         **kwargs: Any other optional parameter.
 
     Returns:
@@ -471,6 +473,9 @@ def compute_llm_impacts(
             model_total_parameter_count=tot_param,
             output_token_count=output_token_count,
             request_latency=request_latency,
+            if_electricity_mix_adpe=if_electricity_mix_adpe,
+            if_electricity_mix_pe=if_electricity_mix_pe,
+            if_electricity_mix_gwp=if_electricity_mix_gwp,
             **kwargs
         )
         for field in fields:
