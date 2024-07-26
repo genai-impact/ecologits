@@ -439,10 +439,10 @@ def compute_llm_impacts(
         model_active_parameter_count: Number of active parameters of the model.
         model_total_parameter_count: Number of total parameters of the model.
         output_token_count: Number of generated tokens.
-        request_latency: Measured request latency in seconds.
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption in kg of eq. Sb (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kg of eq. CO2.
+        request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
 
     Returns:
