@@ -6,23 +6,28 @@ from operator import gt, ge
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Energy, GWP, ADPe, PE, Usage, Embodied
 
-
 @pytest.mark.parametrize(
-    ['model_active_parameter_count', 'model_total_parameter_count', 'output_token_count', 'request_latency'],
+    ['model_active_parameter_count', 'model_total_parameter_count', 'output_token_count', 'request_latency', 'if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp'],
     [
-        (7.3, 7.3, 200, 5),         # Mistral 7B
-        (12.9, 46.7, 200, 10)       # Mixtral 8x7B
+        (7.3, 7.3, 200, 5, 0.0000000737708, 9.988, 0.590478),         # Mistral 7B with World mix
+        (12.9, 46.7, 200, 10, 0.0000000737708, 9.988, 0.590478)       # Mixtral 8x7B with world mix
     ]
 )
 def test_compute_llm_impacts(model_active_parameter_count: float,
                              model_total_parameter_count: float,
                              output_token_count: int,
-                             request_latency: float) -> None:
+                             request_latency: float, 
+                             if_electricity_mix_adpe: float, 
+                             if_electricity_mix_pe: float, 
+                             if_electricity_mix_gwp: float) -> None:
     impacts = compute_llm_impacts(
         model_active_parameter_count=model_active_parameter_count,
         model_total_parameter_count=model_total_parameter_count,
         output_token_count=output_token_count,
-        request_latency=request_latency
+        request_latency=request_latency, 
+        if_electricity_mix_adpe=if_electricity_mix_adpe, 
+        if_electricity_mix_pe=if_electricity_mix_pe,
+        if_electricity_mix_gwp=if_electricity_mix_gwp,
     )
     assert impacts.energy.value > 0
     assert impacts.gwp.value > 0
@@ -51,7 +56,15 @@ def compare_impacts(impacts: Impacts, prev_impacts: Impacts, op=gt):
     assert op(impacts.embodied.pe, prev_impacts.embodied.pe)
 
 
-def test_compute_llm_impacts_monotonicity_on_parameters():
+@pytest.mark.parametrize(
+    ['if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp'],
+    [
+        (0.0000000737708, 9.988, 0.590478),         # Mistral 7B with World mix
+    ]
+)
+def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe: float, 
+                                                        if_electricity_mix_pe: float, 
+                                                        if_electricity_mix_gwp: float):
     zero_impacts = Impacts(
         energy=Energy(value=0),
         gwp=GWP(value=0),
@@ -76,6 +89,9 @@ def test_compute_llm_impacts_monotonicity_on_parameters():
             model_active_parameter_count=total_parameters,
             model_total_parameter_count=total_parameters,
             output_token_count=100,
+            if_electricity_mix_adpe=if_electricity_mix_adpe, 
+            if_electricity_mix_pe=if_electricity_mix_pe,
+            if_electricity_mix_gwp=if_electricity_mix_gwp,
         )
 
         compare_impacts(impacts, prev_impacts, op=gt)
@@ -87,6 +103,9 @@ def test_compute_llm_impacts_monotonicity_on_parameters():
                 model_active_parameter_count=active_parameters,
                 model_total_parameter_count=total_parameters,
                 output_token_count=100,
+                if_electricity_mix_adpe=if_electricity_mix_adpe, 
+                if_electricity_mix_pe=if_electricity_mix_pe,
+                if_electricity_mix_gwp=if_electricity_mix_gwp,
             )
 
             compare_impacts(impacts_moe, prev_impacts_moe, op=gt)
