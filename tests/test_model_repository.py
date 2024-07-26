@@ -12,7 +12,7 @@ def test_create_model_repository_from_scratch():
     models = ModelRepository([
         Model(provider="provider-test", name="model-test")
     ])
-    assert models.find_model(provider="provider-test", model_name="model-test")
+    assert models.find_model(provider="provider-test", model_name="model-test") is not None
 
 
 @pytest.mark.parametrize("input_provider,input_name, expected_model_name", [
