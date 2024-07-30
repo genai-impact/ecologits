@@ -13,6 +13,10 @@ def test_create_model_repository_from_scratch():
     ])
     assert models.find_model(provider="provider-test", model_name="model-test")
 
+def test_find_azure_openai_model():
+    models = ModelRepository.from_csv()
+    assert models.find_model(provider="openai", model_name="gpt-35-turbo").name =="gpt-3.5-turbo"
+
 
 def test_find_unknown_provider():
     models = ModelRepository.from_csv()

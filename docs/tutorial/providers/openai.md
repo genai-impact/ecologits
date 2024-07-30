@@ -73,6 +73,34 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     asyncio.run(main())
     ```
+### Azure OpenAI example
+
+Under the hood it is the same function that is called by the Azure OpenAI client. Hence the impacts attribute will automatically be added to the response object.
+
+=== "Azure"
+```python
+from ecologits import EcoLogits
+from openai import AzureOpenAI
+
+# Initialize EcoLogits
+EcoLogits.init()
+
+client = AzureOpenAI(
+        azure_endpoint= "http://myazureendpoint",
+        api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+        api_version=os.getenv("OPENAI_API_VERSION"),
+    )
+
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "user", "content": "Tell me a funny joke!"}
+    ]
+)
+
+# Get estimated environmental impacts of the inference
+print(response.impacts)
+```
 
 ### Streaming example
 
