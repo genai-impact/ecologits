@@ -31,14 +31,13 @@ class Model:
 
 
 class ModelRepository:
-
     def __init__(self, models: list[Model]) -> None:
         self.__models = models
 
     def find_model(self, provider: str, model_name: str) -> Optional[Model]:
         for model in self.__models:
             # To handle specific LiteLLM calling (e.g., mistral/mistral-small)
-            if model.provider == provider and model.name in model_name:
+            if model.provider == provider and (model.name in model_name or model.name.replace(".", "") == model_name):
                 return model
         return None
 
@@ -51,9 +50,7 @@ class ModelRepository:
     @classmethod
     def from_csv(cls, filepath: Optional[str] = None) -> "ModelRepository":
         if filepath is None:
-            filepath = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "data", "models.csv"
-            )
+            filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "models.csv")
         models = []
         with open(filepath) as fd:
             csv = DictReader(fd)
@@ -61,18 +58,14 @@ class ModelRepository:
                 total_parameters = None
                 total_parameters_range = None
                 if ";" in row["total_parameters"]:
-                    total_parameters_range = [
-                        float(p) for p in row["total_parameters"].split(";")
-                    ]
+                    total_parameters_range = [float(p) for p in row["total_parameters"].split(";")]
                 elif row["total_parameters"] != "":
                     total_parameters = float(row["total_parameters"])
 
                 active_parameters = None
                 active_parameters_range = None
                 if ";" in row["active_parameters"]:
-                    active_parameters_range = [
-                        float(p) for p in row["active_parameters"].split(";")
-                    ]
+                    active_parameters_range = [float(p) for p in row["active_parameters"].split(";")]
                 elif row["active_parameters"] != "":
                     active_parameters = float(row["active_parameters"])
 
