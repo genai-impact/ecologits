@@ -10,7 +10,7 @@
 | Hugging Face Hub | `huggingface-hub`      | [Guide for Hugging Face Hub :octicons-link-16:](tutorial/providers/huggingface_hub.md) |
 | LiteLLM          | `litellm`              | [Guide for LiteLLM :octicons-link-16:](tutorial/providers/litellm.md)                  |
 | Mistral AI       | `mistralai`            | [Guide for Mistral AI :octicons-link-16:](tutorial/providers/mistralai.md)             |
-| OpenAI           | `openai`               | [Guide for OpenAI :octicons-link-16:](tutorial/providers/openai.md)                    |
+| OpenAI           | `openai`               | [Guide for OpenAI (including Azure) :octicons-link-16:](tutorial/providers/openai.md)                    |
 
 
 ## Chat Completions
