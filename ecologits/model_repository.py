@@ -3,6 +3,7 @@ from csv import DictReader
 from dataclasses import dataclass
 from enum import Enum
 from typing import Optional
+import contextlib
 
 
 class Providers(Enum):
@@ -35,11 +36,15 @@ class ModelRepository:
         self.__models = models
 
     def find_model(self, provider: str, model_name: str) -> Optional[Model]:
-        for model in self.__models:
-            # To handle specific LiteLLM calling (e.g., mistral/mistral-small)
-            if model.provider == provider and (model.name in model_name or model.name.replace(".", "") == model_name):
-                return model
-        return None
+        provider_models = [model for model in self.__models if model.provider == provider]
+        return next(
+            (
+                model
+                for model in provider_models
+                if (model.name == model_name or model.name.replace(".", "") == model_name)
+            ),
+            next((model for model in provider_models if model.name in model_name), None),
+        )
 
     def find_provider(self, model_name: str) -> Optional[str]:
         for model in self.__models:
