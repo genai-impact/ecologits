@@ -131,7 +131,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
 
 ## Compatibility with Azure OpenAI
 
-EcoLogits is compatible also compatible with [Azure OpenAI :octicons-link-external-16:](https://learn.microsoft.com/en-us/azure/ai-services/openai/).
+EcoLogits is also compatible with [Azure OpenAI :octicons-link-external-16:](https://learn.microsoft.com/en-us/azure/ai-services/openai/).
 
 ```python
 import os
