@@ -115,4 +115,4 @@ Code examples are highly encouraged, but should be kept short, simple and self-c
 
 ## Acknowledgment
 
-We'd like to acknowledge that this contribution guide is heavily inspired by the excellent [guide from Pydantic](https://docs.pydantic.dev/latest/contributing/). Thanks the inspiration! :heart:
+We'd like to acknowledge that this contribution guide is heavily inspired by the excellent [guide from Pydantic](https://docs.pydantic.dev/latest/contributing/). Thanks for the inspiration! :heart:
