@@ -11,7 +11,7 @@ def test_create_model_repository_from_scratch():
     models = ModelRepository([
         Model(provider="provider-test", name="model-test")
     ])
-    assert models.find_model(provider="provider-test", model_name="model-test")
+    assert models.find_model(provider="provider-test", model_name="model-test") is not None
 
 
 def test_find_unknown_provider():
