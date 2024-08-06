@@ -49,51 +49,8 @@ See package documentation on [EcoLogits](https://ecologits.ai/)
 
 ## 💪 Contributing
 
-### Requirements
+To get started with setting up a development environment and making a contribution to EcoLogits, see [Contributing to EcoLogits](https://ecologits.ai/latest/contributing/).
 
-Have [poetry](https://python-poetry.org/docs/#installation) installed on your system.
+## ⚖️ License
 
-
-<details>
-<summary>
-Easy install using a virtualenv:
-</summary>
-
-Create a venv:
-
-```shell
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-Install poetry:
-
-```shell
-pip install poetry
-```
-
-</details>
-
-
-### Install project
-
-```shell
-poetry install --all-extras --with dev,docs
-```
-
-
-### Run tests
-
-```shell
-poetry run pytest
-```
-
-
-### Run pre-commit hooks locally
-
-[Install pre-commit](https://pre-commit.com/)
-
-```shell
-pre-commit run --all-files
-```
-
+This project is licensed under the terms of the [Mozilla Public License Version 2.0 (MPL-2.0)](https://www.mozilla.org/en-US/MPL/2.0/).
