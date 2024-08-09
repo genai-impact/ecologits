@@ -1,9 +1,5 @@
 # Environmental Impacts
 
-!!! warning
-
-    This page is under construction.
-
 Environmental impacts are reported for each request in the [`Impacts`][impacts.modeling.Impacts] pydantic model and features multiple [criteria](#criteria) such as the [energy](#energy) and [global warming potential](#global-warming-potential-gwp) per phase ([usage](#usage) or [embodied](#embodied)) as well as the total impacts.
 
 To learn more on how we estimate the environmental impacts and what are our hypotheses go to the [methodology](../methodology/index.md) section.
