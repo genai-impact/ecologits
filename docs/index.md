@@ -20,38 +20,42 @@ EcoLogits relies on key libraries to provide essential functionalities:
 
 ## Installation
 
-To install EcoLogits, use the following command:
+<p><strong>Select providers</strong></p>
+<span class="provider-item">
+    <input type="checkbox" id="anthropic" value="anthropic" class="provider-option">
+    <label for="anthropic">Anthropic</label>
+</span>
+<span class="provider-item">
+    <input type="checkbox" id="cohere" value="cohere" class="provider-option">
+    <label for="cohere">Cohere</label>
+</span>
+<span class="provider-item">
+    <input type="checkbox" id="google-generativeai" value="google-generativeai" class="provider-option">
+    <label for="google-generativeai">Google Gemini</label>
+</span>
+<span class="provider-item">
+    <input type="checkbox" id="huggingface-hub" value="huggingface-hub" class="provider-option">
+    <label for="huggingface-hub">Hugging Face Inference Endpoints</label>
+</span>
+<span class="provider-item">
+    <input type="checkbox" id="litellm" value="litellm" class="provider-option">
+    <label for="litellm">LiteLLM</label>
+</span>
+<span class="provider-item">
+    <input type="checkbox" id="mistralai" value="mistralai" class="provider-option">
+    <label for="mistralai">Mistral AI</label>
+</span>
+<span class="provider-item">
+    <input type="checkbox" id="openai" value="openai" checked="checked" class="provider-option">
+    <label for="openai">OpenAI</label>
+</span>
 
-```shell
-pip install ecologits
-```
+<p><strong>Run this command</strong></p>
+<pre><code id="install-command"></code></pre>
+<script src="js/installer.js"></script>
 
-For integration with specific providers like OpenAI, additional dependencies can be installed using:
+For detailed instructions on each provider, refer to the complete list of [supported providers and features](tutorial/providers.md). It is also possible to install EcoLogits without any provider.
 
-```shell
-pip install ecologits[openai]
-```
-
-EcoLogits currently supports the following providers/clients:
-
-- `anthropic`
-- `cohere`
-- `google-generativeai`
-- `huggingface-hub` (Hugging Face Inference Endpoints)
-- `litellm`
-- `mistralai`
-- `openai`
-
-For detailed instructions on each provider, refer to the complete list of [supported providers and features](tutorial/providers.md). 
-
-
-??? info "Installation with multiple providers"
-
-    If you need to install extra dependencies for **multiple providers** at once, you can do so by separating them with a comma, like this:
-
-    ```shell
-    pip install ecologits[openai,anthropic]
-    ```
 
 ## Usage Example
 
