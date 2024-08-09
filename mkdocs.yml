@@ -7,12 +7,13 @@ nav:
   - 'Get Started':
     - 'Welcome to EcoLogits': index.md
     - 'Why use EcoLogits': why.md
-    - 'Supported providers': providers.md
+    - 'Supported providers': tutorial/providers.md
     - 'Roadmap': roadmap.md
     - 'Contributing': contributing.md
   - 'Tutorial':
       - 'Introduction': tutorial/index.md
       - 'Environmental Impacts': tutorial/impacts.md
+      - 'Supported providers': tutorial/providers.md
       - 'Providers':
           - 'Anthropic': tutorial/providers/anthropic.md
           - 'Cohere': tutorial/providers/cohere.md

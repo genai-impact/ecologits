@@ -5,7 +5,7 @@
   ![EcoLogits](assets/logo_dark.png#only-dark)
 </figure>
 
-**EcoLogits** tracks the energy consumption and environmental impacts of using generative AI models through APIs. It supports major LLM providers such as OpenAI, Anthropic, Mistral AI and more (see [supported providers](providers.md)).
+**EcoLogits** tracks the energy consumption and environmental impacts of using generative AI models through APIs. It supports major LLM providers such as OpenAI, Anthropic, Mistral AI and more (see [supported providers](tutorial/providers.md)).
 
 
 ## Requirements
@@ -42,7 +42,7 @@ EcoLogits currently supports the following providers/clients:
 - `mistralai`
 - `openai`
 
-For detailed instructions on each provider, refer to the complete list of [supported providers and features](providers.md). 
+For detailed instructions on each provider, refer to the complete list of [supported providers and features](tutorial/providers.md). 
 
 
 ??? info "Installation with multiple providers"
