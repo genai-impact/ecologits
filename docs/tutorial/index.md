@@ -34,7 +34,7 @@ It achieves this by **patching the Python client libraries**, ensuring that each
 
     List of providers and tutorials on how to make requests.
 
-    [:octicons-arrow-right-24: Providers](../providers.md)
+    [:octicons-arrow-right-24: Providers](providers.md)
 
 -   :material-test-tube:{ .lg .middle } __Methodology__
 
