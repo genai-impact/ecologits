@@ -14,12 +14,19 @@ Upcoming methodologies ([join us](https://genai-impact.org/contact) to help spee
 
 ## Methodological background
 
-!!! warning "Under construction..."
+EcoLogits employs the **Life Cycle Assessment (LCA) methodology**, as defined by ISO 14044, to estimate the environmental impacts of requests made to generative AI inference services. This approach focuses on **multiple phases** of the lifecycle, specifically raw material extraction, manufacturing, transportation (denoted as embodied impacts), usage and end-of-life. Notably, we do not cover the end-of-life phase due to data limitations on e-waste recycling.
 
-[//]: # (- What's an LCA?)
-[//]: # (- What are usage and embodied phases?)
-[//]: # (- What about end-of-life phase?)
-[//]: # (- What are multicriteria impacts? &#40;GWP, ADPe, MJ and others&#41;)
+Our assessment considers **three key environmental criteria**:
+
+- Global Warming Potential (GWP): Evaluates the impact on global warming in terms of CO2 equivalents.
+- Abiotic Resource Depletion for Elements (ADPe): Assesses the consumption of raw minerals and metals, expressed in antimony equivalents.
+- Primary Energy (PE): Calculates energy consumed from natural sources, expressed in megajoules.
+
+Using a **bottom-up modeling approach**, we assess and aggregate the environmental impacts of all individual service components. This method differs from top-down approaches by allowing precise allocation of each resource's impact to the overall environmental footprint.
+
+Our current focus is on high-performance GPU-accelerated cloud instances, crucial for GenAI inference tasks. While we exclude impacts from training, networking, and end-user devices, we thoroughly evaluate the impacts associated with hosting and running the model inferences.
+
+The methodology is grounded in **transparency** and **reproducibility**, utilizing open market and technical data to ensure our results are reliable and verifiable.
 
 ## Licenses and citations
 
