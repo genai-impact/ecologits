@@ -54,3 +54,7 @@ Light green: 00bf63
   padding: 1px 4px 1px 0;
   /*padding-right: 4px;*/
 }
+
+.provider-item input {
+  accent-color: var(--md-accent-fg-color);
+}
