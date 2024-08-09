@@ -8,6 +8,7 @@ nav:
     - 'Welcome to EcoLogits': index.md
     - 'Why use EcoLogits': why.md
     - 'Supported providers': tutorial/providers.md
+    - 'FAQ': faq.md
     - 'Contributing': contributing.md
   - 'Tutorial':
       - 'Introduction': tutorial/index.md
