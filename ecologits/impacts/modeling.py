@@ -1,73 +1,13 @@
 from functools import total_ordering
 from typing import Any, Union
 
-from pydantic import BaseModel, model_validator
-from typing_extensions import Self
+from pydantic import BaseModel
 
 from ecologits.exceptions import ModelingError
+from ecologits.range_utils import RangeValue
 
 
-class Range(BaseModel):
-    """
-    RangeValue data model to represent intervals.
-
-    Attributes:
-        min: Lower bound of the interval.
-        max: Upper bound of the interval.
-    """
-    min: float
-    max: float
-
-    @model_validator(mode="after")
-    def check_order(self) -> Self:
-        if self.min > self.max:
-            raise ValueError("min value must be lower than max value")
-        return self
-
-    def __add__(self, other: Any) -> "Range":
-        if isinstance(other, Range):
-            return Range(
-                min=self.min + other.min,
-                max=self.max + other.max,
-            )
-        else:
-            return Range(
-                min=self.min + other,
-                max=self.max + other
-            )
-
-    def __eq__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.min == other.min and self.max == other.max
-        else:
-            return self.min == other and self.max == other
-
-    def __le__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.max <= other.max
-        else:
-            return self.max <= other
-
-    def __lt__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.max < other.min
-        else:
-            return self.max < other
-
-    def __ge__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.min >= other.min
-        else:
-            return self.min >= other
-
-    def __gt__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.min > other.max
-        else:
-            return self.min > other
-
-
-ValueOrRange = Union[int, float, Range]
+ValueOrRange = Union[int, float, RangeValue]
 
 
 @total_ordering
