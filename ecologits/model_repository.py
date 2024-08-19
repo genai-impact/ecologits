@@ -5,7 +5,7 @@ from typing import Optional, Union
 
 from pydantic import BaseModel
 
-from ecologits.range_utils import RangeValue
+from ecologits.range_value import ValueOrRange
 
 
 class Providers(Enum):
@@ -29,13 +29,13 @@ class ArchitectureTypes(Enum):
 
 
 class ParametersMoE(BaseModel):
-    total: Union[float, RangeValue]
-    active: Union[float, RangeValue]
+    total: ValueOrRange
+    active: ValueOrRange
 
 
 class Architecture(BaseModel):
     type: ArchitectureTypes
-    parameters: Union[float, RangeValue, ParametersMoE]
+    parameters: Union[ValueOrRange, ParametersMoE]
 
 
 class Alias(BaseModel):

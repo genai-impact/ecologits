@@ -1,13 +1,9 @@
 from functools import total_ordering
-from typing import Any, Union
 
 from pydantic import BaseModel
 
 from ecologits.exceptions import ModelingError
-from ecologits.range_utils import RangeValue
-
-
-ValueOrRange = Union[int, float, RangeValue]
+from ecologits.range_value import ValueOrRange
 
 
 @total_ordering
