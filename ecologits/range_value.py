@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Union
 from typing_extensions import Self
 
 from pydantic import BaseModel, model_validator
@@ -62,3 +62,6 @@ class RangeValue(BaseModel):
             return self.min > other.max
         else:
             return self.min > other
+
+
+ValueOrRange = Union[int, float, RangeValue]
