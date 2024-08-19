@@ -2,9 +2,10 @@ from typing import Optional
 
 from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
-from ecologits.impacts.modeling import Impacts, Range
+from ecologits.impacts.modeling import Impacts
 from ecologits.log import logger
-from ecologits.model_repository import models
+from ecologits.impacts.modeling import Impacts
+from ecologits.model_repository import models, ArchitectureTypes
 
 
 def _avg(value_range: tuple) -> float:
@@ -36,10 +37,13 @@ def llm_impacts(
     if model is None:
         logger.debug(f"Could not find model `{model_name}` for {provider} provider.")
         return None
-    model_active_params = model.active_parameters \
-                          or Range(min=model.active_parameters_range[0], max=model.active_parameters_range[1])
-    model_total_params = model.total_parameters \
-                         or Range(min=model.total_parameters_range[0], max=model.total_parameters_range[1])
+
+    if model.architecture.type == ArchitectureTypes.MOE:
+        model_total_params = model.architecture.parameters.total
+        model_active_params = model.architecture.parameters.active
+    else:
+        model_total_params = model.architecture.parameters
+        model_active_params = model.architecture.parameters
 
     electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_mix_zone)
     if electricity_mix is None:
@@ -48,7 +52,6 @@ def llm_impacts(
     if_electricity_mix_adpe=electricity_mix.adpe
     if_electricity_mix_pe=electricity_mix.pe
     if_electricity_mix_gwp=electricity_mix.gwp
-
     return compute_llm_impacts(
         model_active_parameter_count=model_active_params,
         model_total_parameter_count=model_total_params,
