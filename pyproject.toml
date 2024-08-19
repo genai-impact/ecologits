@@ -49,10 +49,11 @@ aiohttp = { version = "^3.9.3", optional = true }
 minijinja = { version = "^1.0.16", optional = true }
 google-generativeai = { version = "^0.7.0", optional = true }
 litellm = {version="^1.41.23", optional = true}
+rapidfuzz = {version = "^3.9.6", optional = true}
 
 [tool.poetry.extras]
 openai = ["openai"]
-litellm = ["litellm"]
+litellm = ["litellm", "rapidfuzz"]
 mistralai = ["mistralai"]
 anthropic = ["anthropic"]
 cohere = ["cohere"]
@@ -85,6 +86,7 @@ mkdocs-gen-files = "^0.5.0"
 mkdocs-autorefs = "^1.0.1"
 mkdocs-literate-nav = "^0.6.1"
 mike = "^2.1.2"
+
 
 
 [pytest]
