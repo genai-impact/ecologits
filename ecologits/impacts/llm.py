@@ -481,7 +481,7 @@ def compute_llm_impacts(
         )
         for field in fields:
             if field in results:
-                results[field] = Range(min=results[field], max=res[field])
+                results[field] = RangeValue(min=results[field], max=res[field])
             else:
                 results[field] = res[field]
 
