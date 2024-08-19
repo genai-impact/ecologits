@@ -1,8 +1,11 @@
+import json
 import os
-from csv import DictReader
-from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
+from typing import Optional, Union
+
+from pydantic import BaseModel
+
+from ecologits.range_utils import RangeValue
 
 
 class Providers(Enum):
@@ -16,80 +19,80 @@ class Providers(Enum):
 
 class Warnings(Enum):
     model_architecture_not_released = "model_architecture_not_released"
+    model_architecture_multimodal = "model_architecture_multimodal"
 
 
-@dataclass
-class Model:
-    provider: str
+
+class ArchitectureTypes(Enum):
+    DENSE = "dense"
+    MOE = "moe"
+
+
+class ParametersMoE(BaseModel):
+    total: Union[float, RangeValue]
+    active: Union[float, RangeValue]
+
+
+class Architecture(BaseModel):
+    type: ArchitectureTypes
+    parameters: Union[float, RangeValue, ParametersMoE]
+
+
+class Alias(BaseModel):
+    provider: Providers
     name: str
-    total_parameters: Optional[float] = None
-    active_parameters: Optional[float] = None
-    total_parameters_range: Optional[tuple[float, float]] = None
-    active_parameters_range: Optional[tuple[float, float]] = None
-    warnings: Optional[list[str]] = None
+    alias: str
+
+
+class Model(BaseModel):
+    provider: Providers
+    name: str
+    architecture: Architecture
+    warnings: Optional[list[Warnings]] = None
     sources: Optional[list[str]] = None
 
 
+class Models(BaseModel):
+    aliases: Optional[list[Alias]] = None
+    models: Optional[list[Model]] = None
+
+
 class ModelRepository:
-    def __init__(self, models: list[Model]) -> None:
-        self.__models = models
+
+    def __init__(self, models: list[Model], aliases: Optional[list[Alias]] = None):
+        self.__models: dict[tuple[str, str], Model] = {}
+        for m in models:
+            key = m.provider.value, m.name
+            if key in self.__models:
+                raise ValueError(f"duplicated models with: {key}")
+            self.__models[key] = m
+
+        if aliases is not None:
+            for a in aliases:
+                model_key = a.provider.value, a.alias
+                if model_key not in self.__models:
+                    raise ValueError(f"model alias not found: {model_key}")
+                alias_key = a.provider.value, a.name
+                model = self.__models[model_key].model_copy()
+                model.name = a.name
+                self.__models[alias_key] = model
 
     def find_model(self, provider: str, model_name: str) -> Optional[Model]:
-        for model in self.__models:
-            # To handle specific LiteLLM calling (e.g., mistral/mistral-small)
-            if model.provider == provider and model.name in model_name:
-                return model
-        return None
+        return self.__models.get((provider, model_name))
 
-    def find_provider(self, model_name: str) -> Optional[str]:
-        for model in self.__models:
-            if model.name in model_name:
-                return model.provider
-        return None
+    def list_models(self) -> list[Model]:
+        return list(self.__models.values())
 
     @classmethod
-    def from_csv(cls, filepath: Optional[str] = None) -> "ModelRepository":
+    def from_json(cls, filepath: Optional[str] = None) -> "ModelRepository":
         if filepath is None:
-            filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "models.csv")
-        models = []
-        with open(filepath) as fd:
-            csv = DictReader(fd)
-            for row in csv:
-                total_parameters = None
-                total_parameters_range = None
-                if ";" in row["total_parameters"]:
-                    total_parameters_range = [float(p) for p in row["total_parameters"].split(";")]
-                elif row["total_parameters"] != "":
-                    total_parameters = float(row["total_parameters"])
-
-                active_parameters = None
-                active_parameters_range = None
-                if ";" in row["active_parameters"]:
-                    active_parameters_range = [float(p) for p in row["active_parameters"].split(";")]
-                elif row["active_parameters"] != "":
-                    active_parameters = float(row["active_parameters"])
-
-                warnings = None
-                if row["warnings"] != "":
-                    warnings = [Warnings(w).name for w in row["warnings"].split(";")]
-
-                sources = None
-                if row["sources"] != "":
-                    sources = row["sources"].split(";")
-
-                models.append(
-                    Model(
-                        provider=Providers(row["provider"]).name,
-                        name=row["name"],
-                        total_parameters=total_parameters,
-                        active_parameters=active_parameters,
-                        total_parameters_range=total_parameters_range,
-                        active_parameters_range=active_parameters_range,
-                        warnings=warnings,
-                        sources=sources,
-                    )
-                )
-        return cls(models)
+            filepath = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "data", "models.json"
+            )
+        with open(filepath, "r") as fd:
+            data = json.load(fd)
+            mf = Models.model_validate(data)
+        return cls(models=mf.models, aliases=mf.aliases)
 
 
-models = ModelRepository.from_csv()
+models = ModelRepository.from_json()
