@@ -1,5 +1,5 @@
 import time
-from typing import Any, Callable, Union
+from typing import Any, Callable, Union, Optional
 
 from wrapt import wrap_function_wrapper
 
@@ -12,12 +12,15 @@ try:
     from litellm import AsyncCompletions, Completions
     from litellm.types.utils import ModelResponse
     from litellm.utils import CustomStreamWrapper
+    from rapidfuzz import process, fuzz
 
 except ImportError:
     ModelResponse = object()
     CustomStreamWrapper = object()
     Completions = object()
     AsyncCompletions = object()
+    process = object()
+    fuzz = object()
 
 
 class ChatCompletion(ModelResponse):
@@ -26,6 +29,31 @@ class ChatCompletion(ModelResponse):
 
 class ChatCompletionChunk(ModelResponse):
     impacts: Impacts
+
+
+_model_choices = [f"{m.provider.value}/{m.name}" for m in models.list_models()]
+
+
+def litellm_match_model(model_name) -> Optional[tuple[str, str]]:
+    """
+    Match according provider and model from a litellm model_name.
+
+    Args:
+        model_name: Name of the model as used in litellm.
+
+    Returns:
+        A tuple (provider, model_name) matching a record of the ModelRepository.
+    """
+    # print(process.extractOne(query=model_name, choices=_model_choices, scorer=fuzz.token_sort_ratio))
+    candidate = process.extractOne(
+        query=model_name,
+        choices=_model_choices,
+        scorer=fuzz.token_sort_ratio,
+        score_cutoff=51
+    )
+    if candidate is not None:
+        provider, model_name = candidate[0].split("/", 1)
+        return provider, model_name
 
 
 def litellm_chat_wrapper(
@@ -53,15 +81,19 @@ def litellm_chat_wrapper_stream(
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1
         request_latency = time.perf_counter() - timer_start
-        model_name = chunk.model
-        impacts = llm_impacts(
-            provider=models.find_provider(model_name=model_name),
-            model_name=model_name,
-            output_token_count=token_count,
-            request_latency=request_latency,
-        )
-        if impacts is not None:
-            yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
+
+        model_match = litellm_match_model(chunk.model)
+        if model_match is not None:
+            impacts = llm_impacts(
+                provider=model_match[0],
+                model_name=model_match[1],
+                output_token_count=token_count,
+                request_latency=request_latency,
+            )
+            if impacts is not None:
+                yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
+            else:
+                yield chunk
         else:
             yield chunk
 
@@ -75,10 +107,12 @@ def litellm_chat_wrapper_non_stream(
     timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
-    model_name = response.model
+    model_match = litellm_match_model(response.model)
+    if model_match is None:
+        return response
     impacts = llm_impacts(
-        provider=models.find_provider(model_name=model_name),
-        model_name=model_name,
+        provider=model_match[0],
+        model_name=model_match[1],
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
     )
@@ -109,10 +143,12 @@ async def litellm_async_chat_wrapper_base(
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
-    model_name = response.model
+    model_match = litellm_match_model(response.model)
+    if model_match is None:
+        return response
     impacts = llm_impacts(
-        provider=models.find_provider(model_name=model_name),
-        model_name=model_name,
+        provider=model_match[0],
+        model_name=model_match[1],
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
     )
@@ -136,15 +172,18 @@ async def litellm_async_chat_wrapper_stream(
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1
         request_latency = time.perf_counter() - timer_start
-        model_name = chunk.model
-        impacts = llm_impacts(
-            provider=models.find_provider(model_name=model_name),
-            model_name=model_name,
-            output_token_count=token_count,
-            request_latency=request_latency,
-        )
-        if impacts is not None:
-            yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
+        model_match = litellm_match_model(chunk.model)
+        if model_match is not None:
+            impacts = llm_impacts(
+                provider=model_match[0],
+                model_name=model_match[1],
+                output_token_count=token_count,
+                request_latency=request_latency,
+            )
+            if impacts is not None:
+                yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
+            else:
+                yield chunk
         else:
             yield chunk
         i += 1
