@@ -11,12 +11,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://ecologits.ai/latest/providers/</loc>
-         <lastmod>2024-08-20</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://ecologits.ai/latest/roadmap/</loc>
+         <loc>https://ecologits.ai/latest/faq/</loc>
          <lastmod>2024-08-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -117,6 +112,11 @@
     </url>
     <url>
          <loc>https://ecologits.ai/latest/tutorial/impacts/</loc>
+         <lastmod>2024-08-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ecologits.ai/latest/tutorial/providers/</loc>
          <lastmod>2024-08-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
