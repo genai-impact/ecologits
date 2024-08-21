@@ -32,3 +32,29 @@ Light green: 00bf63
   --md-accent-fg-color: #008343;
   --md-primary-fg-color--dark: #062522;
 }
+
+
+.provider-item {
+  display: inline-block;
+  margin: 4px 4px;
+  border-radius: 5px;
+}
+
+.provider-item:hover {
+  background: #0000000c;
+}
+
+[data-md-color-scheme="slate"] {
+  .provider-item:hover {
+    background: #0000005f;
+  }
+}
+
+.provider-item label {
+  padding: 1px 4px 1px 0;
+  /*padding-right: 4px;*/
+}
+
+.provider-item input {
+  accent-color: var(--md-accent-fg-color);
+}
