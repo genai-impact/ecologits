@@ -17,7 +17,7 @@ def environment():
     set_envvar_if_unset("CO_API_KEY", "test-api-key")
     set_envvar_if_unset("GOOGLE_API_KEY", "test-api-key")
     set_envvar_if_unset("AZURE_OPENAI_API_KEY", "test-api-key")
-    set_envvar_if_unset("AZURE_OPENAI_ENDPOINT", "https://ecologits-test.openai.azure.com/openai/deployments")
+    set_envvar_if_unset("AZURE_OPENAI_ENDPOINT", "https://ecologits-test.openai.azure.com/")
     set_envvar_if_unset("OPENAI_API_VERSION", "2024-06-01")
     set_envvar_if_unset("AZURE_MODEL_DEPLOYMENT", "gpt-4o-mini")
 
