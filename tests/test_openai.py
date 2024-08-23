@@ -53,8 +53,7 @@ async def test_openai_async_stream_chat(tracer_init):
 
 @pytest.mark.vcr
 def test_azure_openai_chat(tracer_init):
-    client = AzureOpenAI(azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
-                        )
+    client = AzureOpenAI(azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"))
     response = client.chat.completions.create(        
         messages=[{"role": "user", "content": "Hello World!"}],
         model=os.getenv("AZURE_MODEL_DEPLOYMENT"),
@@ -77,8 +76,7 @@ async def test_azure_openai_async_chat(tracer_init):
 
 @pytest.mark.vcr
 def test_azure_openai_stream_chat(tracer_init):
-    client = AzureOpenAI(azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-            )
+    client = AzureOpenAI(azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"))
     stream = client.chat.completions.create(
         model=os.getenv("AZURE_MODEL_DEPLOYMENT"),
         messages=[{"role": "user", "content": "Hello World!"}],
