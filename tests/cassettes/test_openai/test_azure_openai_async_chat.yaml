@@ -1,0 +1,77 @@
+interactions:
+- request:
+    body: '{"messages": [{"role": "user", "content": "Hello World!"}], "model": "openai"}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '101'
+      content-type:
+      - application/json
+      host:
+      - fakeservice.openai.azure.com
+      user-agent:
+      - AsyncAzureOpenAI/Python 1.35.14
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - async:asyncio
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 1.35.14
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.9.5
+    method: POST
+    uri: https://fakeservice.openai.azure.com/openai/deployments/openai/chat/completions?api-version=2024-02-01
+  response:
+    body:
+      string: '{"choices":[{"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}},"finish_reason":"stop","index":0,"message":{"content":"Hello
+        there! How can I assist you today as an AI language model?","role":"assistant"}}],"created":1724255337,"id":"chatcmpl-fake123456789","model":"gpt-35-turbo","object":"chat.completion","prompt_filter_results":[{"prompt_index":0,"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}}}],"system_fingerprint":null,"usage":{"completion_tokens":15,"prompt_tokens":11,"total_tokens":26}}
+
+        '
+    headers:
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Length:
+      - '819'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 21 Aug 2024 15:07:00 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      access-control-allow-origin:
+      - '*'
+      apim-request-id:
+      - c7f3c91d-fake-41bd-8e7b-45333ef7ff4d
+      azureml-model-session:
+      - fake-12345678910111
+      x-accel-buffering:
+      - 'no'
+      x-content-type-options:
+      - nosniff
+      x-ms-client-request-id:
+      - c7f3c91d-fake-41bd-8e7b-45333ef7ff4d
+      x-ms-rai-invoked:
+      - 'true'
+      x-ms-region:
+      - France Central
+      x-ratelimit-remaining-requests:
+      - '2'
+      x-ratelimit-remaining-tokens:
+      - '984'
+      x-request-id:
+      - 0ea9017a-fake-4fcf-b31f-0cf7eb1a3a2b
+    status:
+      code: 200
+      message: OK
+version: 1

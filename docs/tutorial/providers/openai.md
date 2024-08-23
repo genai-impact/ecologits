@@ -127,3 +127,34 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     asyncio.run(main())
     ```
+
+
+## Compatibility with Azure OpenAI
+
+EcoLogits is also compatible with [Azure OpenAI :octicons-link-external-16:](https://learn.microsoft.com/en-us/azure/ai-services/openai/).
+
+```python
+import os
+from ecologits import EcoLogits
+from openai import AzureOpenAI
+
+# Initialize EcoLogits
+EcoLogits.init()
+
+client = AzureOpenAI(
+    azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"), 
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
+    api_version="2024-02-01"
+)
+
+
+response = client.chat.completions.create(
+    model="gpt-35-turbo",
+    messages=[
+        {"role": "user", "content": "Tell me a funny joke!"}
+    ]
+)
+
+# Get estimated environmental impacts of the inference
+print(response.impacts)
+```
