@@ -139,6 +139,8 @@ async def openai_async_chat_wrapper_stream(
     i = 0
     token_count = 0
     async for chunk in stream:
+        if i == 0 and chunk.model == "":
+            continue
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1
         request_latency = time.perf_counter() - timer_start
