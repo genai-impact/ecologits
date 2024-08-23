@@ -86,3 +86,16 @@ def test_azure_openai_stream_chat(tracer_init):
     )
     for chunk in stream:
         assert chunk.impacts.energy.value >= 0
+
+
+@pytest.mark.vcr
+@pytest.mark.asyncio
+async def test_azure_openai_async_stream_chat(tracer_init):
+    client = AsyncAzureOpenAI(azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"))
+    stream = await client.chat.completions.create(
+        model=os.getenv("AZURE_MODEL_DEPLOYMENT"),
+        messages=[{"role": "user", "content": "Hello World!"}],
+        stream=True
+    )
+    async for chunk in stream:
+        assert chunk.impacts.energy.value >= 0
