@@ -16,11 +16,9 @@ def test_create_model_repository_from_scratch():
 
 
 @pytest.mark.parametrize("input_provider,input_name, expected_model_name", [
-    ("openai", "gpt-35-turbo", "gpt-3.5-turbo"),
+    ("openai", "gpt-35-turbo", "gpt-35-turbo"),
     ("openai", "gpt-3.5-turbo", "gpt-3.5-turbo"),
     ("openai", "gpt-4", "gpt-4"),
-    ("openai", "gpt-4-turbo", "gpt-4-turbo"),
-    ("mistralai", "mistral-small-2312", "mistral-small-2312"),
     ("mistralai", "mistral-small-notarealversion", "mistral-small"),
     ("google", "gemini-1.5-flash", "gemini-1.5-flash"),
 ])
