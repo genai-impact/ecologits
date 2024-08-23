@@ -1,0 +1,77 @@
+interactions:
+- request:
+    body: '{"messages": [{"role": "user", "content": "Hello World!"}], "model": "openai"}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '101'
+      content-type:
+      - application/json
+      host:
+      - fakeservice.openai.azure.com
+      user-agent:
+      - AzureOpenAI/Python 1.35.14
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 1.35.14
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.9.5
+    method: POST
+    uri: https://fakeservice.openai.azure.com/openai/deployments/openai/chat/completions?api-version=2024-02-01
+  response:
+    body:
+      string: '{"choices":[{"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}},"finish_reason":"stop","index":0,"message":{"content":"Hello!
+        How can I assist you today?","role":"assistant"}}],"created":1724162172,"id":"chatcmpl-fake123456789","model":"gpt-35-turbo","object":"chat.completion","prompt_filter_results":[{"prompt_index":0,"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}}}],"system_fingerprint":null,"usage":{"completion_tokens":9,"prompt_tokens":11,"total_tokens":20}}
+
+        '
+    headers:
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Length:
+      - '812'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2024 13:56:12 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      access-control-allow-origin:
+      - '*'
+      apim-request-id:
+      - e2891994-fake-4362-b9a6-d0cbd58dc25a
+      azureml-model-session:
+      - fake-12345678910111
+      x-accel-buffering:
+      - 'no'
+      x-content-type-options:
+      - nosniff
+      x-ms-client-request-id:
+      - e2891994-fake-4362-b9a6-d0cbd58dc25a
+      x-ms-rai-invoked:
+      - 'true'
+      x-ms-region:
+      - France Central
+      x-ratelimit-remaining-requests:
+      - '69'
+      x-ratelimit-remaining-tokens:
+      - '69984'
+      x-request-id:
+      - f4abbab9-fake-4817-a84e-a3a32e6c84c1
+    status:
+      code: 200
+      message: OK
+version: 1
