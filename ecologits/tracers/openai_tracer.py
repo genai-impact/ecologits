@@ -76,7 +76,7 @@ def openai_chat_wrapper_stream(
     token_count = 0
     for i, chunk in enumerate(stream):
         # azure openai has an empty first chunk so we skip it
-        if i==0 and chunk.model=="":
+        if i == 0 and chunk.model == "":
             continue
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1

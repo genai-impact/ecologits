@@ -2,6 +2,7 @@ import os
 import pytest
 from openai import OpenAI, AsyncOpenAI, AzureOpenAI, AsyncAzureOpenAI
 
+
 @pytest.mark.vcr
 def test_openai_chat(tracer_init):
     client = OpenAI()
@@ -60,7 +61,8 @@ def test_azure_openai_chat(tracer_init):
     )
     assert len(response.choices) > 0
     assert response.impacts.energy.value > 0
-    
+
+
 @pytest.mark.vcr
 @pytest.mark.asyncio
 async def test_azure_openai_async_chat(tracer_init):
@@ -71,6 +73,7 @@ async def test_azure_openai_async_chat(tracer_init):
     )
     assert len(response.choices) > 0
     assert response.impacts.energy.value > 0
+
 
 @pytest.mark.vcr
 def test_azure_openai_stream_chat(tracer_init):
@@ -83,4 +86,3 @@ def test_azure_openai_stream_chat(tracer_init):
     )
     for chunk in stream:
         assert chunk.impacts.energy.value >= 0
-        
