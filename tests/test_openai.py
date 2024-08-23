@@ -37,6 +37,17 @@ def test_openai_stream_chat(tracer_init):
         assert chunk.impacts.energy.value >= 0
 
 
+@pytest.mark.vcr
+@pytest.mark.asyncio
+async def test_openai_async_stream_chat(tracer_init):
+    client = AsyncOpenAI()
+    stream = await client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": "Hello World!"}],
+        stream=True
+    )
+    async for chunk in stream:
+        assert chunk.impacts.energy.value >= 0
 
 
 @pytest.mark.vcr
