@@ -41,7 +41,7 @@ def llm_impacts(
                          or Range(min=model.total_parameters_range[0], max=model.total_parameters_range[1])
 
     mix = mixes.find_mix(zone=mix_zone)
-    if model is None:
+    if mix is None:
         # TODO: Replace with proper logging
         print(f"Could not find mix `{mix_zone}` in the ADEME database")
         return None
