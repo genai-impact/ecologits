@@ -48,7 +48,7 @@ def gpu_energy(
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
 
     Returns:
-        The energy consumption of a single GPU.
+        The energy consumption of a single GPU in kWh. 
     """
     return output_token_count * (gpu_energy_alpha * model_active_parameter_count + gpu_energy_beta)
 
@@ -126,12 +126,12 @@ def server_energy(
 
     Args:
         generation_latency: Token generation latency in seconds.
-        server_power: Power consumption of the server.
+        server_power: Power consumption of the server in kW.
         server_gpu_count: Number of available GPUs in the server.
         gpu_required_count: Number of required GPUs to load the model.
 
     Returns:
-        The energy consumption of the server (GPUs are not included).
+        The energy consumption of the server (GPUs are not included) in kWh.
     """
     return (generation_latency / 3600) * server_power * (gpu_required_count / server_gpu_count)
 
@@ -148,12 +148,12 @@ def request_energy(
 
     Args:
         datacenter_pue: PUE of the datacenter.
-        server_energy: Energy consumption of the server.
+        server_energy: Energy consumption of the server in kWh.
         gpu_required_count: Number of required GPUs to load the model.
-        gpu_energy: Energy consumption of a single GPU.
+        gpu_energy: Energy consumption of a single GPU in kWh.
 
     Returns:
-        The energy consumption of the request.
+        The energy consumption of the request in kWh.
     """
     return datacenter_pue * (server_energy + gpu_required_count * gpu_energy)
 
@@ -167,11 +167,11 @@ def request_usage_gwp(
     Compute the Global Warming Potential (GWP) usage impact of the request.
 
     Args:
-        request_energy: Energy consumption of the request.
-        if_electricity_mix_gwp: GWP impact factor of electricity consumption.
+        request_energy: Energy consumption of the request in kWh.
+        if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
 
     Returns:
-        The GWP usage impact of the request.
+        The GWP usage impact of the request in kgCO2eq.
     """
     return request_energy * if_electricity_mix_gwp
 
@@ -185,11 +185,11 @@ def request_usage_adpe(
     Compute the Abiotic Depletion Potential for Elements (ADPe) usage impact of the request.
 
     Args:
-        request_energy: Energy consumption of the request.
-        if_electricity_mix_adpe: ADPe impact factor of electricity consumption.
+        request_energy: Energy consumption of the request in kWh.
+        if_electricity_mix_adpe: ADPe impact factor of electricity consumption in kgSbeq / kWh.
 
     Returns:
-        The ADPe usage impact of the request.
+        The ADPe usage impact of the request in kgSbeq.
     """
     return request_energy * if_electricity_mix_adpe
 
@@ -203,11 +203,11 @@ def request_usage_pe(
     Compute the Primary Energy (PE) usage impact of the request.
 
     Args:
-        request_energy: Energy consumption of the request.
-        if_electricity_mix_pe: PE impact factor of electricity consumption.
+        request_energy: Energy consumption of the request in kWh.
+        if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
 
     Returns:
-        The PE usage impact of the request.
+        The PE usage impact of the request in MJ.
     """
     return request_energy * if_electricity_mix_pe
 
@@ -223,13 +223,13 @@ def server_gpu_embodied_gwp(
     Compute the Global Warming Potential (GWP) embodied impact of the server
 
     Args:
-        server_embodied_gwp: GWP embodied impact of the server.
+        server_embodied_gwp: GWP embodied impact of the server in kgCO2eq.
         server_gpu_count: Number of available GPUs in the server.
-        gpu_embodied_gwp: GWP embodied impact of a single GPU.
+        gpu_embodied_gwp: GWP embodied impact of a single GPU in kgCO2eq.
         gpu_required_count: Number of required GPUs to load the model.
 
     Returns:
-        The GWP embodied impact of the server and the GPUs.
+        The GWP embodied impact of the server and the GPUs in kgCO2eq.
     """
     return (gpu_required_count / server_gpu_count) * server_embodied_gwp + gpu_required_count * gpu_embodied_gwp
 
@@ -245,13 +245,13 @@ def server_gpu_embodied_adpe(
     Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the server
 
     Args:
-        server_embodied_adpe: ADPe embodied impact of the server.
+        server_embodied_adpe: ADPe embodied impact of the server in kgSbeq.
         server_gpu_count: Number of available GPUs in the server.
-        gpu_embodied_adpe: ADPe embodied impact of a single GPU.
+        gpu_embodied_adpe: ADPe embodied impact of a single GPU in kgSbeq.
         gpu_required_count: Number of required GPUs to load the model.
 
     Returns:
-        The ADPe embodied impact of the server and the GPUs.
+        The ADPe embodied impact of the server and the GPUs in kgSbeq.
     """
     return (gpu_required_count / server_gpu_count) * server_embodied_adpe + gpu_required_count * gpu_embodied_adpe
 
@@ -267,13 +267,13 @@ def server_gpu_embodied_pe(
     Compute the Primary Energy (PE) embodied impact of the server
 
     Args:
-        server_embodied_pe: PE embodied impact of the server.
+        server_embodied_pe: PE embodied impact of the server in MJ.
         server_gpu_count: Number of available GPUs in the server.
-        gpu_embodied_pe: PE embodied impact of a single GPU.
+        gpu_embodied_pe: PE embodied impact of a single GPU in MJ.
         gpu_required_count: Number of required GPUs to load the model.
 
     Returns:
-        The PE embodied impact of the server and the GPUs.
+        The PE embodied impact of the server and the GPUs in MJ.
     """
     return (gpu_required_count / server_gpu_count) * server_embodied_pe + gpu_required_count * gpu_embodied_pe
 
@@ -288,12 +288,12 @@ def request_embodied_gwp(
     Compute the Global Warming Potential (GWP) embodied impact of the request.
 
     Args:
-        server_gpu_embodied_gwp: GWP embodied impact of the server and the GPUs.
-        server_lifetime: Lifetime duration of the server.
+        server_gpu_embodied_gwp: GWP embodied impact of the server and the GPUs in kgCO2eq.
+        server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
 
     Returns:
-        The GWP embodied impact of the request.
+        The GWP embodied impact of the request in kgCO2eq.
     """
     return (generation_latency / server_lifetime) * server_gpu_embodied_gwp
 
@@ -308,12 +308,12 @@ def request_embodied_adpe(
     Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the request.
 
     Args:
-        server_gpu_embodied_adpe: ADPe embodied impact of the server and the GPUs.
-        server_lifetime: Lifetime duration of the server.
+        server_gpu_embodied_adpe: ADPe embodied impact of the server and the GPUs in kgSbeq.
+        server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
 
     Returns:
-        The ADPe embodied impact of the request.
+        The ADPe embodied impact of the request in kgSbeq.
     """
     return (generation_latency / server_lifetime) * server_gpu_embodied_adpe
 
@@ -328,12 +328,12 @@ def request_embodied_pe(
     Compute the Primary Energy (PE) embodied impact of the request.
 
     Args:
-        server_gpu_embodied_pe: PE embodied impact of the server and the GPUs.
-        server_lifetime: Lifetime duration of the server.
+        server_gpu_embodied_pe: PE embodied impact of the server and the GPUs in MJ.
+        server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
 
     Returns:
-        The PE embodied impact of the request.
+        The PE embodied impact of the request in MJ.
     """
     return (generation_latency / server_lifetime) * server_gpu_embodied_pe
 
@@ -384,11 +384,11 @@ def compute_llm_impacts_dag(
         gpu_embodied_adpe: ADPe embodied impact of a single GPU.
         gpu_embodied_pe: PE embodied impact of a single GPU.
         server_gpu_count: Number of available GPUs in the server.
-        server_power: Power consumption of the server.
-        server_embodied_gwp: GWP embodied impact of the server.
-        server_embodied_adpe: ADPe embodied impact of the server.
-        server_embodied_pe: PE embodied impact of the server.
-        server_lifetime: Lifetime duration of the server.
+        server_power: Power consumption of the server in kW.
+        server_embodied_gwp: GWP embodied impact of the server in kgCO2eq.
+        server_embodied_adpe: ADPe embodied impact of the server in kgSbeq.
+        server_embodied_pe: PE embodied impact of the server in MJ.
+        server_lifetime: Lifetime duration of the server in seconds.
         datacenter_pue: PUE of the datacenter.
 
     Returns:
