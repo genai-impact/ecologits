@@ -371,9 +371,9 @@ def compute_llm_impacts_dag(
         model_total_parameter_count: Number of parameters of the model.
         output_token_count: Number of generated tokens.
         request_latency: Measured request latency in seconds.
-        if_electricity_mix_adpe: ADPe impact factor of electricity consumption in kg of eq. Sb (Antimony).
-        if_electricity_mix_pe: PE impact factor of electricity consumption in MJ.
-        if_electricity_mix_gwp: GWP impact factor of electricity consumption in kg of eq. CO2.
+        if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
+        if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
+        if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
@@ -439,9 +439,9 @@ def compute_llm_impacts(
         model_active_parameter_count: Number of active parameters of the model.
         model_total_parameter_count: Number of total parameters of the model.
         output_token_count: Number of generated tokens.
-        if_electricity_mix_adpe: ADPe impact factor of electricity consumption in kg of eq. Sb (Antimony).
-        if_electricity_mix_pe: PE impact factor of electricity consumption in MJ.
-        if_electricity_mix_gwp: GWP impact factor of electricity consumption in kg of eq. CO2.
+        if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
+        if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
+        if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
         request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
 
