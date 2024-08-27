@@ -48,7 +48,7 @@ def gpu_energy(
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
 
     Returns:
-        The energy consumption of a single GPU in kWh. 
+        The energy consumption of a single GPU in kWh.
     """
     return output_token_count * (gpu_energy_alpha * model_active_parameter_count + gpu_energy_beta)
 
