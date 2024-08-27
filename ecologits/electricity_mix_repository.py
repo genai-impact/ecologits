@@ -3,6 +3,7 @@ from csv import DictReader
 from dataclasses import dataclass
 from typing import Optional
 
+reserved_codes = ["WOR", "EEE", "SCG"]
 
 @dataclass
 class ElectricityMix:
