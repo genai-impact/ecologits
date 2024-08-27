@@ -4,7 +4,7 @@ from ecologits.electricity_mix_repository import ElectricityMixRepository, Elect
 def test_create_electricity_mix_repository_default():
     electricity_mixes = ElectricityMixRepository.from_csv()
     assert isinstance(electricity_mixes, ElectricityMixRepository)
-    assert electricity_mixes.find_electricity_mix(zone="belgium") is not None
+    assert electricity_mixes.find_electricity_mix(zone="BEL") is not None
 
 
 def test_create_electricity_mix_repository_from_scratch():
@@ -21,5 +21,5 @@ def test_create_electricity_mix_repository_from_scratch():
 
 def test_find_unknown_zone():
     electricity_mixes = ElectricityMixRepository.from_csv()
-    assert electricity_mixes.find_electricity_mix(zone="wonderland") is None
+    assert electricity_mixes.find_electricity_mix(zone="AAA") is None
 
