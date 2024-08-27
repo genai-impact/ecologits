@@ -1,5 +1,7 @@
 from typing import Optional
 
+from pycountry import countries
+
 from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Range
@@ -15,7 +17,7 @@ def llm_impacts(
     model_name: str,
     output_token_count: int,
     request_latency: float,
-    electricity_mix_zone: Optional[str] = "world",
+    electricity_mix_zone: Optional[str] = "WOR",
 ) -> Optional[Impacts]:
     """
     High-level function to compute the impacts of an LLM generation request.
@@ -25,11 +27,16 @@ def llm_impacts(
         model_name: Name of the LLM used.
         output_token_count: Number of generated tokens.
         request_latency: Measured request latency in seconds.
-        electricity_mix_zone: Electricity mix zone (world electricity mix by default).
+        electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (world electricity mix by default).
 
     Returns:
         The impacts of an LLM generation request.
     """
+    if countries.get(alpha_3=electricity_mix_zone) is None:
+        # TODO: Replace with proper logging
+        print(f"`{electricity_mix_zone}` is currently not a valid ISO 3166-1 alpha-3 code")
+        return None
+
     model = models.find_model(provider=provider, model_name=model_name)
     if model is None:
         # TODO: Replace with proper logging
