@@ -1,8 +1,8 @@
 from typing import Optional
 
+from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Range
-from ecologits.mix_repository import mixes
 from ecologits.model_repository import models
 
 
@@ -15,7 +15,7 @@ def llm_impacts(
     model_name: str,
     output_token_count: int,
     request_latency: float,
-    mix_zone: Optional[str] = "world",
+    electricity_mix_zone: Optional[str] = "world",
 ) -> Optional[Impacts]:
     """
     High-level function to compute the impacts of an LLM generation request.
@@ -25,7 +25,7 @@ def llm_impacts(
         model_name: Name of the LLM used.
         output_token_count: Number of generated tokens.
         request_latency: Measured request latency in seconds.
-        mix_zone: Electricity mix zone (world electricity mix by default).
+        electricity_mix_zone: Electricity mix zone (world electricity mix by default).
 
     Returns:
         The impacts of an LLM generation request.
@@ -40,14 +40,14 @@ def llm_impacts(
     model_total_params = model.total_parameters \
                          or Range(min=model.total_parameters_range[0], max=model.total_parameters_range[1])
 
-    mix = mixes.find_mix(zone=mix_zone)
-    if mix is None:
+    electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_mix_zone)
+    if electricity_mix is None:
         # TODO: Replace with proper logging
-        print(f"Could not find mix `{mix_zone}` in the ADEME database")
+        print(f"Could not find electricity mix `{electricity_mix_zone}` in the ADEME database")
         return None
-    if_electricity_mix_adpe=mix.adpe
-    if_electricity_mix_pe=mix.pe
-    if_electricity_mix_gwp=mix.gwp
+    if_electricity_mix_adpe=electricity_mix.adpe
+    if_electricity_mix_pe=electricity_mix.pe
+    if_electricity_mix_gwp=electricity_mix.gwp
 
     return compute_llm_impacts(
         model_active_parameter_count=model_active_params,

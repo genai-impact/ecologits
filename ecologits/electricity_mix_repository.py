@@ -145,41 +145,41 @@ class Zones(Enum):
 
 
 @dataclass
-class Mix:
+class ElectricityMix:
     zone: str
     adpe: float
     pe: float
     gwp: float
 
 
-class MixRepository:
-    def __init__(self, mixes: list[Mix]) -> None:
-        self.__mixes = mixes
+class ElectricityMixRepository:
+    def __init__(self, electricity_mixes: list[ElectricityMix]) -> None:
+        self.__electricity_mixes = electricity_mixes
 
-    def find_mix(self, zone: str) -> Optional[Mix]:
-        for mix in self.__mixes:
-            if mix.zone == zone:
-                return mix
+    def find_electricity_mix(self, zone: str) -> Optional[ElectricityMix]:
+        for electricity_mix in self.__electricity_mixes:
+            if electricity_mix.zone == zone:
+                return electricity_mix
         return None
 
     @classmethod
-    def from_csv(cls, filepath: Optional[str] = None) -> "MixRepository":
+    def from_csv(cls, filepath: Optional[str] = None) -> "ElectricityMixRepository":
         if filepath is None:
             filepath = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "data", "mixes.csv"
+                os.path.dirname(os.path.realpath(__file__)), "data", "electricity_mixes.csv"
             )
-        mixes = []
+        electricity_mixes = []
         with open(filepath) as fd:
             csv = DictReader(fd)
             for row in csv:
-                mixes.append(
-                    Mix(
+                electricity_mixes.append(
+                    ElectricityMix(
                         zone=Zones(row["name"]).name,
                         adpe=float(row["adpe"]),
                         pe=float(row["pe"]),
                         gwp=float(row["gwp"]),
                     )
                 )
-        return cls(mixes)
+        return cls(electricity_mixes)
 
-mixes = MixRepository.from_csv()
+electricity_mixes = ElectricityMixRepository.from_csv()
