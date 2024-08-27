@@ -2,7 +2,7 @@ from typing import Optional
 
 from pycountry import countries
 
-from ecologits.electricity_mix_repository import electricity_mixes
+from ecologits.electricity_mix_repository import electricity_mixes, reserved_codes
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Range
 from ecologits.model_repository import models
@@ -32,7 +32,7 @@ def llm_impacts(
     Returns:
         The impacts of an LLM generation request.
     """
-    if countries.get(alpha_3=electricity_mix_zone) is None:
+    if countries.get(alpha_3=electricity_mix_zone) is None and electricity_mix_zone not in reserved_codes:
         # TODO: Replace with proper logging
         print(f"`{electricity_mix_zone}` is currently not a valid ISO 3166-1 alpha-3 code")
         return None
