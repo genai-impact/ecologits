@@ -41,3 +41,25 @@ It achieves this by **patching the Python client libraries**, ensuring that each
     [:octicons-arrow-right-24: Methodology](../methodology/index.md)
 
 </div>
+
+
+## Initialization of EcoLogits
+
+To use EcoLogits in your projects, you will need to initialize the client tracers that are used internally to intercept and enrich responses. 
+
+!!! info "Default behavior is to search and initialize all available providers."
+
+```python
+from ecologits import EcoLogits
+
+# Initialize for all available providers
+EcoLogits.init()
+
+# Initialize for `openai` provider only
+EcoLogits.init("openai")
+
+# Initialize for `openai` and `anthropic` providers only
+EcoLogits.init(["openai", "anthropic"])
+```
+
+It is currently not possible to un-initialize a provider at runtime. If that's the case do not hesitate to [open an issue :octicons-link-external-16:](https://github.com/genai-impact/ecologits/issues/new/choose) and explain why it could be necessary for your use case.
