@@ -5,6 +5,7 @@ from typing import Any, Callable, Union
 
 from wrapt import wrap_function_wrapper
 
+from ecologits.config import Config
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
 
@@ -66,7 +67,8 @@ def huggingface_chat_wrapper_non_stream(
         provider=PROVIDER,
         model_name=instance.model,
         output_token_count=output_tokens,
-        request_latency=request_latency
+        request_latency=request_latency,
+        electricity_mix_zone=Config.electricity_mix_zone
     )
     if impacts is not None:
         return ChatCompletionOutput(**asdict(response), impacts=impacts)
@@ -90,7 +92,8 @@ def huggingface_chat_wrapper_stream(
             provider=PROVIDER,
             model_name=instance.model,
             output_token_count=token_count,
-            request_latency=request_latency
+            request_latency=request_latency,
+            electricity_mix_zone=Config.electricity_mix_zone
         )
         if impacts is not None:
             yield ChatCompletionStreamOutput(**asdict(chunk), impacts=impacts)
@@ -125,7 +128,8 @@ async def huggingface_async_chat_wrapper_non_stream(
         provider=PROVIDER,
         model_name=instance.model,
         output_token_count=output_tokens,
-        request_latency=request_latency
+        request_latency=request_latency,
+        electricity_mix_zone=Config.electricity_mix_zone
     )
     if impacts is not None:
         return ChatCompletionOutput(**asdict(response), impacts=impacts)
@@ -149,7 +153,8 @@ async def huggingface_async_chat_wrapper_stream(
             provider=PROVIDER,
             model_name=instance.model,
             output_token_count=token_count,
-            request_latency=request_latency
+            request_latency=request_latency,
+            electricity_mix_zone=Config.electricity_mix_zone
         )
         if impacts is not None:
             yield ChatCompletionStreamOutput(**asdict(chunk), impacts=impacts)

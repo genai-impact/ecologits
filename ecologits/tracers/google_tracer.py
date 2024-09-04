@@ -4,6 +4,7 @@ from typing import Any, Callable, Union
 
 from wrapt import wrap_function_wrapper
 
+from ecologits.config import Config
 from ecologits.tracers.utils import llm_impacts
 
 try:
@@ -91,6 +92,7 @@ def google_chat_wrapper_non_stream(
         model_name=model_name,  # ?
         output_token_count=response.usage_metadata.total_token_count,
         request_latency=request_latency,
+        electricity_mix_zone=Config.electricity_mix_zone,
     )
     if impacts is not None:
         # Convert the response object to a dictionary (model_dump() is not available in the response object)
@@ -114,6 +116,7 @@ def google_chat_wrapper_stream(
             model_name=model_name,  # ?
             output_token_count=chunk.usage_metadata.total_token_count,
             request_latency=request_latency,
+            electricity_mix_zone=Config.electricity_mix_zone
         )
         if impacts is not None:
             chunk = wrap_from_dict(chunk.__dict__, impacts) # noqa: PLW2901
@@ -144,6 +147,7 @@ async def google_async_chat_wrapper_non_stream(
         model_name=model_name,  # ?
         output_token_count=response.usage_metadata.total_token_count,
         request_latency=request_latency,
+        electricity_mix_zone=Config.electricity_mix_zone
     )
     if impacts is not None:
         # Convert the response object to a dictionary (model_dump() is not available in the response object)
@@ -167,6 +171,7 @@ async def google_async_chat_wrapper_stream(
             model_name=model_name,  # ?
             output_token_count=chunk.usage_metadata.total_token_count,
             request_latency=request_latency,
+            electricity_mix_zone=Config.electricity_mix_zone
         )
         if impacts is not None:
             chunk = wrap_from_dict(chunk.__dict__, impacts, async_mode = True) # noqa: PLW2901

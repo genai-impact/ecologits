@@ -3,6 +3,7 @@ from typing import Any, Callable, Union
 
 from wrapt import wrap_function_wrapper
 
+from ecologits.config import Config
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
 
@@ -58,6 +59,7 @@ def openai_chat_wrapper_non_stream(
         model_name=model_name,
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
+        electricity_mix_zone=Config.electricity_mix_zone
     )
     if impacts is not None:
         return ChatCompletion(**response.model_dump(), impacts=impacts)
@@ -87,6 +89,7 @@ def openai_chat_wrapper_stream(
             model_name=model_name,
             output_token_count=token_count,
             request_latency=request_latency,
+            electricity_mix_zone=Config.electricity_mix_zone
         )
         if impacts is not None:
             yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
@@ -121,6 +124,7 @@ async def openai_async_chat_wrapper_base(
         model_name=model_name,
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
+        electricity_mix_zone=Config.electricity_mix_zone
     )
     if impacts is not None:
         return ChatCompletion(**response.model_dump(), impacts=impacts)
@@ -150,6 +154,7 @@ async def openai_async_chat_wrapper_stream(
             model_name=model_name,
             output_token_count=token_count,
             request_latency=request_latency,
+            electricity_mix_zone=Config.electricity_mix_zone
         )
         if impacts is not None:
             yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
