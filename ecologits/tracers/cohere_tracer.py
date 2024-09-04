@@ -4,6 +4,7 @@ from typing import Any, Callable
 
 from wrapt import wrap_function_wrapper
 
+from ecologits.config import Config
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
 
@@ -50,6 +51,7 @@ def cohere_chat_wrapper(
         model_name=model_name,
         output_token_count=output_tokens,
         request_latency=request_latency,
+        electricity_mix_zone=Config.electricity_mix_zone
     )
     return NonStreamedChatResponse(**response.dict(), impacts=impacts)
 
@@ -67,6 +69,7 @@ async def cohere_async_chat_wrapper(
         model_name=model_name,
         output_token_count=output_tokens,
         request_latency=request_latency,
+        electricity_mix_zone=Config.electricity_mix_zone
     )
     return NonStreamedChatResponse(**response.dict(), impacts=impacts)
 
@@ -86,6 +89,7 @@ def cohere_stream_chat_wrapper(
                 model_name=model_name,
                 output_token_count=output_tokens,
                 request_latency=request_latency,
+                electricity_mix_zone=Config.electricity_mix_zone
             )
             yield StreamedChatResponse_StreamEnd(**event.dict(), impacts=impacts)
         else:
@@ -107,6 +111,7 @@ async def cohere_async_stream_chat_wrapper(
                 model_name=model_name,
                 output_token_count=output_tokens,
                 request_latency=request_latency,
+                electricity_mix_zone=Config.electricity_mix_zone
             )
             yield StreamedChatResponse_StreamEnd(**event.dict(), impacts=impacts)
         else:

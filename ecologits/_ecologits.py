@@ -1,8 +1,9 @@
 import importlib.util
-from typing import Union
+from typing import Optional, Union
 
 from packaging.version import Version
 
+from ecologits.config import Config
 from ecologits.exceptions import EcoLogitsError
 
 
@@ -110,17 +111,24 @@ class EcoLogits:
     initialized = False
 
     @staticmethod
-    def init(providers: Union[str, list[str]] = None) -> None:
+    def init(
+        providers: Optional[Union[str, list[str]]] = None,
+        electricity_mix_zone: Optional[str] = "WOR",
+    ) -> None:
         """
         Initialization static method. Will attempt to initialize all providers by default.
 
         Args:
-            providers: list of providers to initialize.
+            providers: list of providers to initialize (all providers by default).
+            electricity_mix: TODO
         """
-        if providers is None:
-            providers = list(_INSTRUMENTS.keys())
         if isinstance(providers, str):
             providers = [providers]
+        if providers is None:
+            providers = list(_INSTRUMENTS.keys())
+        Config.providers = providers
+        Config.electricity_mix_zone = electricity_mix_zone
+
         if not EcoLogits.initialized:
             init_instruments(providers)
             EcoLogits.initialized = True
