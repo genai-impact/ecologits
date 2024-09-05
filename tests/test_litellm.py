@@ -5,7 +5,7 @@ import litellm
 @pytest.mark.vcr
 def test_litellm_chat(tracer_init):
     response = litellm.completion(
-        messages=[{"role": "user", "content": "Hello World!"}], model="mistral/mistral-small-latest"
+        messages=[{"role": "user", "content": "Hello World!"}], model="claude-3-5-sonnet-20240620"
     )
     assert len(response.choices) > 0
     assert response.impacts.energy.value > 0
@@ -24,7 +24,7 @@ async def test_litellm_async_chat(tracer_init):
 @pytest.mark.vcr
 def test_litellm_stream_chat(tracer_init):
     stream = litellm.completion(
-        messages=[{"role": "user", "content": "Hello World!"}], model="mistral/mistral-small-latest", stream=True
+        messages=[{"role": "user", "content": "Hello World!"}], model="claude-3-5-sonnet-20240620", stream=True
     )
     for chunk in stream:
         assert chunk.impacts.energy.value >= 0

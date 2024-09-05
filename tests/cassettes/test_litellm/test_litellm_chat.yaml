@@ -1,50 +1,38 @@
 interactions:
 - request:
-    body: '{"messages": [{"role": "user", "content": "Hello World!"}], "model": "mistral-small-latest"}'
+    body: '{"messages": [{"role": "user", "content": [{"type": "text", "text": "Hello
+      World!"}]}], "max_tokens": 4096, "model": "claude-3-5-sonnet-20240620"}'
     headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '146'
+      User-Agent:
+      - python-requests/2.32.3
       accept:
       - application/json
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      content-length:
-      - '92'
+      anthropic-version:
+      - '2023-06-01'
       content-type:
       - application/json
-      host:
-      - api.mistral.ai
-      user-agent:
-      - OpenAI/Python 1.35.14
-      x-stainless-arch:
-      - arm64
-      x-stainless-async:
-      - 'false'
-      x-stainless-lang:
-      - python
-      x-stainless-os:
-      - MacOS
-      x-stainless-package-version:
-      - 1.35.14
-      x-stainless-runtime:
-      - CPython
-      x-stainless-runtime-version:
-      - 3.11.8
     method: POST
-    uri: https://api.mistral.ai/v1/chat/completions
+    uri: https://api.anthropic.com/v1/messages
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAAzyQQW7CMBBFr+L+TTcGNZAG8KZbOENVIceeELcTTxQPahHi7lVawfZp3tfTXJEi
-        HOq6beNrR5G6Xd34pm1WVbXr1tt2G0IkgoW0nxQUDqH3ugwyjEyaJMMiTOSVIly1WVVVXdW7rcUg
-        kRgOQyo6eV6UwTMv2CsVnZ1eUqAC935FypF+4F4sBirFnwjuikmY4OBLSUV9/nMkK+W5YU/M8mQO
-        +lxMToGMihmI1FzkvDR7+TbBZ3Mw//ZMjUr0lzdYqAgfg2cucPnMfLPoUk6lP07ki2Q4FJURFiyn
-        cZL2fvdhcb7XjZMMox5VvigXuGaeVc8PsFrPufcfPXC1ud1+AQAA//8DAJZqKBJzAQAA
+        H4sIAAAAAAAAA0yQsU7DQAyGX8V46ZJUaQoI3cKWpgMjA0IoOiVucsrFTnI+SlT13VEKSEyWPvv7
+        f8kXdA0aHEJbZbuii4e3sTy4l89pKoql7KfTa44J6jLSekUh2JYwwVn8CmwILqhlxQQHacijwdrb
+        2FC6Tx/SIMykaZ7l99ljnmGCtbASK5r3y1+o0teq34bBkryXOzjqJkA7k1VQgYFIYZG4hVLOUFuG
+        I/xUrxRUGrs8Q0Hk4TQTrYoNPQwElheYIgV1wgFkBk+68p7lDO606psGvOsJOvIjnJ12q6Sd43aL
+        148Eg8pYzWSDMBokbiqNM+PvItAUiWtCw9H7BOPtQeaCjseolUpPHNDssgQl6n+0f7pevwEAAP//
+        AwDQ5UrOfgEAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8a42cfbc782e0bcb-AMS
+      - 8be72d90e8afb9bd-BRU
       Connection:
       - keep-alive
       Content-Encoding:
@@ -52,39 +40,31 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 16 Jul 2024 14:51:38 GMT
+      - Thu, 05 Sep 2024 15:16:02 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
       - chunked
-      access-control-allow-origin:
-      - '*'
-      alt-svc:
-      - h3=":443"; ma=86400
-      ratelimitbysize-limit:
-      - '500000'
-      ratelimitbysize-query-cost:
-      - '32003'
-      ratelimitbysize-remaining:
-      - '433342'
-      ratelimitbysize-reset:
-      - '22'
-      x-envoy-upstream-service-time:
-      - '314'
-      x-kong-proxy-latency:
-      - '1'
-      x-kong-request-id:
-      - 8269985897449b4174481527113eac05
-      x-kong-upstream-latency:
-      - '315'
-      x-ratelimitbysize-limit-minute:
-      - '500000'
-      x-ratelimitbysize-limit-month:
-      - '1000000000'
-      x-ratelimitbysize-remaining-minute:
-      - '433342'
-      x-ratelimitbysize-remaining-month:
-      - '999743976'
+      X-Robots-Tag:
+      - none
+      anthropic-ratelimit-requests-limit:
+      - '5'
+      anthropic-ratelimit-requests-remaining:
+      - '4'
+      anthropic-ratelimit-requests-reset:
+      - '2024-09-05T15:16:43Z'
+      anthropic-ratelimit-tokens-limit:
+      - '20000'
+      anthropic-ratelimit-tokens-remaining:
+      - '20000'
+      anthropic-ratelimit-tokens-reset:
+      - '2024-09-05T15:16:02Z'
+      request-id:
+      - req_01U1Y4mTMiVGRAD2ddCJa3JF
+      via:
+      - 1.1 google
+      x-cloud-trace-context:
+      - 1eaa4807aeafd5afd84a159cf9f10530
     status:
       code: 200
       message: OK

@@ -20,15 +20,16 @@ interactions:
     uri: https://api.cohere.ai/v1/chat
   response:
     body:
-      string: '{"response_id":"3506e94d-7741-49c0-b820-dd1da203f521","text":"Hello!
-        It''s a pleasure to meet you. How''s it going today?","generation_id":"594c6c99-490a-44f4-9a23-f3c0d1b8aa7f","chat_history":[{"role":"USER","message":"Hello
-        World!"},{"role":"CHATBOT","message":"Hello! It''s a pleasure to meet you.
-        How''s it going today?"}],"finish_reason":"COMPLETE","meta":{"api_version":{"version":"1"},"billed_units":{"input_tokens":3,"output_tokens":16},"tokens":{"input_tokens":69,"output_tokens":16}}}'
+      string: '{"response_id":"d9f53eb7-a99e-4282-8b54-f72ed04e4c28","text":"Hello!
+        How''s it going? I hope you''re having a fantastic day! Would you like to
+        ask me something or play a game?","generation_id":"24be20b7-f67c-42f2-9a02-02fecafc96cf","chat_history":[{"role":"USER","message":"Hello
+        World!"},{"role":"CHATBOT","message":"Hello! How''s it going? I hope you''re
+        having a fantastic day! Would you like to ask me something or play a game?"}],"finish_reason":"COMPLETE","meta":{"api_version":{"version":"1"},"billed_units":{"input_tokens":3,"output_tokens":28},"tokens":{"input_tokens":69,"output_tokens":28}}}'
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
       Content-Length:
-      - '490'
+      - '598'
       Via:
       - 1.1 google
       access-control-expose-headers:
@@ -38,13 +39,13 @@ interactions:
       content-type:
       - application/json
       date:
-      - Tue, 16 Jul 2024 14:51:39 GMT
+      - Thu, 05 Sep 2024 15:16:02 GMT
       expires:
       - Thu, 01 Jan 1970 00:00:00 UTC
       num_chars:
-      - '427'
+      - '433'
       num_tokens:
-      - '19'
+      - '31'
       pragma:
       - no-cache
       server:
@@ -54,11 +55,11 @@ interactions:
       x-accel-expires:
       - '0'
       x-debug-trace-id:
-      - 827718fd5f18c95038e08ff950dfa86d
+      - 5983974e23a8e2e688b789f5451470eb
       x-endpoint-monthly-call-limit:
       - '1000'
       x-envoy-upstream-service-time:
-      - '238'
+      - '306'
       x-trial-endpoint-call-limit:
       - '10'
       x-trial-endpoint-call-remaining:

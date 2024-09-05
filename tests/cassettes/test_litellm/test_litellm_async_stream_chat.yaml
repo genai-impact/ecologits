@@ -1,5 +1,63 @@
 interactions:
 - request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - identity
+      Connection:
+      - keep-alive
+      X-Amzn-Trace-Id:
+      - 919dccf9-50b1-463b-86a7-51bcf6374cdc
+      user-agent:
+      - unknown/None; hf_hub/0.22.2; python/3.11.8
+    method: HEAD
+    uri: https://huggingface.co/claude-3-5-sonnet-20240620/resolve/main/tokenizer.json
+  response:
+    body:
+      string: ''
+    headers:
+      Access-Control-Allow-Origin:
+      - https://huggingface.co
+      Access-Control-Expose-Headers:
+      - X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Thu, 05 Sep 2024 15:16:04 GMT
+      ETag:
+      - W/"1d-DMkJvg8tpLoaQbsiq9Mz7l2CJyI"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Vary:
+      - Origin
+      Via:
+      - 1.1 47b02788927e4a826aab9351e0c1b010.cloudfront.net (CloudFront)
+      WWW-Authenticate:
+      - Bearer realm="Authentication required", charset="UTF-8"
+      X-Amz-Cf-Id:
+      - esA3Lsz5S4PosGwthwT5XeOvzz7V1Mb5kae5uvS2mMgU2DOl_Gsy9Q==
+      X-Amz-Cf-Pop:
+      - BRU50-P1
+      X-Cache:
+      - Error from cloudfront
+      X-Error-Message:
+      - Invalid username or password.
+      X-Powered-By:
+      - huggingface-moon
+      X-Request-Id:
+      - Root=1-66d9cb34-31be3f7e505a144d1f5c48b0;919dccf9-50b1-463b-86a7-51bcf6374cdc
+      cross-origin-opener-policy:
+      - same-origin
+    status:
+      code: 401
+      message: Unauthorized
+- request:
     body: '{"messages": [{"role": "user", "content": [{"type": "text", "text": "Hello
       World!"}]}], "max_tokens": 4096, "model": "claude-3-5-sonnet-20240620", "stream":
       true}'
@@ -26,12 +84,12 @@ interactions:
     body:
       string: 'event: message_start
 
-        data: {"type":"message_start","message":{"id":"msg_01ESNRfM1Dm3bhBHJ9BjgYa6","type":"message","role":"assistant","model":"claude-3-5-sonnet-20240620","content":[],"stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":10,"output_tokens":3}}}
+        data: {"type":"message_start","message":{"id":"msg_013E68RoxptyPCc1kxArQ1Ne","type":"message","role":"assistant","model":"claude-3-5-sonnet-20240620","content":[],"stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":10,"output_tokens":5}}              }
 
 
         event: content_block_start
 
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}    }
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}   }
 
 
         event: ping
@@ -42,112 +100,71 @@ interactions:
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"Hello!
-        It"}   }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"''s
-        great"}       }
+        It''s nice"}      }
 
 
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        to meet you."}    }
+        to meet you. How"}          }
 
 
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        How"}  }
+        can"}         }
 
 
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        can"}             }
+        I assist you today?"}          }
 
 
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        I assist you today"}       }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"?"}       }
+        Is"}    }
 
 
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        Feel"}           }
+        there anything specific"}          }
 
 
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        free to ask me"}    }
+        you''d like to"}       }
 
 
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        anything or"}        }
+        talk"}  }
 
 
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        let"}            }
+        about or any questions"}              }
 
 
         event: content_block_delta
 
         data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        me know if you"}            }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"''d
-        like help with"}     }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        a"}    }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        particular"}  }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        topic"}     }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        or task."}          }
+        you have?"}               }
 
 
         event: content_block_stop
 
-        data: {"type":"content_block_stop","index":0       }
+        data: {"type":"content_block_stop","index":0        }
 
 
         event: message_delta
 
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null},"usage":{"output_tokens":41}            }
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null},"usage":{"output_tokens":35}      }
 
 
         event: message_stop
@@ -160,7 +177,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8a42cfc44d26b8fd-AMS
+      - 8be72da808002e1a-BRU
       Cache-Control:
       - no-cache
       Connection:
@@ -168,25 +185,27 @@ interactions:
       Content-Type:
       - text/event-stream; charset=utf-8
       Date:
-      - Tue, 16 Jul 2024 14:51:40 GMT
+      - Thu, 05 Sep 2024 15:16:05 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
       - chunked
+      X-Robots-Tag:
+      - none
       anthropic-ratelimit-requests-limit:
       - '5'
       anthropic-ratelimit-requests-remaining:
-      - '4'
+      - '2'
       anthropic-ratelimit-requests-reset:
-      - '2024-07-16T14:51:43Z'
+      - '2024-09-05T15:16:43Z'
       anthropic-ratelimit-tokens-limit:
       - '20000'
       anthropic-ratelimit-tokens-remaining:
       - '16000'
       anthropic-ratelimit-tokens-reset:
-      - '2024-07-16T14:51:51Z'
+      - '2024-09-05T15:16:16Z'
       request-id:
-      - req_01P5CsZqBn8Yok4Q95vUjCLb
+      - req_01Y5WYxkzR42ZiuMUddXZyHx
       via:
       - 1.1 google
     status:
