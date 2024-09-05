@@ -121,7 +121,7 @@ class EcoLogits:
         """
         if isinstance(providers, str):
             providers = [providers]
-        if providers is None: 
+        if providers is None:
             providers = list(_INSTRUMENTS.keys())
 
         init_instruments(providers)
