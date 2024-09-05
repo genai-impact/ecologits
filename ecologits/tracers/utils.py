@@ -1,11 +1,10 @@
-from typing import Optional
 import logging
+from typing import Optional
 
 from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Range
 from ecologits.model_repository import models
-
 
 logger = logging.getLogger(__name__)
 
