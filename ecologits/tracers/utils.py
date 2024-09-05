@@ -1,9 +1,13 @@
 from typing import Optional
+import logging
 
 from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Range
 from ecologits.model_repository import models
+
+
+logger = logging.getLogger(__name__)
 
 
 def _avg(value_range: tuple) -> float:
@@ -33,8 +37,7 @@ def llm_impacts(
 
     model = models.find_model(provider=provider, model_name=model_name)
     if model is None:
-        # TODO: Replace with proper logging
-        print(f"Could not find model `{model_name}` for {provider} provider.")
+        logger.warning(f"Could not find model `{model_name}` for {provider} provider.")
         return None
     model_active_params = model.active_parameters \
                           or Range(min=model.active_parameters_range[0], max=model.active_parameters_range[1])
@@ -43,8 +46,7 @@ def llm_impacts(
 
     electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_mix_zone)
     if electricity_mix is None:
-        # TODO: Replace with proper logging
-        print(f"Could not find electricity mix `{electricity_mix_zone}` in the ADEME database")
+        logger(f"Could not find electricity mix `{electricity_mix_zone}` in the ADEME database")
         return None
     if_electricity_mix_adpe=electricity_mix.adpe
     if_electricity_mix_pe=electricity_mix.pe
