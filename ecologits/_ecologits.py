@@ -107,9 +107,6 @@ class EcoLogits:
         ```
 
     """
-
-    initialized = False
-
     @staticmethod
     def init(
         providers: Optional[Union[str, list[str]]] = None,
@@ -124,20 +121,19 @@ class EcoLogits:
         """
         if isinstance(providers, str):
             providers = [providers]
-        if providers is None:
+        if providers is None: 
             providers = list(_INSTRUMENTS.keys())
-        Config.providers = providers
+
+        init_instruments(providers)
+
         Config.electricity_mix_zone = electricity_mix_zone
-
-        if not EcoLogits.initialized:
-            init_instruments(providers)
-            EcoLogits.initialized = True
-
+        Config.providers += providers
+        Config.providers = list(set(Config.providers))
 
 def init_instruments(providers: list[str]) -> None:
     for provider in providers:
         if provider not in _INSTRUMENTS:
             raise EcoLogitsError(f"Could not find tracer for the `{provider}` provider.")
-
-        init_func = _INSTRUMENTS[provider]
-        init_func()
+        if provider not in Config.providers:
+            init_func = _INSTRUMENTS[provider]
+            init_func()

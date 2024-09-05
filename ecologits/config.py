@@ -1,3 +1,3 @@
 class Config:
-    providers: list[str]
+    providers: list[str] = []
     electricity_mix_zone: str
