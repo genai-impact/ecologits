@@ -56,10 +56,24 @@ from ecologits import EcoLogits
 EcoLogits.init()
 
 # Initialize for `openai` provider only
-EcoLogits.init("openai")
+EcoLogits.init(providers="openai")
 
 # Initialize for `openai` and `anthropic` providers only
-EcoLogits.init(["openai", "anthropic"])
+EcoLogits.init(providers=["openai", "anthropic"])
 ```
 
-It is currently not possible to un-initialize a provider at runtime. If that's the case do not hesitate to [open an issue :octicons-link-external-16:](https://github.com/genai-impact/ecologits/issues/new/choose) and explain why it could be necessary for your use case.
+!!! warning "It is currently not possible to un-initialize a provider at runtime. Each time that `EcoLogits` is re-initialized with another providers, the latter will be added to the list of already initialized providers. If you think that un-initializing a provider could be necessary for your use case, please [open an issue :octicons-link-external-16:](https://github.com/genai-impact/ecologits/issues/new/choose)."
+
+It is also possible to initialize `EcoLogits` with a different electricity mix. The latter has to be chosen among the mixes in the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) database.
+
+!!! info "The default electricity mix is the world mix given by [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/)."
+
+```python title="Choose a different electricity mix"
+from ecologits import EcoLogits
+
+EcoLogits.init() 
+# Impacts are computed with the world electricity mix
+
+EcoLogits.init(electricity_mix_zone="FRA")
+# Impacts are computed with the electricity mix of France
+```

@@ -155,12 +155,22 @@ We use impact factors to quantify environmental harm from human activities, meas
 
 ### Electricity Mix
 
-**We currently assume by default a worldwide average impact factor for electricity consumption**. We plan to allow users to change these impact factors dynamically based on a specific country/region or with custom values.
+When initializing `EcoLogits`, you can choose a specific electricity mix zone from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) database.
 
-Default values (from [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/)):
+```python title="Choose a different electricity mix"
+from ecologits import EcoLogits
+
+EcoLogits.init() 
+# Impacts are computed with the world electricity mix
+
+EcoLogits.init(electricity_mix_zone="FRA")
+# Impacts are computed with the electricity mix of France
+```
+
+By default, the **world electricity mix** ("WOR" code in the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) database) is chosen, whose values are given by:
 
 | Impact criteria | Value      | Unit            |
 |-----------------|------------|-----------------|
-| GWP             | $5.904e-1$ | $kgCO2eq / kWh$ | 
-| ADPe            | $7.378e-7$ | $kgSbeq / kWh$  |
-| PE              | $9.988$    | $MJ / kWh$      |
+| GWP             | $5.904e-1$ | kgCO2eq / kWh   | 
+| ADPe            | $7.378e-7$ | kgSbeq / kWh    |
+| PE              | $9.988$    | MJ / kWh        |
