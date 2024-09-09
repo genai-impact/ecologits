@@ -117,7 +117,7 @@ class EcoLogits:
 
         Args:
             providers: list of providers to initialize (all providers by default).
-            electricity_mix: electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
+            electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
         """
         if isinstance(providers, str):
             providers = [providers]
