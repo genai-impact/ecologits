@@ -1,24 +1,22 @@
 interactions:
 - request:
-    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "Hello, Claude"}],
-      "model": "claude-3-opus-20240229"}'
+    body: '{"messages": [{"role": "user", "content": "Hello World!"}], "model": "gpt-3.5-turbo",
+      "seed": 0}'
     headers:
       accept:
       - application/json
       accept-encoding:
       - gzip, deflate
-      anthropic-version:
-      - '2023-06-01'
       connection:
       - keep-alive
       content-length:
-      - '115'
+      - '96'
       content-type:
       - application/json
       host:
-      - api.anthropic.com
+      - api.openai.com
       user-agent:
-      - Anthropic/Python 0.29.2
+      - OpenAI/Python 1.35.14
       x-stainless-arch:
       - arm64
       x-stainless-async:
@@ -28,26 +26,27 @@ interactions:
       x-stainless-os:
       - MacOS
       x-stainless-package-version:
-      - 0.29.2
+      - 1.35.14
       x-stainless-runtime:
       - CPython
       x-stainless-runtime-version:
       - 3.11.8
     method: POST
-    uri: https://api.anthropic.com/v1/messages
+    uri: https://api.openai.com/v1/chat/completions
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1SPQUvDQBCF/8r6Ll62kkZBupeCoLYX8VI9iIQlmYbQzUyancWmIf9dUvXg6cE3
-        773hjWgqOLSxLrLlTpv69W3/9HJ+3z0c9veP5+Nzf4KFDh3NLorR1wSLXsIMfIxNVM8Ki1YqCnAo
-        g08VLW4X0qW4yLP8LsvzFSxKYSVWuI/xr1DpNEcv4rChEOTKbPU6Gm5KMiqmJVIzSLoxG/kypWez
-        NT9fZ2pUKj+sMX1aRJWu6MlHYTgQV4WmnvF7iHRMxCXBcQrBIl2GuBENd0kLlQNxhFtmFpL0H1pN
-        0zcAAAD//wMAXSVRpSYBAAA=
+        H4sIAAAAAAAAA1SQPW/CMBCG9/yKq2eCgDalyVJRMdCpS1laVcg4l+DW8bn2RYAQ/71yCB9dPNzj
+        5/y+PiQAQpeiAKE2klXjTDrLdv6Nl78Gl7O5nCNOpx/b9/Ihr+hlLgbRoPU3Kj5bQ0WNM8ia7Akr
+        j5Ixbh1PJ1n+lI1Hjx1oqEQTtdpxej/MUm79mtLReJL15oa0wiAK+EwAAA7dGTPaEneigNHgPGkw
+        BFmjKC6XAIQnEydChqADS8ticIWKLKPtYi/QGLqDBW1BSQuvcBJgTy0wlXL/fCt6rNogY3DbGtPP
+        j5ckhmrnaR16fplX2uqwWXmUgWx8NTA50dFjAvDVNW7/lRDOU+N4xfSDNi4c94XF9Y+vMO8ZE0tz
+        4+RJH0+EfWBsVpW2NXrndde+K3FM/gAAAP//AwDQe9mQ/AEAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8be6aaa4ff78b9b4-BRU
+      - 8c10bbdf0b3483db-BRU
       Connection:
       - keep-alive
       Content-Encoding:
@@ -55,54 +54,69 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Sep 2024 13:46:39 GMT
+      - Tue, 10 Sep 2024 16:18:26 GMT
       Server:
       - cloudflare
+      Set-Cookie:
+      - __cf_bm=Gvm_KBYRBjUpgiyFKJx0aRQsBXcBJk2yN2W0Hyca_k4-1725985106-1.0.1.1-yTtLJ0yD2vGNUKJMwKVP0jvusLe09wXtqyuFLZC40vxKEuLKDWPFSrBa_.LxpXh_GTq820KHqHRNuZib5ZWduQ;
+        path=/; expires=Tue, 10-Sep-24 16:48:26 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=sS_7MkQkzMd8l92wE7eI0YjSjSl1QutNgtcsrB.zN9Q-1725985106637-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
       Transfer-Encoding:
       - chunked
-      X-Robots-Tag:
-      - none
-      anthropic-ratelimit-requests-limit:
-      - '5'
-      anthropic-ratelimit-requests-remaining:
-      - '4'
-      anthropic-ratelimit-requests-reset:
-      - '2024-09-05T13:46:43Z'
-      anthropic-ratelimit-tokens-limit:
+      X-Content-Type-Options:
+      - nosniff
+      access-control-expose-headers:
+      - X-Request-ID
+      alt-svc:
+      - h3=":443"; ma=86400
+      openai-organization:
+      - user-9oylvgpazsbmej0gab9qijx2
+      openai-processing-ms:
+      - '253'
+      openai-version:
+      - '2020-10-01'
+      strict-transport-security:
+      - max-age=15552000; includeSubDomains; preload
+      x-ratelimit-limit-requests:
       - '10000'
-      anthropic-ratelimit-tokens-remaining:
-      - '10000'
-      anthropic-ratelimit-tokens-reset:
-      - '2024-09-05T13:46:39Z'
-      request-id:
-      - req_01Bvsh4NeRG6xmqGh3scgoqS
-      via:
-      - 1.1 google
-      x-cloud-trace-context:
-      - 13abff072c4925a394badb55996aee13
+      x-ratelimit-limit-tokens:
+      - '200000'
+      x-ratelimit-remaining-requests:
+      - '9999'
+      x-ratelimit-remaining-tokens:
+      - '199980'
+      x-ratelimit-reset-requests:
+      - 8.64s
+      x-ratelimit-reset-tokens:
+      - 6ms
+      x-request-id:
+      - req_1a8fbf25d778e625875d9c29c34e499e
     status:
       code: 200
       message: OK
 - request:
-    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "Hello, Claude"}],
-      "model": "claude-3-opus-20240229"}'
+    body: '{"messages": [{"role": "user", "content": "Hello World!"}], "model": "gpt-3.5-turbo",
+      "seed": 0}'
     headers:
       accept:
       - application/json
       accept-encoding:
       - gzip, deflate
-      anthropic-version:
-      - '2023-06-01'
       connection:
       - keep-alive
       content-length:
-      - '115'
+      - '96'
       content-type:
       - application/json
+      cookie:
+      - __cf_bm=Gvm_KBYRBjUpgiyFKJx0aRQsBXcBJk2yN2W0Hyca_k4-1725985106-1.0.1.1-yTtLJ0yD2vGNUKJMwKVP0jvusLe09wXtqyuFLZC40vxKEuLKDWPFSrBa_.LxpXh_GTq820KHqHRNuZib5ZWduQ;
+        _cfuvid=sS_7MkQkzMd8l92wE7eI0YjSjSl1QutNgtcsrB.zN9Q-1725985106637-0.0.1.1-604800000
       host:
-      - api.anthropic.com
+      - api.openai.com
       user-agent:
-      - Anthropic/Python 0.29.2
+      - OpenAI/Python 1.35.14
       x-stainless-arch:
       - arm64
       x-stainless-async:
@@ -112,26 +126,27 @@ interactions:
       x-stainless-os:
       - MacOS
       x-stainless-package-version:
-      - 0.29.2
+      - 1.35.14
       x-stainless-runtime:
       - CPython
       x-stainless-runtime-version:
       - 3.11.8
     method: POST
-    uri: https://api.anthropic.com/v1/messages
+    uri: https://api.openai.com/v1/chat/completions
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1SPMUvEQBSE/8o6jc1GklxAbhubE3JibyES1uRxBDf7kry3aAj575JTC6uBb4YZ
-        ZkXfwWGQS5MXRXU4VfX7JMX900Rcvjw/nrzCQpeR9hSJ+AvBYuawAy/Si/q4ZwbuKMChDT51lB0y
-        HpNkZV5WeVkeYdFyVIoK97r+FSp9Xet3cagpBL4xZ70VE/uWjLIZiNQsnO5MzZ+m9dGczc/qTo1y
-        55cHbG8Wojw2M3nhCAeKXaNpjvg1hKZEsSW4mEKwSNcjbkUfx6SN8gdFgStyC076Dx237RsAAP//
-        AwCCH77tJgEAAA==
+        H4sIAAAAAAAAAwAAAP//VJA9b8IwEIb3/IqrZ4IIVShkqRALnWhVhqpVhYxzBLeOz7IvLQjx3yuH
+        8NHFwz1+zu/rQwIgdCkKEGorWdXOpNN85xfZ/O1lic/ZbDpdLNVriWhno/H7j+hFg9ZfqPhs9RXV
+        ziBrsiesPErGuDV7GOaTcZ4NRi2oqUQTtcpxet/PU278mtJBNsw7c0taYRAFfCQAAIf2jBltiTtR
+        wKB3ntQYgqxQFJdLAMKTiRMhQ9CBpWXRu0JFltG2sedoDN3BnH5BSQtPcBJgTw0wlXL/eCt63DRB
+        xuC2MaabHy9JDFXO0zp0/DLfaKvDduVRBrLx1cDkREuPCcBn27j5V0I4T7XjFdM32rgw6wqL6x9f
+        4aRjTCzNjTNJungi7ANjvdpoW6F3Xrft2xLH5A8AAP//AwApB2hX/AEAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8be6aaad9927b9b4-BRU
+      - 8c10bbe52ea383db-BRU
       Connection:
       - keep-alive
       Content-Encoding:
@@ -139,31 +154,39 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Sep 2024 13:46:41 GMT
+      - Tue, 10 Sep 2024 16:18:27 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
       - chunked
-      X-Robots-Tag:
-      - none
-      anthropic-ratelimit-requests-limit:
-      - '5'
-      anthropic-ratelimit-requests-remaining:
-      - '3'
-      anthropic-ratelimit-requests-reset:
-      - '2024-09-05T13:46:43Z'
-      anthropic-ratelimit-tokens-limit:
+      X-Content-Type-Options:
+      - nosniff
+      access-control-expose-headers:
+      - X-Request-ID
+      alt-svc:
+      - h3=":443"; ma=86400
+      openai-organization:
+      - user-9oylvgpazsbmej0gab9qijx2
+      openai-processing-ms:
+      - '236'
+      openai-version:
+      - '2020-10-01'
+      strict-transport-security:
+      - max-age=15552000; includeSubDomains; preload
+      x-ratelimit-limit-requests:
       - '10000'
-      anthropic-ratelimit-tokens-remaining:
-      - '10000'
-      anthropic-ratelimit-tokens-reset:
-      - '2024-09-05T13:46:40Z'
-      request-id:
-      - req_01NrSCb7WmP9DgHRPswqwaRk
-      via:
-      - 1.1 google
-      x-cloud-trace-context:
-      - 277d3fc773e2ef9bcd853b88292ce65e
+      x-ratelimit-limit-tokens:
+      - '200000'
+      x-ratelimit-remaining-requests:
+      - '9998'
+      x-ratelimit-remaining-tokens:
+      - '199980'
+      x-ratelimit-reset-requests:
+      - 16.602s
+      x-ratelimit-reset-tokens:
+      - 6ms
+      x-request-id:
+      - req_cbcf7fe669bdc3adc64f13585f8c6dcb
     status:
       code: 200
       message: OK

@@ -55,31 +55,18 @@ def test_init_with_different_providers():
 
 @pytest.mark.vcr
 def test_init_with_different_mixes():
-    client = Anthropic()
-
-    EcoLogits.init(electricity_mix_zone="FRA")
-    message_under_french_mix = client.messages.create(
-        max_tokens=1024,
-        messages=[
-            {
-                "role": "user",
-                "content": "Hello, Claude",
-            }
-        ],
-        model="claude-3-opus-20240229",
+    seed = 0 # Define seed for having the same answers
+    EcoLogits.init() # World's mix
+    openai_client = OpenAI()
+    openai_response_world = openai_client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": "Hello World!"}], 
+        seed=seed,
     )
-
-    EcoLogits.init(electricity_mix_zone="BEL")
-    message_under_belgian_mix = client.messages.create(
-        max_tokens=1024,
-        messages=[
-            {
-                "role": "user",
-                "content": "Hello, Claude",
-            }
-        ],
-        model="claude-3-opus-20240229",
+    EcoLogits.init(electricity_mix_zone="FRA") # Switch to France's mix
+    openai_response_france = openai_client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": "Hello World!"}], 
+        seed=seed,
     )
-
-    assert message_under_belgian_mix.impacts.energy.value.min != message_under_french_mix.impacts.energy.value.min
-    
+    assert openai_response_france.choices == openai_response_world.choices and openai_response_france.impacts.gwp.value < openai_response_world.impacts.gwp.value    
