@@ -110,7 +110,7 @@ class EcoLogits:
     @dataclass
     class _Config:
         electricity_mix_zone: str = field(default="WOR")
-        provider: list[str] = field(default_factory=list)
+        providers: list[str] = field(default_factory=list)
 
     config = _Config()
 
