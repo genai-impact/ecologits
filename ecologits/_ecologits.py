@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
 import importlib.util
+from dataclasses import dataclass, field
 from typing import Optional, Union
 
 from packaging.version import Version
@@ -108,11 +108,11 @@ class EcoLogits:
 
     """
     @dataclass
-    class _Config: 
+    class _Config:
         electricity_mix_zone: str = field(default="WOR")
         provider: list[str] = field(default_factory=list)
-    
-    config = _Config() 
+
+    config = _Config()
 
     @staticmethod
     def init(
