@@ -1,9 +1,9 @@
+from dataclasses import dataclass, field
 import importlib.util
 from typing import Optional, Union
 
 from packaging.version import Version
 
-from ecologits.config import Config
 from ecologits.exceptions import EcoLogitsError
 
 
@@ -107,6 +107,13 @@ class EcoLogits:
         ```
 
     """
+    @dataclass
+    class _Config: 
+        electricity_mix_zone: str = field(default="WOR")
+        provider: list[str] = field(default_factory=list)
+    
+    config = _Config() 
+
     @staticmethod
     def init(
         providers: Optional[Union[str, list[str]]] = None,
@@ -126,14 +133,14 @@ class EcoLogits:
 
         init_instruments(providers)
 
-        Config.electricity_mix_zone = electricity_mix_zone
-        Config.providers += providers
-        Config.providers = list(set(Config.providers))
+        EcoLogits.config.electricity_mix_zone = electricity_mix_zone
+        EcoLogits.config.providers += providers
+        EcoLogits.config.providers = list(set(EcoLogits.config.providers))
 
 def init_instruments(providers: list[str]) -> None:
     for provider in providers:
         if provider not in _INSTRUMENTS:
             raise EcoLogitsError(f"Could not find tracer for the `{provider}` provider.")
-        if provider not in Config.providers:
+        if provider not in EcoLogits.config.providers:
             init_func = _INSTRUMENTS[provider]
             init_func()

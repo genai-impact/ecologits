@@ -6,7 +6,7 @@ from typing import Any, Callable, Generic, Optional, TypeVar
 from typing_extensions import override
 from wrapt import wrap_function_wrapper
 
-from ecologits.config import Config
+from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
 
@@ -60,7 +60,7 @@ class MessageStream(_MessageStream):
             model_name=model_name,
             output_token_count=output_tokens,
             request_latency=requests_latency,
-            electricity_mix_zone=Config.electricity_mix_zone
+            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
         )
 
     def __init__(self, parent) -> None:     # noqa: ANN001
@@ -94,7 +94,7 @@ class AsyncMessageStream(_AsyncMessageStream):
             model_name=model_name,
             output_token_count=output_tokens,
             request_latency=requests_latency,
-            electricity_mix_zone=Config.electricity_mix_zone
+            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
         )
 
     def __init__(self, parent) -> None:     # noqa: ANN001
@@ -157,7 +157,7 @@ def anthropic_chat_wrapper(
         model_name=model_name,
         output_token_count=response.usage.output_tokens,
         request_latency=request_latency,
-        electricity_mix_zone=Config.electricity_mix_zone
+        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
         return Message(**response.model_dump(), impacts=impacts)
@@ -177,7 +177,7 @@ async def anthropic_async_chat_wrapper(
         model_name=model_name,
         output_token_count=response.usage.output_tokens,
         request_latency=request_latency,
-        electricity_mix_zone=Config.electricity_mix_zone
+        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
         return Message(**response.model_dump(), impacts=impacts)
