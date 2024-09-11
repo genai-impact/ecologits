@@ -45,35 +45,48 @@ It achieves this by **patching the Python client libraries**, ensuring that each
 
 ## Initialization of EcoLogits
 
-To use EcoLogits in your projects, you will need to initialize the client tracers that are used internally to intercept and enrich responses. 
-
-!!! info "Default behavior is to search and initialize all available providers."
+To use EcoLogits in your projects, you will need to initialize the client tracers that are used internally to intercept and enrich responses. The default initialization will use default parameters and enable tracking of all available providers. To change that behaviour, read along on how to configure EcoLogits.
 
 ```python
 from ecologits import EcoLogits
 
-# Initialize for all available providers
+# Default initialization method
 EcoLogits.init()
-
-# Initialize for `openai` provider only
-EcoLogits.init(providers="openai")
-
-# Initialize for `openai` and `anthropic` providers only
-EcoLogits.init(providers=["openai", "anthropic"])
 ```
 
-!!! warning "It is currently not possible to un-initialize a provider at runtime. Each time that `EcoLogits` is re-initialized with another providers, the latter will be added to the list of already initialized providers. If you think that un-initializing a provider could be necessary for your use case, please [open an issue :octicons-link-external-16:](https://github.com/genai-impact/ecologits/issues/new/choose)."
 
-It is also possible to initialize `EcoLogits` with a different electricity mix. The latter has to be chosen among the mixes in the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) database.
+### Configure providers
 
-!!! info "The default electricity mix is the world mix given by [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/)."
+You can select which provider to enable with EcoLogits using the `providers` parameter.
 
-```python title="Choose a different electricity mix"
+!!! info "Default behavior is to enable all available providers."
+
+```python title="Select a providers to enable"
 from ecologits import EcoLogits
 
-EcoLogits.init() 
-# Impacts are computed with the world electricity mix
+# Examples on how to enable one or multiple providers
+EcoLogits.init(providers="openai")
+EcoLogits.init(providers=["anthropic", "mistralai"])
+```
 
+??? warning "Disabling a provider at runtime is not supported"
+
+    **It is currently not possible to dynamically activate and deactivate a provider at runtime.** Each time that `EcoLogits` is re-initialized with another providers, the latter will be added to the list of already initialized providers. If you think that un-initializing a provider could be necessary for your use case, please [open an issue :octicons-link-external-16:](https://github.com/genai-impact/ecologits/issues/new/choose)."
+
+
+### Configue electricity mix
+
+You can change the [electricity mix :octicons-link-external-16:](https://ourworldindata.org/electricity-mix) for server-side computation depending on a specific location. EcoLogits will automatically change the default impact factors for electricity consumption according to the selected zone. 
+
+Available zones are listed in the [electricity_mixes.csv :octicons-link-external-16:](https://github.com/genai-impact/ecologits/blob/main/ecologits/data/electricity_mixes.csv) file and are based on the [ISO 3166-1 alpha-3 :octicons-link-external-16:](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) convention with some extras like `WOR` for World or `EEE` for Europe. 
+
+Electricity mixes for each geographic zone are sourced from the [ADEME Base Empreinte® :octicons-link-external-16:](https://base-empreinte.ademe.fr/) database and are based on yearly averages.
+
+!!! info "Default electricity mix zone is `WOR` for World."
+
+```python title="Select a different electricity mix"
+from ecologits import EcoLogits
+
+# Select the electricity mix of France
 EcoLogits.init(electricity_mix_zone="FRA")
-# Impacts are computed with the electricity mix of France
 ```

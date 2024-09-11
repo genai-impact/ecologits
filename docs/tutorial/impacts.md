@@ -155,19 +155,16 @@ We use impact factors to quantify environmental harm from human activities, meas
 
 ### Electricity Mix
 
-When initializing `EcoLogits`, you can choose a specific electricity mix zone from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) database.
+When initializing `EcoLogits`, you can choose a specific electricity mix zone from the [ADEME Base Empreinte® :octicons-link-external-16:](https://base-empreinte.ademe.fr/) database.
 
-```python title="Choose a different electricity mix"
+```python title="Select a different electricity mix"
 from ecologits import EcoLogits
 
-EcoLogits.init() 
-# Impacts are computed with the world electricity mix
-
+# Select the electricity mix of France
 EcoLogits.init(electricity_mix_zone="FRA")
-# Impacts are computed with the electricity mix of France
 ```
 
-By default, the **world electricity mix** ("WOR" code in the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) database) is chosen, whose values are given by:
+By default, the `WOR` World electricity mix is used, which values are:
 
 | Impact criteria | Value      | Unit            |
 |-----------------|------------|-----------------|
