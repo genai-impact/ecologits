@@ -74,7 +74,7 @@ EcoLogits.init(providers=["anthropic", "mistralai"])
     **It is currently not possible to dynamically activate and deactivate a provider at runtime.** Each time that `EcoLogits` is re-initialized with another providers, the latter will be added to the list of already initialized providers. If you think that un-initializing a provider could be necessary for your use case, please [open an issue :octicons-link-external-16:](https://github.com/genai-impact/ecologits/issues/new/choose)."
 
 
-### Configue electricity mix
+### Configure electricity mix
 
 You can change the [electricity mix :octicons-link-external-16:](https://ourworldindata.org/electricity-mix) for server-side computation depending on a specific location. EcoLogits will automatically change the default impact factors for electricity consumption according to the selected zone. 
 
