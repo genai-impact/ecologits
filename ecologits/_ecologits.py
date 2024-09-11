@@ -137,6 +137,7 @@ class EcoLogits:
         EcoLogits.config.providers += providers
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
 
+
 def init_instruments(providers: list[str]) -> None:
     for provider in providers:
         if provider not in _INSTRUMENTS:

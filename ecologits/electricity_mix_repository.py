@@ -42,4 +42,5 @@ class ElectricityMixRepository:
                 )
         return cls(electricity_mixes)
 
+
 electricity_mixes = ElectricityMixRepository.from_csv()

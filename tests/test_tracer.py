@@ -4,6 +4,7 @@ from ecologits import EcoLogits
 from openai import OpenAI
 from anthropic import Anthropic
 
+
 @pytest.mark.vcr
 def test_double_init(tracer_init):
     EcoLogits.init() # second init
@@ -14,6 +15,7 @@ def test_double_init(tracer_init):
     )
     assert len(openai_response.choices) > 0
     assert hasattr(openai_response, "impacts")
+
 
 @pytest.mark.skip(reason="Must implement un-instrument behavior first.")
 def test_init_with_different_providers():
@@ -53,6 +55,7 @@ def test_init_with_different_providers():
     assert len(anthropic_response.content) > 0
     assert hasattr(anthropic_response, "impacts")
 
+
 @pytest.mark.vcr
 def test_init_with_different_mixes():
     seed = 0 # Define seed for having the same answers
@@ -69,4 +72,5 @@ def test_init_with_different_mixes():
         messages=[{"role": "user", "content": "Hello World!"}], 
         seed=seed,
     )
-    assert openai_response_france.choices == openai_response_world.choices and openai_response_france.impacts.gwp.value < openai_response_world.impacts.gwp.value    
+    assert openai_response_france.choices == openai_response_world.choices
+    assert openai_response_france.impacts.gwp.value < openai_response_world.impacts.gwp.value
