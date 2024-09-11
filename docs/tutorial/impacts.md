@@ -164,7 +164,7 @@ from ecologits import EcoLogits
 EcoLogits.init(electricity_mix_zone="FRA")
 ```
 
-By default, the `WOR` World electricity mix is used, which values are:
+By default, the `WOR` World electricity mix is used, whose values are:
 
 | Impact criteria | Value      | Unit            |
 |-----------------|------------|-----------------|
