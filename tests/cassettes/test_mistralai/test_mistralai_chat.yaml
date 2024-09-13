@@ -1,0 +1,78 @@
+interactions:
+- request:
+    body: '{"messages":[{"content":"Hello World!","role":"user"}],"model":"mistral-tiny","safe_prompt":false,"stream":false,"temperature":0.7,"tool_choice":"auto","top_p":1.0}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '164'
+      content-type:
+      - application/json
+      host:
+      - api.mistral.ai
+      user-agent:
+      - mistral-client-python/1.0.3
+    method: POST
+    uri: https://api.mistral.ai/v1/chat/completions
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA0yQy24CMQxFf8X1hs0UwTxoyaZb+IaqQibxMGkz8TQxoiPEv1dRBerOuvf4cX1F
+        79Bg12/Xjeu61bbt25ocObuxtmlf+75laggrlOMnW0WDdiBdWhmnwOolYoU2MSk7NOuXelM3XdfV
+        FY7iOKDB0WdNFJ7Vx7mwg3jLGc37FX10/INmVeHIOdOJ0VwxSWA0SDn7rBS19EhUjmX3jkMQ0IET
+        P8FeFxmitwwqMDIrzHJewn4xQgGKOnCYgGK+cCpmgu8z53J1BooO/pYUB3wEijNcaIY9WIpL2Mml
+        FLD/j6k4mt+wQhUJB0shZDTxHMKtwt5Hn4dDYsoS0WBWmbDCIKcpyfHOfVR4vmedkoyTHlS+OGY0
+        mzJWKTyEti7h759+yM3mdvsFAAD//wMAIUemNLkBAAA=
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8c289e4a3e90ba75-BRU
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Sep 2024 13:52:32 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      ratelimitbysize-limit:
+      - '2000000'
+      ratelimitbysize-query-cost:
+      - '32003'
+      ratelimitbysize-remaining:
+      - '1967997'
+      ratelimitbysize-reset:
+      - '28'
+      x-envoy-upstream-service-time:
+      - '350'
+      x-kong-proxy-latency:
+      - '7'
+      x-kong-request-id:
+      - 1318333f3532af136bc8234382b1180c
+      x-kong-upstream-latency:
+      - '351'
+      x-ratelimitbysize-limit-minute:
+      - '2000000'
+      x-ratelimitbysize-limit-month:
+      - '10000000000'
+      x-ratelimitbysize-remaining-minute:
+      - '1967997'
+      x-ratelimitbysize-remaining-month:
+      - '9996515005'
+    status:
+      code: 200
+      message: OK
+version: 1
