@@ -55,7 +55,7 @@ def mistralai_chat_wrapper(
         return response
 
 
-def mistralai_chat_wrapper_stream_wrapper(
+def mistralai_chat_wrapper_stream(
     wrapped: Callable, instance: MistralClient, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Iterable[ChatCompletionStreamResponse]:
     timer_start = time.perf_counter()
@@ -101,7 +101,7 @@ async def mistralai_async_chat_wrapper(
         return response
 
 
-async def mistralai_async_chat_wrapper_stream_wrapper(
+async def mistralai_async_chat_wrapper_stream(
     wrapped: Callable,
     instance: MistralAsyncClient,  # noqa: ARG001
     args: Any,
@@ -144,12 +144,12 @@ class MistralAIInstrumentor:
             {
                 "module": "mistralai.client",
                 "name": "MistralClient.chat_stream",
-                "wrapper": mistralai_chat_wrapper_stream_wrapper,
+                "wrapper": mistralai_chat_wrapper_stream,
             },
             {
                 "module": "mistralai.async_client",
                 "name": "MistralAsyncClient.chat_stream",
-                "wrapper": mistralai_async_chat_wrapper_stream_wrapper,
+                "wrapper": mistralai_async_chat_wrapper_stream,
             },
         ]
 
