@@ -16,7 +16,8 @@ try:
 except ImportError:
     Mistral = object()
     _ChatCompletionResponse = object()
-    _CompletionEvent = object()
+    CompletionEvent = object()
+    _CompletionChunk = object()
 
 
 PROVIDER = "mistralai"
