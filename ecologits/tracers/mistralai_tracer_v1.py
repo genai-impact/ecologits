@@ -1,5 +1,6 @@
 import time
-from typing import Any, Callable, AsyncGenerator, Iterable
+from collections.abc import AsyncGenerator, Iterable
+from typing import Any, Callable
 
 from wrapt import wrap_function_wrapper
 
@@ -9,11 +10,9 @@ from ecologits.tracers.utils import llm_impacts
 
 try:
     from mistralai import Mistral
-    from mistralai.models.chatcompletionresponse import (
-        ChatCompletionResponse as _ChatCompletionResponse
-    )
-    from mistralai.models import CompletionEvent
     from mistralai.models import CompletionChunk as _CompletionChunk
+    from mistralai.models import CompletionEvent
+    from mistralai.models.chatcompletionresponse import ChatCompletionResponse as _ChatCompletionResponse
 except ImportError:
     Mistral = object()
     _ChatCompletionResponse = object()
@@ -51,7 +50,7 @@ def mistralai_chat_wrapper(
         return response
 
 
-def mistralai_chat_wrapper_stream_wrapper(
+def mistralai_chat_wrapper_stream(
     wrapped: Callable, instance: Mistral, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Iterable[CompletionEvent]:
     timer_start = time.perf_counter()
@@ -97,7 +96,10 @@ async def mistralai_async_chat_wrapper(
     else:
         return response
 
-async def _generator(stream: AsyncGenerator[CompletionEvent, None], timer_start) -> AsyncGenerator[CompletionEvent, None]:
+async def _generator(
+    stream: AsyncGenerator[CompletionEvent, None],
+    timer_start: float
+) -> AsyncGenerator[CompletionEvent, None]:
     token_count = 0
     async for chunk in stream:
         if chunk.data.usage is not None:
@@ -118,7 +120,7 @@ async def _generator(stream: AsyncGenerator[CompletionEvent, None], timer_start)
             yield chunk
 
 
-async def mistralai_async_chat_wrapper_stream_wrapper(
+async def mistralai_async_chat_wrapper_stream(
     wrapped: Callable,
     instance: Mistral,  # noqa: ARG001
     args: Any,
@@ -145,12 +147,12 @@ class MistralAIInstrumentor:
             {
                 "module": "mistralai.chat",
                 "name": "Chat.stream",
-                "wrapper": mistralai_chat_wrapper_stream_wrapper,
+                "wrapper": mistralai_chat_wrapper_stream,
             },
             {
                 "module": "mistralai.chat",
                 "name": "Chat.stream_async",
-                "wrapper": mistralai_async_chat_wrapper_stream_wrapper,
+                "wrapper": mistralai_async_chat_wrapper_stream,
             },
         ]
 
