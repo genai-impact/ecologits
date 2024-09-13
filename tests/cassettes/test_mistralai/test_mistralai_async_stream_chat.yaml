@@ -1,0 +1,145 @@
+interactions:
+- request:
+    body: '{"messages":[{"content":"Hello World!","role":"user"}],"model":"mistral-tiny","safe_prompt":false,"stream":true,"temperature":0.7,"tool_choice":"auto","top_p":1.0}'
+    headers:
+      accept:
+      - text/event-stream
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '163'
+      content-type:
+      - application/json
+      host:
+      - api.mistral.ai
+      user-agent:
+      - mistral-client-python/1.0.3
+    method: POST
+    uri: https://api.mistral.ai/v1/chat/completions#stream
+  response:
+    body:
+      string: 'data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"Hello"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        there"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"!"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        It"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"''"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"s"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        nice"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        to"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        meet"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        you"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"."},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        How"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        can"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        I"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        assist"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        you"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"
+        today"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":"?"},"finish_reason":null,"logprobs":null}]}
+
+
+        data: {"id":"85b022ea377a4875acefb75d2afa02fb","object":"chat.completion.chunk","created":1726235553,"model":"mistral-tiny","choices":[{"index":0,"delta":{"content":""},"finish_reason":"stop","logprobs":null}],"usage":{"prompt_tokens":6,"total_tokens":24,"completion_tokens":18}}
+
+
+        data: [DONE]
+
+
+        '
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8c289e51ce0eb9bd-BRU
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Date:
+      - Fri, 13 Sep 2024 13:52:33 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      ratelimitbysize-limit:
+      - '2000000'
+      ratelimitbysize-query-cost:
+      - '32003'
+      ratelimitbysize-remaining:
+      - '1935994'
+      ratelimitbysize-reset:
+      - '27'
+      x-envoy-upstream-service-time:
+      - '39'
+      x-kong-proxy-latency:
+      - '1'
+      x-kong-request-id:
+      - 1c234a151645b14440ef247f272a9147
+      x-kong-upstream-latency:
+      - '40'
+      x-ratelimitbysize-limit-minute:
+      - '2000000'
+      x-ratelimitbysize-limit-month:
+      - '10000000000'
+      x-ratelimitbysize-remaining-minute:
+      - '1935994'
+      x-ratelimitbysize-remaining-month:
+      - '9996450999'
+    status:
+      code: 200
+      message: OK
+version: 1
