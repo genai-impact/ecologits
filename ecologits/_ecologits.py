@@ -1,3 +1,4 @@
+import importlib.metadata
 import importlib.util
 from dataclasses import dataclass, field
 from typing import Optional, Union
@@ -5,6 +6,7 @@ from typing import Optional, Union
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
+from ecologits.log import logger
 
 
 def init_openai_instrumentor() -> None:
@@ -25,7 +27,11 @@ def init_anthropic_instrumentor() -> None:
 
 def init_mistralai_instrumentor() -> None:
     if importlib.util.find_spec("mistralai") is not None:
-        from ecologits.tracers.mistralai_tracer import MistralAIInstrumentor
+        if importlib.metadata.version("mistralai").split(".")[0] == "0":
+            logger.warning("MistralAI Client v0.*.* will soon no longer be supported by EcoLogits.")
+            from ecologits.tracers.mistralai_tracer_v0 import MistralAIInstrumentor
+        else:
+            from ecologits.tracers.mistralai_tracer_v1 import MistralAIInstrumentor
 
         instrumentor = MistralAIInstrumentor()
         instrumentor.instrument()
