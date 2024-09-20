@@ -32,7 +32,7 @@ class NonStreamedChatResponse(_NonStreamedChatResponse):
         arbitrary_types_allowed = True
 
 
-class StreamEndStreamedChatResponse(_StreamEndStreamedChatResponse):  # noqa: N801
+class StreamEndStreamedChatResponse(_StreamEndStreamedChatResponse):
     impacts: Impacts
 
     class Config:
