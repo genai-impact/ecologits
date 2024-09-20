@@ -74,7 +74,7 @@ $$
 E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta).
 $$
 
-If the model requires multiple GPUs to be loaded into VRAM, the energy consumption $E_{\text{GPU}}$ should be multiplied by the number of GPUs $\#\text{GPU}_{\text{required}}$ (see [below](#complete-server-energy-consumption)).
+If the model requires multiple GPUs to be loaded into VRAM, the energy consumption $E_{\text{GPU}}$ should be multiplied by the number of required GPUs, $\text{GPU}$ (see [below](#complete-server-energy-consumption)).
 
 
 ### Modeling server energy consumption
