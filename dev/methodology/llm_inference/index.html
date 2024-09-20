@@ -1921,47 +1921,43 @@
   
 
 
-<div class="admonition warning">
-<p class="admonition-title">Page still under construction</p>
-<p>This page is still under construction. If you spot any inaccuracies or have questions about the methodology itself, feel free to open an issue on <a href="https://github.com/genai-impact/ecologits/issues/new?assignees=&amp;labels=documentation&amp;title=LLM%20Inference%20Methodology:%20%3CIssue%20Title%3E">GitHub</a>.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Early Publication</p>
-<p>Beware that this is an early version of the methodology to evaluate the environmental impacts of LLMs at inference. We are still testing and reviewing the methodology internally. <strong>Some parts of the methodology may change in the near future.</strong></p>
-</div>
 <h1 id="environmental-impacts-of-llm-inference">Environmental Impacts of LLM Inference</h1>
+<p><span class="badge" makdown>
+    <span class="badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.41 11.58-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9A2 2 0 0 0 13 22a2 2 0 0 0 1.41-.59l7-7A2 2 0 0 0 22 13a2 2 0 0 0-.59-1.42M13 20l-9-9V4h7l9 9M6.5 5A1.5 1.5 0 1 1 5 6.5 1.5 1.5 0 0 1 6.5 5"/></svg></span></span>
+    <span class="badge__text">v1.0</span>
+</span></p>
 <details class="info">
 <summary>Known limitations and hypotheses</summary>
 <ul>
 <li>Based on a production setup: models are quantized, high-end servers with A100...</li>
-<li>Current implementation of EcoLogits assumes a fixed and worldwide impact factor for electricity mix.</li>
+<li>We currently assume that the used electricity mix correspond only to national average mixes (taken from the <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a>). If the user does not specify the country, the world average mix is used. </li>
 <li>Model architectures are assumed when not dislosed by the provider.</li>
 <li>Not accounting the impacts of unused cloud resources, data center building, network and end-user devices, model training and data collection...</li>
 <li>Not tested on multi-modal models for text-to-text generation only.</li>
 </ul>
 </details>
-<p>The environmental impacts of a request, <span class="arithmatex">\(I_{request}\)</span> to a Large Language Model (LLM) can be divided into two components: the usage impacts, <span class="arithmatex">\(I_{request}^u\)</span>, which account for energy consumption, and the embodied impacts, <span class="arithmatex">\(I_{request}^e\)</span>, which account for resource extraction, hardware manufacturing, and transportation.</p>
+<p>The environmental impacts of a request, <span class="arithmatex">\(I_{\text{request}}\)</span> to a Large Language Model (LLM) can be divided into two components: the usage impacts, <span class="arithmatex">\(I_{\text{request}}^{\text{u}}\)</span>, which account for energy consumption, and the embodied impacts, <span class="arithmatex">\(I_{\text{request}}^{\text{e}}\)</span>, which account for resource extraction, hardware manufacturing, and transportation:</p>
 <div class="arithmatex">\[
 \begin{equation*}
 \begin{split}
-I_{request}&amp;=I_{request}^u  + I_{request}^e \\ 
-&amp;= E_{request}*F_{em}+\frac{\Delta T}{\Delta L}*I_{server}^e
+I_{\text{request}}&amp;=I_{\text{request}}^{\text{u}}  + I_{\text{request}}^{\text{e}} \\ 
+&amp;= E_{\text{request}} \times F_{\text{em}}+\frac{\Delta T}{\Delta L} \times I_{\text{server}}^{\text{e}}, 
 \end{split}
 \end{equation*}
 \]</div>
-<p>Where <span class="arithmatex">\(E_{request}\)</span> represents the energy consumption of the IT resources associated with the request. <span class="arithmatex">\(F_{em}\)</span> denotes the impact factor of electricity consumption, which varies depending on the location and time. Furthermore, <span class="arithmatex">\(I_{server}^e\)</span> captures the embodied impacts of the IT resources, and <span class="arithmatex">\(\frac{\Delta T}{\Delta L}\)</span> signifies the hardware utilization factor, calculated as the computation time divided by the lifetime of the hardware.</p>
+<p>where <span class="arithmatex">\(E_{\text{request}}\)</span> represents the energy consumption of the IT resources associated with the request. <span class="arithmatex">\(F_{\text{em}}\)</span> denotes the impact factor of electricity consumption, which varies depending on the location and time. Furthermore, <span class="arithmatex">\(I_{\text{server}}^{\text{e}}\)</span> captures the embodied impacts of the IT resources, and <span class="arithmatex">\(\frac{\Delta T}{\Delta L}\)</span> signifies the hardware utilization factor, calculated as the computation time divided by the lifetime of the hardware.</p>
 <h2 id="usage-impacts">Usage impacts</h2>
 <p>To assess the usage impacts of an LLM inference, we first need to estimate the energy consumption of the server, which is equipped with one or more GPUs. We will also take into account the energy consumption of cooling equipment integrated with the data center, using the Power Usage Effectiveness (PUE) metric.</p>
-<p>Subsequently, we can calculate the environmental impacts by using the <span class="arithmatex">\(F_{em}\)</span> impact factor of the electricity mix. Ideally, <span class="arithmatex">\(F_{em}\)</span> should vary with location and time to accurately reflect the local energy mix.</p>
+<p>Subsequently, we can calculate the environmental impacts by using the <span class="arithmatex">\(F_{\text{em}}\)</span> impact factor of the electricity mix. Ideally, <span class="arithmatex">\(F_{\text{em}}\)</span> should vary with location and time to accurately reflect the local energy mix.</p>
 <h3 id="modeling-gpu-energy-consumption">Modeling GPU energy consumption</h3>
 <p>By leveraging the open dataset from the <a href="https://huggingface.co/spaces/optimum/llm-perf-leaderboard">LLM Perf Leaderboard</a>, produced by Hugging Face, we can estimate the energy consumption of the GPU using a parametric model.</p>
-<p>We fit a linear regression model to the dataset, which models the energy consumption per output token as a function of the number of active parameters in the LLM, denoted as <span class="arithmatex">\(P_{active}\)</span>.</p>
+<p>We fit a linear regression model to the dataset, which models the energy consumption per output token as a function of the number of active parameters in the LLM, denoted as <span class="arithmatex">\(P_{\text{active}}\)</span>.</p>
 <details class="note">
 <summary>What are active parameters?</summary>
 <p>We distinguish between active parameters and total parameter count for Sparse Mixture-of-Experts (SMoE) models. The total parameter count is used to determine the number of required GPUs to load the model into memory. In contrast, the active parameter count is used to estimate the energy consumption of a single GPU. In practice, SMoE models exhibit lower energy consumption per GPU compared to dense models of equivalent size (in terms of total parameters).</p>
 <ul>
-<li>For a dense model: <span class="arithmatex">\(P_{active} = P_{total}\)</span></li>
-<li>For a SMoE model: <span class="arithmatex">\(P_{active} =  P_{total} / \text{number of active experts}\)</span></li>
+<li>For a dense model: <span class="arithmatex">\(P_{\text{active}} = P_{\text{total}}\)</span></li>
+<li>For a SMoE model: <span class="arithmatex">\(P_{\text{active}} =  P_{\text{total}} / \text{number of active experts}\)</span></li>
 </ul>
 </details>
 <details class="info">
@@ -1979,107 +1975,110 @@ I_{request}&amp;=I_{request}^u  + I_{request}^e \\
   <img alt="Figure: Energy consumption per output token vs. number of active parameters " src="../../assets/methodology/llm/figure_energy.png" />
   <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions)</figcaption>
 </figure>
+<p>The linear regression gives</p>
 <div class="arithmatex">\[
-\frac{E_{GPU}}{\#T_{out}} = \alpha * P_{active} + \beta
+\frac{E_{\text{GPU}}}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta, 
 \]</div>
-<p>We found that <span class="arithmatex">\(\alpha = 8.91e-5\)</span> and <span class="arithmatex">\(\beta = 1.43e-3\)</span>. Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens <span class="arithmatex">\(\#T_{out}\)</span> and the number of active parameters <span class="arithmatex">\(P_{active}\)</span>:</p>
+<p>with <span class="arithmatex">\(\alpha = 8.91e-5\)</span> and <span class="arithmatex">\(\beta = 1.43e-3\)</span>. Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens <span class="arithmatex">\(\#T_{\text{out}}\)</span> and the number of active parameters <span class="arithmatex">\(P_{\text{active}}\)</span>:</p>
 <div class="arithmatex">\[
-E_{GPU}(\#T_{out}, P_{active}) = \#T_{out} * (\alpha * P_{active} + \beta)
+E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta).
 \]</div>
-<p>If the model requires multiple GPUs to be loaded into VRAM, the energy consumption <span class="arithmatex">\(E_{GPU}\)</span> should be multiplied by the number of GPUs <span class="arithmatex">\(\#GPU_{required}\)</span> (see <a href="#complete-server-energy-consumption">below</a>).</p>
+<p>If the model requires multiple GPUs to be loaded into VRAM, the energy consumption <span class="arithmatex">\(E_{\text{GPU}}\)</span> should be multiplied by the number of required GPUs, <span class="arithmatex">\(\text{GPU}\)</span> (see <a href="#complete-server-energy-consumption">below</a>).</p>
 <h3 id="modeling-server-energy-consumption">Modeling server energy consumption</h3>
-<p>To estimate the energy consumption of the entire server, we will use the previously estimated GPU energy model and separately estimate the energy consumption of the server itself (without GPUs), denoted as <span class="arithmatex">\(E_{server\backslash GPU}\)</span>.</p>
+<p>To estimate the energy consumption of the entire server, we will use the previously estimated GPU energy model and separately estimate the energy consumption of the server itself (without GPUs), denoted as <span class="arithmatex">\(E_{\text{server} \backslash \text{GPU}}\)</span>.</p>
 <h4 id="server-energy-consumption-without-gpus">Server energy consumption without GPUs</h4>
-<p>To model the energy consumption of the server without GPUs, we consider a fixed power consumption, <span class="arithmatex">\(W_{server\backslash GPU}\)</span>, during inference (or generation latency), denoted as <span class="arithmatex">\(\Delta T\)</span>. We assume that the server hosts multiple GPUs, but not all of them are actively used for the target inference. Therefore, we account for a portion of the energy consumption based on the number of required GPUs, <span class="arithmatex">\(\#GPU_{required}\)</span>:</p>
+<p>To model the energy consumption of the server without GPUs, we consider a fixed power consumption, <span class="arithmatex">\(W_{\text{server} \backslash \text{GPU}}\)</span>, during inference (or generation latency), denoted as <span class="arithmatex">\(\Delta T\)</span>. We assume that the server hosts multiple GPUs, but not all of them are actively used for the target inference. Therefore, we account for a portion of the energy consumption based on the number of required GPUs, <span class="arithmatex">\(\text{GPU}\)</span>:</p>
 <div class="arithmatex">\[
-E_{server\backslash GPU}(\Delta T) = \Delta T * W_{server\backslash GPU} * \frac{\#GPU_{required}}{\#GPU_{installed}}
+E_{\text{server} \backslash \text{GPU}}(\Delta T) = \Delta T \times W_{\text{server} \backslash \text{GPU}} \times \frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}}.
 \]</div>
-<p>For a typical high-end GPU-accelerated cloud instance, we use <span class="arithmatex">\(W_{server\backslash GPU} = 1\ kW\)</span> and <span class="arithmatex">\(\#GPU_{installed} = 8\)</span>.</p>
+<p>For a typical high-end GPU-accelerated cloud instance, we use <span class="arithmatex">\(W_{\text{server} \backslash \text{GPU}} = 1\)</span> kW and <span class="arithmatex">\(\#\text{GPU}_{\text{installed}} = 8\)</span>.</p>
 <h4 id="estimating-the-generation-latency">Estimating the generation latency</h4>
 <p>The generation latency, <span class="arithmatex">\(\Delta T\)</span>, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the <a href="https://huggingface.co/spaces/optimum/llm-perf-leaderboard">LLM Perf Leaderboard</a> dataset with the previously mentioned filters applied.</p>
-<p>We fit a linear regression model on the dataset modeling the generation latency per output token given the number of active parameters of the LLM <span class="arithmatex">\(P_{active}\)</span>:</p>
+<p>We fit a linear regression model on the dataset modeling the generation latency per output token given the number of active parameters of the LLM <span class="arithmatex">\(P_{\text{active}}\)</span>:</p>
 <figure>
   <img alt="Figure: Latency per output token vs. number of active parameters " src="../../assets/methodology/llm/figure_latency.png" />
   <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions)</figcaption>
 </figure>
+<p>The fit gives</p>
 <div class="arithmatex">\[
-\frac{\Delta T}{\#T_{out}} = A * P_{active} + B
+\frac{\Delta T}{\#T_{\text{out}}} = A \times P_{\text{active}} + B, 
 \]</div>
-<p>We found <span class="arithmatex">\(A = 8.02e-4\)</span> and <span class="arithmatex">\(B = 2.23e-2\)</span>. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, <span class="arithmatex">\(\#T_{out}\)</span>, and the number of active parameters, <span class="arithmatex">\(P_{active}\)</span>. When possible, we also measure the request latency, <span class="arithmatex">\(\Delta T_{request}\)</span>, and use it as the maximum bound for the generation latency:</p>
+<p>with <span class="arithmatex">\(A = 8.02e-4\)</span> and <span class="arithmatex">\(B = 2.23e-2\)</span>. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, <span class="arithmatex">\(\#T_{\text{out}}\)</span>, and the number of active parameters, <span class="arithmatex">\(P_{\text{active}}\)</span>. When possible, we also measure the request latency, <span class="arithmatex">\(\Delta T_{\text{request}}\)</span>, and use it as the maximum bound for the generation latency:</p>
 <div class="arithmatex">\[
-\Delta T(\#T_{out}, P_{active}) = \#T_{out} * (A * P_{active} + B)
+\Delta T(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (A \times P_{\text{active}} + B).
 \]</div>
 <p>With the request latency, the generation latency is defined as follows:</p>
 <div class="arithmatex">\[
-\Delta T(\#T_{out}, P_{active}, \Delta T_{request}) = \min[\#T_{out} * (A * P_{active} + B), \Delta T_{request}]
+\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times (A \times P_{\text{active}} + B), \Delta T_{\text{request}} \right\}.
 \]</div>
 <h4 id="estimating-the-number-of-active-gpus">Estimating the number of active GPUs</h4>
-<p>To estimate the number of required GPUs, <span class="arithmatex">\(\#GPU_{required}\)</span>, to load the model in virtual memory, we divide the required memory to host the LLM for inference, <span class="arithmatex">\(M_{model}\)</span>, by the memory available on one GPU, <span class="arithmatex">\(M_{GPU}\)</span>.</p>
+<p>To estimate the number of required GPUs, <span class="arithmatex">\(\text{GPU}\)</span>, to load the model in virtual memory, we divide the required memory to host the LLM for inference, noted <span class="arithmatex">\(M_{\text{model}}\)</span>, by the memory available on one GPU, noted <span class="arithmatex">\(M_{\text{GPU}}\)</span>.</p>
 <p>The required memory to host the LLM for inference is estimated based on the total number of parameters and the number of bits used for model weights related to quantization. We also apply a memory overhead of <span class="arithmatex">\(1.2\)</span> (see <a href="https://blog.eleuther.ai/transformer-math/#total-inference-memory">Transformers Math 101 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>):</p>
 <div class="arithmatex">\[
-M_{model}(P_{total},Q)=\frac{P_{total}*Q}{8}*1.2
+M_{\text{model}}(P_{\text{total}},Q)=1.2 \times \frac{P_{\text{total}} \times Q}{8}.
 \]</div>
 <p>We then estimate the number of required GPUs, rounded up:</p>
 <div class="arithmatex">\[
-\#GPU_{required}(P_{total},Q,M_{GPU}) = \lceil \frac{M_{model}(P_{total},Q)}{M_{GPU}}\rceil
+\text{GPU}(P_{\text{total}},Q,M_{\text{GPU}}) = \left\lceil \frac{M_{\text{model}}(P_{\text{total}},Q)}{M_{\text{GPU}}} \right\rceil.
 \]</div>
-<p>To stay consistent with previous assumptions based on LLM Perf Leaderboard data, we use <span class="arithmatex">\(M_{GPU} = 80\ GB\)</span> for an NVIDIA A100 80GB GPU.</p>
+<p>To stay consistent with previous assumptions based on LLM Perf Leaderboard data, we use <span class="arithmatex">\(M_{\text{GPU}} = 80\)</span> GB for an NVIDIA A100 80GB GPU.</p>
 <h4 id="complete-server-energy-consumption">Complete server energy consumption</h4>
-<p>The total server energy consumption for the request, <span class="arithmatex">\(E_{server}\)</span>, is calculated as follows:</p>
+<p>The total server energy consumption for the request, <span class="arithmatex">\(E_{\text{server}}\)</span>, is computed as follows:</p>
 <div class="arithmatex">\[
-E_{server} = E_{server\backslash GPU} + \#GPU_{required} * E_{GPU}
+E_{\text{server}} = E_{\text{server} \backslash \text{GPU}} + \text{GPU} \times E_{\text{GPU}}.
 \]</div>
 <h3 id="modeling-request-energy-consumption">Modeling request energy consumption</h3>
 <p>To estimate the energy consumption of the request, we multiply the previously computed server energy by the Power Usage Effectiveness (PUE) to account for cooling equipment in the data center:</p>
 <div class="arithmatex">\[
-E_{request} = PUE * E_{server}
+E_{\text{request}} = \text{PUE} \times E_{\text{server}}.
 \]</div>
-<p>We typically use a <span class="arithmatex">\(PUE = 1.2\)</span> for hyperscaler data centers or supercomputers.</p>
+<p>We typically use a <span class="arithmatex">\(\text{PUE} = 1.2\)</span> for hyperscaler data centers or supercomputers.</p>
 <h3 id="modeling-request-usage-environmental-impacts">Modeling request usage environmental impacts</h3>
-<p>To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, <span class="arithmatex">\(F_{em}\)</span>, specific to the target country and time. <strong>We currently use a worldwide average multicriteria impact factor from the <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a></strong>:</p>
+<p>To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, <span class="arithmatex">\(F_{\text{em}}\)</span>, specific to the target country and time. <strong>Unless otherwise stated, we currently use a worldwide average multicriteria impact factor from the <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a></strong>:</p>
 <div class="arithmatex">\[
-I^u_{request} = E_{request} * F_{em}
+I^\text{u}_{\text{request}} = E_{\text{request}} \times F_{\text{em}}.
 \]</div>
+<p>Note that the user can still chose another electricity mix from the <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a>.</p>
 <details class="note">
-<summary>Some values of <span class="arithmatex">\(F_{em}\)</span> per geographical area</summary>
+<summary>Some values of <span class="arithmatex">\(F_{\text{em}}\)</span> per geographical area</summary>
 <table>
 <thead>
 <tr>
 <th>Area or country</th>
-<th>GWP (<span class="arithmatex">\(gCO2eq / kWh\)</span>)</th>
-<th>ADPe (<span class="arithmatex">\(kgSbeq / kWh\)</span>)</th>
-<th>PE (<span class="arithmatex">\(MJ / kWh\)</span>)</th>
+<th>GWP (gCO2eq / kWh)</th>
+<th>ADPe (kgSbeq / kWh)</th>
+<th>PE (MJ / kWh)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>🌐 Worldwide</td>
 <td><span class="arithmatex">\(590.4\)</span></td>
-<td><span class="arithmatex">\(7.378 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(7.378 \times 10^{-8}\)</span></td>
 <td><span class="arithmatex">\(9.99\)</span></td>
 </tr>
 <tr>
 <td>🇪🇺 Europe (<a href="https://en.wikipedia.org/wiki/European_Economic_Area">EEA</a>)</td>
 <td><span class="arithmatex">\(509.4\)</span></td>
-<td><span class="arithmatex">\(6.423 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(6.423 \times 10^{-8}\)</span></td>
 <td><span class="arithmatex">\(12.9\)</span></td>
 </tr>
 <tr>
 <td>🇺🇸 USA</td>
 <td><span class="arithmatex">\(679.8\)</span></td>
-<td><span class="arithmatex">\(9.855 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(9.855 \times 10^{-8}\)</span></td>
 <td><span class="arithmatex">\(11.4\)</span></td>
 </tr>
 <tr>
 <td>🇨🇳 China</td>
 <td><span class="arithmatex">\(1,057\)</span></td>
-<td><span class="arithmatex">\(8.515 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(8.515 \times 10^{-8}\)</span></td>
 <td><span class="arithmatex">\(14.1\)</span></td>
 </tr>
 <tr>
 <td>🇫🇷 France</td>
 <td><span class="arithmatex">\(81.3\)</span></td>
-<td><span class="arithmatex">\(4.858 * 10^{-8}\)</span></td>
+<td><span class="arithmatex">\(4.858 \times 10^{-8}\)</span></td>
 <td><span class="arithmatex">\(11.3\)</span></td>
 </tr>
 </tbody>
@@ -2090,7 +2089,7 @@ I^u_{request} = E_{request} * F_{em}
 <h3 id="modeling-server-embodied-impacts">Modeling server embodied impacts</h3>
 <p>To estimate the embodied impacts of IT hardware, we use the <a href="https://github.com/Boavizta/boaviztapi">BoaviztAPI</a> tool from the non-profit organization <a href="https://boavizta.org/en/">Boavizta</a>. This API embeds a bottom-up multicriteria environment impact estimation engine for embodied and usage phases of IT resources and services. We focus on estimating the embodied impacts of a server and a GPU. BoaviztAPI is an open-source project that relies on open databases and open research on environmental impacts of IT equipment.</p>
 <h4 id="server-embodied-impacts-without-gpu">Server embodied impacts without GPU</h4>
-<p>To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the <code>p4de.24xlarge</code> instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA A100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as <span class="arithmatex">\(I^e_{server\backslash GPU}\)</span>.</p>
+<p>To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the <code>p4de.24xlarge</code> instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA A100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as <span class="arithmatex">\(I^{\text{e}}_{\text{server} \backslash \text{GPU}}\)</span>.</p>
 <p>The embodied environmental impacts of the cloud instance are:</p>
 <table>
 <thead>
@@ -2101,21 +2100,21 @@ I^u_{request} = E_{request} * F_{em}
 </thead>
 <tbody>
 <tr>
-<td>GWP (<span class="arithmatex">\(kgCO2eq\)</span>)</td>
+<td>GWP (kgCO2eq)</td>
 <td><span class="arithmatex">\(3000\)</span></td>
 </tr>
 <tr>
-<td>ADPe (<span class="arithmatex">\(kgSbeq\)</span>)</td>
+<td>ADPe (kgSbeq)</td>
 <td><span class="arithmatex">\(0.25\)</span></td>
 </tr>
 <tr>
-<td>PE (<span class="arithmatex">\(MJ\)</span>)</td>
+<td>PE (MJ)</td>
 <td><span class="arithmatex">\(39,000\)</span></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition warning">
-<p class="admonition-title">These impacts does not take into account the eight GPUs. (<a href="#gpu-embodied-impacts">see bellow</a>)</p>
+<p class="admonition-title">These impacts does not take into account the eight GPUs. (<a href="#gpu-embodied-impacts">see below</a>)</p>
 </div>
 <details class="info">
 <summary>Example request to reproduce this calculation</summary>
@@ -2137,7 +2136,7 @@ I^u_{request} = E_{request} * F_{em}
 </span></code></pre></div>
 </details>
 <h4 id="gpu-embodied-impacts">GPU embodied impacts</h4>
-<p>Boavizta is currently developing a methodology to provide multicriteria embodied impacts for GPU cards. For this analysis, we use the embodied impact data they computed for a NVIDIA A100 80GB GPU. These values will be used to estimate the embodied impacts of a single GPU, denoted as <span class="arithmatex">\(I^e_{GPU}\)</span>.</p>
+<p>Boavizta is currently developing a methodology to provide multicriteria embodied impacts for GPU cards. For this analysis, we use the embodied impact data they computed for a NVIDIA A100 80GB GPU. These values will be used to estimate the embodied impacts of a single GPU, denoted as <span class="arithmatex">\(I^{\text{e}}_{\text{GPU}}\)</span>.</p>
 <table>
 <thead>
 <tr>
@@ -2147,15 +2146,15 @@ I^u_{request} = E_{request} * F_{em}
 </thead>
 <tbody>
 <tr>
-<td>GWP (<span class="arithmatex">\(kgCO2eq\)</span>)</td>
+<td>GWP (kgCO2eq)</td>
 <td><span class="arithmatex">\(143\)</span></td>
 </tr>
 <tr>
-<td>ADPe (<span class="arithmatex">\(kgSbeq\)</span>)</td>
-<td><span class="arithmatex">\(5.09 * 10^{-3}\)</span></td>
+<td>ADPe (kgSbeq)</td>
+<td><span class="arithmatex">\(5.09 \times 10^{-3}\)</span></td>
 </tr>
 <tr>
-<td>PE (<span class="arithmatex">\(MJ\)</span>)</td>
+<td>PE (MJ)</td>
 <td><span class="arithmatex">\(1,828\)</span></td>
 </tr>
 </tbody>
@@ -2164,14 +2163,14 @@ I^u_{request} = E_{request} * F_{em}
 <p class="admonition-title">The GPU embodied impacts will be soon available in the BoaviztAPI tool.</p>
 </div>
 <h4 id="complete-server-embodied-impacts">Complete server embodied impacts</h4>
-<p>The final embodied impacts for the server, including the GPUs, are calculated as follows. Note that the embodied impacts of the server without GPUs are scaled by the number of GPUs required to host the model. This allocation is made to account for the fact that the remaining GPUs on the server can be used to host other models or multiple instances of the same model. As we are estimating the impacts of a single LLM inference, we need to exclude the embodied impacts that would be attributed to other services hosted on the same server.</p>
+<p>The final embodied impacts for the server, including the GPUs, are calculated as follows. Note that the embodied impacts of the server without GPUs are scaled by the number of GPUs required to host the model. This allocation is made to account for the fact that the remaining GPUs on the server can be used to host other models or multiple instances of the same model. As we are estimating the impacts of a single LLM inference, we need to exclude the embodied impacts that would be attributed to other services hosted on the same server:</p>
 <div class="arithmatex">\[
-I^e_{server}=\frac{\#GPU_{required}}{\#GPU_{installed}}*I^e_{server\backslash GPU} + \#GPU_{required} * I^e_{GPU}
+I^{\text{e}}_{\text{server}}=\frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}} \times I^{\text{e}}_{\text{server} \backslash \text{GPU}} + \text{GPU} \times I^{\text{e}}_{\text{GPU}}.
 \]</div>
 <h3 id="modeling-request-embodied-environmental-impacts">Modeling request embodied environmental impacts</h3>
-<p>To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, <span class="arithmatex">\(\frac{\Delta T}{\Delta L}\)</span>. In this case, <span class="arithmatex">\(\Delta L\)</span> represents the lifetime of the server and GPU, which we fix at 5 years.</p>
+<p>To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, <span class="arithmatex">\(\frac{\Delta T}{\Delta L}\)</span>. In this case, <span class="arithmatex">\(\Delta L\)</span> represents the lifetime of the server and GPU, which we fix at 5 years:</p>
 <div class="arithmatex">\[
-I^e_{request}=\frac{\Delta T}{\Delta L} * I^e_{server}
+I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\text{server}}.
 \]</div>
 <h3 id="conclusion">Conclusion</h3>
 <p>This paper presents a methodology to assess the environmental impacts of Large Language Model (LLM) inference, considering both usage and embodied impacts. We model server and GPU energy consumption based on various parameters and incorporate PUE and electricity mix impact factors. For embodied impacts, we use the BoaviztAPI tool to estimate environmental impacts of IT hardware. Our methodology offers a comprehensive understanding of the environmental footprint of LLM inference, guiding researchers and practitioners towards more sustainable AI practices. Future work may involve refining the methodology and exploring the impacts of multi-modal models or RAG applications.</p>
