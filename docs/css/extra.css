@@ -58,3 +58,38 @@ Light green: 00bf63
 .provider-item input {
   accent-color: var(--md-accent-fg-color);
 }
+
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: var(--md-accent-fg-color);
+  border-radius: 2px;
+  padding: 0;
+  height: 22px;
+}
+
+.badge__icon {
+  margin: 0 2px;
+  font-size: 16px;
+}
+
+.badge__text {
+  padding: 0 4px;
+  border-bottom: 1px solid var(--md-accent-fg-color);
+  border-top: 1px solid var(--md-accent-fg-color);
+  border-right: 1px solid var(--md-accent-fg-color);
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  line-height: 20px;
+  background: #fff;
+}
+
+[data-md-color-scheme="slate"] {
+  .badge__text {
+    background-color: rgb(30, 37, 41);
+  }
+}
