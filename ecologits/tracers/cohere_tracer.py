@@ -12,13 +12,14 @@ try:
     from cohere import AsyncClient, Client
     from cohere.types.non_streamed_chat_response import NonStreamedChatResponse as _NonStreamedChatResponse
     from cohere.types.streamed_chat_response import StreamedChatResponse
-    from cohere.types.streamed_chat_response import StreamedChatResponse_StreamEnd as _StreamedChatResponse_StreamEnd
+    from cohere.types.streamed_chat_response import StreamEndStreamedChatResponse as _StreamEndStreamedChatResponse
 except ImportError:
+    from pydantic import BaseModel
     Client = object()
     AsyncClient = object()
-    _NonStreamedChatResponse = object()
+    _NonStreamedChatResponse = BaseModel
     StreamedChatResponse = object()
-    _StreamedChatResponse_StreamEnd = object()
+    _StreamEndStreamedChatResponse = BaseModel
 
 
 PROVIDER = "cohere"
@@ -31,7 +32,7 @@ class NonStreamedChatResponse(_NonStreamedChatResponse):
         arbitrary_types_allowed = True
 
 
-class StreamedChatResponse_StreamEnd(_StreamedChatResponse_StreamEnd):  # noqa: N801
+class StreamEndStreamedChatResponse(_StreamEndStreamedChatResponse):  # noqa: N801
     impacts: Impacts
 
     class Config:
@@ -91,7 +92,7 @@ def cohere_stream_chat_wrapper(
                 request_latency=request_latency,
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
-            yield StreamedChatResponse_StreamEnd(**event.dict(), impacts=impacts)
+            yield StreamEndStreamedChatResponse(**event.dict(), impacts=impacts)
         else:
             yield event
 
@@ -113,7 +114,7 @@ async def cohere_async_stream_chat_wrapper(
                 request_latency=request_latency,
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
-            yield StreamedChatResponse_StreamEnd(**event.dict(), impacts=impacts)
+            yield StreamEndStreamedChatResponse(**event.dict(), impacts=impacts)
         else:
             yield event
 
