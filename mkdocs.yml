@@ -20,8 +20,7 @@ nav:
           - 'Google Gemini': tutorial/providers/google.md
           - 'Hugging Face Hub': tutorial/providers/huggingface_hub.md
           - 'LiteLLM': tutorial/providers/litellm.md
-          - 'Mistral AI v0 (soon deprecated)': tutorial/providers/mistralai_v0.md
-          - 'Mistral AI v1': tutorial/providers/mistralai_v1.md
+          - 'Mistral AI': tutorial/providers/mistralai.md
           - 'OpenAI': tutorial/providers/openai.md
   - 'Methodology':
       - 'Introduction': methodology/index.md
