@@ -27,8 +27,9 @@ def init_anthropic_instrumentor() -> None:
 
 def init_mistralai_instrumentor() -> None:
     if importlib.util.find_spec("mistralai") is not None:
-        if importlib.metadata.version("mistralai").split(".")[0] == "0":
-            logger.warning("MistralAI Client v0.*.* will soon no longer be supported by EcoLogits.")
+        version = Version(importlib.metadata.version("mistralai"))
+        if version < Version("1.0.0"):
+            logger.warning("MistralAI client v0.*.* will soon no longer be supported by EcoLogits.")
             from ecologits.tracers.mistralai_tracer_v0 import MistralAIInstrumentor
         else:
             from ecologits.tracers.mistralai_tracer_v1 import MistralAIInstrumentor
@@ -39,9 +40,8 @@ def init_mistralai_instrumentor() -> None:
 
 def init_huggingface_instrumentor() -> None:
     if importlib.util.find_spec("huggingface_hub") is not None:
-        from huggingface_hub import __version__
-
-        if Version(__version__) >= Version("0.22.0"):
+        version = Version(importlib.metadata.version("huggingface_hub"))
+        if version >= Version("0.22.0"):
             from ecologits.tracers.huggingface_tracer import HuggingfaceInstrumentor
 
             instrumentor = HuggingfaceInstrumentor()
