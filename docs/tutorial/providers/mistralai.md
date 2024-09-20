@@ -1,6 +1,10 @@
-# Mistral AI v1
+# Mistral AI
 
-This guide focuses on the integration of :seedling: **EcoLogits** with the [Mistral AI official python client :octicons-link-external-16:](https://github.com/mistralai/client-python) for versions `>=1.0.0`.
+??? warning "Deprecation of Mistral AI v0"
+
+    Mistral AI python client with version `<1.0.0` will no longer be supported by EcoLogits. See official [migration guide from v0 to v1 :octicons-link-external-16:](https://github.com/mistralai/client-python/blob/main/MIGRATION.md). 
+
+This guide focuses on the integration of :seedling: **EcoLogits** with the [Mistral AI official python client :octicons-link-external-16:](https://github.com/mistralai/client-python).
 
 Official links:
 
@@ -27,7 +31,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
 
 === "Sync"
 
-    ```python
+    ``` { .python .annotate }
     from ecologits import EcoLogits
     from mistralai import Mistral
     
@@ -35,8 +39,8 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     EcoLogits.init()
     
     client = Mistral(api_key="<MISTRAL_API_KEY>")
-    
-    response = client.chat.complete(
+
+    response = client.chat.complete(# (1)! 
         messages=[
             {"role": "user", "content": "Tell me a funny joke!"}
         ],
@@ -46,6 +50,8 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     # Get estimated environmental impacts of the inference
     print(response.impacts)
     ```
+    
+    1. Use `client.chat` for Mistral AI v0.
 
 === "Async"
 
@@ -60,7 +66,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     client = Mistral(api_key="<MISTRAL_API_KEY>")
     
     async def main() -> None:
-        response = await client.chat.complete_async(
+        response = await client.chat.complete_async(# (1)! 
             messages=[
                 {"role": "user", "content": "Tell me a funny joke!"}
             ],
@@ -73,6 +79,9 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     asyncio.run(main())
     ```
+    
+    1. Use `client.chat` for Mistral AI v0.
+
 
 ### Streaming example
 
@@ -89,7 +98,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     client = Mistral(api_key="<MISTRAL_API_KEY>")
     
-    stream = client.chat.stream(
+    stream = client.chat.stream(# (1)! 
         messages=[
             {"role": "user", "content": "Tell me a funny joke!"}
         ],
@@ -100,6 +109,8 @@ Integrating EcoLogits with your applications does not alter the standard outputs
         # Get cumulative estimated environmental impacts of the inference
         print(chunk.data.impacts)
     ```
+
+    1. Use `client.chat_stream` for Mistral AI v0.
 
 === "Async"
     
@@ -114,7 +125,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     client = Mistral(api_key="<MISTRAL_API_KEY>")
     
     async def main() -> None:
-        response = await client.chat.stream_async(
+        response = await client.chat.stream_async(# (1)! 
             messages=[
                 {"role": "user", "content": "Tell me a funny joke!"}
             ],
@@ -129,3 +140,5 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     asyncio.run(main())
     ```
+
+    1. Use `client.chat_stream` for Mistral AI v0.

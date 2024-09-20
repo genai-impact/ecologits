@@ -9,8 +9,7 @@
 | Google Gemini       | `google-generativeai`  | [Guide for Google Gemini :octicons-link-16:](providers/google.md)                                |
 | Hugging Face Hub    | `huggingface-hub`      | [Guide for Hugging Face Hub :octicons-link-16:](providers/huggingface_hub.md)                    |
 | LiteLLM             | `litellm`              | [Guide for LiteLLM :octicons-link-16:](providers/litellm.md)                                     |
-| Mistral AI `>1.0.0` | `mistralai`            | [Guide for Mistral AI v0 (soon deprecated) :octicons-link-16:](providers/mistralai_v0.md)                                |
-| Mistral AI `<=1.0.0`| `mistralai`            | [Guide for Mistral AI v1 :octicons-link-16:](providers/mistralai_v1.md)                                |
+| Mistral AI          | `mistralai`            | [Guide for Mistral AI v1 :octicons-link-16:](providers/mistralai)                                |
 | OpenAI              | `openai`               | [Guide for OpenAI :octicons-link-16:](providers/openai.md)                                       |
 | Azure OpenAI        | `openai`               | [Guide for Azure OpenAI :octicons-link-16:](providers/openai.md#compatibility-with-azure-openai) |
 
