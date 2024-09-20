@@ -1,16 +1,9 @@
-
-!!! warning "Page still under construction"
-
-    This page is still under construction. If you spot any inaccuracies or have questions about the methodology itself, feel free to open an issue on [GitHub](https://github.com/genai-impact/ecologits/issues/new?assignees=&labels=documentation&title=LLM%20Inference%20Methodology:%20%3CIssue%20Title%3E).
-
-
-!!! warning "Early Publication"
-
-    Beware that this is an early version of the methodology to evaluate the environmental impacts of LLMs at inference. We are still testing and reviewing the methodology internally. **Some parts of the methodology may change in the near future.**
-
-
 # Environmental Impacts of LLM Inference
 
+<span class="badge" makdown>
+    <span class="badge__icon">:material-tag-outline:</span>
+    <span class="badge__text">v1.0</span>
+</span>
 
 ??? info "Known limitations and hypotheses"
     
