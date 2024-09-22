@@ -107,10 +107,11 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     for chunk in stream:
         # Get cumulative estimated environmental impacts of the inference
-        print(chunk.data.impacts)
+        print(chunk.data.impacts) # (2)!  
     ```
 
     1. Use `client.chat_stream` for Mistral AI v0.
+    2. Use `chunk.impacts` for Mistral AI v0.
 
 === "Async"
     
@@ -135,10 +136,12 @@ Integrating EcoLogits with your applications does not alter the standard outputs
         async for chunk in stream:
             # Get cumulative estimated environmental impacts of the inference
             if hasattr(chunk, "impacts"):
-                print(chunk.data.impacts)
+                print(chunk.data.impacts) # (2)!  
     
     
     asyncio.run(main())
     ```
 
     1. Use `client.chat_stream` for Mistral AI v0.
+    2. Use `chunk.impacts` for Mistral AI v0.
+    
