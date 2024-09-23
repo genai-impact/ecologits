@@ -1,5 +1,9 @@
 # OpenAI
 
+!!! danger "Lack of transparency"
+
+    OpenAI does not disclose any information about model architecture and inference infrastrucure. Thus, the environmental impacts are estimated with a very low precision.
+
 This guide focuses on the integration of :seedling: **EcoLogits** with the [OpenAI official python client :octicons-link-external-16:](https://github.com/openai/openai-python).
 
 Official links:

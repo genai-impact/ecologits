@@ -1,5 +1,9 @@
 # Cohere
 
+!!! warning "Lack of transparency"
+    
+    Majority of models released by Cohere are open-weights, but there is no information on the inference infrastructure. Thus, the environmental impacts are estimated with a lower precision.
+
 This guide focuses on the integration of :seedling: **EcoLogits** with the [Cohere official python client :octicons-link-external-16:](https://github.com/cohere-ai/cohere-python).
 
 Official links:

@@ -1,5 +1,9 @@
 # Hugging Face Hub
 
+!!! info "Lack of transparency"
+    
+    All models available on Hugging Face inference endpoints are open-weights, but there is not information on the inference infrastructure. Thus, the environmental impacts are estimated with a lower precision.
+
 This guide focuses on the integration of :seedling: **EcoLogits** with the [Hugging Face Hub official python client :octicons-link-external-16:](https://github.com/huggingface/huggingface_hub).
 
 Official links:

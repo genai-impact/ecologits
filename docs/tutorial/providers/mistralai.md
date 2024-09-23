@@ -4,6 +4,11 @@
 
     Mistral AI python client with version `<1.0.0` will no longer be supported by EcoLogits. See official [migration guide from v0 to v1 :octicons-link-external-16:](https://github.com/mistralai/client-python/blob/main/MIGRATION.md). 
 
+!!! warning "Lack of transparency"
+    
+    Some models released by Mistral AI are not open-weights, plus there is no information on the inference infrastructure. Thus, the environmental impacts are estimated with a lower precision.
+
+
 This guide focuses on the integration of :seedling: **EcoLogits** with the [Mistral AI official python client :octicons-link-external-16:](https://github.com/mistralai/client-python).
 
 Official links:

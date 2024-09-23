@@ -1,5 +1,9 @@
 # Google Gemini
 
+!!! danger "Lack of transparency"
+    
+    Google does not disclose any information about model architecture and inference infrastrucure. Thus, the environmental impacts are estimated with a very low precision.
+
 This guide focuses on the integration of :seedling: **EcoLogits** with the [Google Gemini official python client :octicons-link-external-16:](https://github.com/google-gemini/generative-ai-python).
 
 Official links:
