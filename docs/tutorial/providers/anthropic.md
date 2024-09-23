@@ -1,5 +1,9 @@
 # Anthropic
 
+!!! danger "Lack of transparency"
+    
+    Anthropic does not disclose any information about model architecture and inference infrastrucure. Thus, the environmental impacts are estimated with a very low precision.
+
 This guide focuses on the integration of :seedling: **EcoLogits** with the [Anthropic official python client :octicons-link-external-16:](https://github.com/anthropics/anthropic-sdk-python).
 
 Official links:

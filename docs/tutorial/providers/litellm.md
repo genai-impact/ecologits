@@ -1,5 +1,9 @@
 # LiteLLM
 
+!!! warning "Lack of transparency"
+
+    Depending on the provider, the level of transparency varies. Thus, the environmental impacts can be estimated with a low precision.
+
 This guide focuses on the integration of :seedling: **EcoLogits** with the [LiteLLM official Python client :octicons-link-external-16:](https://github.com/BerriAI/litellm).
 
 Official links:
