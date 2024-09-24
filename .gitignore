@@ -163,3 +163,7 @@ cython_debug/
 
 # Precommit hooks: ruff cache
 .ruff_cache
+
+# Paper related
+paper/jats
+paper/paper.pdf
