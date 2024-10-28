@@ -1,5 +1,42 @@
 {
-    "aliases": null,
+    "aliases": [
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo",
+            "alias": "gpt-3.5-turbo"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-0125",
+            "alias": "gpt-3.5-turbo-0125"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-1106",
+            "alias": "gpt-3.5-turbo-1106"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-16k",
+            "alias": "gpt-3.5-turbo-16k"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-instruct-0914",
+            "alias": "gpt-3.5-turbo-instruct-0914"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-instruct",
+            "alias": "gpt-3.5-turbo-instruct"
+        }
+    ],
     "models": [
         {
             "type": "model",
