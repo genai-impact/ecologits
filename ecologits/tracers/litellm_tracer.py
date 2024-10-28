@@ -1,5 +1,5 @@
 import time
-from typing import Any, Callable, Union, Optional
+from typing import Any, Callable, Optional, Union
 
 from wrapt import wrap_function_wrapper
 
@@ -13,7 +13,7 @@ try:
     from litellm import AsyncCompletions, Completions
     from litellm.types.utils import ModelResponse
     from litellm.utils import CustomStreamWrapper
-    from rapidfuzz import process, fuzz
+    from rapidfuzz import fuzz, process
 
 except ImportError:
     ModelResponse = object()
@@ -35,7 +35,7 @@ class ChatCompletionChunk(ModelResponse):
 _model_choices = [f"{m.provider.value}/{m.name}" for m in models.list_models()]
 
 
-def litellm_match_model(model_name) -> Optional[tuple[str, str]]:
+def litellm_match_model(model_name: str) -> Optional[tuple[str, str]]:
     """
     Match according provider and model from a litellm model_name.
 
@@ -45,7 +45,6 @@ def litellm_match_model(model_name) -> Optional[tuple[str, str]]:
     Returns:
         A tuple (provider, model_name) matching a record of the ModelRepository.
     """
-    # print(process.extractOne(query=model_name, choices=_model_choices, scorer=fuzz.token_sort_ratio))
     candidate = process.extractOne(
         query=model_name,
         choices=_model_choices,
@@ -55,6 +54,7 @@ def litellm_match_model(model_name) -> Optional[tuple[str, str]]:
     if candidate is not None:
         provider, model_name = candidate[0].split("/", 1)
         return provider, model_name
+    return None
 
 
 def litellm_chat_wrapper(

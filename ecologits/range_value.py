@@ -1,7 +1,7 @@
 from typing import Any, Union
-from typing_extensions import Self
 
 from pydantic import BaseModel, model_validator
+from typing_extensions import Self
 
 
 class RangeValue(BaseModel):
