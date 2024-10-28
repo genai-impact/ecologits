@@ -59,7 +59,7 @@ class Models(BaseModel):
 
 class ModelRepository:
 
-    def __init__(self, models: list[Model], aliases: Optional[list[Alias]] = None):
+    def __init__(self, models: list[Model], aliases: Optional[list[Alias]] = None) -> None:
         self.__models: dict[tuple[str, str], Model] = {}
         for m in models:
             key = m.provider.value, m.name
@@ -89,7 +89,7 @@ class ModelRepository:
             filepath = os.path.join(
                 os.path.dirname(os.path.realpath(__file__)), "data", "models.json"
             )
-        with open(filepath, "r") as fd:
+        with open(filepath) as fd:
             data = json.load(fd)
             mf = Models.model_validate(data)
         return cls(models=mf.models, aliases=mf.aliases)
