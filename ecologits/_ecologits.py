@@ -5,8 +5,8 @@ from typing import Optional, Union
 
 from packaging.version import Version
 
-from ecologits.exceptions import EcoLogitsError
-from ecologits.log import logger
+from ecologits.utils.exceptions import EcoLogitsError
+from ecologits.utils.log import logger
 
 
 def init_openai_instrumentor() -> None:
