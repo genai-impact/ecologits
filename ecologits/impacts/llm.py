@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 from ecologits.impacts.dag import DAG
 from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
-from ecologits.range_value import RangeValue, ValueOrRange
+from ecologits.utils.range_value import RangeValue, ValueOrRange
 
 MODEL_QUANTIZATION_BITS = 4
 
