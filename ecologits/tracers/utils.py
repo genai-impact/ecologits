@@ -16,7 +16,7 @@ def llm_impacts(
     model_name: str,
     output_token_count: int,
     request_latency: float,
-    electricity_mix_zone: Optional[str] = "WOR",
+    electricity_mix_zone: str = "WOR",
 ) -> Optional[Impacts]:
     """
     High-level function to compute the impacts of an LLM generation request.
