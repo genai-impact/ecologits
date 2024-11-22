@@ -93,6 +93,11 @@ mike = "^2.1.2"
 [pytest]
 env_files = [".env"]
 
+[tool.mypy]
+exclude = [
+    "ecologits/impacts/*",
+    "ecologits/tracers/*"
+]
 
 [[tool.mypy.overrides]]
 module = "docs.*"
