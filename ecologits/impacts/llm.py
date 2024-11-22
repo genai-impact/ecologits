@@ -340,8 +340,8 @@ def request_embodied_pe(
 
 
 def compute_llm_impacts_dag(
-    model_active_parameter_count: float,
-    model_total_parameter_count: float,
+    model_active_parameter_count: ValueOrRange,
+    model_total_parameter_count: ValueOrRange,
     output_token_count: float,
     request_latency: float,
     if_electricity_mix_adpe: float,
