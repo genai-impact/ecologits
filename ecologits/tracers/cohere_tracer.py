@@ -15,6 +15,7 @@ try:
     from cohere.types.streamed_chat_response import StreamEndStreamedChatResponse as _StreamEndStreamedChatResponse
 except ImportError:
     from pydantic import BaseModel
+
     Client = object()
     AsyncClient = object()
     _NonStreamedChatResponse = BaseModel

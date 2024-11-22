@@ -18,9 +18,11 @@ except ImportError:
     InferenceClient = object()
     AsyncInferenceClient = object()
 
+
     @dataclass
     class _ChatCompletionOutput:
         pass
+
 
     @dataclass
     class _ChatCompletionStreamOutput:

@@ -2,6 +2,7 @@ import time
 from collections.abc import AsyncGenerator, Iterable
 from typing import Any, Callable
 
+from pydantic import BaseModel
 from wrapt import wrap_function_wrapper
 
 from ecologits._ecologits import EcoLogits
@@ -20,8 +21,8 @@ try:
 except ImportError:
     MistralClient = object()
     MistralAsyncClient = object()
-    _ChatCompletionResponse = object()
-    _ChatCompletionStreamResponse = object()
+    _ChatCompletionResponse = BaseModel
+    _ChatCompletionStreamResponse = BaseModel
 
 
 PROVIDER = "mistralai"

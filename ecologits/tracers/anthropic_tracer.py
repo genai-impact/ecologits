@@ -3,6 +3,7 @@ from collections.abc import AsyncIterator, Awaitable, Iterator
 from types import TracebackType
 from typing import Any, Callable, Generic, Optional, TypeVar
 
+from pydantic import BaseModel
 from typing_extensions import override
 from wrapt import wrap_function_wrapper
 
@@ -20,9 +21,9 @@ try:
 except ImportError:
     Anthropic = object()
     AsyncAnthropic = object()
-    _Message = object()
-    _MessageStream = object()
-    _AsyncMessageStream = object()
+    _Message = BaseModel
+    _MessageStream = BaseModel
+    _AsyncMessageStream = BaseModel
     MessageDeltaEvent = object()
     MessageStartEvent = object()
 

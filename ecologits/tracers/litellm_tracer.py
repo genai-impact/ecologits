@@ -1,6 +1,7 @@
 import time
 from typing import Any, Callable, Optional, Union
 
+from pydantic import BaseModel
 from wrapt import wrap_function_wrapper
 
 from ecologits._ecologits import EcoLogits
@@ -16,7 +17,7 @@ try:
     from rapidfuzz import fuzz, process
 
 except ImportError:
-    ModelResponse = object()
+    ModelResponse = BaseModel
     CustomStreamWrapper = object()
     Completions = object()
     AsyncCompletions = object()

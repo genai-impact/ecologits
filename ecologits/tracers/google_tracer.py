@@ -15,8 +15,15 @@ try:
     )
 except ImportError:
     GenerativeModel = object()
-    _GenerateContentResponse = object()
-    _AsyncGenerateContentResponse = object()
+
+
+    class _GenerateContentResponse:
+        ...
+
+
+    class _AsyncGenerateContentResponse:
+        ...
+
 
 
 PROVIDER = "google"

@@ -1,6 +1,7 @@
 import time
 from typing import Any, Callable, Union
 
+from pydantic import BaseModel
 from wrapt import wrap_function_wrapper
 
 from ecologits._ecologits import EcoLogits
@@ -17,8 +18,8 @@ except ImportError:
     Stream = object()
     AsyncCompletions = object()
     Completions = object()
-    _ChatCompletion = object()
-    _ChatCompletionChunk = object()
+    _ChatCompletion = BaseModel
+    _ChatCompletionChunk = BaseModel
 
 
 PROVIDER = "openai"

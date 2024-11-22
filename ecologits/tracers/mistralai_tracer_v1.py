@@ -2,6 +2,7 @@ import time
 from collections.abc import AsyncGenerator, Iterable
 from typing import Any, Callable
 
+from pydantic import BaseModel
 from wrapt import wrap_function_wrapper
 
 from ecologits._ecologits import EcoLogits
@@ -15,9 +16,9 @@ try:
     from mistralai.models.chatcompletionresponse import ChatCompletionResponse as _ChatCompletionResponse
 except ImportError:
     Mistral = object()
-    _ChatCompletionResponse = object()
+    _ChatCompletionResponse = BaseModel
     CompletionEvent = object()
-    _CompletionChunk = object()
+    _CompletionChunk = BaseModel
 
 
 PROVIDER = "mistralai"
