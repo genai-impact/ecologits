@@ -68,7 +68,7 @@ def openai_chat_wrapper_non_stream(
         return response
 
 
-def openai_chat_wrapper_stream(
+def openai_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: Completions,      # noqa: ARG001
     args: Any,
@@ -133,7 +133,7 @@ async def openai_async_chat_wrapper_base(
         return response
 
 
-async def openai_async_chat_wrapper_stream(
+async def openai_async_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: AsyncCompletions,     # noqa: ARG001
     args: Any,
