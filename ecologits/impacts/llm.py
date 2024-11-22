@@ -481,6 +481,8 @@ def compute_llm_impacts(
         )
         for field in fields:
             if field in results:
+                if not isinstance(results[field], (float, int)):
+                    raise TypeError("Cannot use RangeValue as min value.")
                 results[field] = RangeValue(min=results[field], max=res[field])
             else:
                 results[field] = res[field]
