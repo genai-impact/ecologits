@@ -1,4 +1,4 @@
-from typing import Any, Union
+from typing import Any, Union, overload
 
 from pydantic import BaseModel, model_validator
 from typing_extensions import Self
@@ -21,7 +21,7 @@ class RangeValue(BaseModel):
             raise ValueError("min value must be lower than max value")
         return self
 
-    def __add__(self, other: Any) -> "RangeValue":
+    def __add__(self, other: Union["RangeValue", int, float]) -> "RangeValue":
         if isinstance(other, RangeValue):
             return RangeValue(
                 min=self.min + other.min,
@@ -32,6 +32,8 @@ class RangeValue(BaseModel):
                 min=self.min + other,
                 max=self.max + other
             )
+
+    __radd__ = __add__
 
     def __eq__(self, other: Any) -> bool:
         if isinstance(other, RangeValue):
