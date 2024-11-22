@@ -1,6 +1,6 @@
 import math
 from math import ceil
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from ecologits.impacts.dag import DAG
 from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
@@ -465,7 +465,7 @@ def compute_llm_impacts(
         else:
             total_params = [model_total_parameter_count, model_total_parameter_count]
 
-    results = {}
+    results: dict[str, Union[RangeValue, float, int]] = {}
     fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
               "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
     for act_param, tot_param in zip(active_params, total_params):
