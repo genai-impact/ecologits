@@ -2,7 +2,7 @@ import time
 from typing import Any, Callable, Union
 
 from pydantic import BaseModel
-from wrapt import wrap_function_wrapper
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
