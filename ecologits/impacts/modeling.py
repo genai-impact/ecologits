@@ -25,7 +25,7 @@ class BaseImpact(BaseModel):
     value: ValueOrRange
     unit: str
 
-    def __add__(self: Impact, other: "BaseImpact") -> Impact:
+    def __add__(self: Impact, other: object) -> Impact:
         if not isinstance(other, BaseImpact):
             raise ModelingError(f"Error occurred, cannot add an Impact with {type(other)}.")
         if self.type != other.type:
