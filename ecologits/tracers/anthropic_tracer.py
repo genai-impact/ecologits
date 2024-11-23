@@ -44,13 +44,14 @@ class MessageStream(_MessageStream):
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
-        self.impacts = llm_impacts(
-            provider=PROVIDER,
-            model_name=model_name,
-            output_token_count=output_tokens,
-            request_latency=requests_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
-        )
+        if model_name is not None:
+            self.impacts = llm_impacts(
+                provider=PROVIDER,
+                model_name=model_name,
+                output_token_count=output_tokens,
+                request_latency=requests_latency,
+                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            )
 
     def __init__(self, parent) -> None:     # noqa: ANN001
         super().__init__(
@@ -78,13 +79,14 @@ class AsyncMessageStream(_AsyncMessageStream):
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
-        self.impacts = llm_impacts(
-            provider=PROVIDER,
-            model_name=model_name,
-            output_token_count=output_tokens,
-            request_latency=requests_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
-        )
+        if model_name is not None:
+            self.impacts = llm_impacts(
+                provider=PROVIDER,
+                model_name=model_name,
+                output_token_count=output_tokens,
+                request_latency=requests_latency,
+                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            )
 
     def __init__(self, parent) -> None:     # noqa: ANN001
         super().__init__(
