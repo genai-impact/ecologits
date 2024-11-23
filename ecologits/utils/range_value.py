@@ -1,4 +1,4 @@
-from typing import Any, Union, overload
+from typing import Any, Union
 
 from pydantic import BaseModel, model_validator
 from typing_extensions import Self
@@ -12,8 +12,8 @@ class RangeValue(BaseModel):
         min: Lower bound of the interval.
         max: Upper bound of the interval.
     """
-    min: float
-    max: float
+    min: Union[float, int]
+    max: Union[float, int]
 
     @model_validator(mode="after")
     def check_order(self) -> Self:

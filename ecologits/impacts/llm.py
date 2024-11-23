@@ -1,6 +1,6 @@
 import math
 from math import ceil
-from typing import Any, Optional, Union
+from typing import Any, Optional, Union, cast
 
 from ecologits.impacts.dag import DAG
 from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
@@ -481,7 +481,11 @@ def compute_llm_impacts(
         )
         for field in fields:
             if field in results:
-                results[field] = RangeValue(min=results[field], max=res[field])
+                if isinstance(results[field], (float, int)):
+                    value = cast(Union[float, int], results[field])
+                    results[field] = RangeValue(min=value, max=res[field])
+                else:
+                    raise TypeError("Cannot transform RangeValue.")
             else:
                 results[field] = res[field]
 
