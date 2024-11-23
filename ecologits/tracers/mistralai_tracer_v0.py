@@ -2,28 +2,19 @@ import time
 from collections.abc import AsyncGenerator, Iterable
 from typing import Any, Callable
 
-from pydantic import BaseModel
-from wrapt import wrap_function_wrapper
+from mistralai.async_client import MistralAsyncClient
+from mistralai.client import MistralClient
+from mistralai.models.chat_completion import (  # type: ignore[import-not-found]
+    ChatCompletionResponse as _ChatCompletionResponse,  # type: ignore[import-not-found]
+)
+from mistralai.models.chat_completion import (  # type: ignore[import-not-found]
+    ChatCompletionStreamResponse as _ChatCompletionStreamResponse,  # type: ignore[import-not-found]
+)
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    from mistralai.async_client import MistralAsyncClient
-    from mistralai.client import MistralClient
-    from mistralai.models.chat_completion import (
-        ChatCompletionResponse as _ChatCompletionResponse,
-    )
-    from mistralai.models.chat_completion import (
-        ChatCompletionStreamResponse as _ChatCompletionStreamResponse,
-    )
-except ImportError:
-    MistralClient = object()
-    MistralAsyncClient = object()
-    _ChatCompletionResponse = BaseModel
-    _ChatCompletionStreamResponse = BaseModel
-
 
 PROVIDER = "mistralai"
 
