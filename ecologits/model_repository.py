@@ -94,7 +94,7 @@ class ModelRepository:
             data = json.load(fd)
             mf = Models.model_validate(data)
         if mf.models is None:
-            raise ValueError("Cannot initialize and empty model repository.")
+            raise ValueError("Cannot initialize on an empty model repository.")
         return cls(models=mf.models, aliases=mf.aliases)
 
 
