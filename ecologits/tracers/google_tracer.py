@@ -5,8 +5,8 @@ from typing import Any, Callable, Union
 from google.generativeai import GenerativeModel  # type: ignore[import-untyped]
 from google.generativeai.types import (  # type: ignore[import-untyped]
     AsyncGenerateContentResponse as _AsyncGenerateContentResponse,
-    GenerateContentResponse as _GenerateContentResponse
 )
+from google.generativeai.types import GenerateContentResponse as _GenerateContentResponse
 from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits

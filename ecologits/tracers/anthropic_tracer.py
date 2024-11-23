@@ -30,7 +30,7 @@ class MessageStream(_MessageStream):
     impacts: Optional[Impacts] = None
 
     @override
-    def __stream_text__(self) -> Iterator[str]:
+    def __stream_text__(self) -> Iterator[str]:  # type: ignore[misc]
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
@@ -65,7 +65,7 @@ class AsyncMessageStream(_AsyncMessageStream):
     impacts: Optional[Impacts] = None
 
     @override
-    async def __stream_text__(self) -> AsyncIterator[str]:
+    async def __stream_text__(self) -> AsyncIterator[str]:  # type: ignore[misc]
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
