@@ -97,11 +97,10 @@ class AsyncMessageStream(_AsyncMessageStream):
 
 
 class MessageStreamManager(Generic[MessageStreamT]):
-    def __init__(self, api_request: Callable[[], MessageStreamT]) -> None:
-        self.__stream: Optional[MessageStreamT] = None
+    def __init__(self, api_request: Callable[[], MessageStream]) -> None:
         self.__api_request = api_request
 
-    def __enter__(self) -> MessageStreamT:
+    def __enter__(self) -> MessageStream:
         self.__stream = self.__api_request()
         self.__stream = MessageStream(self.__stream)
         return self.__stream
@@ -117,11 +116,10 @@ class MessageStreamManager(Generic[MessageStreamT]):
 
 
 class AsyncMessageStreamManager(Generic[AsyncMessageStreamT]):
-    def __init__(self, api_request: Awaitable[AsyncMessageStreamT]) -> None:
-        self.__stream: Optional[AsyncMessageStreamT] = None
+    def __init__(self, api_request: Awaitable[AsyncMessageStream]) -> None:
         self.__api_request = api_request
 
-    async def __aenter__(self) -> AsyncMessageStreamT:
+    async def __aenter__(self) -> AsyncMessageStream:
         self.__stream = await self.__api_request
         self.__stream = AsyncMessageStream(self.__stream)
         return self.__stream
