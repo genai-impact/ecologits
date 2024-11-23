@@ -95,7 +95,6 @@ env_files = [".env"]
 
 [tool.mypy]
 exclude = [
-    "ecologits/tracers/mistralai_tracer_v1.py",
     "ecologits/tracers/google_tracer.py",
     "ecologits/tracers/cohere_tracer.py",
     "ecologits/tracers/anthropic_tracer.py",

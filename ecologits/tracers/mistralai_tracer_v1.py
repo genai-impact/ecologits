@@ -2,24 +2,15 @@ import time
 from collections.abc import AsyncGenerator, Iterable
 from typing import Any, Callable
 
-from pydantic import BaseModel
-from wrapt import wrap_function_wrapper
+from mistralai import Mistral
+from mistralai.models import CompletionChunk as _CompletionChunk
+from mistralai.models import CompletionEvent
+from mistralai.models import ChatCompletionResponse as _ChatCompletionResponse
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    from mistralai import Mistral
-    from mistralai.models import CompletionChunk as _CompletionChunk
-    from mistralai.models import CompletionEvent
-    from mistralai.models.chatcompletionresponse import ChatCompletionResponse as _ChatCompletionResponse
-except ImportError:
-    Mistral = object()
-    _ChatCompletionResponse = BaseModel
-    CompletionEvent = object()
-    _CompletionChunk = BaseModel
-
 
 PROVIDER = "mistralai"
 
