@@ -27,7 +27,7 @@ class Message(_Message):
 
 
 class MessageStream(_MessageStream):
-    impacts: Impacts
+    impacts: Optional[Impacts] = None
 
     @override
     def __stream_text__(self) -> Iterator[str]:
@@ -61,7 +61,7 @@ class MessageStream(_MessageStream):
 
 
 class AsyncMessageStream(_AsyncMessageStream):
-    impacts: Impacts
+    impacts: Optional[Impacts] = None
 
     @override
     async def __stream_text__(self) -> AsyncIterator[str]:
