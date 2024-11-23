@@ -93,10 +93,6 @@ mike = "^2.1.2"
 [pytest]
 env_files = [".env"]
 
-[tool.mypy]
-exclude = [
-    "ecologits/tracers/huggingface_tracer.py"
-]
 
 [[tool.mypy.overrides]]
 module = "docs.*"
@@ -105,7 +101,6 @@ ignore_errors = true
 [[tool.mypy.overrides]]
 module = "tests.*"
 ignore_errors = true
-
 
 
 [tool.ruff]
