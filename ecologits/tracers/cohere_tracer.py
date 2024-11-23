@@ -1,6 +1,6 @@
 import time
 from collections.abc import AsyncIterator, Iterator
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 from cohere import AsyncClient, Client
 from cohere.types.non_streamed_chat_response import NonStreamedChatResponse as _NonStreamedChatResponse
@@ -16,14 +16,14 @@ PROVIDER = "cohere"
 
 
 class NonStreamedChatResponse(_NonStreamedChatResponse):
-    impacts: Impacts
+    impacts: Optional[Impacts] = None
 
     class Config:
         arbitrary_types_allowed = True
 
 
 class StreamEndStreamedChatResponse(_StreamEndStreamedChatResponse):
-    impacts: Impacts
+    impacts: Optional[Impacts] = None
 
     class Config:
         arbitrary_types_allowed = True
