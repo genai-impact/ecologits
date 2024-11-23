@@ -3,9 +3,9 @@ from collections.abc import AsyncGenerator, Iterable
 from typing import Any, Callable
 
 from mistralai import Mistral
+from mistralai.models import ChatCompletionResponse as _ChatCompletionResponse
 from mistralai.models import CompletionChunk as _CompletionChunk
 from mistralai.models import CompletionEvent
-from mistralai.models import ChatCompletionResponse as _ChatCompletionResponse
 from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
