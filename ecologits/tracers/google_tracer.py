@@ -2,29 +2,15 @@ import time
 from collections.abc import Iterable
 from typing import Any, Callable, Union
 
-from wrapt import wrap_function_wrapper
+from google.generativeai import GenerativeModel  # type: ignore[import-untyped]
+from google.generativeai.types import (  # type: ignore[import-untyped]
+    AsyncGenerateContentResponse as _AsyncGenerateContentResponse,
+    GenerateContentResponse as _GenerateContentResponse
+)
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    from google.generativeai import GenerativeModel
-    from google.generativeai.types import AsyncGenerateContentResponse as _AsyncGenerateContentResponse
-    from google.generativeai.types import (
-        GenerateContentResponse as _GenerateContentResponse,
-    )
-except ImportError:
-    GenerativeModel = object()
-
-
-    class _GenerateContentResponse:
-        ...
-
-
-    class _AsyncGenerateContentResponse:
-        ...
-
-
 
 PROVIDER = "google"
 
