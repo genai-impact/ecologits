@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from ecologits.exceptions import ModelingError
 from ecologits.utils.range_value import ValueOrRange
 
-Impact = TypeVar('Impact', bound='BaseImpact')
+Impact = TypeVar("Impact", bound="BaseImpact")
 
 
 @total_ordering

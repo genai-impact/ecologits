@@ -1,7 +1,7 @@
 import importlib.metadata
 import importlib.util
 from dataclasses import dataclass, field
-from typing import Optional, Union, Type
+from typing import Optional, Union
 
 from packaging.version import Version
 
@@ -30,16 +30,16 @@ def init_mistralai_instrumentor() -> None:
         from ecologits.tracers.mistralai_tracer_v0 import MistralAIInstrumentor as MistralAIInstrumentorV0
         from ecologits.tracers.mistralai_tracer_v1 import MistralAIInstrumentor as MistralAIInstrumentorV1
 
-        MistralAIInstrumentor: Union[Type[MistralAIInstrumentorV0], Type[MistralAIInstrumentorV1]]
+        mistral_instrumentor: Union[type[MistralAIInstrumentorV0], type[MistralAIInstrumentorV1]]
 
         version = Version(importlib.metadata.version("mistralai"))
         if version < Version("1.0.0"):
             logger.warning("MistralAI client v0.*.* will soon no longer be supported by EcoLogits.")
-            MistralAIInstrumentor = MistralAIInstrumentorV0
+            mistral_instrumentor = MistralAIInstrumentorV0
         else:
-            MistralAIInstrumentor = MistralAIInstrumentorV1
+            mistral_instrumentor = MistralAIInstrumentorV1
 
-        instrumentor = MistralAIInstrumentor()
+        instrumentor = mistral_instrumentor()
         instrumentor.instrument()
 
 

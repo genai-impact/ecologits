@@ -11,7 +11,6 @@ from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
 
-
 PROVIDER = "openai"
 
 
