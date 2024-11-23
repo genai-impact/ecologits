@@ -3,30 +3,18 @@ from collections.abc import AsyncIterator, Awaitable, Iterator
 from types import TracebackType
 from typing import Any, Callable, Generic, Optional, TypeVar
 
-from pydantic import BaseModel
+from anthropic import Anthropic, AsyncAnthropic
+from anthropic.lib.streaming import AsyncMessageStream as _AsyncMessageStream
+from anthropic.lib.streaming import MessageStream as _MessageStream
+from anthropic.types import Message as _Message
+from anthropic.types.message_delta_event import MessageDeltaEvent
+from anthropic.types.message_start_event import MessageStartEvent
 from typing_extensions import override
-from wrapt import wrap_function_wrapper
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    from anthropic import Anthropic, AsyncAnthropic
-    from anthropic.lib.streaming import AsyncMessageStream as _AsyncMessageStream
-    from anthropic.lib.streaming import MessageStream as _MessageStream
-    from anthropic.types import Message as _Message
-    from anthropic.types.message_delta_event import MessageDeltaEvent
-    from anthropic.types.message_start_event import MessageStartEvent
-except ImportError:
-    Anthropic = object()
-    AsyncAnthropic = object()
-    _Message = BaseModel
-    _MessageStream = BaseModel
-    _AsyncMessageStream = BaseModel
-    MessageDeltaEvent = object()
-    MessageStartEvent = object()
-
 
 PROVIDER = "anthropic"
 
