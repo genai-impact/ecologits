@@ -1,28 +1,17 @@
 import time
 from typing import Any, Callable, Optional, Union
 
-from pydantic import BaseModel
-from wrapt import wrap_function_wrapper
+import litellm
+from litellm import AsyncCompletions, Completions
+from litellm.types.utils import ModelResponse
+from litellm.utils import CustomStreamWrapper
+from rapidfuzz import fuzz, process
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.model_repository import models
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    import litellm
-    from litellm import AsyncCompletions, Completions
-    from litellm.types.utils import ModelResponse
-    from litellm.utils import CustomStreamWrapper
-    from rapidfuzz import fuzz, process
-
-except ImportError:
-    ModelResponse = BaseModel
-    CustomStreamWrapper = object()
-    Completions = object()
-    AsyncCompletions = object()
-    process = object()
-    fuzz = object()
 
 
 class ChatCompletion(ModelResponse):
