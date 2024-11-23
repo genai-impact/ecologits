@@ -148,7 +148,7 @@ async def google_async_chat_wrapper_non_stream(
     return response
 
 
-async def google_async_chat_wrapper_stream(
+async def google_async_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: GenerativeModel,
     args: Any,
