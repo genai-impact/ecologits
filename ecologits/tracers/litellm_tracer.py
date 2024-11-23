@@ -59,7 +59,7 @@ def litellm_chat_wrapper(
         return litellm_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
 
 
-def litellm_chat_wrapper_stream(
+def litellm_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: Completions,      # noqa: ARG001
     args: Any,
@@ -152,7 +152,7 @@ async def litellm_async_chat_wrapper_base(
         return response
 
 
-async def litellm_async_chat_wrapper_stream(
+async def litellm_async_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: AsyncCompletions,      # noqa: ARG001
     args: Any,
