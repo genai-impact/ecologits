@@ -2,26 +2,15 @@ import time
 from collections.abc import AsyncIterator, Iterator
 from typing import Any, Callable
 
-from wrapt import wrap_function_wrapper
+from cohere import AsyncClient, Client
+from cohere.types.non_streamed_chat_response import NonStreamedChatResponse as _NonStreamedChatResponse
+from cohere.types.streamed_chat_response import StreamedChatResponse
+from cohere.types.streamed_chat_response import StreamEndStreamedChatResponse as _StreamEndStreamedChatResponse
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    from cohere import AsyncClient, Client
-    from cohere.types.non_streamed_chat_response import NonStreamedChatResponse as _NonStreamedChatResponse
-    from cohere.types.streamed_chat_response import StreamedChatResponse
-    from cohere.types.streamed_chat_response import StreamEndStreamedChatResponse as _StreamEndStreamedChatResponse
-except ImportError:
-    from pydantic import BaseModel
-
-    Client = object()
-    AsyncClient = object()
-    _NonStreamedChatResponse = BaseModel
-    StreamedChatResponse = object()
-    _StreamEndStreamedChatResponse = BaseModel
-
 
 PROVIDER = "cohere"
 
