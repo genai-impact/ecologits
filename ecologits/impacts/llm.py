@@ -214,25 +214,61 @@ def request_usage_pe(
 
 
 @dag.asset
-def request_usage_wcf(
+def request_server_usage_wcf(
     request_energy: float,
     wue_on_site: float,
+) -> float:
+    """
+    Compute the Water Consumption Footprint (WCF) usage impact of the request 
+    due to the servers water consumption. 
+
+    Args:
+        request_energy: Energy consumption of the request in kWh.
+        wue_on_site: On-site Water Usage Effectiveness in L/kWh.
+
+    Returns:
+        The server WCF usage impact of the request in L.
+    """
+    return request_energy * wue_on_site
+
+
+@dag.asset
+def request_electricity_usage_wcf(
+    request_energy: float,
     wue_off_site: float,
     datacenter_pue: float,
+) -> float:
+    """
+    Compute the Water Consumption Footprint (WCF) usage impact of the request
+    due to the electricity generation. 
+
+    Args:
+        request_energy: Energy consumption of the request in kWh.
+        wue_off_site: Off-site Water Usage Efectiveness in L/kWh (electricity generation).
+        datacenter_pue: PUE of the datacenter.
+
+    Returns:
+        The electricty WCF usage impact of the request in L.
+    """
+    return request_energy * datacenter_pue * wue_off_site
+
+
+@dag.asset
+def request_usage_wcf(
+    request_server_usage_wcf: float,
+    request_electricity_usage_wcf: float,
 ) -> float:
     """
     Compute the Water Consumption Footprint (WCF) usage impact of the request.
 
     Args:
-        request_energy: Energy consumption of the request in kWh.
-        wue_on_site: On-site Water Usage Effectiveness in L/kWh.
-        wue_off_site: Off-site Water Usage Efectiveness in L/kWh (electricity generation).
-        datacenter_pue: PUE of the datacenter.
+        request_server_usage_wcf: The server WCF usage impact of the request in L.
+        request_electricity_usage_wcf: The electricty WCF usage impact of the request in L.
 
     Returns:
-        The WCF usage impact of the request in L.
+        The total WCF usage impact of the request in L.
     """
-    return request_energy * (wue_on_site + datacenter_pue * wue_off_site)
+    return request_server_usage_wcf + request_electricity_usage_wcf
 
 
 @dag.asset
@@ -361,25 +397,6 @@ def request_embodied_pe(
     return (generation_latency / server_lifetime) * server_gpu_embodied_pe
 
 
-@dag.asset
-def request_embodied_wcf(
-    generation_latency: float,
-    server_lifetime: float,
-    wcf_manufacturing: float
-) -> float:
-    """
-    Compute the Water Consumption Footprint (WCF) embodied impact of the request.
-
-    Args:
-        generation_latency: Token generation latency in seconds.
-        server_lifetime: Lifetime duration of the server in seconds.
-        wcf_manufacturing: Water Consumption Footprint for manufacturing the server in L.
-
-    Returns:
-        The WCF embodied impact of the request in L.
-    """
-    return wcf_manufacturing * generation_latency / server_lifetime
-
 
 def compute_llm_impacts_dag(
     model_active_parameter_count: float,
@@ -391,7 +408,6 @@ def compute_llm_impacts_dag(
     if_electricity_mix_gwp: float,
     wue_on_site: float,
     wue_off_site: float,
-    wcf_manufacturing: float,
     model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
     gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
     gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
@@ -422,7 +438,6 @@ def compute_llm_impacts_dag(
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
         wue_on_site: On-site Water Usage Effectiveness in L/kWh.
         wue_off_site: Off-site Water Usage Efectiveness in L/kWh (electricity generation).
-        wcf_manufacturing: Water Consumption Footprint for manufacturing the server in L.
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
@@ -454,7 +469,6 @@ def compute_llm_impacts_dag(
         if_electricity_mix_pe=if_electricity_mix_pe,
         wue_on_site=wue_on_site,
         wue_off_site=wue_off_site,
-        wcf_manufacturing=wcf_manufacturing,
         gpu_energy_alpha=gpu_energy_alpha,
         gpu_energy_beta=gpu_energy_beta,
         gpu_latency_alpha=gpu_latency_alpha,
@@ -483,7 +497,6 @@ def compute_llm_impacts(
     if_electricity_mix_gwp: float,
     wue_on_site: float,
     wue_off_site: float,
-    wcf_manufacturing: float,
     request_latency: Optional[float] = None,
     **kwargs: Any
 ) -> Impacts:
@@ -499,7 +512,6 @@ def compute_llm_impacts(
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
         wue_on_site: On-site Water Usage Effectiveness in L/kWh.
         wue_off_site: Off-site Water Usage Efectiveness in L/kWh (electricity generation).
-        wcf_manufacturing: Water Consumption Footprint for manufacturing the server in L.
         request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
 
@@ -532,7 +544,6 @@ def compute_llm_impacts(
         "request_embodied_gwp", 
         "request_embodied_adpe", 
         "request_embodied_pe",
-        "request_embodied_wcf",
     ]
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
@@ -545,7 +556,6 @@ def compute_llm_impacts(
             if_electricity_mix_gwp=if_electricity_mix_gwp,
             wue_on_site=wue_on_site,
             wue_off_site=wue_off_site,
-            wcf_manufacturing=wcf_manufacturing,
             **kwargs
         )
         for field in fields:
@@ -562,13 +572,12 @@ def compute_llm_impacts(
     gwp_embodied = GWP(value=results["request_embodied_gwp"])
     adpe_embodied = ADPe(value=results["request_embodied_adpe"])
     pe_embodied = PE(value=results["request_embodied_pe"])
-    wcf_embodied = WCF(value=results["request_embodied_wcf"])
     return Impacts(
         energy=energy,
         gwp=gwp_usage + gwp_embodied,
         adpe=adpe_usage + adpe_embodied,
         pe=pe_usage + pe_embodied,
-        wcf=wcf_usage + wcf_embodied,
+        wcf=wcf_usage,
         usage=Usage(
             energy=energy,
             gwp=gwp_usage,
@@ -579,7 +588,6 @@ def compute_llm_impacts(
         embodied=Embodied(
             gwp=gwp_embodied,
             adpe=adpe_embodied,
-            pe=pe_embodied, 
-            wcf=wcf_embodied,
+            pe=pe_embodied 
         )
     )

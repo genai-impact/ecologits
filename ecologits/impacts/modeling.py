@@ -206,7 +206,6 @@ class Embodied(Phase):
     gwp: GWP
     adpe: ADPe
     pe: PE
-    wcf: WCF
 
 
 class Impacts(BaseModel):
