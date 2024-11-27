@@ -3,7 +3,9 @@ from csv import DictReader
 from dataclasses import dataclass
 from typing import Optional
 
+
 WOR_ELECTRICITY_WUE = 3.908036
+
 
 @dataclass
 class ElectricityWUE:
