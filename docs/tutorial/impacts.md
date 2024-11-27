@@ -43,10 +43,10 @@ Or you could get **value range** impact instead:
 
 ```python
 >>> response.impacts.usage.gwp.value
-Range(min=0.16, max=0.48) # Expressed in kgCO2eq (1)
+RangeValue(min=0.16, max=0.48) # Expressed in kgCO2eq (1)
 ```
 
-1. [`Range`][impacts.modeling.Range] are used to define intervals.
+1. [`RangeValue`][utils.range_value.RangeValue] are used to define intervals.
 
 ## Criteria
 
