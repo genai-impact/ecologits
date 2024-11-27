@@ -57,6 +57,7 @@ def llm_impacts(
         electricity_mix = electricity_mixes.find_electricity_mix(zone=DEFAULT_ZONE)
     if electricity_wue is None: 
         logger.warning(f"Could not find zone `{electricity_zone}` in the electricty WUE database (WRI), world average used instead.")
+        electricity_wue = electricity_wue_list.find_electricity_mix(zone=DEFAULT_ZONE)
     
     if_electricity_mix_adpe=electricity_mix.adpe
     if_electricity_mix_pe=electricity_mix.pe
