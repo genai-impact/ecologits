@@ -1,4 +1,4 @@
-from ecologits.model_repository import ModelRepository
+from ecologits.repositories.model_repository import ModelRepository
 
 
 def test_create_model_repository_default():

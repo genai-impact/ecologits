@@ -5,7 +5,7 @@ from wrapt import wrap_function_wrapper
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
-from ecologits.model_repository import models
+from ecologits.repositories.model_repository import models
 from ecologits.tracers.utils import llm_impacts
 
 try:

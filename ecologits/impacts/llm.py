@@ -28,6 +28,8 @@ HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 
 DATACENTER_PUE = 1.2
 
+DATACENTER_WUE = 0.18 # Temporary value
+
 
 dag = DAG()
 
@@ -406,8 +408,8 @@ def compute_llm_impacts_dag(
     if_electricity_mix_adpe: float,
     if_electricity_mix_pe: float,
     if_electricity_mix_gwp: float,
-    wue_on_site: float,
     wue_off_site: float,
+    wue_on_site: Optional[float] = DATACENTER_WUE,
     model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
     gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
     gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
@@ -436,8 +438,8 @@ def compute_llm_impacts_dag(
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
-        wue_on_site: On-site Water Usage Effectiveness in L/kWh.
         wue_off_site: Off-site Water Usage Efectiveness in L/kWh (electricity generation).
+        wue_on_site: On-site Water Usage Effectiveness in L/kWh.
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
@@ -467,8 +469,8 @@ def compute_llm_impacts_dag(
         if_electricity_mix_gwp=if_electricity_mix_gwp,
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe,
-        wue_on_site=wue_on_site,
         wue_off_site=wue_off_site,
+        wue_on_site=wue_on_site,
         gpu_energy_alpha=gpu_energy_alpha,
         gpu_energy_beta=gpu_energy_beta,
         gpu_latency_alpha=gpu_latency_alpha,
@@ -495,7 +497,6 @@ def compute_llm_impacts(
     if_electricity_mix_adpe: float,
     if_electricity_mix_pe: float,
     if_electricity_mix_gwp: float,
-    wue_on_site: float,
     wue_off_site: float,
     request_latency: Optional[float] = None,
     **kwargs: Any
@@ -510,7 +511,6 @@ def compute_llm_impacts(
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
-        wue_on_site: On-site Water Usage Effectiveness in L/kWh.
         wue_off_site: Off-site Water Usage Efectiveness in L/kWh (electricity generation).
         request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
@@ -554,7 +554,6 @@ def compute_llm_impacts(
             if_electricity_mix_adpe=if_electricity_mix_adpe,
             if_electricity_mix_pe=if_electricity_mix_pe,
             if_electricity_mix_gwp=if_electricity_mix_gwp,
-            wue_on_site=wue_on_site,
             wue_off_site=wue_off_site,
             **kwargs
         )

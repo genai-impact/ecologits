@@ -115,7 +115,7 @@ class EcoLogits:
     """
     @dataclass
     class _Config:
-        electricity_mix_zone: str = field(default="WOR")
+        electricity_zone: str = field(default="WOR")
         providers: list[str] = field(default_factory=list)
 
     config = _Config()
@@ -123,14 +123,14 @@ class EcoLogits:
     @staticmethod
     def init(
         providers: Optional[Union[str, list[str]]] = None,
-        electricity_mix_zone: Optional[str] = "WOR",
+        electricity_zone: Optional[str] = "WOR",
     ) -> None:
         """
         Initialization static method. Will attempt to initialize all providers by default.
 
         Args:
             providers: list of providers to initialize (all providers by default).
-            electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
+            electricity_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
         """
         if isinstance(providers, str):
             providers = [providers]
@@ -139,7 +139,7 @@ class EcoLogits:
 
         init_instruments(providers)
 
-        EcoLogits.config.electricity_mix_zone = electricity_mix_zone
+        EcoLogits.config.electricity_zone = electricity_zone
         EcoLogits.config.providers += providers
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
 
