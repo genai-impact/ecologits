@@ -18,7 +18,7 @@ class ElectricityWUERepository:
         self.__electricity_wue_list = electricity_wue_list
 
     def add_electricity_wue(self, zone: str, wue: float) -> None:
-        electricity_wue_list.append(
+        self.__electricity_wue_list.append(
                 ElectricityWUE(
                     zone=zone,
                     wue=wue,
