@@ -3,7 +3,7 @@ from math import ceil
 from typing import Any, Optional
 
 from ecologits.impacts.dag import DAG
-from ecologits.impacts.modeling import GWP, PE, ADPe, WCF, Embodied, Energy, Impacts, Usage
+from ecologits.impacts.modeling import GWP, PE, WCF, ADPe, Embodied, Energy, Impacts, Usage
 from ecologits.utils.range_value import RangeValue, ValueOrRange
 
 MODEL_QUANTIZATION_BITS = 4
@@ -221,8 +221,8 @@ def request_server_usage_wcf(
     wue_on_site: float,
 ) -> float:
     """
-    Compute the Water Consumption Footprint (WCF) usage impact of the request 
-    due to the servers water consumption. 
+    Compute the Water Consumption Footprint (WCF) usage impact of the request
+    due to the servers water consumption.
 
     Args:
         request_energy: Energy consumption of the request in kWh.
@@ -242,7 +242,7 @@ def request_electricity_usage_wcf(
 ) -> float:
     """
     Compute the Water Consumption Footprint (WCF) usage impact of the request
-    due to the electricity generation. 
+    due to the electricity generation.
 
     Args:
         request_energy: Energy consumption of the request in kWh.
@@ -536,13 +536,13 @@ def compute_llm_impacts(
 
     results = {}
     fields = [
-        "request_energy", 
-        "request_usage_gwp", 
-        "request_usage_adpe", 
+        "request_energy",
+        "request_usage_gwp",
+        "request_usage_adpe",
         "request_usage_pe",
         "request_usage_wcf",
-        "request_embodied_gwp", 
-        "request_embodied_adpe", 
+        "request_embodied_gwp",
+        "request_embodied_adpe",
         "request_embodied_pe",
     ]
     for act_param, tot_param in zip(active_params, total_params):
@@ -587,6 +587,6 @@ def compute_llm_impacts(
         embodied=Embodied(
             gwp=gwp_embodied,
             adpe=adpe_embodied,
-            pe=pe_embodied 
+            pe=pe_embodied
         )
     )

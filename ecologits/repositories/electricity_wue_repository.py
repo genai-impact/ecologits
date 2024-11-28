@@ -3,7 +3,6 @@ from csv import DictReader
 from dataclasses import dataclass
 from typing import Optional
 
-
 WOR_ELECTRICITY_WUE = 3.908036
 
 
@@ -52,6 +51,6 @@ class ElectricityWUERepository:
 
 electricity_wue_list = ElectricityWUERepository.from_csv()
 electricity_wue_list.add_electricity_wue(
-    zone = "WOR", 
+    zone = "WOR",
     wue = WOR_ELECTRICITY_WUE
 )

@@ -1,12 +1,11 @@
 from typing import Optional
 
-from ecologits.repositories.electricity_mix_repository import electricity_mixes
-from ecologits.repositories.electricity_wue_repository import electricity_wue_list
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts
 from ecologits.log import logger
+from ecologits.repositories.electricity_mix_repository import electricity_mixes
+from ecologits.repositories.electricity_wue_repository import electricity_wue_list
 from ecologits.repositories.model_repository import ArchitectureTypes, models
-
 
 DEFAULT_ZONE = "WOR"
 
@@ -53,12 +52,14 @@ def llm_impacts(
 
     # TODO: here handle if defined for one but not the other
     if electricity_mix is None:
-        logger.warning(f"Could not find zone `{electricity_zone}` in the electricity mixes database (ADEME), world average used instead.")
+        logger.warning(f"Could not find zone `{electricity_zone}` in the electricity \
+                       mixes database (ADEME), world average used instead.")
         electricity_mix = electricity_mixes.find_electricity_mix(zone=DEFAULT_ZONE)
-    if electricity_wue is None: 
-        logger.warning(f"Could not find zone `{electricity_zone}` in the electricty WUE database (WRI), world average used instead.")
+    if electricity_wue is None:
+        logger.warning(f"Could not find zone `{electricity_zone}` in the electricty \
+                       WUE database (WRI), world average used instead.")
         electricity_wue = electricity_wue_list.find_electricity_mix(zone=DEFAULT_ZONE)
-    
+
     if_electricity_mix_adpe=electricity_mix.adpe
     if_electricity_mix_pe=electricity_mix.pe
     if_electricity_mix_gwp=electricity_mix.gwp

@@ -133,8 +133,8 @@ class WCF(Impact):
     Water Consumption Footprint (WCF) impact.
 
     Info:
-        Amount of water “evaporated, transpired, incorporated into products or crops, 
-        or otherwise removed from the immediate water environment" (source: Macknick 
+        Amount of water “evaporated, transpired, incorporated into products or crops,
+        or otherwise removed from the immediate water environment" (source: Macknick
         et al., "A review of operational water consumption and withdrawal factors for
         electricity generating technologies")
 
