@@ -4,13 +4,13 @@ import numpy as np
 from operator import gt, ge
 
 from ecologits.impacts.llm import compute_llm_impacts
-from ecologits.impacts.modeling import Impacts, Energy, GWP, ADPe, PE, Usage, Embodied
+from ecologits.impacts.modeling import Impacts, Energy, GWP, ADPe, PE, WCF, Usage, Embodied
 
 @pytest.mark.parametrize(
-    ['model_active_parameter_count', 'model_total_parameter_count', 'output_token_count', 'request_latency', 'if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp'],
+    ['model_active_parameter_count', 'model_total_parameter_count', 'output_token_count', 'request_latency', 'if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp', 'wue_off_site'],
     [
-        (7.3, 7.3, 200, 5, 0.0000000737708, 9.988, 0.590478),         # Mistral 7B with World mix
-        (12.9, 46.7, 200, 10, 0.0000000737708, 9.988, 0.590478)       # Mixtral 8x7B with world mix
+        (7.3, 7.3, 200, 5, 0.0000000737708, 9.988, 0.590478, 3.908036),         # Mistral 7B with World mix & WUE
+        (12.9, 46.7, 200, 10, 0.0000000737708, 9.988, 0.590478, 3.908036)       # Mixtral 8x7B with world mix & WUE
     ]
 )
 def test_compute_llm_impacts(model_active_parameter_count: float,
@@ -19,7 +19,8 @@ def test_compute_llm_impacts(model_active_parameter_count: float,
                              request_latency: float, 
                              if_electricity_mix_adpe: float, 
                              if_electricity_mix_pe: float, 
-                             if_electricity_mix_gwp: float) -> None:
+                             if_electricity_mix_gwp: float, 
+                             wue_off_site: float) -> None:
     impacts = compute_llm_impacts(
         model_active_parameter_count=model_active_parameter_count,
         model_total_parameter_count=model_total_parameter_count,
@@ -28,6 +29,7 @@ def test_compute_llm_impacts(model_active_parameter_count: float,
         if_electricity_mix_adpe=if_electricity_mix_adpe, 
         if_electricity_mix_pe=if_electricity_mix_pe,
         if_electricity_mix_gwp=if_electricity_mix_gwp,
+        wue_off_site=wue_off_site,
     )
     assert impacts.energy.value > 0
     assert impacts.gwp.value > 0
@@ -57,24 +59,27 @@ def compare_impacts(impacts: Impacts, prev_impacts: Impacts, op=gt):
 
 
 @pytest.mark.parametrize(
-    ['if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp'],
+    ['if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp', 'wue_off_site'],
     [
-        (0.0000000737708, 9.988, 0.590478),         # Mistral 7B with World mix
+        (0.0000000737708, 9.988, 0.590478, 3.908036),         # World mix & WUE
     ]
 )
 def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe: float, 
                                                         if_electricity_mix_pe: float, 
-                                                        if_electricity_mix_gwp: float):
+                                                        if_electricity_mix_gwp: float,
+                                                        wue_off_site: float):
     zero_impacts = Impacts(
         energy=Energy(value=0),
         gwp=GWP(value=0),
         adpe=ADPe(value=0),
         pe=PE(value=0),
+        wcf=WCF(value=0),
         usage=Usage(
             energy=Energy(value=0),
             gwp=GWP(value=0),
             adpe=ADPe(value=0),
-            pe=PE(value=0)
+            pe=PE(value=0),
+            wcf=WCF(value=0)
         ),
         embodied=Embodied(
             gwp=GWP(value=0),
@@ -92,6 +97,7 @@ def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe:
             if_electricity_mix_adpe=if_electricity_mix_adpe, 
             if_electricity_mix_pe=if_electricity_mix_pe,
             if_electricity_mix_gwp=if_electricity_mix_gwp,
+            wue_off_site=wue_off_site,
         )
 
         compare_impacts(impacts, prev_impacts, op=gt)
@@ -106,6 +112,7 @@ def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe:
                 if_electricity_mix_adpe=if_electricity_mix_adpe, 
                 if_electricity_mix_pe=if_electricity_mix_pe,
                 if_electricity_mix_gwp=if_electricity_mix_gwp,
+                wue_off_site=wue_off_site,
             )
 
             compare_impacts(impacts_moe, prev_impacts_moe, op=gt)

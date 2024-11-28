@@ -60,7 +60,7 @@ class MessageStream(_MessageStream):
             model_name=model_name,
             output_token_count=output_tokens,
             request_latency=requests_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            electricity_zone=EcoLogits.config.electricity_zone
         )
 
     def __init__(self, parent) -> None:     # noqa: ANN001
@@ -94,7 +94,7 @@ class AsyncMessageStream(_AsyncMessageStream):
             model_name=model_name,
             output_token_count=output_tokens,
             request_latency=requests_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            electricity_zone=EcoLogits.config.electricity_zone
         )
 
     def __init__(self, parent) -> None:     # noqa: ANN001
@@ -157,7 +157,7 @@ def anthropic_chat_wrapper(
         model_name=model_name,
         output_token_count=response.usage.output_tokens,
         request_latency=request_latency,
-        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+        electricity_zone=EcoLogits.config.electricity_zone
     )
     if impacts is not None:
         return Message(**response.model_dump(), impacts=impacts)
@@ -177,7 +177,7 @@ async def anthropic_async_chat_wrapper(
         model_name=model_name,
         output_token_count=response.usage.output_tokens,
         request_latency=request_latency,
-        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+        electricity_zone=EcoLogits.config.electricity_zone
     )
     if impacts is not None:
         return Message(**response.model_dump(), impacts=impacts)

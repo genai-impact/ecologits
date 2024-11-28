@@ -66,7 +66,7 @@ def test_init_with_different_mixes():
         messages=[{"role": "user", "content": "Hello World!"}], 
         seed=seed,
     )
-    EcoLogits.init(electricity_mix_zone="FRA") # Switch to France's mix
+    EcoLogits.init(electricity_zone="FRA") # Switch to France's mix
     openai_response_france = openai_client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": "Hello World!"}], 
