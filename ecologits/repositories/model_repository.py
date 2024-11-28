@@ -87,7 +87,7 @@ class ModelRepository:
     def from_json(cls, filepath: Optional[str] = None) -> "ModelRepository":
         if filepath is None:
             filepath = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "data", "models.json"
+                os.path.dirname(os.path.realpath(__file__)), "..", "data", "models.json"
             )
         with open(filepath) as fd:
             data = json.load(fd)

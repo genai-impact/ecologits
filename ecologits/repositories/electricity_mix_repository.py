@@ -26,7 +26,7 @@ class ElectricityMixRepository:
     def from_csv(cls, filepath: Optional[str] = None) -> "ElectricityMixRepository":
         if filepath is None:
             filepath = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "data", "electricity_mixes.csv"
+                os.path.dirname(os.path.realpath(__file__)), "..", "data", "electricity_mixes.csv"
             )
         electricity_mixes = []
         with open(filepath) as fd:

@@ -35,7 +35,7 @@ class ElectricityWUERepository:
     def from_csv(cls, filepath: Optional[str] = None) -> "ElectricityWUERepository":
         if filepath is None:
             filepath = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "data", "electricity_wue_list.csv"
+                os.path.dirname(os.path.realpath(__file__)), "..", "data", "electricity_wue_list.csv"
             )
         electricity_wue_list = []
         with open(filepath) as fd:
