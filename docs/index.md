@@ -7,6 +7,8 @@
 
 **EcoLogits** tracks the energy consumption and environmental impacts of using generative AI models through APIs. It supports major LLM providers such as OpenAI, Anthropic, Mistral AI and more (see [supported providers](tutorial/providers.md)).
 
+EcoLogits was created and is actively maintained by the **[GenAI Impact :octicons-link-external-16:](https://genai-impact.org/) non-profit**.
+
 
 ## Requirements
 
@@ -106,4 +108,4 @@ This project is licensed under the terms of the [Mozilla Public License Version 
 
 ## Acknowledgements
 
-**EcoLogits** is actively developed and maintained by [GenAI Impact :octicons-link-external-16:](https://genai-impact.org/) non-profit. We extend our gratitude to [Data For Good :octicons-link-external-16:](https://dataforgood.fr/) and [Boavizta :octicons-link-external-16:](https://boavizta.org/en) for supporting the development of this project. Their contributions of tools, best practices, and expertise in environmental impact assessment have been invaluable.
+We extend our gratitude to [Data For Good :octicons-link-external-16:](https://dataforgood.fr/) and [Boavizta :octicons-link-external-16:](https://boavizta.org/en) for supporting the development of this project. Their contributions of tools, best practices, and expertise in environmental impact assessment have been invaluable.

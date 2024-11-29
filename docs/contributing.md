@@ -1,4 +1,4 @@
-# Contribution
+# Contributing
 
 Help us improve EcoLogits by contributing! :tada:
 
