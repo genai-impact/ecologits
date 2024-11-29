@@ -42,34 +42,17 @@ Our methodology focuses on **assessing the environmental impacts of GenAI infere
 Because evaluating the environmental footprint of GenAI services is hard we make some **assumptions** to simplify the assessment. In the following section we will describe general hypotheses that we use, if you want to learn more about the specifics look at the according methodology page.  
 
 
-## Hypotheses and limitations 
+## Hypotheses and limitations
 
-### Infrastructure and hardware
-
-Environmental impacts are assessed by looking at the minimal required infrastructure to host the service. We account for the server and its components as well as the cooling equipments. Due to a lack of open data regarding the infrastructure overheads we do not take into account the networking and storage premises. We are also not accounting for underutilized or unused infrastructure. Meaning that we do not consider the average utilization rate of an infrastructure as well as the servers that are on and ready to accept request, but not in used due to a lack of end-user.
+[//]: # (TODO: explain hardware and server)
 
 [//]: # (TODO: explain data centers PUE + inaccuracies)
 
-### Impacts of electricity consumption
-
 [//]: # (TODO: explain electricity mix and wordwide average + inaccuracies)
-
-### Impacts of manufacturing hardware
 
 [//]: # (TODO: explain embodied impacts and boaviztapi + inaccuracies)
 
-### Benchmark of AI models
-
 [//]: # (TODO: explain ai models benchmarks + inaccuracies)
-
-### Proprietary AI models
-
-1. Extrapolation from OS models (lack of data)
-2. What is our methodology
-    - Looking at evaluation benchmarks and compare to OS models
-    - Looking at pricing differences
-    - Leaked information
-    - 
 
 
 
