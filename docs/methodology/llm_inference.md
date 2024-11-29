@@ -1,6 +1,6 @@
 # Environmental Impacts of LLM Inference
 
-<span class="badge" makdown>
+<span class="badge" markdown>
     <span class="badge__icon">:material-tag-outline:</span>
     <span class="badge__text">v1.0</span>
 </span>
@@ -12,6 +12,9 @@
     - Model architectures are assumed when not dislosed by the provider.
     - Not accounting the impacts of unused cloud resources, data center building, network and end-user devices, model training and data collection...
     - Not tested on multi-modal models for text-to-text generation only.
+
+
+## Introduction
 
 The environmental impacts of a request, $I_{\text{request}}$ to a Large Language Model (LLM) can be divided into two components: the usage impacts, $I_{\text{request}}^{\text{u}}$, which account for energy consumption, and the embodied impacts, $I_{\text{request}}^{\text{e}}$, which account for resource extraction, hardware manufacturing, and transportation:
 
@@ -233,11 +236,11 @@ The embodied environmental impacts of the cloud instance are:
 
 Boavizta is currently developing a methodology to provide multicriteria embodied impacts for GPU cards. For this analysis, we use the embodied impact data they computed for a NVIDIA A100 80GB GPU. These values will be used to estimate the embodied impacts of a single GPU, denoted as $I^{\text{e}}_{\text{GPU}}$.
 
-|                 | NIDIA A100 80GB  |
-|-----------------|------------------|
-| GWP (kgCO2eq) | $143$              |
-| ADPe (kgSbeq) | $5.09 \times 10^{-3}$ |
-| PE (MJ)       | $1,828$            |
+|                | NIDIA A100 80GB       |
+|----------------|-----------------------|
+| GWP (kgCO2eq)  | $143$                 |
+| ADPe (kgSbeq)  | $5.09 \times 10^{-3}$ |
+| PE (MJ)        | $1,828$               |
 
 !!! warning "The GPU embodied impacts will be soon available in the BoaviztAPI tool."
 
@@ -260,9 +263,24 @@ I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\te
 $$
 
 
-### Conclusion
+## Hypothesis and limitations
 
-This paper presents a methodology to assess the environmental impacts of Large Language Model (LLM) inference, considering both usage and embodied impacts. We model server and GPU energy consumption based on various parameters and incorporate PUE and electricity mix impact factors. For embodied impacts, we use the BoaviztAPI tool to estimate environmental impacts of IT hardware. Our methodology offers a comprehensive understanding of the environmental footprint of LLM inference, guiding researchers and practitioners towards more sustainable AI practices. Future work may involve refining the methodology and exploring the impacts of multi-modal models or RAG applications.
+**Infrastructure and hardware:**
+
+- GPU: NVIDIA A100 80GB
+- Server (cloud instance): AWS p4de.24xlarge
+- Power Usage Effectiveness: 1.2 (arbitrary value for hyperscalers)
+
+**AI model deployments:**
+
+- Backend: pytorch
+- Quantization: int4
+- Optimizations: none
+- Parallelism: none
+
+**Impact factors:**
+
+- Electricity mix from ADEME (default: World)
 
 
 ## References
