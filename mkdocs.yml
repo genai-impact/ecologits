@@ -25,6 +25,7 @@ nav:
           - 'OpenAI': tutorial/providers/openai.md
   - 'Methodology':
       - 'Introduction': methodology/index.md
+      - 'Proprietary models': methodology/proprietary_models.md
       - 'LLM Inference': methodology/llm_inference.md
   - 'API Reference': reference/
   - 'Online Calculator': 'https://huggingface.co/spaces/genai-impact/ecologits-calculator'
@@ -115,6 +116,7 @@ markdown_extensions:
   - tables
   - admonition
   - def_list
+  - footnotes
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.arithmatex:
