@@ -4,7 +4,7 @@ from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts
 from ecologits.log import logger
-from ecologits.model_repository import ArchitectureTypes, models
+from ecologits.model_repository import ParametersMoE, models
 
 
 def _avg(value_range: tuple) -> float:
@@ -16,7 +16,7 @@ def llm_impacts(
     model_name: str,
     output_token_count: int,
     request_latency: float,
-    electricity_mix_zone: Optional[str] = "WOR",
+    electricity_mix_zone: str = "WOR",
 ) -> Optional[Impacts]:
     """
     High-level function to compute the impacts of an LLM generation request.
@@ -37,7 +37,7 @@ def llm_impacts(
         logger.debug(f"Could not find model `{model_name}` for {provider} provider.")
         return None
 
-    if model.architecture.type == ArchitectureTypes.MOE:
+    if isinstance(model.architecture.parameters, ParametersMoE):
         model_total_params = model.architecture.parameters.total
         model_active_params = model.architecture.parameters.active
     else:

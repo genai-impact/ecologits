@@ -61,11 +61,12 @@ class ModelRepository:
 
     def __init__(self, models: list[Model], aliases: Optional[list[Alias]] = None) -> None:
         self.__models: dict[tuple[str, str], Model] = {}
-        for m in models:
-            key = m.provider.value, m.name
-            if key in self.__models:
-                raise ValueError(f"duplicated models with: {key}")
-            self.__models[key] = m
+        if models is not None:
+            for m in models:
+                key = m.provider.value, m.name
+                if key in self.__models:
+                    raise ValueError(f"duplicated models with: {key}")
+                self.__models[key] = m
 
         if aliases is not None:
             for a in aliases:
@@ -92,6 +93,8 @@ class ModelRepository:
         with open(filepath) as fd:
             data = json.load(fd)
             mf = Models.model_validate(data)
+        if mf.models is None:
+            raise ValueError("Cannot initialize on an empty model repository.")
         return cls(models=mf.models, aliases=mf.aliases)
 
 

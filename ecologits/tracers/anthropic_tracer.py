@@ -3,29 +3,18 @@ from collections.abc import AsyncIterator, Awaitable, Iterator
 from types import TracebackType
 from typing import Any, Callable, Generic, Optional, TypeVar
 
+from anthropic import Anthropic, AsyncAnthropic
+from anthropic.lib.streaming import AsyncMessageStream as _AsyncMessageStream
+from anthropic.lib.streaming import MessageStream as _MessageStream
+from anthropic.types import Message as _Message
+from anthropic.types.message_delta_event import MessageDeltaEvent
+from anthropic.types.message_start_event import MessageStartEvent
 from typing_extensions import override
-from wrapt import wrap_function_wrapper
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    from anthropic import Anthropic, AsyncAnthropic
-    from anthropic.lib.streaming import AsyncMessageStream as _AsyncMessageStream
-    from anthropic.lib.streaming import MessageStream as _MessageStream
-    from anthropic.types import Message as _Message
-    from anthropic.types.message_delta_event import MessageDeltaEvent
-    from anthropic.types.message_start_event import MessageStartEvent
-except ImportError:
-    Anthropic = object()
-    AsyncAnthropic = object()
-    _Message = object()
-    _MessageStream = object()
-    _AsyncMessageStream = object()
-    MessageDeltaEvent = object()
-    MessageStartEvent = object()
-
 
 PROVIDER = "anthropic"
 
@@ -38,10 +27,10 @@ class Message(_Message):
 
 
 class MessageStream(_MessageStream):
-    impacts: Impacts
+    impacts: Optional[Impacts] = None
 
     @override
-    def __stream_text__(self) -> Iterator[str]:
+    def __stream_text__(self) -> Iterator[str]:  # type: ignore[misc]
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
@@ -55,13 +44,14 @@ class MessageStream(_MessageStream):
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
-        self.impacts = llm_impacts(
-            provider=PROVIDER,
-            model_name=model_name,
-            output_token_count=output_tokens,
-            request_latency=requests_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
-        )
+        if model_name is not None:
+            self.impacts = llm_impacts(
+                provider=PROVIDER,
+                model_name=model_name,
+                output_token_count=output_tokens,
+                request_latency=requests_latency,
+                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            )
 
     def __init__(self, parent) -> None:     # noqa: ANN001
         super().__init__(
@@ -72,10 +62,10 @@ class MessageStream(_MessageStream):
 
 
 class AsyncMessageStream(_AsyncMessageStream):
-    impacts: Impacts
+    impacts: Optional[Impacts] = None
 
     @override
-    async def __stream_text__(self) -> AsyncIterator[str]:
+    async def __stream_text__(self) -> AsyncIterator[str]:  # type: ignore[misc]
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
@@ -89,13 +79,14 @@ class AsyncMessageStream(_AsyncMessageStream):
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
-        self.impacts = llm_impacts(
-            provider=PROVIDER,
-            model_name=model_name,
-            output_token_count=output_tokens,
-            request_latency=requests_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
-        )
+        if model_name is not None:
+            self.impacts = llm_impacts(
+                provider=PROVIDER,
+                model_name=model_name,
+                output_token_count=output_tokens,
+                request_latency=requests_latency,
+                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            )
 
     def __init__(self, parent) -> None:     # noqa: ANN001
         super().__init__(
@@ -106,11 +97,10 @@ class AsyncMessageStream(_AsyncMessageStream):
 
 
 class MessageStreamManager(Generic[MessageStreamT]):
-    def __init__(self, api_request: Callable[[], MessageStreamT]) -> None:
-        self.__stream: Optional[MessageStreamT] = None
+    def __init__(self, api_request: Callable[[], MessageStream]) -> None:
         self.__api_request = api_request
 
-    def __enter__(self) -> MessageStreamT:
+    def __enter__(self) -> MessageStream:
         self.__stream = self.__api_request()
         self.__stream = MessageStream(self.__stream)
         return self.__stream
@@ -126,11 +116,10 @@ class MessageStreamManager(Generic[MessageStreamT]):
 
 
 class AsyncMessageStreamManager(Generic[AsyncMessageStreamT]):
-    def __init__(self, api_request: Awaitable[AsyncMessageStreamT]) -> None:
-        self.__stream: Optional[AsyncMessageStreamT] = None
+    def __init__(self, api_request: Awaitable[AsyncMessageStream]) -> None:
         self.__api_request = api_request
 
-    async def __aenter__(self) -> AsyncMessageStreamT:
+    async def __aenter__(self) -> AsyncMessageStream:
         self.__stream = await self.__api_request
         self.__stream = AsyncMessageStream(self.__stream)
         return self.__stream

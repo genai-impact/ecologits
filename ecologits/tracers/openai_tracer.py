@@ -1,25 +1,15 @@
 import time
 from typing import Any, Callable, Union
 
-from wrapt import wrap_function_wrapper
+from openai import AsyncStream, Stream
+from openai.resources.chat import AsyncCompletions, Completions
+from openai.types.chat import ChatCompletion as _ChatCompletion
+from openai.types.chat import ChatCompletionChunk as _ChatCompletionChunk
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    from openai import AsyncStream, Stream
-    from openai.resources.chat import AsyncCompletions, Completions
-    from openai.types.chat import ChatCompletion as _ChatCompletion
-    from openai.types.chat import ChatCompletionChunk as _ChatCompletionChunk
-except ImportError:
-    AsyncStream = object()
-    Stream = object()
-    AsyncCompletions = object()
-    Completions = object()
-    _ChatCompletion = object()
-    _ChatCompletionChunk = object()
-
 
 PROVIDER = "openai"
 
@@ -67,7 +57,7 @@ def openai_chat_wrapper_non_stream(
         return response
 
 
-def openai_chat_wrapper_stream(
+def openai_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: Completions,      # noqa: ARG001
     args: Any,
@@ -132,7 +122,7 @@ async def openai_async_chat_wrapper_base(
         return response
 
 
-async def openai_async_chat_wrapper_stream(
+async def openai_async_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: AsyncCompletions,     # noqa: ARG001
     args: Any,

@@ -24,68 +24,51 @@ interactions:
     uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint
   response:
     body:
-      string: "{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
-        [\n          {\n            \"text\": \"The old, dusty attic smelled of mothballs
-        and forgotten dreams. Lily, a freckled ten-year-old with a thirst for adventure,
-        rummaged through a chest filled with her grandmother's belongings. Beneath
-        layers of lace and faded photographs, she found it: a leather backpack, worn
-        and patched, with a tarnished silver buckle.\\n\\nAs Lily lifted the backpack,
-        a whisper of magic swirled around her. The air grew thick with the scent of
-        pine and a faint, sweet perfume. It was then she noticed the silver buckle
-        had become warm, pulsing with a faint light. When she touched it, the backpack
-        suddenly unzipped, revealing a shimmering, emerald green portal.\\n\\nHesitantly,
-        Lily peered through. The portal shimmered, revealing a world unlike any she
-        had ever seen: a vibrant rainforest, teeming with exotic creatures and towering
-        trees that reached for the sun. Curiosity gnawed at her. This had to be the
-        magic backpack her grandmother had always spoken of.\\n\\nIgnoring the butterflies
-        in her stomach, Lily stepped through the portal. The air felt warm and humid,
-        filled with the scent of exotic flowers. Around her, birds with iridescent
-        feathers sang melodies unknown to her world. Lily's heart thumped with exhilaration.
-        She was a explorer, a discoverer, a traveler in a land untouched by the ordinary.\\n\\nShe
-        spent the next few days exploring the magical rainforest. She met talking
-        monkeys who taught her to swing through the canopy, fireflies that lit up
-        the night with their bioluminescent glow, and butterflies whose wings shimmered
-        with rainbows. Each day brought new wonders and adventures.\\n\\nOne day,
-        while exploring a hidden grotto, Lily stumbled upon a small, wounded creature.
-        It had emerald green scales, a long, slender tail, and enormous eyes that
-        mirrored her own fear. Lily knew instantly she had to help. She carefully
-        carried the creature back to her backpack, which now had a new, unseen compartment
-        for its safekeeping.\\n\\nAs Lily stepped back through the portal, she noticed
-        the creature had healed. Its scales shone brighter, and its eyes held a spark
-        of gratitude. From then on, the creature, which she named Emerald, became
-        her constant companion.\\n\\nBack in her attic, Lily kept her adventures a
-        secret. She cherished the moments she spent in the magical rainforest, knowing
-        that a world of wonder and possibility existed beyond the ordinary. She learned
-        to appreciate the beauty of her own world, seeing it through new eyes, eyes
-        that had witnessed magic and understood its power.\\n\\nLily's life was never
-        the same. She carried with her the memory of the magic backpack, a reminder
-        that the impossible was always just a whisper away, a reminder that adventure,
-        wonder, and friendship could be found in the most unexpected places. And when
-        she needed a break from the ordinary, all she had to do was look at the worn,
-        patched backpack and remember the magic it held. \\n\"\n          }\n        ],\n
-        \       \"role\": \"model\"\n      },\n      \"finishReason\": 1,\n      \"index\":
-        0,\n      \"safetyRatings\": [\n        {\n          \"category\": 9,\n          \"probability\":
-        1\n        },\n        {\n          \"category\": 8,\n          \"probability\":
-        1\n        },\n        {\n          \"category\": 7,\n          \"probability\":
-        1\n        },\n        {\n          \"category\": 10,\n          \"probability\":
-        1\n        }\n      ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
-        9,\n    \"candidatesTokenCount\": 594,\n    \"totalTokenCount\": 603\n  },\n
-        \ \"modelVersion\": \"gemini-1.5-flash-001\"\n}\n"
+      string: !!binary |
+        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
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Cache-Control:
-      - private
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Mon, 28 Oct 2024 15:41:36 GMT
+      - Sat, 23 Nov 2024 14:52:15 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=3407
+      - gfet4t7; dur=5271
       Transfer-Encoding:
       - chunked
       Vary:
