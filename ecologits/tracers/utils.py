@@ -4,8 +4,8 @@ from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts
 from ecologits.log import logger
-from ecologits.warnings_and_errors import ModelNotRegisteredError, ZoneDoesNotExistError
 from ecologits.model_repository import ParametersMoE, models
+from ecologits.warnings_and_errors import ModelNotRegisteredError, ZoneDoesNotExistError
 
 
 def _avg(value_range: tuple) -> float:
