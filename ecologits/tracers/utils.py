@@ -4,6 +4,7 @@ from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts
 from ecologits.log import logger
+from ecologits.warnings_and_errors import ModelNotRegisteredError, ZoneDoesNotExistError
 from ecologits.model_repository import ParametersMoE, models
 
 
@@ -35,7 +36,7 @@ def llm_impacts(
     model = models.find_model(provider=provider, model_name=model_name)
     if model is None:
         logger.debug(f"Could not find model `{model_name}` for {provider} provider.")
-        return None
+        return Impacts(errors=[ModelNotRegisteredError()])
 
     if isinstance(model.architecture.parameters, ParametersMoE):
         model_total_params = model.architecture.parameters.total
@@ -47,11 +48,11 @@ def llm_impacts(
     electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_mix_zone)
     if electricity_mix is None:
         logger.debug(f"Could not find electricity mix `{electricity_mix_zone}` in the ADEME database")
-        return None
+        return Impacts(errors=[ZoneDoesNotExistError()])
     if_electricity_mix_adpe=electricity_mix.adpe
     if_electricity_mix_pe=electricity_mix.pe
     if_electricity_mix_gwp=electricity_mix.gwp
-    return compute_llm_impacts(
+    impacts = compute_llm_impacts(
         model_active_parameter_count=model_active_params,
         model_total_parameter_count=model_total_params,
         output_token_count=output_token_count,
@@ -60,3 +61,9 @@ def llm_impacts(
         if_electricity_mix_pe=if_electricity_mix_pe,
         if_electricity_mix_gwp=if_electricity_mix_gwp,
     )
+
+    if model.has_warnings:
+        for w in model.warnings:
+            impacts.add_warning(w)
+
+    return impacts
