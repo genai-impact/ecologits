@@ -1,10 +1,11 @@
 import json
 import os
 from enum import Enum
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 from pydantic import BaseModel
 
+from ecologits.warnings_and_errors import BaseWarning
 from ecologits.utils.range_value import ValueOrRange
 
 
@@ -15,12 +16,6 @@ class Providers(Enum):
     huggingface_hub = "huggingface_hub"
     cohere = "cohere"
     google = "google"
-
-
-class Warnings(Enum):
-    model_architecture_not_released = "model_architecture_not_released"
-    model_architecture_multimodal = "model_architecture_multimodal"
-
 
 
 class ArchitectureTypes(Enum):
@@ -48,13 +43,25 @@ class Model(BaseModel):
     provider: Providers
     name: str
     architecture: Architecture
-    warnings: Optional[list[Warnings]] = None
-    sources: Optional[list[str]] = None
+    warnings: list[BaseWarning] = []
+    sources: list[str] = []
 
+    @property
+    def has_warnings(self) -> bool:
+        return len(self.warnings) > 0
 
-class Models(BaseModel):
-    aliases: Optional[list[Alias]] = None
-    models: Optional[list[Model]] = None
+    @classmethod
+    def from_json(cls, data: dict[str, Any]) -> "Model":
+        warnings = []
+        if data["warnings"] is not None:
+            warnings = [BaseWarning.from_code(code) for code in data["warnings"]]
+        return cls(
+            provider=Providers(data["provider"]),
+            name=data["name"],
+            architecture=Architecture.model_validate(data["architecture"]),
+            warnings=warnings,
+            sources=data["sources"] or []
+        )
 
 
 class ModelRepository:
@@ -92,10 +99,20 @@ class ModelRepository:
             )
         with open(filepath) as fd:
             data = json.load(fd)
-            mf = Models.model_validate(data)
-        if mf.models is None:
+
+            alias_list = []
+            if "aliases" in data and data["aliases"] is not None:
+                for alias in data["aliases"]:
+                    alias_list.append(Alias.model_validate(alias))
+
+            model_list = []
+            if "models" in data and data["models"] is not None:
+                for model in data["models"]:
+                    model_list.append(Model.from_json(model))
+
+        if len(model_list) == 0:
             raise ValueError("Cannot initialize on an empty model repository.")
-        return cls(models=mf.models, aliases=mf.aliases)
+        return cls(models=model_list, aliases=alias_list)
 
 
 models = ModelRepository.from_json()
