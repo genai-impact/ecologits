@@ -4,8 +4,8 @@ from typing import Optional, TypeVar
 from pydantic import BaseModel
 
 from ecologits.exceptions import ModelingError
-from ecologits.warnings_and_errors import BaseError, BaseWarning
 from ecologits.utils.range_value import ValueOrRange
+from ecologits.warnings_and_errors import BaseError, BaseWarning
 
 Impact = TypeVar("Impact", bound="BaseImpact")
 

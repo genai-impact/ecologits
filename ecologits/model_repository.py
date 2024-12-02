@@ -5,8 +5,8 @@ from typing import Any, Optional, Union
 
 from pydantic import BaseModel
 
-from ecologits.warnings_and_errors import BaseWarning
 from ecologits.utils.range_value import ValueOrRange
+from ecologits.warnings_and_errors import BaseWarning
 
 
 class Providers(Enum):
