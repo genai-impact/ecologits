@@ -50,7 +50,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-3-5-turbo"
@@ -68,7 +68,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-3-5-turbo"
@@ -86,7 +86,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-3-5-turbo"
@@ -104,7 +104,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-3-5-turbo"
@@ -122,7 +122,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-3-5-turbo"
@@ -140,7 +140,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-3-5-turbo"
@@ -161,8 +161,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4"
@@ -183,8 +183,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4"
@@ -205,8 +205,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4"
@@ -227,8 +227,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4"
@@ -249,8 +249,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4"
@@ -271,8 +271,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4"
@@ -293,8 +293,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4"
@@ -315,8 +315,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4o"
@@ -337,8 +337,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4o"
@@ -359,8 +359,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4o"
@@ -381,8 +381,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4o"
@@ -400,8 +400,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4o-mini"
@@ -419,8 +419,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://platform.openai.com/docs/models/gpt-4o-mini"
@@ -528,7 +528,7 @@
                 "parameters": 7.3
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -543,7 +543,7 @@
                 "parameters": 7.3
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -558,7 +558,7 @@
                 "parameters": 7.3
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -573,7 +573,7 @@
                 "parameters": 7.3
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -591,7 +591,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -609,7 +609,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -627,7 +627,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -645,7 +645,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -669,7 +669,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -693,7 +693,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -717,7 +717,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -738,7 +738,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -759,7 +759,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -780,7 +780,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -801,7 +801,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -822,7 +822,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.mistral.ai/getting-started/models/"
@@ -840,7 +840,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.anthropic.com/en/docs/about-claude/models"
@@ -858,7 +858,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.anthropic.com/en/docs/about-claude/models"
@@ -876,7 +876,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.anthropic.com/en/docs/about-claude/models"
@@ -897,7 +897,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.anthropic.com/en/docs/about-claude/models"
@@ -918,7 +918,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.anthropic.com/en/docs/about-claude/models"
@@ -939,7 +939,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.anthropic.com/en/docs/about-claude/models"
@@ -960,7 +960,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://docs.anthropic.com/en/docs/about-claude/models"
@@ -1090,7 +1090,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
@@ -1108,7 +1108,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
@@ -1126,7 +1126,7 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released"
+                "model-arch-not-released"
             ],
             "sources": [
                 "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
@@ -1144,8 +1144,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
@@ -1163,8 +1163,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
@@ -1185,8 +1185,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
@@ -1207,8 +1207,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
@@ -1226,8 +1226,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
@@ -1245,8 +1245,8 @@
                 }
             },
             "warnings": [
-                "model_architecture_not_released",
-                "model_architecture_multimodal"
+                "model-arch-not-released",
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
@@ -3357,7 +3357,7 @@
                 "parameters": 4.15
             },
             "warnings": [
-                "model_architecture_multimodal"
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://huggingface.co/microsoft/Phi-3-vision-128k-instruct"
@@ -3515,7 +3515,7 @@
                 "parameters": 4.15
             },
             "warnings": [
-                "model_architecture_multimodal"
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://huggingface.co/microsoft/Phi-3-vision-128k-instruct-onnx-cpu"
@@ -3530,7 +3530,7 @@
                 "parameters": 4.15
             },
             "warnings": [
-                "model_architecture_multimodal"
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://huggingface.co/microsoft/Phi-3-vision-128k-instruct-onnx-cuda"
@@ -3545,7 +3545,7 @@
                 "parameters": 4.15
             },
             "warnings": [
-                "model_architecture_multimodal"
+                "model-arch-multimodal"
             ],
             "sources": [
                 "https://huggingface.co/microsoft/Phi-3-vision-128k-instruct-onnx-directml"
