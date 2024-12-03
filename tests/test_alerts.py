@@ -1,11 +1,11 @@
 import pytest
 
 from ecologits.tracers.utils import llm_impacts
-from ecologits.warnings_and_errors import (
+from ecologits.alerts import (
     ModelArchNotReleasedWarning,
     ModelArchMultimodalWarning,
     ModelNotRegisteredError,
-    ZoneDoesNotExistError
+    ZoneNotRegisteredError
 )
 
 
@@ -44,4 +44,4 @@ def test_zone_error():
     )
     assert impacts.energy is None
     assert impacts.has_errors
-    assert isinstance(impacts.errors[0], ZoneDoesNotExistError)
+    assert isinstance(impacts.errors[0], ZoneNotRegisteredError)
