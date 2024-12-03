@@ -3,9 +3,9 @@ from typing import Optional, TypeVar
 
 from pydantic import BaseModel
 
+from ecologits.alerts import AlertMessage
 from ecologits.exceptions import ModelingError
 from ecologits.utils.range_value import ValueOrRange
-from ecologits.warnings_and_errors import BaseError, BaseWarning
 
 Impact = TypeVar("Impact", bound="BaseImpact")
 
@@ -206,8 +206,8 @@ class Impacts(BaseModel):
     pe: Optional[PE] = None
     usage: Optional[Usage] = None
     embodied: Optional[Embodied] = None
-    warnings: list[BaseWarning] = []
-    errors: list[BaseError] = []
+    warnings: list[AlertMessage] = []
+    errors: list[AlertMessage] = []
 
     @property
     def has_warnings(self) -> bool:
@@ -217,12 +217,12 @@ class Impacts(BaseModel):
     def has_errors(self) -> bool:
         return len(self.errors) > 0
 
-    def add_warning(self, warning: BaseWarning) -> None:
+    def add_warning(self, warning: AlertMessage) -> None:
         if self.warnings is None:
             self.warnings = []
         self.warnings.append(warning)
 
-    def add_errors(self, error: BaseError) -> None:
+    def add_errors(self, error: AlertMessage) -> None:
         if self.errors is None:
             self.errors = []
         self.errors.append(error)

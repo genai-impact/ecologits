@@ -1,11 +1,11 @@
 from typing import Optional
 
+from ecologits.alerts import ModelNotRegisteredError, ZoneNotRegisteredError
 from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts
 from ecologits.log import logger
 from ecologits.model_repository import ParametersMoE, models
-from ecologits.warnings_and_errors import ModelNotRegisteredError, ZoneDoesNotExistError
 
 
 def _avg(value_range: tuple) -> float:
@@ -48,7 +48,7 @@ def llm_impacts(
     electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_mix_zone)
     if electricity_mix is None:
         logger.debug(f"Could not find electricity mix `{electricity_mix_zone}` in the ADEME database")
-        return Impacts(errors=[ZoneDoesNotExistError()])
+        return Impacts(errors=[ZoneNotRegisteredError()])
     if_electricity_mix_adpe=electricity_mix.adpe
     if_electricity_mix_pe=electricity_mix.pe
     if_electricity_mix_gwp=electricity_mix.gwp
