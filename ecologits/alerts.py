@@ -4,6 +4,13 @@ ALERT_DOCS_URL = "https://ecologits/tutorial/alerts/#{code}"
 
 
 class AlertMessage(BaseModel):
+    """
+    Base alert message used for warnings or errors.
+
+    Attributes:
+        code: Alert code.
+        message: Message explaining the alert.
+    """
     code: str
     message: str
 
