@@ -13,8 +13,8 @@ nav:
   - 'Tutorial':
       - 'Introduction': tutorial/index.md
       - 'Environmental Impacts': tutorial/impacts.md
-      - 'Supported providers': tutorial/providers.md
       - 'Warnings and Errors': tutorial/alerts.md
+      - 'Supported providers': tutorial/providers.md
       - 'Providers':
           - 'Anthropic': tutorial/providers/anthropic.md
           - 'Cohere': tutorial/providers/cohere.md
