@@ -131,7 +131,7 @@ class PE(BaseImpact):
     unit: str = "MJ"
 
 
-class WCF(Impact):
+class WCF(BaseImpact):
     """
     Water Consumption Footprint (WCF) impact.
 
