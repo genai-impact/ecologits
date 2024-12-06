@@ -1,0 +1,103 @@
+interactions:
+- request:
+    body: "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\":
+      \"Write a story about a magic backpack.\"\n        }\n      ],\n      \"role\":
+      \"user\"\n    }\n  ],\n  \"generationConfig\": {}\n}"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '186'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.3
+      x-goog-api-client:
+      - genai-py/0.7.2 gl-python/3.13.0 grpc/1.68.0 gax/2.23.0
+      x-goog-request-params:
+      - model=models/gemini-1.5-flash
+    method: POST
+    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint
+  response:
+    body:
+      string: "{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
+        [\n          {\n            \"text\": \"Elara wasn't your typical twelve-year-old.
+        \ While other kids obsessed over pop stars and social media, Elara dreamt
+        of forgotten languages and unexplored jungles.  This fascination led her,
+        one rainy Tuesday, to a dusty antique shop tucked away on a cobbled side street.\\n\\nThere,
+        amidst chipped teacups and moth-eaten shawls, sat a backpack.  It wasn't particularly
+        beautiful; a drab, olive-green canvas, worn at the seams. But it hummed with
+        a faint, almost imperceptible energy that drew Elara in like a moth to a flickering
+        flame.\\n\\nThe old shopkeeper, a wizened woman with eyes like polished amber,
+        barely glanced up.  \\\"Fifty shillings,\\\" she croaked, her voice like dry
+        leaves rustling.\\n\\nFifty shillings was Elara's entire savings, earned from
+        a year of meticulous babysitting.  She handed it over, her heart hammering
+        a frantic rhythm against her ribs.\\n\\nThe moment Elara's fingers brushed
+        the rough canvas, a jolt, like static electricity, shot up her arm.  Back
+        home, she unzipped the backpack. Inside, nestled amongst the expected compartments,
+        was a small, leather-bound book. Its pages were filled with a language she
+        didn't recognize, yet somehow understood.  It was a catalogue, it seemed,
+        of the backpack's contents.\\n\\nThat night, Elara learned the backpack's
+        magic: it held a seemingly infinite supply of anything she needed, provided
+        she wrote a precise description in the book.  Need a map of the Amazon rainforest?
+        \ A detailed one appeared in the largest compartment.  Craving a perfectly
+        ripe mango? One materialized, glistening and fragrant.  A translation device
+        for ancient Sumerian?  It was there, humming subtly beside a miniature compass
+        that always pointed north, regardless of its orientation.\\n\\nElara's life
+        transformed.  She explored hidden waterfalls in the Scottish Highlands, climbed
+        the slopes of Kilimanjaro (with the backpack thoughtfully providing oxygen
+        and crampons), and even deciphered a centuries-old inscription on a forgotten
+        Mayan temple, using a translation device that magically appeared beside a
+        protective helmet and sturdy boots.\\n\\nBut the magic came with a price.
+        \ Each item requested, each journey undertaken, drained a small, unseen energy
+        from the backpack. The olive-green canvas grew paler, the seams more frayed.
+        \ The hum, once vibrant, weakened to a barely audible whisper.\\n\\nOne day,
+        Elara found herself in the heart of the Gobi Desert, searching for a legendary
+        lost city.  She needed water, desperately.  But when she wrote the request
+        in the book, nothing appeared.  The backpack lay limp, its magic spent.  Tears
+        welled in Elara's eyes as she realized the profound truth:  the backpack wasn't
+        a limitless source of wonder, but a finite vessel of opportunity.\\n\\nShe
+        sat down, weary but wiser, and looked at the vast, endless desert.  She no
+        longer needed the backpack to feel the thrill of adventure.  The true magic,
+        she understood, lay not in the acquisition of things, but in the spirit of
+        exploration, in the courage to face the unknown, and in the strength to find
+        her own way, even without a magical shortcut.  The backpack, though emptied
+        of its magic, held something far more valuable: the memories of countless
+        adventures, and the wisdom they had brought.\\n\"\n          }\n        ],\n
+        \       \"role\": \"model\"\n      },\n      \"finishReason\": 1,\n      \"avgLogprobs\":
+        -0.53110895457445384\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
+        9,\n    \"candidatesTokenCount\": 698,\n    \"totalTokenCount\": 707\n  },\n
+        \ \"modelVersion\": \"gemini-1.5-flash\"\n}\n"
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 06 Dec 2024 15:37:59 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Server-Timing:
+      - gfet4t7; dur=5187
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      - X-Origin
+      - Referer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+version: 1
