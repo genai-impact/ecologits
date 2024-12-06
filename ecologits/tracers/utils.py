@@ -5,7 +5,7 @@ from ecologits.impacts.modeling import Impacts
 from ecologits.log import logger
 from ecologits.repositories.electricity_mix_repository import electricity_mixes
 from ecologits.repositories.electricity_wue_repository import electricity_wue_list
-from ecologits.repositories.model_repository import ArchitectureTypes, models
+from ecologits.repositories.model_repository import ParametersMoE, models
 
 DEFAULT_ZONE = "WOR"
 
@@ -40,7 +40,7 @@ def llm_impacts(
         logger.debug(f"Could not find model `{model_name}` for {provider} provider.")
         return None
 
-    if model.architecture.type == ArchitectureTypes.MOE:
+    if isinstance(model.architecture.parameters, ParametersMoE):
         model_total_params = model.architecture.parameters.total
         model_active_params = model.architecture.parameters.active
     else:

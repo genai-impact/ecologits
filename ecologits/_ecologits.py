@@ -32,7 +32,7 @@ def init_mistralai_instrumentor() -> None:
             logger.warning("MistralAI client v0.*.* will soon no longer be supported by EcoLogits.")
             from ecologits.tracers.mistralai_tracer_v0 import MistralAIInstrumentor
         else:
-            from ecologits.tracers.mistralai_tracer_v1 import MistralAIInstrumentor
+            from ecologits.tracers.mistralai_tracer_v1 import MistralAIInstrumentor  # type: ignore[assignment]
 
         instrumentor = MistralAIInstrumentor()
         instrumentor.instrument()

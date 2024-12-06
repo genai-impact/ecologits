@@ -12,8 +12,8 @@ class RangeValue(BaseModel):
         min: Lower bound of the interval.
         max: Upper bound of the interval.
     """
-    min: float
-    max: float
+    min: Union[float, int]
+    max: Union[float, int]
 
     @model_validator(mode="after")
     def check_order(self) -> Self:
@@ -21,7 +21,7 @@ class RangeValue(BaseModel):
             raise ValueError("min value must be lower than max value")
         return self
 
-    def __add__(self, other: Any) -> "RangeValue":
+    def __add__(self, other: Union["RangeValue", int, float]) -> "RangeValue":
         if isinstance(other, RangeValue):
             return RangeValue(
                 min=self.min + other.min,
@@ -32,6 +32,8 @@ class RangeValue(BaseModel):
                 min=self.min + other,
                 max=self.max + other
             )
+
+    __radd__ = __add__
 
     def __eq__(self, other: Any) -> bool:
         if isinstance(other, RangeValue):

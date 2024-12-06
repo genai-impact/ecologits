@@ -24,70 +24,61 @@ interactions:
     uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?%24alt=json%3Benum-encoding%3Dint
   response:
     body:
-      string: "[{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
-        [\n          {\n            \"text\": \"Elara,\"\n          }\n        ],\n
-        \       \"role\": \"model\"\n      },\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n
-        \   \"candidatesTokenCount\": 3,\n    \"totalTokenCount\": 12\n  },\n  \"modelVersion\":
-        \"gemini-1.5-flash-001\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
-        {\n        \"parts\": [\n          {\n            \"text\": \" a girl with
-        hair the color of spun gold and eyes like sparkling emeralds,\"\n          }\n
-        \       ],\n        \"role\": \"model\"\n      },\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n
-        \   \"candidatesTokenCount\": 19,\n    \"totalTokenCount\": 28\n  },\n  \"modelVersion\":
-        \"gemini-1.5-flash-001\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
-        {\n        \"parts\": [\n          {\n            \"text\": \" had always
-        yearned for adventure. She devoured tales of daring explorers and fantastical
-        creatures,\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
-        \     \"index\": 0,\n      \"safetyRatings\": [\n        {\n          \"category\":
-        9,\n          \"probability\": 2\n        },\n        {\n          \"category\":
-        8,\n          \"probability\": 1\n        },\n        {\n          \"category\":
-        7,\n          \"probability\": 1\n        },\n        {\n          \"category\":
-        10,\n          \"probability\": 1\n        }\n      ]\n    }\n  ],\n  \"usageMetadata\":
-        {\n    \"promptTokenCount\": 9,\n    \"candidatesTokenCount\": 37,\n    \"totalTokenCount\":
-        46\n  },\n  \"modelVersion\": \"gemini-1.5-flash-001\"\n}\n,\r\n{\n  \"candidates\":
-        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
-        \" her heart longing for something more than the quiet life of her village.
-        Her grandmother, a wizened woman with a mischievous twinkle in her eye, sensed
-        her\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"index\":
-        0,\n      \"safetyRatings\": [\n        {\n          \"category\": 9,\n          \"probability\":
-        2\n        },\n        {\n          \"category\": 8,\n          \"probability\":
-        1\n        },\n        {\n          \"category\": 7,\n          \"probability\":
-        1\n        },\n        {\n          \"category\": 10,\n          \"probability\":
-        1\n        }\n      ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
-        9,\n    \"candidatesTokenCount\": 69,\n    \"totalTokenCount\": 78\n  },\n
-        \ \"modelVersion\": \"gemini-1.5-flash-001\"\n}\n,\r\n{\n  \"candidates\":
-        [\n    {\n      \"finishReason\": 3,\n      \"index\": 0,\n      \"safetyRatings\":
-        [\n        {\n          \"category\": 9,\n          \"probability\": 3\n        },\n
-        \       {\n          \"category\": 8,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 7,\n          \"probability\": 1\n        },\n
-        \       {\n          \"category\": 10,\n          \"probability\": 1\n        }\n
-        \     ]\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n
-        \   \"candidatesTokenCount\": 69,\n    \"totalTokenCount\": 78\n  },\n  \"modelVersion\":
-        \"gemini-1.5-flash-001\"\n}\n]"
+      string: !!binary |
+        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
+        AwCEykTNZR0AAA==
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Cache-Control:
-      - private
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Mon, 28 Oct 2024 15:41:37 GMT
+      - Sat, 23 Nov 2024 14:52:16 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=1447
+      - gfet4t7; dur=892
       Transfer-Encoding:
       - chunked
       Vary:

@@ -3,29 +3,15 @@ from collections.abc import AsyncIterable, Iterable
 from dataclasses import asdict, dataclass
 from typing import Any, Callable, Union
 
-from wrapt import wrap_function_wrapper
+import tiktoken
+from huggingface_hub import AsyncInferenceClient, InferenceClient  # type: ignore[import-untyped]
+from huggingface_hub import ChatCompletionOutput as _ChatCompletionOutput
+from huggingface_hub import ChatCompletionStreamOutput as _ChatCompletionStreamOutput
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.impacts import Impacts
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    import tiktoken
-    from huggingface_hub import AsyncInferenceClient, InferenceClient
-    from huggingface_hub import ChatCompletionOutput as _ChatCompletionOutput
-    from huggingface_hub import ChatCompletionStreamOutput as _ChatCompletionStreamOutput
-except ImportError:
-    InferenceClient = object()
-    AsyncInferenceClient = object()
-
-    @dataclass
-    class _ChatCompletionOutput:
-        pass
-
-    @dataclass
-    class _ChatCompletionStreamOutput:
-        pass
-
 
 PROVIDER = "huggingface_hub"
 

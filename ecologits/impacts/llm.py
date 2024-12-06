@@ -1,6 +1,6 @@
 import math
 from math import ceil
-from typing import Any, Optional
+from typing import Any, Optional, Union, cast
 
 from ecologits.impacts.dag import DAG
 from ecologits.impacts.modeling import GWP, PE, WCF, ADPe, Embodied, Energy, Impacts, Usage
@@ -12,14 +12,13 @@ GPU_ENERGY_ALPHA = 8.91e-8
 GPU_ENERGY_BETA = 1.43e-6
 GPU_LATENCY_ALPHA = 8.02e-4
 GPU_LATENCY_BETA = 2.23e-2
-GPU_MEMORY = 80     # GB
+GPU_MEMORY = 80  # GB
 GPU_EMBODIED_IMPACT_GWP = 143
 GPU_EMBODIED_IMPACT_ADPE = 5.1e-3
 GPU_EMBODIED_IMPACT_PE = 1828
 
-
 SERVER_GPUS = 8
-SERVER_POWER = 1     # kW
+SERVER_POWER = 1  # kW
 SERVER_EMBODIED_IMPACT_GWP = 3000
 SERVER_EMBODIED_IMPACT_ADPE = 0.24
 SERVER_EMBODIED_IMPACT_PE = 38000
@@ -36,10 +35,10 @@ dag = DAG()
 
 @dag.asset
 def gpu_energy(
-    model_active_parameter_count: float,
-    output_token_count: float,
-    gpu_energy_alpha: float,
-    gpu_energy_beta: float
+        model_active_parameter_count: float,
+        output_token_count: float,
+        gpu_energy_alpha: float,
+        gpu_energy_beta: float
 ) -> float:
     """
     Compute energy consumption of a single GPU.
@@ -58,11 +57,11 @@ def gpu_energy(
 
 @dag.asset
 def generation_latency(
-    model_active_parameter_count: float,
-    output_token_count: float,
-    gpu_latency_alpha: float,
-    gpu_latency_beta: float,
-    request_latency: float,
+        model_active_parameter_count: float,
+        output_token_count: float,
+        gpu_latency_alpha: float,
+        gpu_latency_beta: float,
+        request_latency: float,
 ) -> float:
     """
     Compute the token generation latency in seconds.
@@ -83,8 +82,8 @@ def generation_latency(
 
 @dag.asset
 def model_required_memory(
-    model_total_parameter_count: float,
-    model_quantization_bits: int,
+        model_total_parameter_count: float,
+        model_quantization_bits: int,
 ) -> float:
     """
     Compute the required memory to load the model on GPU.
@@ -101,8 +100,8 @@ def model_required_memory(
 
 @dag.asset
 def gpu_required_count(
-    model_required_memory: float,
-    gpu_memory: float
+        model_required_memory: float,
+        gpu_memory: float
 ) -> int:
     """
     Compute the number of required GPU to store the model.
@@ -119,10 +118,10 @@ def gpu_required_count(
 
 @dag.asset
 def server_energy(
-    generation_latency: float,
-    server_power: float,
-    server_gpu_count: int,
-    gpu_required_count: int
+        generation_latency: float,
+        server_power: float,
+        server_gpu_count: int,
+        gpu_required_count: int
 ) -> float:
     """
     Compute the energy consumption of the server.
@@ -141,10 +140,10 @@ def server_energy(
 
 @dag.asset
 def request_energy(
-    datacenter_pue: float,
-    server_energy: float,
-    gpu_required_count: int,
-    gpu_energy: float
+        datacenter_pue: float,
+        server_energy: float,
+        gpu_required_count: int,
+        gpu_energy: float
 ) -> float:
     """
     Compute the energy consumption of the request.
@@ -163,8 +162,8 @@ def request_energy(
 
 @dag.asset
 def request_usage_gwp(
-    request_energy: float,
-    if_electricity_mix_gwp: float
+        request_energy: float,
+        if_electricity_mix_gwp: float
 ) -> float:
     """
     Compute the Global Warming Potential (GWP) usage impact of the request.
@@ -181,8 +180,8 @@ def request_usage_gwp(
 
 @dag.asset
 def request_usage_adpe(
-    request_energy: float,
-    if_electricity_mix_adpe: float
+        request_energy: float,
+        if_electricity_mix_adpe: float
 ) -> float:
     """
     Compute the Abiotic Depletion Potential for Elements (ADPe) usage impact of the request.
@@ -199,8 +198,8 @@ def request_usage_adpe(
 
 @dag.asset
 def request_usage_pe(
-    request_energy: float,
-    if_electricity_mix_pe: float
+        request_energy: float,
+        if_electricity_mix_pe: float
 ) -> float:
     """
     Compute the Primary Energy (PE) usage impact of the request.
@@ -275,10 +274,10 @@ def request_usage_wcf(
 
 @dag.asset
 def server_gpu_embodied_gwp(
-    server_embodied_gwp: float,
-    server_gpu_count: float,
-    gpu_embodied_gwp: float,
-    gpu_required_count: int
+        server_embodied_gwp: float,
+        server_gpu_count: float,
+        gpu_embodied_gwp: float,
+        gpu_required_count: int
 ) -> float:
     """
     Compute the Global Warming Potential (GWP) embodied impact of the server
@@ -297,10 +296,10 @@ def server_gpu_embodied_gwp(
 
 @dag.asset
 def server_gpu_embodied_adpe(
-    server_embodied_adpe: float,
-    server_gpu_count: float,
-    gpu_embodied_adpe: float,
-    gpu_required_count: int
+        server_embodied_adpe: float,
+        server_gpu_count: float,
+        gpu_embodied_adpe: float,
+        gpu_required_count: int
 ) -> float:
     """
     Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the server
@@ -319,10 +318,10 @@ def server_gpu_embodied_adpe(
 
 @dag.asset
 def server_gpu_embodied_pe(
-    server_embodied_pe: float,
-    server_gpu_count: float,
-    gpu_embodied_pe: float,
-    gpu_required_count: int
+        server_embodied_pe: float,
+        server_gpu_count: float,
+        gpu_embodied_pe: float,
+        gpu_required_count: int
 ) -> float:
     """
     Compute the Primary Energy (PE) embodied impact of the server
@@ -341,9 +340,9 @@ def server_gpu_embodied_pe(
 
 @dag.asset
 def request_embodied_gwp(
-    server_gpu_embodied_gwp: float,
-    server_lifetime: float,
-    generation_latency: float
+        server_gpu_embodied_gwp: float,
+        server_lifetime: float,
+        generation_latency: float
 ) -> float:
     """
     Compute the Global Warming Potential (GWP) embodied impact of the request.
@@ -361,9 +360,9 @@ def request_embodied_gwp(
 
 @dag.asset
 def request_embodied_adpe(
-    server_gpu_embodied_adpe: float,
-    server_lifetime: float,
-    generation_latency: float
+        server_gpu_embodied_adpe: float,
+        server_lifetime: float,
+        generation_latency: float
 ) -> float:
     """
     Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the request.
@@ -381,9 +380,9 @@ def request_embodied_adpe(
 
 @dag.asset
 def request_embodied_pe(
-    server_gpu_embodied_pe: float,
-    server_lifetime: float,
-    generation_latency: float
+        server_gpu_embodied_pe: float,
+        server_lifetime: float,
+        generation_latency: float
 ) -> float:
     """
     Compute the Primary Energy (PE) embodied impact of the request.
@@ -401,31 +400,31 @@ def request_embodied_pe(
 
 
 def compute_llm_impacts_dag(
-    model_active_parameter_count: float,
-    model_total_parameter_count: float,
-    output_token_count: float,
-    request_latency: float,
-    if_electricity_mix_adpe: float,
-    if_electricity_mix_pe: float,
-    if_electricity_mix_gwp: float,
-    wue_off_site: float,
-    wue_on_site: Optional[float] = DATACENTER_WUE,
-    model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
-    gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
-    gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
-    gpu_latency_alpha: Optional[float] = GPU_LATENCY_ALPHA,
-    gpu_latency_beta: Optional[float] = GPU_LATENCY_BETA,
-    gpu_memory: Optional[float] = GPU_MEMORY,
-    gpu_embodied_gwp: Optional[float] = GPU_EMBODIED_IMPACT_GWP,
-    gpu_embodied_adpe: Optional[float] = GPU_EMBODIED_IMPACT_ADPE,
-    gpu_embodied_pe: Optional[float] = GPU_EMBODIED_IMPACT_PE,
-    server_gpu_count: Optional[int] = SERVER_GPUS,
-    server_power: Optional[float] = SERVER_POWER,
-    server_embodied_gwp: Optional[float] = SERVER_EMBODIED_IMPACT_GWP,
-    server_embodied_adpe: Optional[float] = SERVER_EMBODIED_IMPACT_ADPE,
-    server_embodied_pe: Optional[float] = SERVER_EMBODIED_IMPACT_PE,
-    server_lifetime: Optional[float] = HARDWARE_LIFESPAN,
-    datacenter_pue: Optional[float] = DATACENTER_PUE,
+        model_active_parameter_count: ValueOrRange,
+        model_total_parameter_count: ValueOrRange,
+        output_token_count: float,
+        request_latency: float,
+        if_electricity_mix_adpe: float,
+        if_electricity_mix_pe: float,
+        if_electricity_mix_gwp: float,
+        wue_off_site: float,
+        wue_on_site: Optional[float] = DATACENTER_WUE,
+        model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
+        gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
+        gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
+        gpu_latency_alpha: Optional[float] = GPU_LATENCY_ALPHA,
+        gpu_latency_beta: Optional[float] = GPU_LATENCY_BETA,
+        gpu_memory: Optional[float] = GPU_MEMORY,
+        gpu_embodied_gwp: Optional[float] = GPU_EMBODIED_IMPACT_GWP,
+        gpu_embodied_adpe: Optional[float] = GPU_EMBODIED_IMPACT_ADPE,
+        gpu_embodied_pe: Optional[float] = GPU_EMBODIED_IMPACT_PE,
+        server_gpu_count: Optional[int] = SERVER_GPUS,
+        server_power: Optional[float] = SERVER_POWER,
+        server_embodied_gwp: Optional[float] = SERVER_EMBODIED_IMPACT_GWP,
+        server_embodied_adpe: Optional[float] = SERVER_EMBODIED_IMPACT_ADPE,
+        server_embodied_pe: Optional[float] = SERVER_EMBODIED_IMPACT_PE,
+        server_lifetime: Optional[float] = HARDWARE_LIFESPAN,
+        datacenter_pue: Optional[float] = DATACENTER_PUE,
 ) -> dict[str, float]:
     """
     Compute the impacts dag of an LLM generation request.
@@ -497,7 +496,6 @@ def compute_llm_impacts(
     if_electricity_mix_adpe: float,
     if_electricity_mix_pe: float,
     if_electricity_mix_gwp: float,
-    wue_off_site: float,
     request_latency: Optional[float] = None,
     **kwargs: Any
 ) -> Impacts:
@@ -535,16 +533,8 @@ def compute_llm_impacts(
             total_params = [model_total_parameter_count, model_total_parameter_count]
 
     results = {}
-    fields = [
-        "request_energy",
-        "request_usage_gwp",
-        "request_usage_adpe",
-        "request_usage_pe",
-        "request_usage_wcf",
-        "request_embodied_gwp",
-        "request_embodied_adpe",
-        "request_embodied_pe",
-    ]
+    fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
+              "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
             model_active_parameter_count=act_param,
@@ -559,7 +549,11 @@ def compute_llm_impacts(
         )
         for field in fields:
             if field in results:
-                results[field] = RangeValue(min=results[field], max=res[field])
+                if isinstance(results[field], (float, int)):
+                    value = cast(Union[float, int], results[field])
+                    results[field] = RangeValue(min=value, max=res[field])
+                else:
+                    raise TypeError("Cannot transform RangeValue.")
             else:
                 results[field] = res[field]
 
