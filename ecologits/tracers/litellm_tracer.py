@@ -9,17 +9,16 @@ from rapidfuzz import fuzz, process
 from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
 from ecologits.model_repository import models
-from ecologits.tracers.utils import llm_impacts
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 
 class ChatCompletion(ModelResponse):
-    impacts: Impacts
+    impacts: ImpactsOutput
 
 
 class ChatCompletionChunk(ModelResponse):
-    impacts: Impacts
+    impacts: ImpactsOutput
 
 
 _model_choices = [f"{m.provider.value}/{m.name}" for m in models.list_models()]

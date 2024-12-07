@@ -9,18 +9,17 @@ from mistralai.models import CompletionEvent
 from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 PROVIDER = "mistralai"
 
 
 class ChatCompletionResponse(_ChatCompletionResponse):
-    impacts: Impacts
+    impacts: ImpactsOutput
 
 
 class CompletionChunk(_CompletionChunk):
-    impacts: Impacts
+    impacts: ImpactsOutput
 
 
 
