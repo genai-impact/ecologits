@@ -23,6 +23,13 @@ class _StatusMessage(BaseModel):
 
 
 class WarningMessage(_StatusMessage):
+    """
+    Warning message.
+
+    Attributes:
+        code: Warning code.
+        message: Warning message.
+    """
 
     @classmethod
     def from_code(cls, code: str) -> "WarningMessage":
@@ -33,6 +40,13 @@ class WarningMessage(_StatusMessage):
 
 
 class ErrorMessage(_StatusMessage):
+    """
+    Error message.
+
+    Attributes:
+        code: Error code.
+        message: Error message.
+    """
 
     @classmethod
     def from_code(cls, code: str) -> "ErrorMessage":
