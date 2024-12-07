@@ -8,18 +8,17 @@ from openai.types.chat import ChatCompletionChunk as _ChatCompletionChunk
 from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 PROVIDER = "openai"
 
 
 class ChatCompletion(_ChatCompletion):
-    impacts: Impacts
+    impacts: ImpactsOutput
 
 
 class ChatCompletionChunk(_ChatCompletionChunk):
-    impacts: Impacts
+    impacts: ImpactsOutput
 
 
 def openai_chat_wrapper(
