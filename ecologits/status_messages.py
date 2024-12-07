@@ -15,7 +15,7 @@ class _StatusMessage(BaseModel):
     message: str
 
     def __str__(self) -> str:
-        return f"{self.message}\n\nFor further information visit {STATUS_DOCS_URL.format(code=self.code)}"
+        return f"{self.message} For further information visit {STATUS_DOCS_URL.format(code=self.code)}"
 
     @classmethod
     def from_code(cls, code: str) -> type["_StatusMessage"]:
