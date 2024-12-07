@@ -1,7 +1,5 @@
-import pytest
-
 from ecologits.tracers.utils import llm_impacts
-from ecologits.alerts import (
+from ecologits.status_messages import (
     ModelArchNotReleasedWarning,
     ModelArchMultimodalWarning,
     ModelNotRegisteredError,

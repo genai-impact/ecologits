@@ -13,8 +13,7 @@ from typing_extensions import override
 from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 PROVIDER = "anthropic"
 
@@ -23,11 +22,11 @@ AsyncMessageStreamT = TypeVar("AsyncMessageStreamT", bound=_AsyncMessageStream)
 
 
 class Message(_Message):
-    impacts: Impacts
+    impacts: ImpactsOutput
 
 
 class MessageStream(_MessageStream):
-    impacts: Optional[Impacts] = None
+    impacts: Optional[ImpactsOutput] = None
 
     @override
     def __stream_text__(self) -> Iterator[str]:  # type: ignore[misc]
@@ -62,7 +61,7 @@ class MessageStream(_MessageStream):
 
 
 class AsyncMessageStream(_AsyncMessageStream):
-    impacts: Optional[Impacts] = None
+    impacts: Optional[ImpactsOutput] = None
 
     @override
     async def __stream_text__(self) -> AsyncIterator[str]:  # type: ignore[misc]

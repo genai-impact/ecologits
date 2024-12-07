@@ -1,9 +1,8 @@
 from functools import total_ordering
-from typing import Optional, TypeVar
+from typing import TypeVar
 
 from pydantic import BaseModel
 
-from ecologits.alerts import AlertMessage
 from ecologits.exceptions import ModelingError
 from ecologits.utils.range_value import ValueOrRange
 
@@ -200,29 +199,9 @@ class Impacts(BaseModel):
         usage: Impacts for the usage phase
         embodied: Impacts for the embodied phase
     """
-    energy: Optional[Energy] = None
-    gwp: Optional[GWP] = None
-    adpe: Optional[ADPe] = None
-    pe: Optional[PE] = None
-    usage: Optional[Usage] = None
-    embodied: Optional[Embodied] = None
-    warnings: list[AlertMessage] = []
-    errors: list[AlertMessage] = []
-
-    @property
-    def has_warnings(self) -> bool:
-        return len(self.warnings) > 0
-
-    @property
-    def has_errors(self) -> bool:
-        return len(self.errors) > 0
-
-    def add_warning(self, warning: AlertMessage) -> None:
-        if self.warnings is None:
-            self.warnings = []
-        self.warnings.append(warning)
-
-    def add_errors(self, error: AlertMessage) -> None:
-        if self.errors is None:
-            self.errors = []
-        self.errors.append(error)
+    energy: Energy
+    gwp: GWP
+    adpe: ADPe
+    pe: PE
+    usage: Usage
+    embodied: Embodied

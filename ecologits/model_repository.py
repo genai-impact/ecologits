@@ -5,7 +5,7 @@ from typing import Any, Optional, Union
 
 from pydantic import BaseModel
 
-from ecologits.alerts import AlertMessage
+from ecologits.status_messages import WarningMessage
 from ecologits.utils.range_value import ValueOrRange
 
 
@@ -43,7 +43,7 @@ class Model(BaseModel):
     provider: Providers
     name: str
     architecture: Architecture
-    warnings: list[AlertMessage] = []
+    warnings: list[WarningMessage] = []
     sources: list[str] = []
 
     @property
@@ -54,7 +54,7 @@ class Model(BaseModel):
     def from_json(cls, data: dict[str, Any]) -> "Model":
         warnings = []
         if data["warnings"] is not None:
-            warnings = [AlertMessage.from_code(code) for code in data["warnings"]]
+            warnings = [WarningMessage.from_code(code) for code in data["warnings"]]
         return cls(
             provider=Providers(data["provider"]),
             name=data["name"],
