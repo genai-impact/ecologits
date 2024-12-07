@@ -1,13 +1,14 @@
 # Environmental Impacts
 
-Environmental impacts are reported for each request in the [`Impacts`][impacts.modeling.Impacts] pydantic model and features multiple [criteria](#criteria) such as the [energy](#energy) and [global warming potential](#global-warming-potential-gwp) per phase ([usage](#usage) or [embodied](#embodied)) as well as the total impacts.
+Environmental impacts are reported for each request in the [`ImpactsOutput`][tracers.utils.ImpactsOutput] pydantic model and features multiple [criteria](#criteria) such as the [energy](#energy) and [global warming potential](#global-warming-potential-gwp) per phase ([usage](#usage) or [embodied](#embodied)) as well as the total impacts.
 
 To learn more on how we estimate the environmental impacts and what are our hypotheses go to the [methodology](../methodology/index.md) section.
 
 ```python title="Structure of Impacts model"
-from ecologits.impacts.modeling import *
+from ecologits.tracers.utils import ImpactsOutput
+from ecologits.impacts.modeling import ADPe, Embodied, Energy, GWP, PE, Usage
 
-Impacts(
+ImpactsOutput(
     energy=Energy(), # (1)!
     gwp=GWP(),
     adpe=ADPe(),
@@ -22,13 +23,17 @@ Impacts(
         gwp=GWP(),
         adpe=ADPe(),
         pe=PE(),
-    )
+    ),
+    warnings=None,  # (4)!
+    errors=None
 )
 ```
 
 1. Total impacts for all phases.
 2. Usage impacts for the electricity consumption impacts. Note that the energy is equal to the "total" energy impact.
 3. Embodied impacts for resource extract, manufacturing and transportation of hardware components allocated to the request. 
+4. List of [`WarningMessage`][status_messages.WarningMessage] and [`ErrorMessage`][status_messages.ErrorMessage].
+
 
 You can extract an impact with:
 
@@ -43,10 +48,10 @@ Or you could get **value range** impact instead:
 
 ```python
 >>> response.impacts.usage.gwp.value
-Range(min=0.16, max=0.48) # Expressed in kgCO2eq (1)
+RangeValue(min=0.16, max=0.48) # Expressed in kgCO2eq (1)
 ```
 
-1. [`Range`][impacts.modeling.Range] are used to define intervals.
+1. [`RangeValue`][utils.range_value.RangeValue] are used to define intervals.
 
 ## Criteria
 
