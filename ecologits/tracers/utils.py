@@ -75,8 +75,9 @@ def llm_impacts(
 
     model = models.find_model(provider=provider, model_name=model_name)
     if model is None:
-        logger.debug(f"Could not find model `{model_name}` for {provider} provider.")
-        return ImpactsOutput(errors=[ModelNotRegisteredError()])
+        error = ModelNotRegisteredError(message=f"Could not find model `{model_name}` for {provider} provider.")
+        logger.warning_once(str(error))
+        return ImpactsOutput(errors=[error])
 
     if isinstance(model.architecture.parameters, ParametersMoE):
         model_total_params = model.architecture.parameters.total
@@ -87,8 +88,11 @@ def llm_impacts(
 
     electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_mix_zone)
     if electricity_mix is None:
-        logger.debug(f"Could not find electricity mix `{electricity_mix_zone}` in the ADEME database")
-        return ImpactsOutput(errors=[ZoneNotRegisteredError()])
+        error = ModelNotRegisteredError(message=f"Could not find electricity mix `{electricity_mix_zone}` in the "
+                                                f"ADEME database.")
+        logger.warning_once(str(error))
+        return ImpactsOutput(errors=[error])
+
     if_electricity_mix_adpe=electricity_mix.adpe
     if_electricity_mix_pe=electricity_mix.pe
     if_electricity_mix_gwp=electricity_mix.gwp
@@ -105,6 +109,7 @@ def llm_impacts(
 
     if model.has_warnings:
         for w in model.warnings:
+            logger.warning_once(str(w))
             impacts.add_warning(w)
 
     return impacts
