@@ -10,20 +10,19 @@ from huggingface_hub import ChatCompletionStreamOutput as _ChatCompletionStreamO
 from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 PROVIDER = "huggingface_hub"
 
 
 @dataclass
 class ChatCompletionOutput(_ChatCompletionOutput):
-    impacts: Impacts
+    impacts: ImpactsOutput
 
 
 @dataclass
 class ChatCompletionStreamOutput(_ChatCompletionStreamOutput):
-    impacts: Impacts
+    impacts: ImpactsOutput
 
 
 def huggingface_chat_wrapper(

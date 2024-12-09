@@ -9,21 +9,20 @@ from cohere.types.streamed_chat_response import StreamEndStreamedChatResponse as
 from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 PROVIDER = "cohere"
 
 
 class NonStreamedChatResponse(_NonStreamedChatResponse):
-    impacts: Optional[Impacts] = None
+    impacts: Optional[ImpactsOutput] = None
 
     class Config:
         arbitrary_types_allowed = True
 
 
 class StreamEndStreamedChatResponse(_StreamEndStreamedChatResponse):
-    impacts: Optional[Impacts] = None
+    impacts: Optional[ImpactsOutput] = None
 
     class Config:
         arbitrary_types_allowed = True
