@@ -123,7 +123,7 @@ class EcoLogits:
     @staticmethod
     def init(
         providers: Optional[Union[str, list[str]]] = None,
-        electricity_zone: Optional[str] = "WOR",
+        electricity_zone: str = "WOR",
     ) -> None:
         """
         Initialization static method. Will attempt to initialize all providers by default.

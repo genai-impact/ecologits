@@ -35,10 +35,12 @@ def test_compute_llm_impacts(model_active_parameter_count: float,
     assert impacts.gwp.value > 0
     assert impacts.adpe.value > 0
     assert impacts.pe.value > 0
+    assert impacts.wcf.value > 0
     assert impacts.usage.energy.value > 0
     assert impacts.usage.gwp.value > 0
     assert impacts.usage.adpe.value > 0
     assert impacts.usage.pe.value > 0
+    assert impacts.usage.wcf.value > 0
     assert impacts.embodied.gwp.value > 0
     assert impacts.embodied.adpe.value > 0
     assert impacts.embodied.pe.value > 0
@@ -49,10 +51,12 @@ def compare_impacts(impacts: Impacts, prev_impacts: Impacts, op=gt):
     assert op(impacts.gwp, prev_impacts.gwp)
     assert op(impacts.adpe, prev_impacts.adpe)
     assert op(impacts.pe, prev_impacts.pe)
+    assert op(impacts.wcf, prev_impacts.wcf)
     assert op(impacts.usage.energy, prev_impacts.usage.energy)
     assert op(impacts.usage.gwp, prev_impacts.usage.gwp)
     assert op(impacts.usage.adpe, prev_impacts.usage.adpe)
     assert op(impacts.usage.pe, prev_impacts.usage.pe)
+    assert op(impacts.usage.wcf, prev_impacts.usage.wcf)
     assert op(impacts.embodied.gwp, prev_impacts.embodied.gwp)
     assert op(impacts.embodied.adpe, prev_impacts.embodied.adpe)
     assert op(impacts.embodied.pe, prev_impacts.embodied.pe)

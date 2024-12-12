@@ -19,7 +19,7 @@ def llm_impacts(
     model_name: str,
     output_token_count: int,
     request_latency: float,
-    electricity_zone: Optional[str] = DEFAULT_ZONE,
+    electricity_zone: str = DEFAULT_ZONE,
 ) -> Optional[Impacts]:
     """
     High-level function to compute the impacts of an LLM generation request.
@@ -57,12 +57,16 @@ def llm_impacts(
     if electricity_wue is None:
         logger.warning(f"Could not find zone `{electricity_zone}` in the electricty \
                        WUE database (WRI), world average used instead.")
-        electricity_wue = electricity_wue_list.find_electricity_mix(zone=DEFAULT_ZONE)
+        electricity_wue = electricity_wue_list.find_electricity_wue(zone=DEFAULT_ZONE)
 
-    if_electricity_mix_adpe=electricity_mix.adpe
-    if_electricity_mix_pe=electricity_mix.pe
-    if_electricity_mix_gwp=electricity_mix.gwp
-    wue_off_site=electricity_wue.wue
+    if electricity_mix is not None:
+        if_electricity_mix_adpe=electricity_mix.adpe
+        if_electricity_mix_pe=electricity_mix.pe
+        if_electricity_mix_gwp=electricity_mix.gwp
+
+    if electricity_wue is not None:
+        wue_off_site=electricity_wue.wue
+
     return compute_llm_impacts(
         model_active_parameter_count=model_active_params,
         model_total_parameter_count=model_total_params,

@@ -2,7 +2,7 @@ import operator
 
 import pytest
 
-from ecologits.impacts.modeling import BaseImpact, Energy, GWP, ADPe, PE
+from ecologits.impacts.modeling import BaseImpact, Energy, GWP, ADPe, PE, WCF
 from ecologits.exceptions import ModelingError
 from ecologits.utils.range_value import RangeValue
 
@@ -34,6 +34,7 @@ impact_config = dict(
     (GWP(value=1), GWP(value=1), GWP(value=2)),
     (ADPe(value=1), ADPe(value=1), ADPe(value=2)),
     (PE(value=1), PE(value=1), PE(value=2)),
+    (WCF(value=1), WCF(value=1), WCF(value=2))
 ])
 def test_impact_add(impact_1, impact_2, result):
     impact_sum = impact_1 + impact_2
@@ -48,9 +49,13 @@ def test_impact_add(impact_1, impact_2, result):
     (Energy(value=1), GWP(value=1)),
     (Energy(value=1), ADPe(value=1)),
     (Energy(value=1), PE(value=1)),
+    (Energy(value=1), WCF(value=1)),
     (GWP(value=1), ADPe(value=1)),
     (GWP(value=1), PE(value=1)),
+    (GWP(value=1), WCF(value=1)),
     (ADPe(value=1), PE(value=1)),
+    (ADPe(value=1), WCF(value=1)),
+    (PE(value=1), WCF(value=1))
 ])
 def test_impact_cannot_add(impact_1, impact_2):
     with pytest.raises(ModelingError):
@@ -122,9 +127,13 @@ def test_impact_compare(impact_1, impact_2, op):
     (Energy(value=1), GWP(value=1), operator.gt),
     (Energy(value=1), ADPe(value=1), operator.lt),
     (Energy(value=1), PE(value=1), operator.ne),
+    (Energy(value=1), WCF(value=1), operator.eq),
     (GWP(value=1), ADPe(value=1), operator.eq),
     (GWP(value=1), PE(value=1), operator.ge),
+    (GWP(value=1), WCF(value=1), operator.eq),
     (ADPe(value=1), PE(value=1), operator.le),
+    (ADPe(value=1), WCF(value=1), operator.eq),
+    (PE(value=1), WCF(value=1), operator.eq),
 ])
 def test_impact_cannot_compare(impact_1, impact_2, op):
     with pytest.raises(ModelingError):

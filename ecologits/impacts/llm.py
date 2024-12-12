@@ -533,8 +533,9 @@ def compute_llm_impacts(
         else:
             total_params = [model_total_parameter_count, model_total_parameter_count]
 
-    results = {}
-    fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe", "request_usage_wcf", "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
+    results: dict[str, Union[RangeValue, float, int]] = {}
+    fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
+            "request_usage_wcf", "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
             model_active_parameter_count=act_param,
