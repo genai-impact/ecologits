@@ -50,7 +50,6 @@ def llm_impacts(
     electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_zone)
     electricity_wue = electricity_wue_list.find_electricity_wue(zone=electricity_zone)
 
-    # TODO: here handle if defined for one but not the other
     if electricity_mix is None:
         logger.warning(f"Could not find zone `{electricity_zone}` in the electricity \
                        mixes database (ADEME), world average used instead.")
