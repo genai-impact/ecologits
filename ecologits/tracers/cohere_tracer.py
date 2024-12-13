@@ -42,7 +42,7 @@ def cohere_chat_wrapper(
         model_name=model_name,
         output_token_count=output_tokens,
         request_latency=request_latency,
-        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+        electricity_zone=EcoLogits.config.electricity_zone
     )
     return NonStreamedChatResponse(**response.dict(), impacts=impacts)
 
@@ -60,7 +60,7 @@ async def cohere_async_chat_wrapper(
         model_name=model_name,
         output_token_count=output_tokens,
         request_latency=request_latency,
-        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+        electricity_zone=EcoLogits.config.electricity_zone
     )
     return NonStreamedChatResponse(**response.dict(), impacts=impacts)
 
@@ -80,7 +80,7 @@ def cohere_stream_chat_wrapper(
                 model_name=model_name,
                 output_token_count=output_tokens,
                 request_latency=request_latency,
-                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+                electricity_zone=EcoLogits.config.electricity_zone
             )
             yield StreamEndStreamedChatResponse(**event.dict(), impacts=impacts)
         else:
@@ -102,7 +102,7 @@ async def cohere_async_stream_chat_wrapper(
                 model_name=model_name,
                 output_token_count=output_tokens,
                 request_latency=request_latency,
-                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+                electricity_zone=EcoLogits.config.electricity_zone
             )
             yield StreamEndStreamedChatResponse(**event.dict(), impacts=impacts)
         else:

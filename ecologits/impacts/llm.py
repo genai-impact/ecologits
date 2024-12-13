@@ -3,7 +3,7 @@ from math import ceil
 from typing import Any, Optional, Union, cast
 
 from ecologits.impacts.dag import DAG
-from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
+from ecologits.impacts.modeling import GWP, PE, WCF, ADPe, Embodied, Energy, Impacts, Usage
 from ecologits.utils.range_value import RangeValue, ValueOrRange
 
 MODEL_QUANTIZATION_BITS = 4
@@ -26,6 +26,9 @@ SERVER_EMBODIED_IMPACT_PE = 38000
 HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 
 DATACENTER_PUE = 1.2
+
+DATACENTER_WUE = 0.18 # Temporary value
+
 
 dag = DAG()
 
@@ -212,6 +215,64 @@ def request_usage_pe(
 
 
 @dag.asset
+def request_server_usage_wcf(
+    request_energy: float,
+    wue_on_site: float,
+) -> float:
+    """
+    Compute the Water Consumption Footprint (WCF) usage impact of the request
+    due to the servers water consumption.
+
+    Args:
+        request_energy: Energy consumption of the request in kWh.
+        wue_on_site: On-site Water Usage Effectiveness in L/kWh.
+
+    Returns:
+        The server WCF usage impact of the request in L.
+    """
+    return request_energy * wue_on_site
+
+
+@dag.asset
+def request_electricity_usage_wcf(
+    request_energy: float,
+    wue_off_site: float,
+    datacenter_pue: float,
+) -> float:
+    """
+    Compute the Water Consumption Footprint (WCF) usage impact of the request
+    due to the electricity generation.
+
+    Args:
+        request_energy: Energy consumption of the request in kWh.
+        wue_off_site: Off-site Water Usage Efectiveness in L/kWh (electricity generation).
+        datacenter_pue: PUE of the datacenter.
+
+    Returns:
+        The electricty WCF usage impact of the request in L.
+    """
+    return request_energy * datacenter_pue * wue_off_site
+
+
+@dag.asset
+def request_usage_wcf(
+    request_server_usage_wcf: float,
+    request_electricity_usage_wcf: float,
+) -> float:
+    """
+    Compute the Water Consumption Footprint (WCF) usage impact of the request.
+
+    Args:
+        request_server_usage_wcf: The server WCF usage impact of the request in L.
+        request_electricity_usage_wcf: The electricty WCF usage impact of the request in L.
+
+    Returns:
+        The total WCF usage impact of the request in L.
+    """
+    return request_server_usage_wcf + request_electricity_usage_wcf
+
+
+@dag.asset
 def server_gpu_embodied_gwp(
         server_embodied_gwp: float,
         server_gpu_count: float,
@@ -337,6 +398,7 @@ def request_embodied_pe(
     return (generation_latency / server_lifetime) * server_gpu_embodied_pe
 
 
+
 def compute_llm_impacts_dag(
         model_active_parameter_count: ValueOrRange,
         model_total_parameter_count: ValueOrRange,
@@ -345,6 +407,8 @@ def compute_llm_impacts_dag(
         if_electricity_mix_adpe: float,
         if_electricity_mix_pe: float,
         if_electricity_mix_gwp: float,
+        wue_off_site: float,
+        wue_on_site: Optional[float] = DATACENTER_WUE,
         model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
         gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
         gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
@@ -373,6 +437,8 @@ def compute_llm_impacts_dag(
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
+        wue_off_site: Off-site Water Usage Efectiveness in L/kWh (electricity generation).
+        wue_on_site: On-site Water Usage Effectiveness in L/kWh.
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
@@ -402,6 +468,8 @@ def compute_llm_impacts_dag(
         if_electricity_mix_gwp=if_electricity_mix_gwp,
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe,
+        wue_off_site=wue_off_site,
+        wue_on_site=wue_on_site,
         gpu_energy_alpha=gpu_energy_alpha,
         gpu_energy_beta=gpu_energy_beta,
         gpu_latency_alpha=gpu_latency_alpha,
@@ -422,14 +490,15 @@ def compute_llm_impacts_dag(
 
 
 def compute_llm_impacts(
-        model_active_parameter_count: ValueOrRange,
-        model_total_parameter_count: ValueOrRange,
-        output_token_count: float,
-        if_electricity_mix_adpe: float,
-        if_electricity_mix_pe: float,
-        if_electricity_mix_gwp: float,
-        request_latency: Optional[float] = None,
-        **kwargs: Any
+    model_active_parameter_count: ValueOrRange,
+    model_total_parameter_count: ValueOrRange,
+    output_token_count: float,
+    if_electricity_mix_adpe: float,
+    if_electricity_mix_pe: float,
+    if_electricity_mix_gwp: float,
+    wue_off_site: float,
+    request_latency: Optional[float] = None,
+    **kwargs: Any
 ) -> Impacts:
     """
     Compute the impacts of an LLM generation request.
@@ -441,6 +510,7 @@ def compute_llm_impacts(
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
+        wue_off_site: Off-site Water Usage Efectiveness in L/kWh (electricity generation).
         request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
 
@@ -465,7 +535,7 @@ def compute_llm_impacts(
 
     results: dict[str, Union[RangeValue, float, int]] = {}
     fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
-              "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
+            "request_usage_wcf", "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
             model_active_parameter_count=act_param,
@@ -475,6 +545,7 @@ def compute_llm_impacts(
             if_electricity_mix_adpe=if_electricity_mix_adpe,
             if_electricity_mix_pe=if_electricity_mix_pe,
             if_electricity_mix_gwp=if_electricity_mix_gwp,
+            wue_off_site=wue_off_site,
             **kwargs
         )
         for field in fields:
@@ -491,6 +562,7 @@ def compute_llm_impacts(
     gwp_usage = GWP(value=results["request_usage_gwp"])
     adpe_usage = ADPe(value=results["request_usage_adpe"])
     pe_usage = PE(value=results["request_usage_pe"])
+    wcf_usage = WCF(value=results["request_usage_wcf"])
     gwp_embodied = GWP(value=results["request_embodied_gwp"])
     adpe_embodied = ADPe(value=results["request_embodied_adpe"])
     pe_embodied = PE(value=results["request_embodied_pe"])
@@ -499,11 +571,13 @@ def compute_llm_impacts(
         gwp=gwp_usage + gwp_embodied,
         adpe=adpe_usage + adpe_embodied,
         pe=pe_usage + pe_embodied,
+        wcf=wcf_usage,
         usage=Usage(
             energy=energy,
             gwp=gwp_usage,
             adpe=adpe_usage,
-            pe=pe_usage
+            pe=pe_usage,
+            wcf=wcf_usage,
         ),
         embodied=Embodied(
             gwp=gwp_embodied,

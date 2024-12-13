@@ -4,7 +4,6 @@ from ecologits import EcoLogits
 from openai import OpenAI
 from anthropic import Anthropic
 
-
 @pytest.mark.vcr
 def test_double_init(tracer_init):
     EcoLogits.init() # second init
@@ -57,7 +56,7 @@ def test_init_with_different_providers():
 
 
 @pytest.mark.vcr
-def test_init_with_different_mixes():
+def test_init_with_different_zones():
     seed = 0 # Define seed for having the same answers
     EcoLogits.init() # World's mix
     openai_client = OpenAI()
@@ -66,7 +65,7 @@ def test_init_with_different_mixes():
         messages=[{"role": "user", "content": "Hello World!"}], 
         seed=seed,
     )
-    EcoLogits.init(electricity_mix_zone="FRA") # Switch to France's mix
+    EcoLogits.init(electricity_zone="FRA") # Switch to France's mix
     openai_response_france = openai_client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": "Hello World!"}], 
@@ -74,3 +73,4 @@ def test_init_with_different_mixes():
     )
     assert openai_response_france.choices == openai_response_world.choices
     assert openai_response_france.impacts.gwp.value < openai_response_world.impacts.gwp.value
+    assert openai_response_france.impacts.wcf.value != openai_response_world.impacts.wcf.value

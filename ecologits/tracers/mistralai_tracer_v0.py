@@ -39,7 +39,7 @@ def mistralai_chat_wrapper(
         model_name=response.model,
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
-        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+        electricity_zone=EcoLogits.config.electricity_zone
     )
     if impacts is not None:
         return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
@@ -63,7 +63,7 @@ def mistralai_chat_wrapper_stream(
             model_name=model_name,
             output_token_count=token_count,
             request_latency=request_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            electricity_zone=EcoLogits.config.electricity_zone
         )
         if impacts is not None:
             yield ChatCompletionStreamResponse(**chunk.model_dump(), impacts=impacts)
@@ -85,7 +85,7 @@ async def mistralai_async_chat_wrapper(
         model_name=response.model,
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
-        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+        electricity_zone=EcoLogits.config.electricity_zone
     )
     if impacts is not None:
         return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
@@ -112,7 +112,7 @@ async def mistralai_async_chat_wrapper_stream(
             model_name=model_name,
             output_token_count=token_count,
             request_latency=request_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            electricity_zone=EcoLogits.config.electricity_zone
         )
         if impacts is not None:
             yield ChatCompletionStreamResponse(**chunk.model_dump(), impacts=impacts)
