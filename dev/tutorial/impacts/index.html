@@ -14,7 +14,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../providers/">
+        <link rel="next" href="../warnings_and_errors/">
       
       
       <link rel="icon" href="../../assets/leaf.svg">
@@ -791,6 +791,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../warnings_and_errors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Warnings and Errors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../providers/" class="md-nav__link">
         
   
@@ -827,10 +848,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -841,8 +862,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             Providers
           </label>
@@ -1361,6 +1382,27 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../reference/status_messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    status_messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1374,10 +1416,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
         
           
-          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1388,8 +1430,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_7">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
             <span class="md-nav__icon md-icon"></span>
             tracers
           </label>
@@ -1611,10 +1653,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
         
           
-          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1625,8 +1667,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_8">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_9">
             <span class="md-nav__icon md-icon"></span>
             utils
           </label>
@@ -1841,32 +1883,36 @@
 
 
 <h1 id="environmental-impacts">Environmental Impacts</h1>
-<p>Environmental impacts are reported for each request in the <a class="autorefs autorefs-internal" href="../../reference/impacts/modeling/#impacts.modeling.Impacts"><code>Impacts</code></a> pydantic model and features multiple <a href="#criteria">criteria</a> such as the <a href="#energy">energy</a> and <a href="#global-warming-potential-gwp">global warming potential</a> per phase (<a href="#usage">usage</a> or <a href="#embodied">embodied</a>) as well as the total impacts.</p>
+<p>Environmental impacts are reported for each request in the <a class="autorefs autorefs-internal" href="../../reference/tracers/utils/#tracers.utils.ImpactsOutput"><code>ImpactsOutput</code></a> pydantic model and features multiple <a href="#criteria">criteria</a> such as the <a href="#energy">energy</a> and <a href="#global-warming-potential-gwp">global warming potential</a> per phase (<a href="#usage">usage</a> or <a href="#embodied">embodied</a>) as well as the total impacts.</p>
 <p>To learn more on how we estimate the environmental impacts and what are our hypotheses go to the <a href="../../methodology/">methodology</a> section.</p>
-<div class="language-python highlight"><span class="filename">Structure of Impacts model</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ecologits.impacts.modeling</span> <span class="kn">import</span> <span class="o">*</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">Impacts</span><span class="p">(</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">energy</span><span class="o">=</span><span class="n">Energy</span><span class="p">(),</span> <span class="c1"># (1)!</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">usage</span><span class="o">=</span><span class="n">Usage</span><span class="p">(</span> <span class="c1"># (2)!</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="n">energy</span><span class="o">=</span><span class="n">Energy</span><span class="p">(),</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="p">),</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">embodied</span><span class="o">=</span><span class="n">Embodied</span><span class="p">(</span> <span class="c1"># (3)!</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="p">)</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="p">)</span>
+<div class="language-python highlight"><span class="filename">Structure of Impacts model</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ecologits.tracers.utils</span> <span class="kn">import</span> <span class="n">ImpactsOutput</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">ecologits.impacts.modeling</span> <span class="kn">import</span> <span class="n">ADPe</span><span class="p">,</span> <span class="n">Embodied</span><span class="p">,</span> <span class="n">Energy</span><span class="p">,</span> <span class="n">GWP</span><span class="p">,</span> <span class="n">PE</span><span class="p">,</span> <span class="n">Usage</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">ImpactsOutput</span><span class="p">(</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">energy</span><span class="o">=</span><span class="n">Energy</span><span class="p">(),</span> <span class="c1"># (1)!</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">usage</span><span class="o">=</span><span class="n">Usage</span><span class="p">(</span> <span class="c1"># (2)!</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="n">energy</span><span class="o">=</span><span class="n">Energy</span><span class="p">(),</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="p">),</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">embodied</span><span class="o">=</span><span class="n">Embodied</span><span class="p">(</span> <span class="c1"># (3)!</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="p">),</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="n">warnings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># (4)!</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="n">errors</span><span class="o">=</span><span class="kc">None</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="p">)</span>
 </span></code></pre></div>
 <ol>
 <li>Total impacts for all phases.</li>
 <li>Usage impacts for the electricity consumption impacts. Note that the energy is equal to the "total" energy impact.</li>
 <li>Embodied impacts for resource extract, manufacturing and transportation of hardware components allocated to the request. </li>
+<li>List of <a class="autorefs autorefs-internal" href="../../reference/status_messages/#status_messages.WarningMessage"><code>WarningMessage</code></a> and <a class="autorefs autorefs-internal" href="../../reference/status_messages/#status_messages.ErrorMessage"><code>ErrorMessage</code></a>.</li>
 </ol>
 <p>You can extract an impact with:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># (1)!</span>
@@ -1877,10 +1923,10 @@
 </ol>
 <p>Or you could get <strong>value range</strong> impact instead:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Range</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.48</span><span class="p">)</span> <span class="c1"># Expressed in kgCO2eq (1)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">RangeValue</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.48</span><span class="p">)</span> <span class="c1"># Expressed in kgCO2eq (1)</span>
 </span></code></pre></div>
 <ol>
-<li>[<code>Range</code>][impacts.modeling.Range] are used to define intervals.</li>
+<li><a class="autorefs autorefs-internal" href="../../reference/utils/range_value/#utils.range_value.RangeValue"><code>RangeValue</code></a> are used to define intervals.</li>
 </ol>
 <h2 id="criteria">Criteria</h2>
 <p>To evaluate the impact of human activities on the planet or on the climate we use criteria that usually focus on a specific issue such as <strong>GHG emissions for global warming</strong>, <strong>water consumption and pollution</strong> or the <strong>depletion of natural resources</strong>. We currently support three environmental impact criteria in addition with the direct energy consumption. </p>

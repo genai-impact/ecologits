@@ -716,6 +716,27 @@
   
   
     <li class="md-nav__item">
+      <a href="warnings_and_errors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Warnings and Errors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="providers/" class="md-nav__link">
         
   
@@ -752,10 +773,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -766,8 +787,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             Providers
           </label>
@@ -1286,6 +1307,27 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../reference/status_messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    status_messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1299,10 +1341,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
         
           
-          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1313,8 +1355,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_7">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
             <span class="md-nav__icon md-icon"></span>
             tracers
           </label>
@@ -1536,10 +1578,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
         
           
-          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1550,8 +1592,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_8">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_9">
             <span class="md-nav__icon md-icon"></span>
             utils
           </label>
@@ -1692,7 +1734,7 @@
 
 <h1 id="tutorial">Tutorial</h1>
 <p>The <img alt="🌱" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f331.svg" title=":seedling:" /> <strong>EcoLogits</strong> library tracks the energy consumption and environmental impacts of generative AI models accessed through APIs and their official client libraries. </p>
-<p>It achieves this by <strong>patching the Python client libraries</strong>, ensuring that each API request is wrapped with an impact calculation function. This function computes the <strong>environmental impact based on several request features</strong>, such as the <strong>chosen model</strong>, the <strong>number of tokens generated</strong>, and the <strong>request's latency</strong>. The resulting data is then encapsulated in an <code>Impacts</code> object, which is added to the response, containing the environmental impacts for a specific request.</p>
+<p>It achieves this by <strong>patching the Python client libraries</strong>, ensuring that each API request is wrapped with an impact calculation function. This function computes the <strong>environmental impact based on several request features</strong>, such as the <strong>chosen model</strong>, the <strong>number of tokens generated</strong>, and the <strong>request's latency</strong>. The resulting data is then encapsulated in an <a class="autorefs autorefs-internal" href="../reference/tracers/utils/#tracers.utils.ImpactsOutput"><code>ImpactsOutput</code></a> object, which is added to the response, containing the environmental impacts for a specific request.</p>
 <div class="grid cards">
 <ul>
 <li>
