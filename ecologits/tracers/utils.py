@@ -88,8 +88,7 @@ def llm_impacts(
 
     electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_mix_zone)
     if electricity_mix is None:
-        error = ModelNotRegisteredError(message=f"Could not find electricity mix `{electricity_mix_zone}` in the "
-                                                f"ADEME database.")
+        error = ZoneNotRegisteredError(message=f"Could not find electricity mix for `{electricity_mix_zone}` zone.")
         logger.warning_once(str(error))
         return ImpactsOutput(errors=[error])
 
