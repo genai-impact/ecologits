@@ -30,4 +30,4 @@ class EcoLogitsLogger(logging.Logger):
 
 
 logging.setLoggerClass(EcoLogitsLogger)
-logger: EcoLogitsLogger = cast(EcoLogitsLogger, logging.getLogger(__name__))
+logger: EcoLogitsLogger = cast(EcoLogitsLogger, logging.getLogger("ecologits"))
