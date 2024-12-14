@@ -1,5 +1,5 @@
 ---
-title: "EcoLogits: Evaluate the Environmental Impacts of Generative AI"
+title: "EcoLogits: Evaluating the Environmental Impacts of Generative AI"
 tags:
   - Python
   - Generative AI
@@ -32,13 +32,15 @@ To address these concerns, we introduce EcoLogits, an open-source Python package
 
 # Statement of need
 
-While the recent developments in GenAI offer tools of unprecedented quality, there is a general trend of increased energy consumption associated with these technologies [@de_vries_growing_2023]. It is a well-known fact that training large neural networks yields non-negligible carbon emissions [@lacoste_quantifying_2019; @patterson_carbon_2021]. Some industry actors communicate about the emissions of training their own models, such as Meta that reported the carbon emissions of Llama models [@touvron_llama_2023; @touvron_llama_2023-1; @llama3modelcard_2024].
+While the recent developments in GenAI offer tools of unprecedented quality, there is a general trend of increased energy consumption associated with these technologies [@de_vries_growing_2023]. It is a well-known fact that training large neural networks yields non-negligible carbon emissions [@lacoste_quantifying_2019; @patterson_carbon_2021]. Some industry actors communicate about the emissions of training their own models, such as Meta that estimated carbon emissions of Llama models [@touvron_llama_2023; @touvron_llama_2023-1; @llama3modelcard_2024].
 
 The major difference in recent years is that GenAI models are not only large models but are also widely used by millions of people through web application such as OpenAI's ChatGPT or via APIs. The literature agrees on the fact that the share of carbon emissions from the inference is increasing [@patterson_carbon_2021; @desislavov_trends_2023] although these proportions vary among providers, with AWS reporting 80-90%, Google 60% and Meta 33% [@luccioni_power_2024].
 
 Moreover, while energy consumption is important, it is alone insufficient for a comprehensive evaluation of the environmental impacts of training and inference. It is crucial to include embodied impacts that come from hardware production. For LLMs such as BLOOM 176B, accounting for the embodied impacts increased the total carbon emissions by 22% for the training phase of the model [@luccioni_estimating_2022]. Environmental impacts evaluations of AI models should be more transparent and follow Life Cycle Assessment methodologies to be complete [@ligozat_unraveling_2022].
 
-In parallel to the large deployment of energy-consuming models in the industry, there is a growing need for tools that automatically approximate their environmental impacts. While tools like CodeCarbon or Zeus [@codecarbon_2024; @zeus_2023] can track energy consumption and carbon emissions for locally-deployed models, estimating impacts becomes necessary when using external APIs from GenAI service providers. EcoLogits is the first Python library to approximate the environmental impacts of GenAI models inference via Python client calls. By adding `EcoLogits.init()` to their codebase, users can access an estimation of the energy consumption and the environmental impacts of their requests.
+In parallel to the large deployment of energy-consuming models in the industry, there is a growing need for tools that automatically approximate their environmental impacts. While tools like CodeCarbon or Zeus[^1] [@codecarbon_2024; @zeus_2023] can track energy consumption and carbon emissions for locally-deployed models, estimating impacts becomes necessary when using external APIs from GenAI service providers. EcoLogits is the first Python library to approximate the environmental impacts of GenAI models inference via Python client calls. By adding `EcoLogits.init()` to their codebase, users can access an estimation of the energy consumption and the environmental impacts of their requests.
+
+[^1]: See https://github.com/mlco2/codecarbon and https://github.com/ml-energy/zeus. 
 
 # Methodology
 
@@ -46,7 +48,7 @@ The **Attributional Life Cycle Assessment (A-LCA)** methodology defined by the I
 
 In our approach we consider the usage phase accounting for the direct energy consumption [@llm-perf-leaderboard; @optimum-benchmark] and the embodied phase accounting for the hardware production, including raw material extraction, manufacturing and transportation [@boaviztapi]. We do not include the end-of-life phase for lack of data and transparency on e-waste collection and recycling [@bordage_digital_2021; @forti_global_2020]. EcoLogits reports an estimation of the direct energy consumption in addition to other environmental impacts criteria such as *Global Warming Potential* [@ipcc_2013], *Abiotic Depletion Potential* [@van_oers_abiotic_2020] and *Primary Energy* consumption [@frischknecht_cumulative_2015]. Assessing multiple impact criteria helps prevent pollution shifting that can result from optimizing for a single criterion.
 
-To estimate the impacts of a GenAI service we use a **bottom-up modeling approach**, i.e. we assess the environmental impacts of all components that compose the service individually and then aggregate and allocate these impacts to a request. The scope of our methodology encompasses cloud compute primitives and data center extra equipment such as cooling (see \autoref{fig:boundaries}). We focus our study on high-performance GPU-accelerated cloud instances since they are commonly used for GenAI inference tasks. We do not account for other impacts related to model training, networking transfers or end-user devices.
+To estimate the impacts of a GenAI service we use a **bottom-up modeling approach**, i.e. we individually assess the environmental impacts of components that frame the service, and then aggregate and allocate these impacts to a request. The scope of our methodology encompasses cloud compute primitives and data center extra equipment such as cooling (see \autoref{fig:boundaries}). We focus our study on high-performance GPU-accelerated cloud instances since they are commonly used for GenAI inference tasks. We do not account for other impacts related to model training, networking transfers or end-user devices.
 
 <figure markdown="span">
   ![Scope and boundaries of our methodology focused on compute primitives \label{fig:boundaries}](figures/figure_boundaries.png)
