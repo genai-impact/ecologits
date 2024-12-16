@@ -61,7 +61,7 @@ For detailed instructions on each provider, refer to the complete list of [suppo
 
 ## Usage Example
 
-Below is a simple example demonstrating how to use the GPT-3.5-Turbo model from OpenAI with EcoLogits to track environmental impacts.
+Below is a simple example demonstrating how to use the GPT-4o-mini model from OpenAI with **EcoLogits** to track environmental impacts.
 
 ```python
 from ecologits import EcoLogits
@@ -72,7 +72,7 @@ EcoLogits.init()
 
 client = OpenAI(api_key="<OPENAI_API_KEY>")
 
-response = client.chat.completions.create(
+response = client.chat.completions.create( # (1)!
     model="gpt-4o-mini",
     messages=[
         {"role": "user", "content": "Tell me a funny joke!"}
@@ -80,25 +80,44 @@ response = client.chat.completions.create(
 )
 
 # Get estimated environmental impacts of the inference
-print(f"Energy consumption: {response.impacts.energy.value} kWh")
-print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
+print(f"Energy consumption: {response.impacts.energy.value} kWh") # (2)!
+print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq") # (3)!
+
+# Get potential warnings
+if response.impacts.has_warnings:
+    for w in response.impacts.warnings:
+        print(w) # (4)!
+
+# Get potential errors
+if response.impacts.has_errors:
+    for w in response.impacts.errors:
+        print(w) # (5)!
 ```
 
-Environmental impacts are quantified based on four criteria and across two phases:
+1. You don't need to change your code when making a request! :tada:
+2. Total estimated energy consumption for the request in kilowatt-hour (kWh).
+3. Total estimated greenhouse gas emissions for the request in kilogram of CO2 equivalent (kgCO2eq).
+4. For `gpt-4o-mini`, you can expect two warnings: [`model-arch-not-released`](tutorial/warnings_and_errors.md#model-arch-not-released) and [`model-arch-multimodal`](tutorial/warnings_and_errors.md#model-arch-multimodal).
+5. On this example you shouldn't get any errors.
 
-Criteria:
 
-- **Energy** (energy): Final energy consumption in kWh,
-- **Global Warming Potential** (gwp): Potential impact on global warming in kgCO2eq (commonly known as GHG/carbon emissions),
-- **Abiotic Depletion Potential for Elements** (adpe): Impact on the depletion of non-living resources such as minerals or metals in kgSbeq,
-- **Primary Energy** (pe): Total energy consumed from primary sources in MJ.
+### Impacts output in a nutshell 
 
-Phases:
+**[`ImpactsOutput`][tracers.utils.ImpactsOutput]** object is returned for each request made to supported clients. It gathers, **[environmental impacts](tutorial/impacts.md)** and potential **[warnings and errors](tutorial/warnings_and_errors.md)**.
 
-- **Usage** (usage): Represents the phase of energy consumption during model execution,
-- **Embodied** (embodied): Encompasses resource extraction, manufacturing, and transportation phases associated with the model's lifecycle.
+EcoLogits aims to give a comprehensive view of the environmental footprint of generative AI models at **inference**. Impacts are reported in total, but also **per life cycle phases**:
 
-!!! info "Learn more about environmental impacts assessment in the [methodology](methodology/index.md) section."
+* **Usage**: related to the impacts of the energy consumption during model execution.
+* **Embodied**: related to resource extraction, manufacturing and transportation of the hardware.
+
+And, **multiple criteria**:
+
+* **Energy**: related to the final electricity consumption in kWh. 
+* **Global Warming Potential** (GWP): related to climate change, commonly known as GHG emissions in kgCO2eq.
+* **Abiotic Depletion Potential for Elements** (ADPe): related to the depletion of minerals and metals in kgSbeq.
+* **Primary Energy** (PE): related to the energy consumed from primary sources like oil, gas or coal in MJ. 
+
+For detailed instructions on how to use the library, see our **[tutorial section](tutorial/index.md)**. If you want more details on the underlying impacts calculations, see our **[methodology section](methodology/index.md)**.
 
 
 ## License
