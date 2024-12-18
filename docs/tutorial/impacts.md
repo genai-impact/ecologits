@@ -1,53 +1,107 @@
 # Environmental Impacts
 
-Environmental impacts are reported for each request in the [`ImpactsOutput`][tracers.utils.ImpactsOutput] pydantic model and features multiple [criteria](#criteria) such as the [energy](#energy) and [global warming potential](#global-warming-potential-gwp) per phase ([usage](#usage) or [embodied](#embodied)) as well as the total impacts.
+Environmental impacts are reported for each request in the **[`ImpactsOutput`][tracers.utils.ImpactsOutput]** that features multiple [impact criteria](#impact-criteria) such as [energyc onsumption](#energy) or the [global warming potential](#global-warming-potential-gwp) per phase ([usage](#usage) or [embodied](#embodied)) as well as the total impacts. It also contains potential [warnings and errors](warnings_and_errors.md) that can occur during the calculation.
 
-To learn more on how we estimate the environmental impacts and what are our hypotheses go to the [methodology](../methodology/index.md) section.
+!!! note "To learn more on how we estimate the environmental impacts and what are our hypotheses go to the [methodology](../methodology/index.md) section."
 
-```python title="Structure of Impacts model"
+
+## Impacts Output
+
+The [`ImpactsOutput`][tracers.utils.ImpactsOutput] is structured the following way:
+
+```python
 from ecologits.tracers.utils import ImpactsOutput
 from ecologits.impacts.modeling import ADPe, Embodied, Energy, GWP, PE, Usage
 
+
 ImpactsOutput(
-    energy=Energy(), # (1)!
-    gwp=GWP(),
-    adpe=ADPe(),
-    pe=PE(),
-    usage=Usage( # (2)!
+    energy=Energy(),    # Total energy consumed
+    gwp=GWP(),          # Total global warming potential (or GHG emissions)
+    adpe=ADPe(),        # Total abiotic resource depletion
+    pe=PE(),            # Total energy consumed from primary sources
+    usage=Usage( # (1)!
         energy=Energy(),
         gwp=GWP(),
         adpe=ADPe(),
         pe=PE(),
     ),
-    embodied=Embodied( # (3)!
+    embodied=Embodied( # (2)!
         gwp=GWP(),
         adpe=ADPe(),
         pe=PE(),
     ),
-    warnings=None,  # (4)!
+    warnings=None, # (3)!
     errors=None
 )
 ```
 
-1. Total impacts for all phases.
-2. Usage impacts for the electricity consumption impacts. Note that the energy is equal to the "total" energy impact.
-3. Embodied impacts for resource extract, manufacturing and transportation of hardware components allocated to the request. 
-4. List of [`WarningMessage`][status_messages.WarningMessage] and [`ErrorMessage`][status_messages.ErrorMessage].
+1. Usage impacts for the electricity consumption impacts. Note that the energy is equal to the "total" energy impact.
+2. Embodied impacts for resource extract, manufacturing and transportation of hardware components allocated to the request. 
+3. List of [`WarningMessage`][status_messages.WarningMessage] and [`ErrorMessage`][status_messages.ErrorMessage].
 
 
-You can extract an impact with:
+### Example of an impact value
+
+The impact objects named [`Energy`][impacts.modeling.Energy], [`GWP`][impacts.modeling.GWP], [`ADPe`][impacts.modeling.ADPe] or [`PE`][impacts.modeling.PE] all share the following structure:
+
+```python
+from ecologits.impacts.modeling import BaseImpact
+from ecologits.utils.range_value import RangeValue
+
+class GWP(BaseImpact):  # (1)!
+    type: str = "GWP"
+    name: str = "Global Warming Potential"
+    unit: str = "kgCO2eq"
+    value: float | RangeValue = 0.34 
+```
 
 ```python
 >>> response.impacts.usage.gwp.value  # (1)!
-RangeValue(min=0.16, max=0.48) # Expressed in kgCO2eq (2)
+0.34    # Expressed in kgCO2eq.
+```
+
+1. Example with the Global Warming Potential (GWP) object to represent GHG emissions.
+
+You can retrieve the GWP impact value from a request with the following:
+
+```python
+>>> response.impacts.gwp.value # Total GHG emissions (1)
+0.34  # in kgCO2eq.
+
+>>> response.impacts.usage.gwp.value  # or for the usage phase only
+0.23
 ```
 
 1. Assuming you have made an inference and get the response in an `response` object.
-2. [`RangeValue`][utils.range_value.RangeValue] are used to define intervals. It corresponds to the 95% confidence interval of our approximation.
+
+### Example with a `RangeValue`
+
+Impact values can also be represented as **intervals with the [`RangeValue`][utils.range_value.RangeValue]** object. They are used to give an estimate range of possible values between a `min` and a `max`.
+
+!!! info "About `RangeValue` intervals" 
+
+    This range of values corresponds a **high-confidence approximation interval**, within which we are confident enough that the true consumption lies. This interval is defined by several approximations, such as the model size (if unknown) and the statistical regressions that we perform for estimating quantities. For more information, see the [methodology](../methodology/llm_inference.md).
+
+Example of an impact with a `RangeValue`:
+
+```python
+>>> response.impacts.gwp.value
+RangeValue(min=0.16, max=0.48) # in kgCO2eq (1)
+```
+
+1. [`RangeValue`][utils.range_value.RangeValue] are used to define intervals. It corresponds to the 95% confidence interval of our approximation.
+
 
 This range of values corresponds a **high-confidence approximation interval**, within which we are confident enough that the true consumption lies. This interval is defined by several approximations, such as the model size (if unknown) and the statistical regressions that we perform for estimating quantities. For more information, see the [methodology](../methodology/llm_inference.md).
 
+
 ## Criteria
+```python
+>>> response.impacts.gwp.value
+RangeValue(min=0.16, max=0.48)
+```
+
+## Impact Criteria
 
 To evaluate the impact of human activities on the planet or on the climate we use criteria that usually focus on a specific issue such as **GHG emissions for global warming**, **water consumption and pollution** or the **depletion of natural resources**. We currently support three environmental impact criteria in addition with the direct energy consumption. 
 
@@ -113,7 +167,7 @@ Learn more: [wikipedia.org :octicons-link-external-16:](https://en.wikipedia.org
             show_docstring_description: false
             docstring_section_style: list
 
-## Phases
+## Impact Phases
 
 Inspired from the Life Cycle Assessment methodology we classify impacts is two phases (usage and embodied). The **usage phase** is about the environmental impacts related to the energy consumption while using an AI model. The **embodied phase** encompasses upstream impacts such as resource extraction, manufacturing, and transportation. We currently do not support the third phase which is end-of-life due to a lack of open research and transparency on that matter.
 
