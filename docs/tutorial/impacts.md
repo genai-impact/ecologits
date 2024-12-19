@@ -1,6 +1,6 @@
 # Environmental Impacts
 
-Environmental impacts are reported for each request in the **[`ImpactsOutput`][tracers.utils.ImpactsOutput]** that features multiple [impact criteria](#impact-criteria) such as [energyc onsumption](#energy) or the [global warming potential](#global-warming-potential-gwp) per phase ([usage](#usage) or [embodied](#embodied)) as well as the total impacts. It also contains potential [warnings and errors](warnings_and_errors.md) that can occur during the calculation.
+Environmental impacts are reported for each request in the **[`ImpactsOutput`][tracers.utils.ImpactsOutput]** that features multiple [impact criteria](#impact-criteria) such as [energy consumption](#energy) or the [global warming potential](#global-warming-potential-gwp) per phase ([usage](#usage) or [embodied](#embodied)) as well as the total impacts. It also contains potential [warnings and errors](warnings_and_errors.md) that can occur during the calculation.
 
 !!! note "To learn more on how we estimate the environmental impacts and what are our hypotheses go to the [methodology](../methodology/index.md) section."
 
@@ -55,13 +55,6 @@ class GWP(BaseImpact):  # (1)!
     value: float | RangeValue = 0.34 
 ```
 
-```python
->>> response.impacts.usage.gwp.value  # (1)!
-0.34    # Expressed in kgCO2eq.
-```
-
-1. Example with the Global Warming Potential (GWP) object to represent GHG emissions.
-
 You can retrieve the GWP impact value from a request with the following:
 
 ```python
@@ -76,7 +69,7 @@ You can retrieve the GWP impact value from a request with the following:
 
 ### Example with a `RangeValue`
 
-Impact values can also be represented as **intervals with the [`RangeValue`][utils.range_value.RangeValue]** object. They are used to give an estimate range of possible values between a `min` and a `max`.
+Impact values can also be represented as **intervals with the [`RangeValue`][utils.range_value.RangeValue]** object. They are used to give an estimate range of possible values between a `min` and a `max`. 
 
 !!! info "About `RangeValue` intervals" 
 
@@ -91,15 +84,6 @@ RangeValue(min=0.16, max=0.48) # in kgCO2eq (1)
 
 1. [`RangeValue`][utils.range_value.RangeValue] are used to define intervals. It corresponds to the 95% confidence interval of our approximation.
 
-
-This range of values corresponds a **high-confidence approximation interval**, within which we are confident enough that the true consumption lies. This interval is defined by several approximations, such as the model size (if unknown) and the statistical regressions that we perform for estimating quantities. For more information, see the [methodology](../methodology/llm_inference.md).
-
-
-## Criteria
-```python
->>> response.impacts.gwp.value
-RangeValue(min=0.16, max=0.48)
-```
 
 ## Impact Criteria
 
