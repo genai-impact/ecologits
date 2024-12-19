@@ -25,11 +25,11 @@ The model architecture of GPT-4 was leaked[^1] and estimated to be a sparse mixt
 
 ### From evaluation benchmarks
 
-At the time of release Claude 3 Opus from Anthropic had about the same performance on general benchmarks such as MMLU of HelloSwag[^2]. That is why we considered that Claude 3 Opus was about the same size of GPT-4. The model size is estimated to be about 2 trillion parameters[^3], and we also consider that it is a sparse mixture of experts, just like GPT-4, with between 250B and 1000B active parameters.
+At the time of release Claude 3 Opus from Anthropic had about the same performance on general benchmarks such as MMLU or HelloSwag[^2]. That is why we considered that Claude 3 Opus was about the same size of GPT-4. The model size is estimated to be about 2 trillion parameters[^3], and we also consider that it is a sparse mixture of experts, just like GPT-4, with between 250B and 1000B active parameters.
 
 ### From pricing information
 
-When OpenAI released GPT-4-Turbo we considered the model to a distilled version of GPT-4 which justified the price drop[^4]. We thus estimated that GPT-4-Turbo was a scaled down (2x when comparing output tokens price) architecture of GPT-4 and used the price difference to conclude that GPT-4-Turbo was a sparse mixture of experts of 880B total parameters and between 110B and 440B active parameters.
+When OpenAI released GPT-4-Turbo we considered the model to be a distilled version of GPT-4 which justified the price drop[^4]. We thus estimated that GPT-4-Turbo was a scaled down (2x when comparing output tokens price) architecture of GPT-4 and used the price difference to conclude that GPT-4-Turbo was a sparse mixture of experts of 880B total parameters and between 110B and 440B active parameters.
 
 
 ## Transparency and updates
