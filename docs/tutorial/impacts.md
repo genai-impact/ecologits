@@ -1,6 +1,6 @@
 # Environmental Impacts
 
-Environmental impacts are reported for each request in the **[`ImpactsOutput`][tracers.utils.ImpactsOutput]** that features multiple [impact criteria](#impact-criteria) such as [energyc onsumption](#energy) or the [global warming potential](#global-warming-potential-gwp) per phase ([usage](#usage) or [embodied](#embodied)) as well as the total impacts. It also contains potential [warnings and errors](warnings_and_errors.md) that can occur during the calculation.
+Environmental impacts are reported for each request in the **[`ImpactsOutput`][tracers.utils.ImpactsOutput]** that features multiple [impact criteria](#impact-criteria) such as [energy consumption](#energy) or the [global warming potential](#global-warming-potential-gwp) per phase ([usage](#usage) or [embodied](#embodied)) as well as the total impacts. It also contains potential [warnings and errors](warnings_and_errors.md) that can occur during the calculation.
 
 !!! note "To learn more on how we estimate the environmental impacts and what are our hypotheses go to the [methodology](../methodology/index.md) section."
 
@@ -69,9 +69,9 @@ You can retrieve the GWP impact value from a request with the following:
 
 ### Example with a `RangeValue`
 
-Impact values can also be represented as **intervals with the [`RangeValue`][utils.range_value.RangeValue]** object. They are used to give an estimate range of possible values between a `min` and a `max`.
+Impact values can also be represented as **intervals with the [`RangeValue`][utils.range_value.RangeValue]** object. They are used to give an estimate range of possible values between a `min` and a `max`. 
 
-!!! warning "`RangeValue` intervals does not constitute a statistical confidence interval. It should be interpreted as potential "best" and "worst" case scenario for the min and max values respectively."
+!!! warning "`RangeValue` intervals **do not** constitute in absolute lower and upper limits or a confidence interval. It should be interpreted as potential "best" and "worst" case scenario for the min and max values respectively. The _ground truth_ value may be outside of the range."
 
 Example of an impact with a `RangeValue`:
 
