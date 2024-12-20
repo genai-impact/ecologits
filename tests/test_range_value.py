@@ -53,3 +53,14 @@ def test_range_formats_ok():
 ])
 def test_value_range_compare(val_1, val_2, op, result):
     assert op(val_1, val_2) == result
+
+
+@pytest.mark.parametrize("val_1,val_2,op,exp_result", [
+    (RangeValue(min=1, max=2), RangeValue(min=1, max=2), operator.add, RangeValue(min=2, max=4)),
+    (RangeValue(min=1, max=2), 1, operator.add, RangeValue(min=2, max=3)),
+    (RangeValue(min=1, max=2), 2, operator.mul, RangeValue(min=2, max=4)),
+    (RangeValue(min=2, max=4), 2, operator.truediv, RangeValue(min=1, max=2)),
+])
+def test_value_range_transformation(val_1, val_2, op, exp_result):
+    result = op(val_1, val_2)
+    assert result.min == exp_result.min and result.max == exp_result.max
