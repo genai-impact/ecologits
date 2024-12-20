@@ -154,7 +154,6 @@ def test_impact_cannot_compare(impact_1, impact_2, op):
     (RangeValue(min=0, max=1.5), RangeValue(min=1, max=2), operator.lt, False),
     (RangeValue(min=1, max=2), RangeValue(min=0, max=1.5), operator.ge, True),
     (RangeValue(min=1, max=2), RangeValue(min=0, max=1.5), operator.gt, False),
-
     (RangeValue(min=1, max=1), 1, operator.eq, True),
     (RangeValue(min=1, max=2), 1, operator.eq, False),
     (RangeValue(min=1, max=2), 2, operator.eq, False),
