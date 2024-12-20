@@ -10,8 +10,11 @@ MODEL_QUANTIZATION_BITS = 4
 
 GPU_ENERGY_ALPHA = 8.91e-8
 GPU_ENERGY_BETA = 1.43e-6
+GPU_ENERGY_STDEV = 5.19e-7
 GPU_LATENCY_ALPHA = 8.02e-4
 GPU_LATENCY_BETA = 2.23e-2
+GPU_LATENCY_STDEV = 7.00e-6
+
 GPU_MEMORY = 80  # GB
 GPU_EMBODIED_IMPACT_GWP = 143
 GPU_EMBODIED_IMPACT_ADPE = 5.1e-3
@@ -35,8 +38,9 @@ def gpu_energy(
         model_active_parameter_count: float,
         output_token_count: float,
         gpu_energy_alpha: float,
-        gpu_energy_beta: float
-) -> float:
+        gpu_energy_beta: float,
+        gpu_energy_stdev: float
+) -> ValueOrRange:
     """
     Compute energy consumption of a single GPU.
 
@@ -45,12 +49,15 @@ def gpu_energy(
         output_token_count: Number of generated tokens.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
+        gpu_energy_stdev: Standard deviation of the GPU linear power consumption profile.
 
     Returns:
-        The energy consumption of a single GPU in kWh.
+        The 95% confidence interval of energy consumption of a single GPU in kWh.
     """
-    return output_token_count * (gpu_energy_alpha * model_active_parameter_count + gpu_energy_beta)
-
+    gpu_energy_per_token_mean = gpu_energy_alpha * model_active_parameter_count + gpu_energy_beta
+    gpu_energy_min = output_token_count * (gpu_energy_per_token_mean - 1.96 * gpu_energy_stdev)
+    gpu_energy_max = output_token_count * (gpu_energy_per_token_mean + 1.96 * gpu_energy_stdev)
+    return RangeValue(min=max(0, gpu_energy_min), max=gpu_energy_max)
 
 @dag.asset
 def generation_latency(
@@ -58,8 +65,9 @@ def generation_latency(
         output_token_count: float,
         gpu_latency_alpha: float,
         gpu_latency_beta: float,
+        gpu_latency_stdev: float,
         request_latency: float,
-) -> float:
+) -> ValueOrRange:
     """
     Compute the token generation latency in seconds.
 
@@ -68,14 +76,19 @@ def generation_latency(
         output_token_count: Number of generated tokens.
         gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.
         gpu_latency_beta: Beta parameter of the GPU linear latency profile.
+        gpu_energy_stdev: Standard deviation of the GPU linear latency profile.
         request_latency: Measured request latency (upper bound) in seconds.
 
     Returns:
         The token generation latency in seconds.
     """
-    gpu_latency = output_token_count * (gpu_latency_alpha * model_active_parameter_count + gpu_latency_beta)
-    return min(gpu_latency, request_latency)
-
+    gpu_latency_per_token_mean = gpu_latency_alpha * model_active_parameter_count + gpu_latency_beta
+    gpu_latency_min = output_token_count * (gpu_latency_per_token_mean - 1.96 * gpu_latency_stdev)
+    gpu_latency_max = output_token_count * (gpu_latency_per_token_mean + 1.96 * gpu_latency_stdev)
+    gpu_latency_interval = RangeValue(min=max(0, gpu_latency_min), max=gpu_latency_max)
+    if gpu_latency_interval < request_latency:
+        return gpu_latency_interval
+    return request_latency
 
 @dag.asset
 def model_required_memory(
@@ -140,8 +153,8 @@ def request_energy(
         datacenter_pue: float,
         server_energy: float,
         gpu_required_count: int,
-        gpu_energy: float
-) -> float:
+        gpu_energy: ValueOrRange
+) -> ValueOrRange:
     """
     Compute the energy consumption of the request.
 
@@ -159,9 +172,9 @@ def request_energy(
 
 @dag.asset
 def request_usage_gwp(
-        request_energy: float,
+        request_energy: ValueOrRange,
         if_electricity_mix_gwp: float
-) -> float:
+) -> ValueOrRange:
     """
     Compute the Global Warming Potential (GWP) usage impact of the request.
 
@@ -177,9 +190,9 @@ def request_usage_gwp(
 
 @dag.asset
 def request_usage_adpe(
-        request_energy: float,
+        request_energy: ValueOrRange,
         if_electricity_mix_adpe: float
-) -> float:
+) -> ValueOrRange:
     """
     Compute the Abiotic Depletion Potential for Elements (ADPe) usage impact of the request.
 
@@ -195,9 +208,9 @@ def request_usage_adpe(
 
 @dag.asset
 def request_usage_pe(
-        request_energy: float,
+        request_energy: ValueOrRange,
         if_electricity_mix_pe: float
-) -> float:
+) -> ValueOrRange:
     """
     Compute the Primary Energy (PE) usage impact of the request.
 
@@ -281,8 +294,8 @@ def server_gpu_embodied_pe(
 def request_embodied_gwp(
         server_gpu_embodied_gwp: float,
         server_lifetime: float,
-        generation_latency: float
-) -> float:
+        generation_latency: ValueOrRange
+) -> ValueOrRange:
     """
     Compute the Global Warming Potential (GWP) embodied impact of the request.
 
@@ -301,8 +314,8 @@ def request_embodied_gwp(
 def request_embodied_adpe(
         server_gpu_embodied_adpe: float,
         server_lifetime: float,
-        generation_latency: float
-) -> float:
+        generation_latency: ValueOrRange
+) -> ValueOrRange:
     """
     Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the request.
 
@@ -321,8 +334,8 @@ def request_embodied_adpe(
 def request_embodied_pe(
         server_gpu_embodied_pe: float,
         server_lifetime: float,
-        generation_latency: float
-) -> float:
+        generation_latency: ValueOrRange
+) -> ValueOrRange:
     """
     Compute the Primary Energy (PE) embodied impact of the request.
 
@@ -348,8 +361,10 @@ def compute_llm_impacts_dag(
         model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
         gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
         gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
+        gpu_energy_stdev: Optional[float] = GPU_ENERGY_STDEV,
         gpu_latency_alpha: Optional[float] = GPU_LATENCY_ALPHA,
         gpu_latency_beta: Optional[float] = GPU_LATENCY_BETA,
+        gpu_latency_stdev: Optional[float] = GPU_LATENCY_STDEV,
         gpu_memory: Optional[float] = GPU_MEMORY,
         gpu_embodied_gwp: Optional[float] = GPU_EMBODIED_IMPACT_GWP,
         gpu_embodied_adpe: Optional[float] = GPU_EMBODIED_IMPACT_ADPE,
@@ -361,7 +376,7 @@ def compute_llm_impacts_dag(
         server_embodied_pe: Optional[float] = SERVER_EMBODIED_IMPACT_PE,
         server_lifetime: Optional[float] = HARDWARE_LIFESPAN,
         datacenter_pue: Optional[float] = DATACENTER_PUE,
-) -> dict[str, float]:
+) -> dict[str, ValueOrRange]:
     """
     Compute the impacts dag of an LLM generation request.
 
@@ -376,8 +391,10 @@ def compute_llm_impacts_dag(
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
+        gpu_energy_stdev: Standard deviation of the GPU linear power consumption profile.
         gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.
         gpu_latency_beta: Beta parameter of the GPU linear latency profile.
+        gpu_latency_stdev: Standard deviation of the GPU linear latency profile.
         gpu_memory: Amount of memory available on a single GPU.
         gpu_embodied_gwp: GWP embodied impact of a single GPU.
         gpu_embodied_adpe: ADPe embodied impact of a single GPU.
@@ -404,8 +421,10 @@ def compute_llm_impacts_dag(
         if_electricity_mix_pe=if_electricity_mix_pe,
         gpu_energy_alpha=gpu_energy_alpha,
         gpu_energy_beta=gpu_energy_beta,
+        gpu_energy_stdev=gpu_energy_stdev,
         gpu_latency_alpha=gpu_latency_alpha,
         gpu_latency_beta=gpu_latency_beta,
+        gpu_latency_stdev=gpu_latency_stdev,
         gpu_memory=gpu_memory,
         gpu_embodied_gwp=gpu_embodied_gwp,
         gpu_embodied_adpe=gpu_embodied_adpe,
@@ -466,6 +485,7 @@ def compute_llm_impacts(
     results: dict[str, Union[RangeValue, float, int]] = {}
     fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
               "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
+
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
             model_active_parameter_count=act_param,
@@ -479,11 +499,18 @@ def compute_llm_impacts(
         )
         for field in fields:
             if field in results:
-                if isinstance(results[field], (float, int)):
-                    value = cast(Union[float, int], results[field])
-                    results[field] = RangeValue(min=value, max=res[field])
+                min_result = results[field]
+                if isinstance(min_result, RangeValue):
+                    min_value = cast(Union[float, int], min_result.min)
+                    max_result = res[field]
+                    if isinstance(max_result, RangeValue):
+                        max_value = cast(Union[float, int], max_result.max)
+                        results[field] = RangeValue(min=min_value, max=max_value)
+                    else:
+                        raise TypeError("Unexpected behaviour. With different parameters, DAG does not return the same type")
                 else:
-                    raise TypeError("Cannot transform RangeValue.")
+                    min_value = cast(Union[float, int], min_result)
+                    results[field] = RangeValue(min=min_value, max=res[field])
             else:
                 results[field] = res[field]
 
