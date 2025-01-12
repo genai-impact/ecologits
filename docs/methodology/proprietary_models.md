@@ -1,6 +1,6 @@
 # About proprietary models
 
-EcoLogits is designed to assess the environmental footprint of generative AI models, including both **open and proprietary models**, during the inference phase. Our methodology is based on **open science, data and models** to ensure **transparency** and **reproducibility**. However, evaluating proprietary models hosted by private AI providers **presents unique challenges due to limited access to their technical details**.
+EcoLogits is designed to assess the environmental footprint of generative AI models, including both **open and proprietary models**, during the inference phase. Our methodology is based on **open science, data and models** to ensure **transparency** and **explainability**. However, evaluating proprietary models hosted by private AI providers **presents unique challenges due to limited access to their technical details**.
 
 This page explains our approach to modeling the environmental impacts of proprietary models and the **potential sources of inaccuracy**. We'll describe our methods for estimating model architectures and provide examples of how we make these estimations. Understanding these assumptions is **crucial** for users to interpret our results accurately and use EcoLogits with confidence.
 
