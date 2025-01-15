@@ -1,6 +1,12 @@
+from ecologits import EcoLogits
 import pytest
 from anthropic import Anthropic, AsyncAnthropic
 
+from ecologits._ecologits import init
+
+@pytest.fixture(scope="module")
+def tracer_init():
+    init("anthropic")
 
 @pytest.mark.vcr
 def test_anthropic_chat(tracer_init):

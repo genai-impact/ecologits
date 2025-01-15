@@ -2,6 +2,7 @@ import time
 from collections.abc import AsyncGenerator, Iterable
 from typing import Any, Callable
 
+from ecologits.tracers.models import WrappedMethod
 from mistralai.async_client import MistralAsyncClient
 from mistralai.client import MistralClient
 from mistralai.models.chat_completion import (  # type: ignore[import-not-found]
@@ -122,11 +123,10 @@ async def mistralai_async_chat_wrapper_stream(
 class MistralAIInstrumentor:
     def __init__(self) -> None:
         self.wrapped_methods = [
-            {
-                "module": "mistralai.client",
-                "name": "MistralClient.chat",
-                "wrapper": mistralai_chat_wrapper,
-            },
+                WrappedMethod(
+                    module="mistralai.client",
+                    name= "MistralClient.chat",
+                    wrapper= mistralai_chat_wrapper),
             {
                 "module": "mistralai.async_client",
                 "name": "MistralAsyncClient.chat",

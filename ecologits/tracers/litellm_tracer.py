@@ -198,8 +198,4 @@ class LiteLLMInstrumentor:
             },
         ]
 
-    def instrument(self) -> None:
-        for wrapper in self.wrapped_methods:
-            wrap_function_wrapper(
-                wrapper["module"], wrapper["name"], wrapper["wrapper"]
-            )
+

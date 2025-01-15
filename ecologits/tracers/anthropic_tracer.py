@@ -10,12 +10,9 @@ from anthropic.types import Message as _Message
 from anthropic.types.message_delta_event import MessageDeltaEvent
 from anthropic.types.message_start_event import MessageStartEvent
 from typing_extensions import override
-from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
-from ecologits._ecologits import EcoLogits
+from ecologits.domain import Instrumentor, WrappedMethod
 from ecologits.tracers.utils import ImpactsOutput, llm_impacts
-
-PROVIDER = "anthropic"
 
 MessageStreamT = TypeVar("MessageStreamT", bound=_MessageStream)
 AsyncMessageStreamT = TypeVar("AsyncMessageStreamT", bound=_AsyncMessageStream)
@@ -45,18 +42,17 @@ class MessageStream(_MessageStream):
         requests_latency = time.perf_counter() - timer_start
         if model_name is not None:
             self.impacts = llm_impacts(
-                provider=PROVIDER,
+                provider=AnthropicInstrumentor.name,
                 model_name=model_name,
                 output_token_count=output_tokens,
                 request_latency=requests_latency,
-                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
 
-    def __init__(self, parent) -> None:     # noqa: ANN001
+    def __init__(self, parent) -> None:  # noqa: ANN001
         super().__init__(
-            cast_to=parent._cast_to,        # noqa: SLF001
+            cast_to=parent._cast_to,  # noqa: SLF001
             response=parent.response,
-            client=parent._client           # noqa: SLF001
+            client=parent._client,  # noqa: SLF001
         )
 
 
@@ -80,18 +76,17 @@ class AsyncMessageStream(_AsyncMessageStream):
         requests_latency = time.perf_counter() - timer_start
         if model_name is not None:
             self.impacts = llm_impacts(
-                provider=PROVIDER,
+                provider=AnthropicInstrumentor.name,
                 model_name=model_name,
                 output_token_count=output_tokens,
                 request_latency=requests_latency,
-                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
 
-    def __init__(self, parent) -> None:     # noqa: ANN001
+    def __init__(self, parent) -> None:  # noqa: ANN001
         super().__init__(
-            cast_to=parent._cast_to,        # noqa: SLF001
+            cast_to=parent._cast_to,  # noqa: SLF001
             response=parent.response,
-            client=parent._client           # noqa: SLF001
+            client=parent._client,  # noqa: SLF001
         )
 
 
@@ -105,10 +100,7 @@ class MessageStreamManager(Generic[MessageStreamT]):
         return self.__stream
 
     def __exit__(
-        self,
-        exc_type: Optional[type[BaseException]],
-        exc: Optional[BaseException],
-        exc_tb: Optional[TracebackType]
+        self, exc_type: Optional[type[BaseException]], exc: Optional[BaseException], exc_tb: Optional[TracebackType]
     ) -> None:
         if self.__stream is not None:
             self.__stream.close()
@@ -124,96 +116,99 @@ class AsyncMessageStreamManager(Generic[AsyncMessageStreamT]):
         return self.__stream
 
     async def __aexit__(
-        self,
-        exc_type: Optional[type[BaseException]],
-        exc: Optional[BaseException],
-        exc_tb: Optional[TracebackType]
+        self, exc_type: Optional[type[BaseException]], exc: Optional[BaseException], exc_tb: Optional[TracebackType]
     ) -> None:
         if self.__stream is not None:
             await self.__stream.close()
 
 
-def anthropic_chat_wrapper(
-    wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
-) -> Message:
-    timer_start = time.perf_counter()
-    response = wrapped(*args, **kwargs)
-    request_latency = time.perf_counter() - timer_start
-    model_name = response.model
-    impacts = llm_impacts(
-        provider=PROVIDER,
-        model_name=model_name,
-        output_token_count=response.usage.output_tokens,
-        request_latency=request_latency,
-        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
-    )
-    if impacts is not None:
-        return Message(**response.model_dump(), impacts=impacts)
-    else:
-        return response
+class AnthropicInstrumentor(Instrumentor):
+    provider = "anthropic"
 
+    @staticmethod
+    def anthropic_chat_wrapper(
+        wrapped: Callable,
+        instance: Anthropic,
+        args: Any,
+        kwargs: Any,  # noqa: ARG001
+    ) -> Message:
+        timer_start = time.perf_counter()
+        response = wrapped(*args, **kwargs)
+        request_latency = time.perf_counter() - timer_start
+        model_name = response.model
+        impacts = llm_impacts(
+            provider=AnthropicInstrumentor.name,
+            model_name=model_name,
+            output_token_count=response.usage.output_tokens,
+            request_latency=request_latency,
+        )
+        if impacts is not None:
+            return Message(**response.model_dump(), impacts=impacts)
+        else:
+            return response
 
-async def anthropic_async_chat_wrapper(
-    wrapped: Callable, instance: AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
-) -> Message:
-    timer_start = time.perf_counter()
-    response = await wrapped(*args, **kwargs)
-    request_latency = time.perf_counter() - timer_start
-    model_name = response.model
-    impacts = llm_impacts(
-        provider=PROVIDER,
-        model_name=model_name,
-        output_token_count=response.usage.output_tokens,
-        request_latency=request_latency,
-        electricity_mix_zone=EcoLogits.config.electricity_mix_zone
-    )
-    if impacts is not None:
-        return Message(**response.model_dump(), impacts=impacts)
-    else:
-        return response
+    @staticmethod
+    async def anthropic_async_chat_wrapper(
+        wrapped: Callable,
+        instance: AsyncAnthropic,
+        args: Any,
+        kwargs: Any,  # noqa: ARG001
+    ) -> Message:
+        timer_start = time.perf_counter()
+        response = await wrapped(*args, **kwargs)
+        request_latency = time.perf_counter() - timer_start
+        model_name = response.model
+        impacts = llm_impacts(
+            provider=AnthropicInstrumentor.name,
+            model_name=model_name,
+            output_token_count=response.usage.output_tokens,
+            request_latency=request_latency,
+        )
+        if impacts is not None:
+            return Message(**response.model_dump(), impacts=impacts)
+        else:
+            return response
 
+    @staticmethod
+    def anthropic_stream_chat_wrapper(
+        wrapped: Callable,
+        instance: Anthropic,
+        args: Any,
+        kwargs: Any,  # noqa: ARG001
+    ) -> MessageStreamManager:
+        response = wrapped(*args, **kwargs)
+        return MessageStreamManager(response._MessageStreamManager__api_request)  # noqa: SLF001
 
-def anthropic_stream_chat_wrapper(
-    wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
-) -> MessageStreamManager:
-    response = wrapped(*args, **kwargs)
-    return MessageStreamManager(response._MessageStreamManager__api_request)    # noqa: SLF001
+    @staticmethod
+    def anthropic_async_stream_chat_wrapper(
+        wrapped: Callable,
+        instance: AsyncAnthropic,
+        args: Any,
+        kwargs: Any,  # noqa: ARG001
+    ) -> AsyncMessageStreamManager:
+        response = wrapped(*args, **kwargs)
+        return AsyncMessageStreamManager(response._AsyncMessageStreamManager__api_request)  # noqa: SLF001
 
-
-def anthropic_async_stream_chat_wrapper(
-    wrapped: Callable, instance: AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
-) -> AsyncMessageStreamManager:
-    response = wrapped(*args, **kwargs)
-    return AsyncMessageStreamManager(response._AsyncMessageStreamManager__api_request)  # noqa: SLF001
-
-
-class AnthropicInstrumentor:
     def __init__(self) -> None:
         self.wrapped_methods = [
-            {
-                "module": "anthropic.resources",
-                "name": "Messages.create",
-                "wrapper": anthropic_chat_wrapper,
-            },
-            {
-                "module": "anthropic.resources",
-                "name": "AsyncMessages.create",
-                "wrapper": anthropic_async_chat_wrapper,
-            },
-            {
-                "module": "anthropic.resources",
-                "name": "Messages.stream",
-                "wrapper": anthropic_stream_chat_wrapper,
-            },
-            {
-                "module": "anthropic.resources",
-                "name": "AsyncMessages.stream",
-                "wrapper": anthropic_async_stream_chat_wrapper,
-            },
+            WrappedMethod(
+                module="anthropic.resources",
+                name="Messages.create",
+                wrapper=self.anthropic_chat_wrapper,
+            ),
+            WrappedMethod(
+                module="anthropic.resources",
+                name="AsyncMessages.create",
+                wrapper=self.anthropic_async_chat_wrapper,
+            ),
+            WrappedMethod(
+                module="anthropic.resources",
+                name="Messages.stream",
+                wrapper=self.anthropic_stream_chat_wrapper,
+            ),
+            WrappedMethod(
+                module="anthropic.resources",
+                name="AsyncMessages.stream",
+                wrapper=self.anthropic_async_stream_chat_wrapper,
+            ),
         ]
-
-    def instrument(self) -> None:
-        for wrapper in self.wrapped_methods:
-            wrap_function_wrapper(
-                wrapper["module"], wrapper["name"], wrapper["wrapper"]
-            )
