@@ -1,8 +1,9 @@
 import importlib.metadata
 import importlib.util
+import os
 from dataclasses import dataclass, field
-from typing import Optional, Union
 
+import toml
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
@@ -83,6 +84,11 @@ _INSTRUMENTS = {
     "litellm": init_litellm_instrumentor
 }
 
+@dataclass
+class _Config:
+    electricity_mix_zone: str = field(default="WOR")
+    providers: list[str] = field(default_factory=list)
+
 
 class EcoLogits:
     """
@@ -113,16 +119,21 @@ class EcoLogits:
         ```
 
     """
-    @dataclass
-    class _Config:
-        electricity_mix_zone: str = field(default="WOR")
-        providers: list[str] = field(default_factory=list)
+    config= _Config()
 
-    config = _Config()
+    @staticmethod
+    def _read_ecologits_config(config_path: str)-> dict[str, str]|None:
+        
+        with open(config_path, 'r') as config_file:
+            config = toml.load(config_file).get("ecologits", None)
+        if config is None:
+            logger.warning("The provided file did not contain the ecologits key, will fall back on default configuration")
+        return config
 
     @staticmethod
     def init(
-        providers: Optional[Union[str, list[str]]] = None,
+        config_path: str| None = None,
+        providers: str | list[str]|None = None,
         electricity_mix_zone: str = "WOR",
     ) -> None:
         """
@@ -132,15 +143,33 @@ class EcoLogits:
             providers: list of providers to initialize (all providers by default).
             electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
         """
+        if config_path is None and providers is None and electricity_mix_zone is None and os.path.isfile("ecologits.toml"):
+            config_path = "ecologits.toml"
+
+        if config_path is not None and (providers is not None or electricity_mix_zone is not None):
+            logger.warning("Both config path and parameters provided, configuration will be prioritized")
+
+        if providers is None:
+            providers=list(_INSTRUMENTS.keys())
+
+        if config_path:
+            try:
+                user_config: dict[str, str]|None = EcoLogits._read_ecologits_config(config_path)
+                logger.info("Ecologits configuration found in file and loaded")
+            except FileNotFoundError:
+                logger.warning("Provided file does not exist, will fall back on default values")
+                user_config = None
+
+            if user_config is not None:
+                providers = user_config.get("providers", providers)
+                electricity_mix_zone =  user_config.get("electricity_mix_zone", electricity_mix_zone)
+
         if isinstance(providers, str):
             providers = [providers]
-        if providers is None:
-            providers = list(_INSTRUMENTS.keys())
 
         init_instruments(providers)
 
-        EcoLogits.config.electricity_mix_zone = electricity_mix_zone
-        EcoLogits.config.providers += providers
+        EcoLogits.config=_Config(electricity_mix_zone=electricity_mix_zone, providers=providers)
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
 
 

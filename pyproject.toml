@@ -50,6 +50,7 @@ minijinja = { version = "^1.0.16", optional = true }
 google-generativeai = { version = "^0.8.3", optional = true }
 litellm = {version="^1.41.23", optional = true}
 rapidfuzz = {version = "^3.9.6", optional = true}
+toml = "0.10.2"
 
 [tool.poetry.extras]
 openai = ["openai"]
