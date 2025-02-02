@@ -124,7 +124,7 @@ class EcoLogits:
     @staticmethod
     def _read_ecologits_config(config_path: str)-> dict[str, str]|None:
         
-        with open(config_path, 'r') as config_file:
+        with open(config_path) as config_file:
             config = toml.load(config_file).get("ecologits", None)
         if config is None:
             logger.warning("The provided file did not contain the ecologits key, will fall back on default configuration")
@@ -134,7 +134,7 @@ class EcoLogits:
     def init(
         config_path: str| None = None,
         providers: str | list[str]|None = None,
-        electricity_mix_zone: str = "WOR",
+        electricity_mix_zone: str|None = None,
     ) -> None:
         """
         Initialization static method. Will attempt to initialize all providers by default.
@@ -143,14 +143,14 @@ class EcoLogits:
             providers: list of providers to initialize (all providers by default).
             electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
         """
-        if config_path is None and providers is None and electricity_mix_zone is None and os.path.isfile("ecologits.toml"):
-            config_path = "ecologits.toml"
+        default_providers = list(set(_INSTRUMENTS.keys()))
+        default_electricity_mix_zone = "WOR"
 
         if config_path is not None and (providers is not None or electricity_mix_zone is not None):
-            logger.warning("Both config path and parameters provided, configuration will be prioritized")
+            logger.warning("Both config path and init arguments provided, init arguments will be prioritized")
 
-        if providers is None:
-            providers=list(_INSTRUMENTS.keys())
+        if config_path is None and providers is None and electricity_mix_zone is None and os.path.isfile("pyproject.toml"):
+            config_path = "pyproject.toml"
 
         if config_path:
             try:
@@ -161,11 +161,15 @@ class EcoLogits:
                 user_config = None
 
             if user_config is not None:
-                providers = user_config.get("providers", providers)
-                electricity_mix_zone =  user_config.get("electricity_mix_zone", electricity_mix_zone)
+                providers = user_config.get("providers", default_providers) if providers is None else providers
+                electricity_mix_zone =  user_config.get("electricity_mix_zone", electricity_mix_zone) if electricity_mix_zone is None else electricity_mix_zone
 
         if isinstance(providers, str):
             providers = [providers]
+        elif providers is None:
+            providers = default_providers
+        if electricity_mix_zone is None:
+            electricity_mix_zone = default_electricity_mix_zone
 
         init_instruments(providers)
 

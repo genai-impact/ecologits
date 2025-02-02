@@ -51,9 +51,10 @@ To use EcoLogits in your projects, you will need to initialize the client tracer
 from ecologits import EcoLogits
 
 # Default initialization method
-EcoLogits.init()
+EcoLogits.init() # (1)!
 ```
 
+1. If you have a pyproject.toml containing an EcoLogits configuration, it will now be loaded by an empty init. 
 
 ### Configure providers
 
@@ -89,4 +90,29 @@ from ecologits import EcoLogits
 
 # Select the electricity mix of France
 EcoLogits.init(electricity_mix_zone="FRA")
+```
+
+### Configure both through a toml configuration file
+
+You can also set the providers and electricity mix zone through a .toml file (for example your project's .toml).
+
+```python title="Load an EcoLogits configuration file "
+from ecologits import EcoLogits
+
+# Initialize EcoLogits with a config file
+EcoLogits.init(config_path="pyproject.toml")
+EcoLogits.init(config_path="ecologits.toml")
+
+```
+
+To do so, just provide the path to your file (or provide nothing if it is a `pyproject.toml` located at the root of your project).
+The expected formatting of the EcoLogits configuration is as follows.
+
+```toml title="pyproject.toml"
+[ecologits]
+region="FRA"
+providers=[
+    "openai",
+    "mistral"
+]
 ```
