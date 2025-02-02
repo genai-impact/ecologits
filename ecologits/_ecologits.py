@@ -3,7 +3,7 @@ import importlib.util
 import os
 from dataclasses import dataclass, field
 
-import toml
+import toml  # type: ignore
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
@@ -123,11 +123,11 @@ class EcoLogits:
 
     @staticmethod
     def _read_ecologits_config(config_path: str)-> dict[str, str]|None:
-        
+
         with open(config_path) as config_file:
             config = toml.load(config_file).get("ecologits", None)
         if config is None:
-            logger.warning("The provided file did not contain the ecologits key, will fall back on default configuration")
+            logger.warning("Provided file did not contain the ecologits key. Falling back on default configuration")
         return config
 
     @staticmethod
@@ -149,7 +149,11 @@ class EcoLogits:
         if config_path is not None and (providers is not None or electricity_mix_zone is not None):
             logger.warning("Both config path and init arguments provided, init arguments will be prioritized")
 
-        if config_path is None and providers is None and electricity_mix_zone is None and os.path.isfile("pyproject.toml"):
+        if (config_path is None
+            and providers is None
+            and electricity_mix_zone is None
+            and os.path.isfile("pyproject.toml")):
+
             config_path = "pyproject.toml"
 
         if config_path:
@@ -162,7 +166,9 @@ class EcoLogits:
 
             if user_config is not None:
                 providers = user_config.get("providers", default_providers) if providers is None else providers
-                electricity_mix_zone =  user_config.get("electricity_mix_zone", electricity_mix_zone) if electricity_mix_zone is None else electricity_mix_zone
+                electricity_mix_zone =  (user_config.get("electricity_mix_zone", electricity_mix_zone)
+                                        if electricity_mix_zone is None
+                                        else electricity_mix_zone)
 
         if isinstance(providers, str):
             providers = [providers]
