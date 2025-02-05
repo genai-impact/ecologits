@@ -136,13 +136,13 @@ files = [
 
 [[package]]
 name = "anthropic"
-version = "0.29.2"
+version = "0.40.0"
 description = "The official Python library for the anthropic API"
 optional = true
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "anthropic-0.29.2-py3-none-any.whl", hash = "sha256:b49804cfe614859a38fe947797cdc59e1ebdf25cc7dfe6c5d9ae0301b9637217"},
-    {file = "anthropic-0.29.2.tar.gz", hash = "sha256:466494014471b13ab4004152145ac5b796519b02771a1881ddb6a842f1917110"},
+    {file = "anthropic-0.40.0-py3-none-any.whl", hash = "sha256:442028ae8790ff9e3b6f8912043918755af1230d193904ae2ef78cc22995280c"},
+    {file = "anthropic-0.40.0.tar.gz", hash = "sha256:3efeca6d9e97813f93ed34322c6c7ea2279bf0824cd0aa71b59ce222665e2b87"},
 ]
 
 [package.dependencies]
@@ -152,7 +152,6 @@ httpx = ">=0.23.0,<1"
 jiter = ">=0.4.0,<1"
 pydantic = ">=1.9.0,<3"
 sniffio = "*"
-tokenizers = ">=0.13.0"
 typing-extensions = ">=4.7,<5"
 
 [package.extras]
@@ -3717,4 +3716,4 @@ openai = ["openai"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "cecf9fa40e37517f4861cf673bff4dfbbe9a4387dcc57ea4bee42337d73e148c"
+content-hash = "4035c4b4b855872c9b41a9c591ca5427ef150f2f3726b9d5b8a98ee9a01934ee"
