@@ -50,6 +50,7 @@ minijinja = { version = "^1.0.16", optional = true }
 google-generativeai = { version = "^0.8.3", optional = true }
 litellm = {version="^1.41.23", optional = true}
 rapidfuzz = {version = "^3.9.6", optional = true}
+pre-commit = "^4.1.0"
 
 [tool.poetry.extras]
 openai = ["openai"]
@@ -65,7 +66,6 @@ google-generativeai = ["google-generativeai"]
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^2.20.0"
 pytest = "^7.2.0"
 # ruff = "^0.0.254"
 pytest-recording = "^0.13.1"
