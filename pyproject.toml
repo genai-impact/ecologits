@@ -2,16 +2,16 @@
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry]
+[project]
 name = "ecologits"
 version = "0.5.2"
 description = "EcoLogits tracks and estimates the energy consumption and environmental impacts of using generative AI models through APIs."
 authors = [
-    "GenAI Impact",
-    "Data For Good"
+    {name = "GenAI Impact"},
+    {name = "Data For Good"},
 ]
 maintainers = [
-    "GenAI Impact"
+    {name = "GenAI Impact"}
 ]
 license = "MPL-2.0"
 readme = "README.md"
@@ -33,33 +33,28 @@ classifiers = [
     "Operating System :: POSIX",
     "Operating System :: POSIX :: Linux"
 ]
+requires-python = ">=3.9,<4"
+dependencies = [
+    "wrapt (>=1.14.1,<2.0.0)",
+    "pydantic >=1.9.0,<3",
+    "packaging (>=24.2,<25.0)",
+    "requests >=2.26.0",            # only needed for `poetry lock` to work with `poetry >2.0`
+    "httpx >=0.23.0,<1",            # only needed for `poetry lock` to work with `poetry >2.0`
+    "tqdm >4",                      # only needed for `poetry lock` to work with `poetry >2.0`
+]   
 
-[tool.poetry.dependencies]
-python = ">=3.9,<4"
-wrapt = "^1.14.1"
-pydantic = ">=2,<3"
-packaging = ">=23.2,<25.0"
-openai = { version = "^1.12.0", optional = true }
-mistralai = { version = ">=0.4.3,<2.0.0", optional = true }
-anthropic = { version = "^0.29.0", optional = true }
-cohere = {version = "^5.2.5", optional = true}
-huggingface-hub = { version = "^0.22.2",  optional = true }
-tiktoken = { version = "^0.8.0", optional = true }
-aiohttp = { version = "^3.9.3", optional = true }
-minijinja = { version = "^1.0.16", optional = true }
-google-generativeai = { version = "^0.8.3", optional = true }
-litellm = {version="^1.41.23", optional = true}
-rapidfuzz = {version = "^3.9.6", optional = true}
+[project.optional-dependencies]
+openai = ["openai (>=1.61.1,<2.0.0)"]
+mistralai = ["mistralai (>=1.5.0,<2.0.0)"]
+anthropic = ["anthropic (>=0.45.2,<0.46.0)"]
+cohere = ["cohere (>=5.13.12,<6.0.0)"]
+huggingface-hub = ["huggingface-hub (>=0.28.1,<0.29.0)", "tiktoken (>=0.8.0,<0.9.0)", "aiohttp (>=3.11.12,<4.0.0)", "minijinja (>=2.7.0,<3.0.0)"]
+google-generativeai = ["google-generativeai (>=0.8.4,<0.9.0)"]
+litellm = ["litellm (>=1.60.6,<2.0.0)", "rapidfuzz (>=3.12.1,<4.0.0)"]
 
-[tool.poetry.extras]
-openai = ["openai"]
-litellm = ["litellm", "rapidfuzz"]
-mistralai = ["mistralai"]
-anthropic = ["anthropic"]
-cohere = ["cohere"]
-huggingface-hub = ["huggingface-hub", "tiktoken", "aiohttp", "minijinja"]
-google-generativeai = ["google-generativeai"]
 
+[tool.poetry]
+requires-poetry = ">=2.0"
 
 [tool.poetry.group.dev]
 optional = true
