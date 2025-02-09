@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"messages": [{"role": "user", "content": "Hello World!"}], "model": "gpt-4o-mini"}'
+    body: '{"messages":[{"role":"user","content":"Hello World!"}],"model":"gpt-4o-mini"}'
     headers:
       accept:
       - application/json
@@ -9,15 +9,15 @@ interactions:
       connection:
       - keep-alive
       content-length:
-      - '83'
+      - '77'
       content-type:
       - application/json
       host:
-      - ecologits-test.openai.azure.com
+      - ecologits-azure-openai.openai.azure.com
       user-agent:
-      - AzureOpenAI/Python 1.35.14
+      - AzureOpenAI/Python 1.61.1
       x-stainless-arch:
-      - x64
+      - arm64
       x-stainless-async:
       - 'false'
       x-stainless-lang:
@@ -25,54 +25,52 @@ interactions:
       x-stainless-os:
       - MacOS
       x-stainless-package-version:
-      - 1.35.14
+      - 1.61.1
+      x-stainless-retry-count:
+      - '0'
       x-stainless-runtime:
       - CPython
       x-stainless-runtime-version:
-      - 3.9.18
+      - 3.13.1
     method: POST
-    uri: https://ecologits-test.openai.azure.com//openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-06-01
+    uri: https://ecologits-azure-openai.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-06-01
   response:
     body:
       string: '{"choices":[{"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"protected_material_code":{"filtered":false,"detected":false},"protected_material_text":{"filtered":false,"detected":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}},"finish_reason":"stop","index":0,"logprobs":null,"message":{"content":"Hello!
-        How can I assist you today?","role":"assistant"}}],"created":1724436804,"id":"chatcmpl-9zT4mlK4GxpHkMd7r2QzBTW0eKogp","model":"gpt-4o-mini","object":"chat.completion","prompt_filter_results":[{"prompt_index":0,"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"jailbreak":{"filtered":false,"detected":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}}}],"system_fingerprint":"fp_80a1bad4c7","usage":{"completion_tokens":9,"prompt_tokens":10,"total_tokens":19}}
+        How can I assist you today?","refusal":null,"role":"assistant"}}],"created":1738864593,"id":"chatcmpl-Ay0P3Ev5a1lblf1PlGFSyLCvzGGPV","model":"gpt-4o-mini-2024-07-18","object":"chat.completion","prompt_filter_results":[{"prompt_index":0,"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"jailbreak":{"filtered":false,"detected":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}}}],"system_fingerprint":"fp_f3927aa00d","usage":{"completion_tokens":9,"completion_tokens_details":{"accepted_prediction_tokens":0,"audio_tokens":0,"reasoning_tokens":0,"rejected_prediction_tokens":0},"prompt_tokens":10,"prompt_tokens_details":{"audio_tokens":0,"cached_tokens":0},"total_tokens":19}}
 
         '
     headers:
       Content-Length:
-      - '1010'
+      - '1227'
       Content-Type:
       - application/json
       Date:
-      - Fri, 23 Aug 2024 18:13:24 GMT
+      - Thu, 06 Feb 2025 17:56:33 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       apim-request-id:
-      - 8dc45334-2b76-4098-8d73-bd0d46fafb06
+      - 13f710cd-aaba-4ee9-bf09-30a04f9bd28c
       azureml-model-session:
-      - d002-20240820055342
-      cmp-upstream-response-duration:
-      - '172'
-      ms-azureml-model-time:
-      - '212'
+      - d085-20250204170337
       x-accel-buffering:
       - 'no'
       x-content-type-options:
       - nosniff
       x-envoy-upstream-service-time:
-      - '215'
+      - '318'
       x-ms-client-request-id:
-      - 8dc45334-2b76-4098-8d73-bd0d46fafb06
+      - 13f710cd-aaba-4ee9-bf09-30a04f9bd28c
       x-ms-rai-invoked:
       - 'true'
       x-ms-region:
       - East US
       x-ratelimit-remaining-requests:
-      - '9'
+      - '98'
       x-ratelimit-remaining-tokens:
-      - '356'
+      - '8712'
       x-request-id:
-      - 706e90cc-0ef8-43bd-b6d9-ca7b4b11c80e
+      - c05b8bb3-ee49-4e0a-81eb-928f912ab9ce
     status:
       code: 200
       message: OK

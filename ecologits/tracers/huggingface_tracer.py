@@ -1,7 +1,7 @@
 import time
 from collections.abc import AsyncIterable, Iterable
 from dataclasses import asdict, dataclass
-from typing import Any, Callable, Union
+from typing import Any, Callable, Optional, Union
 
 import tiktoken
 from huggingface_hub import AsyncInferenceClient, InferenceClient  # type: ignore[import-untyped]
@@ -17,12 +17,12 @@ PROVIDER = "huggingface_hub"
 
 @dataclass
 class ChatCompletionOutput(_ChatCompletionOutput):
-    impacts: ImpactsOutput
+    impacts: Optional[ImpactsOutput] = None
 
 
 @dataclass
 class ChatCompletionStreamOutput(_ChatCompletionStreamOutput):
-    impacts: ImpactsOutput
+    impacts: Optional[ImpactsOutput] = None
 
 
 def huggingface_chat_wrapper(

@@ -52,12 +52,6 @@ class MessageStream(_MessageStream):
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
 
-    def __init__(self, parent) -> None:     # noqa: ANN001
-        super().__init__(
-            cast_to=parent._cast_to,        # noqa: SLF001
-            response=parent.response,
-            client=parent._client           # noqa: SLF001
-        )
 
 
 class AsyncMessageStream(_AsyncMessageStream):
@@ -87,12 +81,6 @@ class AsyncMessageStream(_AsyncMessageStream):
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
 
-    def __init__(self, parent) -> None:     # noqa: ANN001
-        super().__init__(
-            cast_to=parent._cast_to,        # noqa: SLF001
-            response=parent.response,
-            client=parent._client           # noqa: SLF001
-        )
 
 
 class MessageStreamManager(Generic[MessageStreamT]):

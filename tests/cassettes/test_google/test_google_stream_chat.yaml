@@ -17,7 +17,7 @@ interactions:
       User-Agent:
       - python-requests/2.32.3
       x-goog-api-client:
-      - genai-py/0.7.2 gl-python/3.13.0 grpc/1.68.0 gax/2.23.0
+      - genai-py/0.8.4 gl-python/3.13.1 grpc/1.70.0 gax/2.24.1
       x-goog-request-params:
       - model=models/gemini-1.5-flash
     method: POST
@@ -29,102 +29,101 @@ interactions:
         \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
         9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n
         \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \"ara wasn't your typical twelve-year-old. While others
-        obsessed over\"\n          }\n        ],\n        \"role\": \"model\"\n      }\n
-        \   }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
-        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
-        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
-        \" pop stars and ponies, Elara dreamt of unexplored jungles and hidden cities.
-        Her\"\n          }\n        ],\n        \"role\": \"model\"\n      }\n    }\n
-        \ ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
-        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
-        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
-        \" dreams, however, were constantly hampered by her family's crippling poverty.
-        That is, until her grandmother, Nana Elara, passed away, leaving her a\"\n
-        \         }\n        ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n
-        \ \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
-        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
-        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
-        \" worn, leather backpack.\\n\\nIt wasn't particularly stylish.  The leather
-        was scuffed, the stitching frayed in places.  But when Elara touched\"\n          }\n
-        \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
-        {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
-        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
-        {\n        \"parts\": [\n          {\n            \"text\": \" it, a warmth
-        spread through her, a tingling sensation that resonated deep in her bones.
-        \ Curiosity overriding caution, she unzipped the bag.\\n\\nInside, nestled
-        amongst faded velvet, was a single, smooth, grey stone.\"\n          }\n        ],\n
-        \       \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\": {\n
-        \   \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
-        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
-        {\n        \"parts\": [\n          {\n            \"text\": \"  As her fingers
-        brushed against it, the stone pulsed with a soft, inner light. Suddenly, the
-        air crackled, and a voice, ancient and melodic, whispered in her mind, \\\"Where
-        shall we go, child?\\\"\\n\\nEl\"\n          }\n        ],\n        \"role\":
+        \           \"text\": \"ara clutched the worn leather straps of her backpack,
+        its brass buckle gleaming faintly in\"\n          }\n        ],\n        \"role\":
         \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
         9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n
         \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
-        \           \"text\": \"ara gasped.  The stone, it seemed, was the key. Thinking
-        wildly, she wished for the Amazon rainforest.  The air shimmered, the world
-        around her dissolved into a blur of green and gold, and when it solidified,
-        she stood on the edge of a lush, vibrant jungle.  Monkeys chat\"\n          }\n
-        \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
-        {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
-        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
-        {\n        \"parts\": [\n          {\n            \"text\": \"tered overhead,
-        unseen birds sang from the canopy, and the air hummed with a thousand unseen
-        lives.\\n\\nOver the next few months, the backpack became her constant companion.
-        \ She wished for the bustling markets of Marrakech, the snowy peaks of the
-        Himalayas, the coral reefs of the Great Barrier Reef. The backpack delivered\"\n
-        \         }\n        ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n
-        \ \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
-        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
-        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
-        \", transporting her instantly to each breathtaking location.  She learned
-        to identify exotic plants, befriended playful otters, and even helped a stranded
-        snow leopard find its way back to its herd.  Each adventure filled her with
-        a sense of wonder and purpose.\\n\\nBut the magic came with a price.  The
-        more she\"\n          }\n        ],\n        \"role\": \"model\"\n      }\n
+        \           \"text\": \" the dim light of the dusty attic.  It wasn't just
+        any backpack\"\n          }\n        ],\n        \"role\": \"model\"\n      }\n
         \   }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
         9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
         [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
-        \" used the backpack, the more the grey stone seemed to dim.  The whispered
-        voice, once strong and clear, became fainter, weaker.  Elara realized she
-        couldn't just use the backpack carelessly.\\n\\nOne day, she found herself
-        in a remote village in Nepal, witnessing the villagers' struggle against deforestation\"\n
+        \"; it was her grandmother's, a legacy whispered about in hushed tones.  Grandmother
+        Elara, a renowned botanist, had vanished years ago, leaving\"\n          }\n
+        \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
+        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
+        {\n        \"parts\": [\n          {\n            \"text\": \" behind only
+        this backpack and a cryptic note: \\\"The seeds of wonder lie within.\\\"\\n\\nElara,
+        a practical teenager with a penchant for science over superstition,\"\n          }\n
+        \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
+        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
+        {\n        \"parts\": [\n          {\n            \"text\": \" initially dismissed
+        the note as sentimental nonsense.  But the attic was freezing, and the backpack
+        looked surprisingly warm against her back.  As she shifted it, a small, velvet
+        pouch slipped from a hidden pocket. Inside, nestled amongst dried lavender\"\n
         \         }\n        ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n
         \ \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
         9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
         [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
-        \".  Inspired by their plight, she didn't wish for a new adventure. Instead,
-        she used the backpack to transport supplies \u2013 seeds, tools, and medical
-        kits \u2013 from a nearby city.  The act felt different; it wasn't about her
-        personal desire for adventure, but about helping others.\\n\\nAs\"\n          }\n
+        \", were three tiny seeds \u2013 one crimson, one emerald, and one sapphire.\\n\\nCuriosity
+        overriding skepticism, Elara planted the seeds in three separate pots in her
+        window box. The crimson seed sprouted a vine that bore luminous, cherry\"\n
+        \         }\n        ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n
+        \ \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
+        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
+        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
+        \"-sized tomatoes that tasted of sunshine and laughter. The emerald seed blossomed
+        into a miniature oak tree, its leaves shimmering with a gentle, healing light
+        that seemed to soothe her headache. The sapphire seed produced a single, iridescent
+        flower that, when touched, filled the air with the intoxicating scent of the
+        sea.\\n\\nElara\"\n          }\n        ],\n        \"role\": \"model\"\n
+        \     }\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n
+        \   \"totalTokenCount\": 9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \" realized then \u2013 the backpack wasn't just a backpack;
+        it was a conduit, amplifying the magic inherent in nature.  She experimented,
+        planting different seeds, each yielding extraordinary results.  A sunflower
+        seed yielded blooms that tracked the sun with almost unnerving precision,
+        their petals whispering secrets of the day.  A\"\n          }\n        ],\n
+        \       \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\": {\n
+        \   \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
+        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
+        {\n        \"parts\": [\n          {\n            \"text\": \" dandelion seed
+        produced a puff of shimmering dust that cleansed the air, leaving behind a
+        fragrance of fresh rain.\\n\\nWord of Elara's extraordinary garden spread.
+        \ Soon, people came to her, their faces etched with worry and despair.  A
+        child with a persistent cough breathed deeply by the healing oak, finding
+        relief\"\n          }\n        ],\n        \"role\": \"model\"\n      }\n
+        \   }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
+        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
+        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
+        \".  A wilting rose bush, brought by a heartbroken gardener, thrived anew
+        under the care of the magic backpack.\\n\\nBut the magic wasn't without its
+        limits. One day, a desperate woman asked Elara to grow a seed that would bring
+        her lost husband back. Elara, despite her compassion, knew\"\n          }\n
         \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
         {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
         \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
-        {\n        \"parts\": [\n          {\n            \"text\": \" she worked
-        alongside the villagers, the grey stone began to glow faintly, the inner light
-        strengthening with each act of kindness. The voice whispered again, stronger
-        this time, \\\"The true magic lies not in escape, but in connection.\\\"\\n\\nElara
-        understood. The backpack wasn't a ticket to selfish escapism, but\"\n          }\n
+        {\n        \"parts\": [\n          {\n            \"text\": \" the backpack
+        couldn't defy the natural order.  She explained gently, the weight of responsibility
+        settling on her young shoulders.\\n\\nThat night, Elara examined the backpack
+        closely.  She discovered a tiny inscription on the buckle: \u201CAmplify,
+        but do not create.\u201D  Grandmother Elara\u2019s wisdom echoed\"\n          }\n
         \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
         {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
         \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
-        {\n        \"parts\": [\n          {\n            \"text\": \" a tool for
-        positive change. She continued to use it, not for personal gain, but to help
-        others, to heal the earth, to connect with a world larger than herself. And
-        with each selfless act, the magic within the backpack grew stronger, its light
-        shining brighter, a testament to the power of empathy and the\"\n          }\n
-        \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
-        {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
-        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
-        {\n        \"parts\": [\n          {\n            \"text\": \" boundless possibilities
-        of a heart filled with compassion.  Her adventures continued, but now, they
-        were shared, and the journey was far more rewarding than any destination.\\n\"\n
-        \         }\n        ],\n        \"role\": \"model\"\n      },\n      \"finishReason\":
-        1\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"candidatesTokenCount\":
-        674,\n    \"totalTokenCount\": 683\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n]"
+        {\n        \"parts\": [\n          {\n            \"text\": \" in those words.
+        The backpack could enhance the wonders of nature, but it could not create
+        life or undo death.\\n\\nElara continued her work, using the backpack not
+        to solve every problem, but to nurture and heal.  She learned that true magic
+        lay not in bending reality, but in appreciating the extraordinary potential
+        already\"\n          }\n        ],\n        \"role\": \"model\"\n      }\n
+        \   }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
+        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
+        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
+        \" present in the world \u2013 a potential amplified by the simple, worn leather
+        backpack and the seeds of wonder it contained.  And the backpack, in turn,
+        seemed to hum with a quiet satisfaction, its magic deepened by Elara's understanding
+        and responsible stewardship.\\n\"\n          }\n        ],\n        \"role\":
+        \"model\"\n      },\n      \"finishReason\": 1\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 8,\n    \"candidatesTokenCount\": 630,\n    \"totalTokenCount\":
+        638,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": 1,\n
+        \       \"tokenCount\": 8\n      }\n    ],\n    \"candidatesTokensDetails\":
+        [\n      {\n        \"modality\": 1,\n        \"tokenCount\": 630\n      }\n
+        \   ]\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n]"
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
@@ -133,11 +132,11 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Fri, 06 Dec 2024 15:38:00 GMT
+      - Fri, 07 Feb 2025 07:50:58 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=397
+      - gfet4t7; dur=363
       Transfer-Encoding:
       - chunked
       Vary:
