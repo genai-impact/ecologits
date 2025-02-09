@@ -3,7 +3,7 @@ import importlib.util
 import os
 from dataclasses import dataclass, field
 
-import toml  # type: ignore [import-untyped]
+import toml  # type: ignore [import]
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
