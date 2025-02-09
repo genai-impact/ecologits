@@ -34,7 +34,7 @@ class TestEcoLogitsConfig:
         with caplog.at_level(logging.WARNING):
             EcoLogits.init(config_path=default_path)
 
-        assert EcoLogits.config. providers == default_providers
+        assert EcoLogits.config.providers == default_providers
         assert EcoLogits.config.electricity_mix_zone == default_electricity_mix
         assert "Provided file does not exist, will fall back on default values" in caplog.text
 
@@ -43,23 +43,23 @@ class TestEcoLogitsConfig:
 
         EcoLogits.init(config_path=default_path)
 
-        assert EcoLogits.config. providers == default_providers
+        assert EcoLogits.config.providers == default_providers
         assert EcoLogits.config.electricity_mix_zone == user_electricity_mix
 
     @patch(target="ecologits._ecologits.EcoLogits._read_ecologits_config", return_value = {"providers":user_providers_list})
     def test_only_provider_in_config(self, patch):
         EcoLogits.init(config_path=default_path)
 
-        assert EcoLogits.config. providers == user_providers_list
+        assert EcoLogits.config.providers == user_providers_list
         assert EcoLogits.config.electricity_mix_zone == default_electricity_mix
 
     def test_no_ecologits_key_in_toml(self, caplog):
-        with caplog.at_level(logging.INFO):
+        with caplog.at_level(logging.WARNING):
             EcoLogits.init(config_path="./tests/config/toml_with_no_ecologits.toml")
 
         assert EcoLogits.config.providers == default_providers
         assert EcoLogits.config.electricity_mix_zone == default_electricity_mix
-        assert "The provided file did not contain the ecologits key, will fall back on default configuration" in caplog.text
+        assert "Provided file did not contain the ecologits key. Falling back on default configuration" in caplog.text
 
     def test_init_parameters_both_provided(self):
         EcoLogits.init(providers = user_providers_list, electricity_mix_zone=user_electricity_mix)
