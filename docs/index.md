@@ -63,88 +63,26 @@ For detailed instructions on each provider, refer to the complete list of [suppo
 
 Below is a simple example demonstrating how to use the GPT-3.5-Turbo model from OpenAI with EcoLogits to track environmental impacts.
 
+```python
+from ecologits import EcoLogits
+from openai import OpenAI
 
-=== "Default init with python"
-    ```python
-    from ecologits import EcoLogits
-    from openai import OpenAI
+# Initialize EcoLogits
+EcoLogits.init()
 
-    # Initialize EcoLogits
-    EcoLogits.init()
+client = OpenAI(api_key="<OPENAI_API_KEY>")
 
-    client = OpenAI(api_key="<OPENAI_API_KEY>")
-
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "user", "content": "Tell me a funny joke!"}
-        ]
-    )
-
-    # Get estimated environmental impacts of the inference
-    print(f"Energy consumption: {response.impacts.energy.value} kWh")
-    print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
-    ```
-
-=== "Parametrized init"
-
-    ```python
-    from ecologits import EcoLogits
-    from openai import OpenAI
-
-    # Initialize EcoLogits
-    EcoLogits.init(providers=["openai", "mistral"], electricity_mix_zone="WOR")
-
-    client = OpenAI(api_key="<OPENAI_API_KEY>")
-
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "user", "content": "Tell me a funny joke!"}
-        ]
-    )
-
-    # Get estimated environmental impacts of the inference
-    print(f"Energy consumption: {response.impacts.energy.value} kWh")
-    print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
-    ```
-
-You can also provide the ecologits configuration through a toml file.
-
-=== "main.py"
-    ```python
-    from ecologits import EcoLogits
-    from openai import OpenAI
-
-    # Initialize EcoLogits
-    EcoLogits.init(config_path="pyproject.toml")
-
-    client = OpenAI(api_key="<OPENAI_API_KEY>")
-
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "user", "content": "Tell me a funny joke!"}
-        ]
-    )
-
-    # Get estimated environmental impacts of the inference
-    print(f"Energy consumption: {response.impacts.energy.value} kWh")
-    print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
-    ```
-
-=== "pyproject.toml"
-    ```toml
-    [ecologits]
-    region="FRA"
-    providers=[
-        "openai"
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "user", "content": "Tell me a funny joke!"}
     ]
-    ```
+)
 
-!!! info Internal priorizations
-    - If no init parameters are provided, EcoLogits will check for a pyproject.toml file with an ecologits config an rely on it to initialize.
-    - If both a toml file and init parameter are provided, the parameters will prevail.
+# Get estimated environmental impacts of the inference
+print(f"Energy consumption: {response.impacts.energy.value} kWh")
+print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
+```
 
 Environmental impacts are quantified based on four criteria and across two phases:
 
