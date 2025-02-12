@@ -1850,9 +1850,6 @@
 <p>For detailed instructions on each provider, refer to the complete list of <a href="tutorial/providers/">supported providers and features</a>. It is also possible to install EcoLogits without any provider.</p>
 <h2 id="usage-example">Usage Example</h2>
 <p>Below is a simple example demonstrating how to use the GPT-3.5-Turbo model from OpenAI with EcoLogits to track environmental impacts.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Default init with python</label><label for="__tabbed_1_2">Parametrized init</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -1872,71 +1869,6 @@
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy consumption: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kWh&quot;</span><span class="p">)</span>
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GHG emissions: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kgCO2eq&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Initialize EcoLogits</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">providers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;openai&quot;</span><span class="p">,</span> <span class="s2">&quot;mistral&quot;</span><span class="p">],</span> <span class="n">electricity_mix_zone</span><span class="o">=</span><span class="s2">&quot;WOR&quot;</span><span class="p">)</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&lt;OPENAI_API_KEY&gt;&quot;</span><span class="p">)</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">,</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="p">]</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">)</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># Get estimated environmental impacts of the inference</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy consumption: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kWh&quot;</span><span class="p">)</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GHG emissions: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kgCO2eq&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-</div>
-</div>
-</div>
-<p>You can also provide the ecologits configuration through a toml file.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">main.py</label><label for="__tabbed_2_2">pyproject.toml</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Initialize EcoLogits</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;pyproject.toml&quot;</span><span class="p">)</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&lt;OPENAI_API_KEY&gt;&quot;</span><span class="p">)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">,</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="p">]</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">)</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1"># Get estimated environmental impacts of the inference</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy consumption: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kWh&quot;</span><span class="p">)</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GHG emissions: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kgCO2eq&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-toml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">[ecologits]</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">region</span><span class="o">=</span><span class="s2">&quot;FRA&quot;</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">providers</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="s2">&quot;openai&quot;</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">]</span>
-</span></code></pre></div>
-</div>
-</div>
-</div>
-<div class="admonition info internal priorizations">
-<p class="admonition-title">Info</p>
-<ul>
-<li>If no init parameters are provided, EcoLogits will check for a pyproject.toml file with an ecologits config an rely on it to initialize.</li>
-<li>If both a toml file and init parameter are provided, the parameters will prevail.</li>
-</ul>
-</div>
 <p>Environmental impacts are quantified based on four criteria and across two phases:</p>
 <p>Criteria:</p>
 <ul>

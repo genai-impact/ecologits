@@ -683,15 +683,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#configure-both-through-a-toml-configuration-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configure both through a toml configuration file
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1765,15 +1756,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#configure-both-through-a-toml-configuration-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configure both through a toml configuration file
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1835,11 +1817,8 @@ and running in minutes.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Default initialization method</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">()</span> <span class="c1"># (1)!</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 </span></code></pre></div>
-<ol>
-<li>If you have a pyproject.toml containing an EcoLogits configuration, it will now be loaded by an empty init. </li>
-</ol>
 <h3 id="configure-providers">Configure providers</h3>
 <p>You can select which provider to enable with EcoLogits using the <code>providers</code> parameter.</p>
 <div class="admonition info">
@@ -1866,23 +1845,6 @@ and running in minutes.</p>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Select the electricity mix of France</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">electricity_mix_zone</span><span class="o">=</span><span class="s2">&quot;FRA&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<h3 id="configure-both-through-a-toml-configuration-file">Configure both through a toml configuration file</h3>
-<p>You can also set the providers and electricity mix zone through a .toml file (for example your project's .toml).</p>
-<div class="language-python highlight"><span class="filename">Load an EcoLogits configuration file</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Initialize EcoLogits with a config file</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;pyproject.toml&quot;</span><span class="p">)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;ecologits.toml&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<p>To do so, just provide the path to your file (or provide nothing if it is a <code>pyproject.toml</code> located at the root of your project).
-The expected formatting of the EcoLogits configuration is as follows.</p>
-<div class="language-toml highlight"><span class="filename">pyproject.toml</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">[ecologits]</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">region</span><span class="o">=</span><span class="s2">&quot;FRA&quot;</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">providers</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="s2">&quot;openai&quot;</span><span class="p">,</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="s2">&quot;mistral&quot;</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">]</span>
 </span></code></pre></div>
 
 
