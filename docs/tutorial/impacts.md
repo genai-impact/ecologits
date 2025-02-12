@@ -45,9 +45,7 @@ RangeValue(min=0.16, max=0.48) # Expressed in kgCO2eq (2)
 1. Assuming you have made an inference and get the response in an `response` object.
 2. [`RangeValue`][utils.range_value.RangeValue] are used to define intervals. It corresponds to the 95% confidence interval of our approximation.
 
-This range of values corresponds a **high-confidence approximation interval**, within which we are confident enough that the true consumption lies (see the [methodology](../methodology/llm_inference.md) for more information).
-
-
+This range of values corresponds a **high-confidence approximation interval**, within which we are confident enough that the true consumption lies. This interval is defined by several approximations, such as the model size (if unknown) and the statistical regressions that we perform for estimating quantities. For more information, see the [methodology](../methodology/llm_inference.md).
 
 ## Criteria
 
