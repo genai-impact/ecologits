@@ -54,7 +54,7 @@ from ecologits import EcoLogits
 EcoLogits.init() # (1)!
 ```
 
-1. If you have a pyproject.toml containing an EcoLogits configuration, it will now be loaded by an empty init. 
+1. If you have a ecologits.toml containing an EcoLogits configuration, it will now be loaded by an empty init. 
 
 ### Configure providers
 
@@ -100,15 +100,15 @@ You can also set the providers and electricity mix zone through a .toml file (fo
 from ecologits import EcoLogits
 
 # Initialize EcoLogits with a config file
-EcoLogits.init(config_path="pyproject.toml")
+EcoLogits.init(config_path="my_config_file.toml")
 EcoLogits.init(config_path="ecologits.toml")
 
 ```
 
-To do so, just provide the path to your file (or provide nothing if it is a `pyproject.toml` located at the root of your project).
+To do so, just provide the path to your file (or provide nothing if it is a `ecologits.toml` located at the root of your project).
 The expected formatting of the EcoLogits configuration is as follows.
 
-```toml title="pyproject.toml"
+```toml title="ecologits.toml"
 [ecologits]
 region="FRA"
 providers=[

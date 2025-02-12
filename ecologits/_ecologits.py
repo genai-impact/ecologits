@@ -152,9 +152,9 @@ class EcoLogits:
         if (config_path is None
             and providers is None
             and electricity_mix_zone is None
-            and os.path.isfile("pyproject.toml")):
+            and os.path.isfile("ecologits.toml")):
 
-            config_path = "pyproject.toml"
+            config_path = "ecologits.toml"
 
         if config_path:
             try:

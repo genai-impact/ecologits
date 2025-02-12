@@ -117,7 +117,7 @@ You can also provide the ecologits configuration through a toml file.
     from openai import OpenAI
 
     # Initialize EcoLogits
-    EcoLogits.init(config_path="pyproject.toml")
+    EcoLogits.init(config_path="ecologits.toml")
 
     client = OpenAI(api_key="<OPENAI_API_KEY>")
 
@@ -133,7 +133,7 @@ You can also provide the ecologits configuration through a toml file.
     print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
     ```
 
-=== "pyproject.toml"
+=== "ecologits.toml"
     ```toml
     [ecologits]
     region="FRA"
@@ -143,7 +143,7 @@ You can also provide the ecologits configuration through a toml file.
     ```
 
 !!! info Internal priorizations
-    - If no init parameters are provided, EcoLogits will check for a pyproject.toml file with an ecologits config an rely on it to initialize.
+    - If no init parameters are provided, EcoLogits will check for a ecologits.toml file with an EcoLogits config an rely on it to initialize.
     - If both a toml file and init parameter are provided, the parameters will prevail.
 
 Environmental impacts are quantified based on four criteria and across two phases:
