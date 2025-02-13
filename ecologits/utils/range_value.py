@@ -33,7 +33,21 @@ class RangeValue(BaseModel):
                 max=self.max + other
             )
 
+    def __mul__(self, other: Union[int, float]) -> "RangeValue":
+        return RangeValue(
+            min=other * self.min,
+            max=other * self.max
+        )
+
+    def __truediv__(self, other: Union[int, float]) -> "RangeValue":
+        return RangeValue(
+            min=self.min / other,
+            max=self.max / other
+        )
+
     __radd__ = __add__
+    __rmul__ = __mul__
+    __rtruediv__ = __truediv__
 
     def __eq__(self, other: Any) -> bool:
         if isinstance(other, RangeValue):
