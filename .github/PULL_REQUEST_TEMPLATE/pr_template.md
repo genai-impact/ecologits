@@ -1,8 +1,21 @@
-My PR is adressing the following issue: 
+## Describe your changes
 
-I made sure I did the relevant tasks among:
+Please detail the changes you have made, include if relevant:
 
-- [ ] I detailed my objectives in an issue with the feature request or bug report
-- [ ] I ran pre-commit checks and unit tests
-- [ ] New lines of code are tested with relevant unit tests
-- [ ] My feature is documented in the package documentation and I made sure the docs build locally
+- Context and motivation for this PR ;
+- List of the changes made ;
+- List of dependency changes ;
+- Breaking changes.
+
+Fixes # (issue)
+
+
+## Checklist:
+
+- [ ] I have read and followed the [contribution guide](https://ecologits.ai/latest/contributing/).
+- [ ] I have performed a self-review of my code.
+- [ ] I have added tests that prove my fix is effective or that my feature works.
+- [ ] I have successfully run all tests with `make test`.
+- [ ] I have successfully run pre-commit with `make pre-commit`.
+- [ ] I have written documentation for the changes.
+- [ ] I have rebased my branch onto the target branch (usually `main`).
