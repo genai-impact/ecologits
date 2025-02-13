@@ -62,16 +62,22 @@ We fit a linear regression model to the dataset, which models the energy consump
   <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions)</figcaption>
 </figure>
 
-The linear regression gives
+??? info "What is a 95% confidence interval?"
+
+    The standard deviation $\delta$ of a linear regression measures "how close are the datapoints to the fitted line". A priori, the larger it is, the worse is the approximation. Consider a linear regression $Y(x) \approx \alpha x + \beta$. Given some assumptions, we can say that $Y(x) \in [\alpha x + \beta - 1.96\delta, \alpha x + \beta + 1.96\delta]$ with probability 95% (see [[1]](https://en.wikipedia.org/wiki/Linear_regression) and [[2]](https://en.wikipedia.org/wiki/97.5th_percentile_point) for more details).
+
+In our methodology, **in order to take into account approximation errors as much as possible**, we provide the **95% confidence interval** of our linear approximation. The computed linear regression gives a confidence interval of
 
 $$
-\frac{E_{\text{GPU}}}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta, 
+\frac{E_{\text{GPU}}}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma, 
 $$
 
-with $\alpha = 8.91e-5$ and $\beta = 1.43e-3$. Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens $\#T_{\text{out}}$ and the number of active parameters $P_{\text{active}}$:
+with $\alpha = 8.91e-5$, $\beta = 1.43e-3$ and $\sigma = 5.19e-4$. 
+
+Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens $\#T_{\text{out}}$ and the number of active parameters $P_{\text{active}}$:
 
 $$
-E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta).
+E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma).
 $$
 
 If the model requires multiple GPUs to be loaded into VRAM, the energy consumption $E_{\text{GPU}}$ should be multiplied by the number of required GPUs, $\text{GPU}$ (see [below](#complete-server-energy-consumption)).
@@ -102,22 +108,22 @@ We fit a linear regression model on the dataset modeling the generation latency 
   <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions)</figcaption>
 </figure>
 
-The fit gives
+Again, we propagate 95% confidence intervals through our computations. The fit gives an interval of
 
 $$
-\frac{\Delta T}{\#T_{\text{out}}} = A \times P_{\text{active}} + B, 
+\frac{\Delta T}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96\delta, 
 $$
 
-with $A = 8.02e-4$ and $B = 2.23e-2$. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
+with $\alpha = 8.02e-4$, $\beta = 2.23e-2$ and $\delta = 7.00e-6$. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
 
 $$
-\Delta T(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (A \times P_{\text{active}} + B).
+\Delta T(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96\delta).
 $$
 
 With the request latency, the generation latency is defined as follows:
 
 $$
-\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times (A \times P_{\text{active}} + B), \Delta T_{\text{request}} \right\}.
+\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \delta), \Delta T_{\text{request}} \right\}.
 $$
 
 #### Estimating the number of active GPUs

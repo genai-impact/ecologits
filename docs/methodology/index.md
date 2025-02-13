@@ -22,7 +22,9 @@ Our assessment considers **three key environmental criteria**:
 - Abiotic Resource Depletion for Elements (ADPe): Assesses the consumption of raw minerals and metals, expressed in antimony equivalents.
 - Primary Energy (PE): Calculates energy consumed from natural sources, expressed in megajoules.
 
-Using a **bottom-up modeling approach**, we assess and aggregate the environmental impacts of all individual service components. This method differs from top-down approaches by allowing precise allocation of each resource's impact to the overall environmental footprint.
+Using a **bottom-up modeling approach**, we assess and aggregate the environmental impacts of all individual service components. This method differs from top-down approaches by allowing precise allocation of each resource's impact to the overall environmental footprint. 
+
+Our method computes **high-confidence approximation intervals**, providing a range of values within which we are confident enough that the true consumption lies.
 
 Our current focus is on high-performance GPU-accelerated cloud instances, crucial for GenAI inference tasks. While we exclude impacts from training, networking, and end-user devices, we thoroughly evaluate the impacts associated with hosting and running the model inferences.
 
