@@ -52,7 +52,6 @@ huggingface-hub = ["huggingface-hub (>=0.28.1,<0.29.0)", "tiktoken (>=0.8.0,<0.9
 google-generativeai = ["google-generativeai (>=0.8.4,<0.9.0)"]
 litellm = ["litellm (>=1.60.6,<2.0.0)", "rapidfuzz (>=3.12.1,<4.0.0)"]
 
-
 [tool.poetry]
 requires-poetry = ">=2.0"
 
@@ -104,7 +103,7 @@ ignore_errors = true
 
 
 [tool.ruff]
-select = [
+lint.select = [
     "A",
     "ANN",
     "ARG",
@@ -136,10 +135,8 @@ select = [
     "YTT"
 ]
 
-ignore = [
+lint.ignore = [
     "A003",
-    "ANN101",
-    "ANN102",
     "ANN401",
     "N805",
     "N818",
@@ -151,7 +148,7 @@ ignore = [
     "TRY003"
 ]
 
-fixable = [
+lint.fixable = [
     "A",
     "ANN",
     "ARG",
@@ -181,7 +178,7 @@ fixable = [
     "W",
     "YTT"
 ]
-unfixable = []
+lint.unfixable = []
 
 exclude = [
     ".bzr",
@@ -206,12 +203,12 @@ exclude = [
 
 line-length = 120
 
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+lint.dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 target-version = "py39"
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"

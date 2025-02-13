@@ -69,9 +69,7 @@ def huggingface_chat_wrapper_stream(
 ) -> Iterable[ChatCompletionStreamOutput]:
     timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
-    token_count = 0
-    for chunk in stream:
-        token_count += 1
+    for token_count, chunk in enumerate(stream, start=1):
         request_latency = time.perf_counter() - timer_start
         impacts = llm_impacts(
             provider=PROVIDER,
