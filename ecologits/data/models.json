@@ -929,12 +929,15 @@
             "provider": "anthropic",
             "name": "claude-3-haiku-20240307",
             "architecture": {
-                "type": "moe",
+                "type": "dense",
                 "parameters": {
-                    "total": 300,
+                    "total": {
+                        "min": 20,
+                        "max": 70
+                    },
                     "active": {
-                        "min": 75,
-                        "max": 150
+                        "min": 20,
+                        "max": 70
                     }
                 }
             },
@@ -952,10 +955,55 @@
             "architecture": {
                 "type": "moe",
                 "parameters": {
-                    "total": 300,
+                    "total": 440,
                     "active": {
-                        "min": 75,
-                        "max": 150
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-5-haiku-20241022",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "total": {
+                        "min": 8,
+                        "max": 28
+                    },
+                    "active": {
+                        "min": 8,
+                        "max": 28
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-5-sonnet-20241022",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
                     }
                 }
             },
