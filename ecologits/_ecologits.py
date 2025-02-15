@@ -3,11 +3,11 @@ import importlib.util
 import os
 from dataclasses import dataclass, field
 
-import tomllib
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
 from ecologits.log import logger
+from ecologits.utils.toml import load_toml
 
 
 def init_openai_instrumentor() -> None:
@@ -123,9 +123,7 @@ class EcoLogits:
 
     @staticmethod
     def _read_ecologits_config(config_path: str)-> dict[str, str]|None:
-
-        with open(config_path, "rb") as f:
-            config = tomllib.load(f)
+        config = load_toml(config_path)
         user_config = config.get("ecologits",None)
         if user_config is None:
             logger.warning("File does not have the 'ecologits' key, falling back on defaults")
