@@ -15,7 +15,7 @@ from ecologits.impacts.modeling import ADPe, Embodied, Energy, GWP, PE, Usage
 
 
 ImpactsOutput(
-    energy=Energy(),    # Total energy consumed
+    energy=Energy(),    # Total energy consumed (electricity)
     gwp=GWP(),          # Total global warming potential (or GHG emissions)
     adpe=ADPe(),        # Total abiotic resource depletion
     pe=PE(),            # Total energy consumed from primary sources
@@ -40,7 +40,7 @@ ImpactsOutput(
 3. List of [`WarningMessage`][status_messages.WarningMessage] and [`ErrorMessage`][status_messages.ErrorMessage].
 
 
-### Example of an impact value
+### Example of an Impact Value
 
 The impact objects named [`Energy`][impacts.modeling.Energy], [`GWP`][impacts.modeling.GWP], [`ADPe`][impacts.modeling.ADPe] or [`PE`][impacts.modeling.PE] all share the following structure:
 
@@ -58,14 +58,15 @@ class GWP(BaseImpact):  # (1)!
 You can retrieve the GWP impact value from a request with the following:
 
 ```python
->>> response.impacts.gwp.value # Total GHG emissions (1)
-0.34  # in kgCO2eq.
+>>> response.impacts.gwp.value #  (1)!
+0.34    # Total GHG emissions in kgCO2eq.
 
->>> response.impacts.usage.gwp.value  # or for the usage phase only
-0.23
+>>> response.impacts.usage.gwp.value 
+0.23    # or for the usage phase only (2)
 ```
 
 1. Assuming you have made an inference and get the response in an `response` object.
+2. Impacts of the usage phase corresponds to the impacts of electricity consumption. Learn more about [usage phase in the next section](#usage).
 
 ### Example with a `RangeValue`
 
