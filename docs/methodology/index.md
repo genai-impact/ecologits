@@ -26,8 +26,6 @@ Using a **bottom-up modeling approach**, we assess and aggregate the environment
 
 Our method computes **high-confidence approximation intervals**, providing a range of values within which we are confident enough that the true consumption lies.
 
-Our current focus is on high-performance GPU-accelerated cloud instances, crucial for GenAI inference tasks. While we exclude impacts from training, networking, and end-user devices, we thoroughly evaluate the impacts associated with hosting and running the model inferences.
-
 The methodology is grounded in **transparency** and **reproducibility**, utilizing open market and technical data to ensure our results are reliable and verifiable.
 
 ## Scope of the methodology
