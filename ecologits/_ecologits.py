@@ -3,7 +3,7 @@ import importlib.util
 import os
 from dataclasses import dataclass, field
 
-import toml  # type: ignore [import]
+import tomllib
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
@@ -124,11 +124,12 @@ class EcoLogits:
     @staticmethod
     def _read_ecologits_config(config_path: str)-> dict[str, str]|None:
 
-        with open(config_path) as config_file:
-            config = toml.load(config_file).get("ecologits", None)
-        if config is None:
-            logger.warning("Provided file did not contain the ecologits key. Falling back on default configuration")
-        return config
+        with open(config_path, "rb") as f:
+            config = tomllib.load(f)
+        user_config = config.get("ecologits",None)
+        if user_config is None:
+            logger.warning("File does not have the 'ecologits' key, falling back on defaults")
+        return user_config
 
     @staticmethod
     def init(
@@ -161,7 +162,7 @@ class EcoLogits:
                 user_config: dict[str, str]|None = EcoLogits._read_ecologits_config(config_path)
                 logger.info("Ecologits configuration found in file and loaded")
             except FileNotFoundError:
-                logger.warning("Provided file does not exist, will fall back on default values")
+                logger.warning("File does not exist, falling back on defaults")
                 user_config = None
 
             if user_config is not None:
