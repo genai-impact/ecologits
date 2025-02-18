@@ -5,14 +5,6 @@
     <span class="badge__text">v1.0</span>
 </span>
 
-??? info "Known limitations and hypotheses"
-    
-    - Based on a production setup: models are quantized, high-end servers with A100...
-    - We currently assume that the used electricity mix correspond only to national average mixes (taken from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/)). If the user does not specify the country, the world average mix is used. 
-    - Model architectures are assumed when not dislosed by the provider.
-    - Not accounting the impacts of unused cloud resources, data center building, network and end-user devices, model training and data collection...
-    - Not tested on multi-modal models for text-to-text generation only.
-
 
 ## Introduction
 
@@ -263,7 +255,7 @@ I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\te
 $$
 
 
-## Hypothesis and limitations
+## Assumptions and limitations
 
 To be able to estimate environmental impacts of LLMs at inference we took the approach of modeling the key components that compose the service. In this section we will list major assumptions we make when modeling environmental impacts as well as known limitations. When possible we will try to quantify the potential inaccuracies.
 
@@ -275,7 +267,7 @@ Assuming the **required infrastructure** for open models can be relatively strai
 
 Assuming the **energy consumption** for AI models is done through benchmarking open models. We tend to rely on external sources for benchmarking, but we conduct our own experiments as well. Because of our limited capacity and the technical complexity to host very big AI models we extrapolate the consumption of smaller models to bigger models.
 
-**Hypotheses:**
+**Assumptions:**
 
 * Models are deployed with pytorch backend.
 * Models are quantized to 4 bits.
@@ -291,7 +283,7 @@ Assuming the **energy consumption** for AI models is done through benchmarking o
 
 We estimate the **required infrastructure** to run the service in terms of hardware. We consider that the service is hosted in the cloud on servers equipped with high-end GPUs. 
 
-**Hypotheses:**
+**Assumptions:**
 
 * Models are deployed on NVIDIA A100 GPUs with 80GB of memory.
 * Base servers are similar to p4de.24xlarge AWS cloud instances.
@@ -308,7 +300,7 @@ The type of services we model rely on high-end hardware that we consider is host
 
 We consider the **Power Usage Effectiveness** (PUE) metric from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. That's why we prefer to rely on a global average for PUE that can be overridden for providers that disclose more precise data.
 
-**Hypotheses:**
+**Assumptions:**
 
 * PUE = 1.2 (arbitrary value for hyperscalers)
 
@@ -324,7 +316,7 @@ We consider the **Power Usage Effectiveness** (PUE) metric from data centers. Th
 
 To transform physical values such as energy consumption into environmental impacts we use **impact factors**. These can be hard to estimate and precise and up-to-date data is rarely open to use.
 
-**Hypotheses:**
+**Assumptions:**
 
 * Electricity mix are taken from the ADEME Base Empreinte database and averaged per country.
 
