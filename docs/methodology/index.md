@@ -37,14 +37,14 @@ Our methodology focuses on **assessing the environmental impacts of GenAI infere
   <figcaption>Boundaries of our impact assessment methodology.</figcaption>
 </figure>
 
-Because evaluating the environmental footprint of GenAI services is hard we make some **assumptions** to simplify the assessment. In the following section we will describe general hypotheses that we use, if you want to learn more about the specifics look at the according methodology page.  
+Because evaluating the environmental footprint of GenAI services is hard we make some **assumptions** to simplify the assessment. In the following section we will describe general assumptions that we use, if you want to learn more about the specifics look at the according methodology page.  
 
 
-## Hypotheses and limitations
+## Assumptions and limitations
 
-Estimating the environmental impacts of generative AI services at inference can be really challenging because of the **lack of open data and transparent information** from the key players (AI/cloud providers, hardware manufacturers, environmental impact databases, etc.) In the [LLM inference](llm_inference.md) methodology we explain at high-level all the [**hypotheses and limitations**](llm_inference.md#hypothesis-and-limitations) of our bottom-up approach.
+Estimating the environmental impacts of generative AI services at inference can be really challenging because of the **lack of open data and transparent information** from the key players (AI/cloud providers, hardware manufacturers, environmental impact databases, etc.) In the [LLM inference](llm_inference.md) methodology we explain at high-level all the [**assumptions and limitations**](llm_inference.md#assumptions-and-limitations) of our bottom-up approach.
 
-!!! info "Regarding the hypotheses we make on **proprietary models**, we have a [dedicated section](proprietary_models.md) for increased transparency and explainability."
+!!! info "Regarding the assumptions we make on **proprietary models**, we have a [dedicated section](proprietary_models.md) for increased transparency and explainability."
 
 
 ## Licenses and citations
