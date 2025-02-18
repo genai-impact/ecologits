@@ -302,7 +302,7 @@ We consider the **Power Usage Effectiveness** (PUE) metric from data centers. Th
 
 **Assumptions:**
 
-* PUE = 1.2 (arbitrary value for hyperscalers)
+* PUE = 1.2 (arbitrary value, [valid for hyperscalers](https://semianalysis.com/2024/03/13/ai-datacenter-energy-dilemma-race/#datacenter-math))
 
 **Limitations:**
 
