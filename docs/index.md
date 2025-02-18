@@ -95,8 +95,8 @@ if response.impacts.has_errors:
 ```
 
 1. You don't need to change your code when making a request! :tada:
-2. Total estimated energy consumption for the request in kilowatt-hour (kWh).
-3. Total estimated greenhouse gas emissions for the request in kilogram of CO2 equivalent (kgCO2eq).
+2. Total estimated energy consumption for the request in kilowatt-hour (kWh). You can expect an interval, see [exemple here](tutorial/impacts.md#example-with-a-rangevalue). 
+3. Total estimated greenhouse gas emissions for the request in kilogram of CO2 equivalent (kgCO2eq). You can expect an interval, see [exemple here](tutorial/impacts.md#example-with-a-rangevalue). 
 4. For `gpt-4o-mini`, you can expect two warnings: [`model-arch-not-released`](tutorial/warnings_and_errors.md#model-arch-not-released) and [`model-arch-multimodal`](tutorial/warnings_and_errors.md#model-arch-multimodal).
 5. On this example you shouldn't get any errors.
 
