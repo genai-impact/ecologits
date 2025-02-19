@@ -281,7 +281,7 @@ Assuming the **energy consumption** for AI models is done through benchmarking o
 
 ### On benchmarking data
 
-We use linear regression models to approximate energy consumption and latency as a function of the number of active parameters in the LLM. We represent the linear model as $Y = a \times X + b + \epsilon$, where $Y$ is the predicted value, $X$ is the input variable, $a$ and $b$ are the regression coefficients, and $\epsilon$ is the error term. We rely on two main assumptions about the errors or residuals:
+We use linear regression models to approximate energy consumption per token and latency per token as a function of the number of active parameters in the LLM. We represent the linear model as $Y = a \times X + b + \epsilon$, where $Y$ is the predicted value, $X$ is the input variable, $a$ and $b$ are the regression coefficients, and $\epsilon$ is the error term. We rely on two main assumptions about the errors or residuals:
 
 1. **Normally distributed errors**: We assume that the errors ($\epsilon$) follow a normal distribution with a mean of zero and a constant variance, represented as $\epsilon \sim \mathcal{N}(0, \sigma^2)$. 
 
