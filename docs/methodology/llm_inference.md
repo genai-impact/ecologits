@@ -285,7 +285,7 @@ We use linear regression models to approximate energy consumption and latency as
 
 1. Normally distributed errors: We assume that the errors ($\epsilon$) follow a normal distribution with a mean of zero and a constant variance, represented as $\epsilon \sim \mathcal{N}(0, \sigma^2)$. 
 
-2. 95% confidence interval: To account for uncertainty, we use the 95% confidence interval, calculated using the standard deviation of the errors (\sigma) and the 97.5th percentile point of the standard normal distribution (approximately 1.96).
+2. 95% confidence interval: To account for uncertainty, we use the 95% confidence interval, calculated using the standard deviation of the errors ($\sigma$) and the 97.5th percentile point of the standard normal distribution (approximately 1.96).
 
 ### On hardware
 
