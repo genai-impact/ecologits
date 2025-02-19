@@ -41,7 +41,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     client = OpenAI(api_key="<OPENAI_API_KEY>")
     
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {"role": "user", "content": "Tell me a funny joke!"}
         ]
@@ -65,7 +65,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     async def main() -> None:
         response = await client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "user", "content": "Tell me a funny joke!"}
             ]
@@ -94,7 +94,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     client = OpenAI(api_key="<OPENAI_API_KEY>")
     
     stream = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[{"role": "user", "content": "Hello World!"}],
         stream=True
     )
@@ -118,7 +118,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     async def main() -> None:
         stream = await client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "user", "content": "Tell me a funny joke!"}
             ]

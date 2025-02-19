@@ -76,7 +76,7 @@ def generation_latency(
         output_token_count: Number of generated tokens.
         gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.
         gpu_latency_beta: Beta parameter of the GPU linear latency profile.
-        gpu_energy_stdev: Standard deviation of the GPU linear latency profile.
+        gpu_latency_stdev: Standard deviation of the GPU linear latency profile.
         request_latency: Measured request latency (upper bound) in seconds.
 
     Returns:
