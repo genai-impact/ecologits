@@ -1,9 +1,8 @@
 from pathlib import Path
 from typing import Optional
 
-import toml
-
 from ecologits import __version__
+from ecologits.utils.toml import load_toml
 
 
 def test_version_alignment():
@@ -13,6 +12,5 @@ def test_version_alignment():
 
 def get_poetry_version() -> Optional[str]:
     path = Path(__file__).resolve().parents[1] / 'pyproject.toml'
-    with open(str(path), "r") as fd:
-        pyproject = toml.loads(fd.read())
-        return pyproject['project']['version']
+    pyproject = load_toml(str(path))
+    return pyproject['project']['version']
