@@ -14,7 +14,7 @@
         <link rel="prev" href="../tutorial/providers/openai/">
       
       
-        <link rel="next" href="llm_inference/">
+        <link rel="next" href="proprietary_models/">
       
       
       <link rel="icon" href="../assets/leaf.svg">
@@ -1013,6 +1013,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#scope-of-the-methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scope of the methodology
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions-and-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assumptions and limitations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#licenses-and-citations" class="md-nav__link">
     <span class="md-ellipsis">
       Licenses and citations
@@ -1025,6 +1043,28 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="proprietary_models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proprietary models
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1738,6 +1778,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#scope-of-the-methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scope of the methodology
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions-and-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assumptions and limitations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#licenses-and-citations" class="md-nav__link">
     <span class="md-ellipsis">
       Licenses and citations
@@ -1781,14 +1839,25 @@
 <p>EcoLogits employs the <strong>Life Cycle Assessment (LCA) methodology</strong>, as defined by ISO 14044, to estimate the environmental impacts of requests made to generative AI inference services. This approach focuses on <strong>multiple phases</strong> of the lifecycle, specifically raw material extraction, manufacturing, transportation (denoted as embodied impacts), usage and end-of-life. Notably, we do not cover the end-of-life phase due to data limitations on e-waste recycling.</p>
 <p>Our assessment considers <strong>three key environmental criteria</strong>:</p>
 <ul>
-<li>Global Warming Potential (GWP): Evaluates the impact on global warming in terms of CO2 equivalents.</li>
-<li>Abiotic Resource Depletion for Elements (ADPe): Assesses the consumption of raw minerals and metals, expressed in antimony equivalents.</li>
-<li>Primary Energy (PE): Calculates energy consumed from natural sources, expressed in megajoules.</li>
+<li>Global Warming Potential (<abbr title="Global Warming Potential">GWP</abbr>): Evaluates the impact on global warming in terms of CO2 equivalents.</li>
+<li>Abiotic Resource Depletion for Elements (<abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr>): Assesses the consumption of raw minerals and metals, expressed in antimony equivalents.</li>
+<li>Primary Energy (<abbr title="Primary Energy">PE</abbr>): Calculates energy consumed from natural sources, expressed in megajoules.</li>
 </ul>
-<p>Using a <strong>bottom-up modeling approach</strong>, we assess and aggregate the environmental impacts of all individual service components. This method differs from top-down approaches by allowing precise allocation of each resource's impact to the overall environmental footprint. </p>
+<p>Using a <strong>bottom-up modeling approach</strong>, we assess and aggregate the environmental impacts of all individual service components within scope. This method differs from top-down approaches by allowing precise allocation of each resource's impact to the overall environmental footprint. The key advantage of bottom-up modeling is that our methodology can be customized for each provider that share information.</p>
 <p>Our method computes <strong>high-confidence approximation intervals</strong>, providing a range of values within which we are confident enough that the true consumption lies.</p>
-<p>Our current focus is on high-performance GPU-accelerated cloud instances, crucial for GenAI inference tasks. While we exclude impacts from training, networking, and end-user devices, we thoroughly evaluate the impacts associated with hosting and running the model inferences.</p>
 <p>The methodology is grounded in <strong>transparency</strong> and <strong>reproducibility</strong>, utilizing open market and technical data to ensure our results are reliable and verifiable.</p>
+<h2 id="scope-of-the-methodology">Scope of the methodology</h2>
+<p>Our methodology focuses on <strong>assessing the environmental impacts of GenAI inference tasks</strong>. That is why we exclude impacts from training, networking and end-used devices, we thoroughly evaluate the impacts associated with hosting and running the model inferences.</p>
+<figure>
+  <img alt="Figure: Energy consumption per output token vs. number of active parameters " src="../assets/methodology/llm/figure_boundaries.png" />
+  <figcaption>Boundaries of our impact assessment methodology.</figcaption>
+</figure>
+<p>Because evaluating the environmental footprint of GenAI services is hard we make some <strong>assumptions</strong> to simplify the assessment. In the following section we will describe general assumptions that we use, if you want to learn more about the specifics look at the according methodology page.  </p>
+<h2 id="assumptions-and-limitations">Assumptions and limitations</h2>
+<p>Estimating the environmental impacts of generative AI services at inference can be really challenging because of the <strong>lack of open data and transparent information</strong> from the key players (AI/cloud providers, hardware manufacturers, environmental impact databases, etc.) In the <a href="llm_inference/">LLM inference</a> methodology we explain at high-level all the <a href="llm_inference/#assumptions-and-limitations"><strong>assumptions and limitations</strong></a> of our bottom-up approach.</p>
+<div class="admonition info">
+<p class="admonition-title">Regarding the assumptions we make on <strong>proprietary models</strong>, we have a <a href="proprietary_models/">dedicated section</a> for increased transparency and explainability.</p>
+</div>
 <h2 id="licenses-and-citations">Licenses and citations</h2>
 <p>All the methodologies are <strong>licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></strong>
 <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="">

@@ -964,6 +964,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../methodology/proprietary_models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proprietary models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../methodology/llm_inference/" class="md-nav__link">
         
   
@@ -2321,8 +2343,9 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gpu_energy_stdev</code></td>
+            <td><code>gpu_latency_stdev</code></td>
             <td>
+                  <code>float</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2421,7 +2444,7 @@
 </span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        output_token_count: Number of generated tokens.</span>
 </span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.</span>
 </span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        gpu_latency_beta: Beta parameter of the GPU linear latency profile.</span>
-</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        gpu_energy_stdev: Standard deviation of the GPU linear latency profile.</span>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        gpu_latency_stdev: Standard deviation of the GPU linear latency profile.</span>
 </span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        request_latency: Measured request latency (upper bound) in seconds.</span>
 </span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a>
 </span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">    Returns:</span>
@@ -2995,7 +3018,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Compute the Global Warming Potential (GWP) usage impact of the request.</p>
+      <p>Compute the Global Warming Potential (<abbr title="Global Warming Potential">GWP</abbr>) usage impact of the request.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3030,7 +3053,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>GWP impact factor of electricity consumption in kgCO2eq / kWh.</p>
+                <p><abbr title="Global Warming Potential">GWP</abbr> impact factor of electricity consumption in kgCO2eq / kWh.</p>
               </div>
             </td>
             <td>
@@ -3056,7 +3079,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The GWP usage impact of the request in kgCO2eq.</p>
+                <p>The <abbr title="Global Warming Potential">GWP</abbr> usage impact of the request in kgCO2eq.</p>
               </div>
             </td>
           </tr>
@@ -3113,7 +3136,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Compute the Abiotic Depletion Potential for Elements (ADPe) usage impact of the request.</p>
+      <p>Compute the Abiotic Depletion Potential for Elements (<abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr>) usage impact of the request.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3148,7 +3171,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>ADPe impact factor of electricity consumption in kgSbeq / kWh.</p>
+                <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> impact factor of electricity consumption in kgSbeq / kWh.</p>
               </div>
             </td>
             <td>
@@ -3174,7 +3197,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The ADPe usage impact of the request in kgSbeq.</p>
+                <p>The <abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> usage impact of the request in kgSbeq.</p>
               </div>
             </td>
           </tr>
@@ -3231,7 +3254,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Compute the Primary Energy (PE) usage impact of the request.</p>
+      <p>Compute the Primary Energy (<abbr title="Primary Energy">PE</abbr>) usage impact of the request.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3266,7 +3289,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>PE impact factor of electricity consumption in MJ / kWh.</p>
+                <p><abbr title="Primary Energy">PE</abbr> impact factor of electricity consumption in MJ / kWh.</p>
               </div>
             </td>
             <td>
@@ -3292,7 +3315,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The PE usage impact of the request in MJ.</p>
+                <p>The <abbr title="Primary Energy">PE</abbr> usage impact of the request in MJ.</p>
               </div>
             </td>
           </tr>
@@ -3349,7 +3372,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Compute the Global Warming Potential (GWP) embodied impact of the server</p>
+      <p>Compute the Global Warming Potential (<abbr title="Global Warming Potential">GWP</abbr>) embodied impact of the server</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3370,7 +3393,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>GWP embodied impact of the server in kgCO2eq.</p>
+                <p><abbr title="Global Warming Potential">GWP</abbr> embodied impact of the server in kgCO2eq.</p>
               </div>
             </td>
             <td>
@@ -3398,7 +3421,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>GWP embodied impact of a single GPU in kgCO2eq.</p>
+                <p><abbr title="Global Warming Potential">GWP</abbr> embodied impact of a single GPU in kgCO2eq.</p>
               </div>
             </td>
             <td>
@@ -3438,7 +3461,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The GWP embodied impact of the server and the GPUs in kgCO2eq.</p>
+                <p>The <abbr title="Global Warming Potential">GWP</abbr> embodied impact of the server and the GPUs in kgCO2eq.</p>
               </div>
             </td>
           </tr>
@@ -3503,7 +3526,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the server</p>
+      <p>Compute the Abiotic Depletion Potential for Elements (<abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr>) embodied impact of the server</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3524,7 +3547,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>ADPe embodied impact of the server in kgSbeq.</p>
+                <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> embodied impact of the server in kgSbeq.</p>
               </div>
             </td>
             <td>
@@ -3552,7 +3575,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>ADPe embodied impact of a single GPU in kgSbeq.</p>
+                <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> embodied impact of a single GPU in kgSbeq.</p>
               </div>
             </td>
             <td>
@@ -3592,7 +3615,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The ADPe embodied impact of the server and the GPUs in kgSbeq.</p>
+                <p>The <abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> embodied impact of the server and the GPUs in kgSbeq.</p>
               </div>
             </td>
           </tr>
@@ -3657,7 +3680,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Compute the Primary Energy (PE) embodied impact of the server</p>
+      <p>Compute the Primary Energy (<abbr title="Primary Energy">PE</abbr>) embodied impact of the server</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3678,7 +3701,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>PE embodied impact of the server in MJ.</p>
+                <p><abbr title="Primary Energy">PE</abbr> embodied impact of the server in MJ.</p>
               </div>
             </td>
             <td>
@@ -3706,7 +3729,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>PE embodied impact of a single GPU in MJ.</p>
+                <p><abbr title="Primary Energy">PE</abbr> embodied impact of a single GPU in MJ.</p>
               </div>
             </td>
             <td>
@@ -3746,7 +3769,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The PE embodied impact of the server and the GPUs in MJ.</p>
+                <p>The <abbr title="Primary Energy">PE</abbr> embodied impact of the server and the GPUs in MJ.</p>
               </div>
             </td>
           </tr>
@@ -3811,7 +3834,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Compute the Global Warming Potential (GWP) embodied impact of the request.</p>
+      <p>Compute the Global Warming Potential (<abbr title="Global Warming Potential">GWP</abbr>) embodied impact of the request.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3832,7 +3855,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>GWP embodied impact of the server and the GPUs in kgCO2eq.</p>
+                <p><abbr title="Global Warming Potential">GWP</abbr> embodied impact of the server and the GPUs in kgCO2eq.</p>
               </div>
             </td>
             <td>
@@ -3886,7 +3909,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The GWP embodied impact of the request in kgCO2eq.</p>
+                <p>The <abbr title="Global Warming Potential">GWP</abbr> embodied impact of the request in kgCO2eq.</p>
               </div>
             </td>
           </tr>
@@ -3947,7 +3970,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the request.</p>
+      <p>Compute the Abiotic Depletion Potential for Elements (<abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr>) embodied impact of the request.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3968,7 +3991,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>ADPe embodied impact of the server and the GPUs in kgSbeq.</p>
+                <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> embodied impact of the server and the GPUs in kgSbeq.</p>
               </div>
             </td>
             <td>
@@ -4022,7 +4045,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The ADPe embodied impact of the request in kgSbeq.</p>
+                <p>The <abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> embodied impact of the request in kgSbeq.</p>
               </div>
             </td>
           </tr>
@@ -4083,7 +4106,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Compute the Primary Energy (PE) embodied impact of the request.</p>
+      <p>Compute the Primary Energy (<abbr title="Primary Energy">PE</abbr>) embodied impact of the request.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -4104,7 +4127,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>PE embodied impact of the server and the GPUs in MJ.</p>
+                <p><abbr title="Primary Energy">PE</abbr> embodied impact of the server and the GPUs in MJ.</p>
               </div>
             </td>
             <td>
@@ -4158,7 +4181,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The PE embodied impact of the request in MJ.</p>
+                <p>The <abbr title="Primary Energy">PE</abbr> embodied impact of the request in MJ.</p>
               </div>
             </td>
           </tr>
@@ -4296,7 +4319,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).</p>
+                <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> impact factor of electricity consumption of kgSbeq / kWh (Antimony).</p>
               </div>
             </td>
             <td>
@@ -4310,7 +4333,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>PE impact factor of electricity consumption in MJ / kWh.</p>
+                <p><abbr title="Primary Energy">PE</abbr> impact factor of electricity consumption in MJ / kWh.</p>
               </div>
             </td>
             <td>
@@ -4324,7 +4347,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>GWP impact factor of electricity consumption in kgCO2eq / kWh.</p>
+                <p><abbr title="Global Warming Potential">GWP</abbr> impact factor of electricity consumption in kgCO2eq / kWh.</p>
               </div>
             </td>
             <td>
@@ -4450,7 +4473,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>GWP embodied impact of a single GPU.</p>
+                <p><abbr title="Global Warming Potential">GWP</abbr> embodied impact of a single GPU.</p>
               </div>
             </td>
             <td>
@@ -4464,7 +4487,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>ADPe embodied impact of a single GPU.</p>
+                <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> embodied impact of a single GPU.</p>
               </div>
             </td>
             <td>
@@ -4478,7 +4501,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>PE embodied impact of a single GPU.</p>
+                <p><abbr title="Primary Energy">PE</abbr> embodied impact of a single GPU.</p>
               </div>
             </td>
             <td>
@@ -4520,7 +4543,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>GWP embodied impact of the server in kgCO2eq.</p>
+                <p><abbr title="Global Warming Potential">GWP</abbr> embodied impact of the server in kgCO2eq.</p>
               </div>
             </td>
             <td>
@@ -4534,7 +4557,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>ADPe embodied impact of the server in kgSbeq.</p>
+                <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> embodied impact of the server in kgSbeq.</p>
               </div>
             </td>
             <td>
@@ -4548,7 +4571,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>PE embodied impact of the server in MJ.</p>
+                <p><abbr title="Primary Energy">PE</abbr> embodied impact of the server in MJ.</p>
               </div>
             </td>
             <td>
@@ -4866,7 +4889,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).</p>
+                <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> impact factor of electricity consumption of kgSbeq / kWh (Antimony).</p>
               </div>
             </td>
             <td>
@@ -4880,7 +4903,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>PE impact factor of electricity consumption in MJ / kWh.</p>
+                <p><abbr title="Primary Energy">PE</abbr> impact factor of electricity consumption in MJ / kWh.</p>
               </div>
             </td>
             <td>
@@ -4894,7 +4917,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>GWP impact factor of electricity consumption in kgCO2eq / kWh.</p>
+                <p><abbr title="Global Warming Potential">GWP</abbr> impact factor of electricity consumption in kgCO2eq / kWh.</p>
               </div>
             </td>
             <td>

@@ -678,13 +678,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#criteria" class="md-nav__link">
+  <a href="#impacts-output" class="md-nav__link">
     <span class="md-ellipsis">
-      Criteria
+      Impacts Output
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Criteria">
+    <nav class="md-nav" aria-label="Impacts Output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-of-an-impact-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example of an Impact Value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-with-a-rangevalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example with a RangeValue
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impact-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact Criteria
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Impact Criteria">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -729,13 +762,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#phases" class="md-nav__link">
+  <a href="#impact-phases" class="md-nav__link">
     <span class="md-ellipsis">
-      Phases
+      Impact Phases
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Phases">
+    <nav class="md-nav" aria-label="Impact Phases">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1104,6 +1137,28 @@
   
   <span class="md-ellipsis">
     Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/proprietary_models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proprietary models
     
   </span>
   
@@ -1804,13 +1859,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#criteria" class="md-nav__link">
+  <a href="#impacts-output" class="md-nav__link">
     <span class="md-ellipsis">
-      Criteria
+      Impacts Output
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Criteria">
+    <nav class="md-nav" aria-label="Impacts Output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-of-an-impact-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example of an Impact Value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-with-a-rangevalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example with a RangeValue
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impact-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact Criteria
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Impact Criteria">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1855,13 +1943,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#phases" class="md-nav__link">
+  <a href="#impact-phases" class="md-nav__link">
     <span class="md-ellipsis">
-      Phases
+      Impact Phases
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Phases">
+    <nav class="md-nav" aria-label="Impact Phases">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1931,49 +2019,79 @@
 
 
 <h1 id="environmental-impacts">Environmental Impacts</h1>
-<p>Environmental impacts are reported for each request in the <a class="autorefs autorefs-internal" href="../../reference/tracers/utils/#tracers.utils.ImpactsOutput"><code>ImpactsOutput</code></a> pydantic model and features multiple <a href="#criteria">criteria</a> such as the <a href="#energy">energy</a> and <a href="#global-warming-potential-gwp">global warming potential</a> per phase (<a href="#usage">usage</a> or <a href="#embodied">embodied</a>) as well as the total impacts.</p>
-<p>To learn more on how we estimate the environmental impacts and what are our hypotheses go to the <a href="../../methodology/">methodology</a> section.</p>
-<div class="language-python highlight"><span class="filename">Structure of Impacts model</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits.tracers.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImpactsOutput</span>
+<p>Environmental impacts are reported for each request in the <strong><a class="autorefs autorefs-internal" href="../../reference/tracers/utils/#tracers.utils.ImpactsOutput"><code>ImpactsOutput</code></a></strong> that features multiple <a href="#impact-criteria">impact criteria</a> such as <a href="#energy">energy consumption</a> or the <a href="#global-warming-potential-gwp">global warming potential</a> per phase (<a href="#usage">usage</a> or <a href="#embodied">embodied</a>) as well as the total impacts. It also contains potential <a href="../warnings_and_errors/">warnings and errors</a> that can occur during the calculation.</p>
+<div class="admonition note">
+<p class="admonition-title">To learn more on how we estimate the environmental impacts and what are our hypotheses go to the <a href="../../methodology/">methodology</a> section.</p>
+</div>
+<h2 id="impacts-output">Impacts Output</h2>
+<p>The <a class="autorefs autorefs-internal" href="../../reference/tracers/utils/#tracers.utils.ImpactsOutput"><code>ImpactsOutput</code></a> is structured the following way:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits.tracers.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImpactsOutput</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits.impacts.modeling</span><span class="w"> </span><span class="kn">import</span> <span class="n">ADPe</span><span class="p">,</span> <span class="n">Embodied</span><span class="p">,</span> <span class="n">Energy</span><span class="p">,</span> <span class="n">GWP</span><span class="p">,</span> <span class="n">PE</span><span class="p">,</span> <span class="n">Usage</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">ImpactsOutput</span><span class="p">(</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">energy</span><span class="o">=</span><span class="n">Energy</span><span class="p">(),</span> <span class="c1"># (1)!</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">usage</span><span class="o">=</span><span class="n">Usage</span><span class="p">(</span> <span class="c1"># (2)!</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="n">energy</span><span class="o">=</span><span class="n">Energy</span><span class="p">(),</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="p">),</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">embodied</span><span class="o">=</span><span class="n">Embodied</span><span class="p">(</span> <span class="c1"># (3)!</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="p">),</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="n">warnings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># (4)!</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="n">errors</span><span class="o">=</span><span class="kc">None</span>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">ImpactsOutput</span><span class="p">(</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">energy</span><span class="o">=</span><span class="n">Energy</span><span class="p">(),</span>    <span class="c1"># Total energy consumed (electricity)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>          <span class="c1"># Total global warming potential (or GHG emissions)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>        <span class="c1"># Total abiotic resource depletion</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>            <span class="c1"># Total energy consumed from primary sources</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">usage</span><span class="o">=</span><span class="n">Usage</span><span class="p">(</span> <span class="c1"># (1)!</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="n">energy</span><span class="o">=</span><span class="n">Energy</span><span class="p">(),</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="p">),</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">embodied</span><span class="o">=</span><span class="n">Embodied</span><span class="p">(</span> <span class="c1"># (2)!</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">gwp</span><span class="o">=</span><span class="n">GWP</span><span class="p">(),</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="n">adpe</span><span class="o">=</span><span class="n">ADPe</span><span class="p">(),</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        <span class="n">pe</span><span class="o">=</span><span class="n">PE</span><span class="p">(),</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="p">),</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="n">warnings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="c1"># (3)!</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="n">errors</span><span class="o">=</span><span class="kc">None</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="p">)</span>
 </span></code></pre></div>
 <ol>
-<li>Total impacts for all phases.</li>
 <li>Usage impacts for the electricity consumption impacts. Note that the energy is equal to the "total" energy impact.</li>
 <li>Embodied impacts for resource extract, manufacturing and transportation of hardware components allocated to the request. </li>
 <li>List of <a class="autorefs autorefs-internal" href="../../reference/status_messages/#status_messages.WarningMessage"><code>WarningMessage</code></a> and <a class="autorefs autorefs-internal" href="../../reference/status_messages/#status_messages.ErrorMessage"><code>ErrorMessage</code></a>.</li>
 </ol>
-<p>You can extract an impact with:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># (1)!</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">RangeValue</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.48</span><span class="p">)</span> <span class="c1"># Expressed in kgCO2eq (2)</span>
+<h3 id="example-of-an-impact-value">Example of an Impact Value</h3>
+<p>The impact objects named <a class="autorefs autorefs-internal" href="../../reference/impacts/modeling/#impacts.modeling.Energy"><code>Energy</code></a>, <a class="autorefs autorefs-internal" href="../../reference/impacts/modeling/#impacts.modeling.GWP"><code>GWP</code></a>, <a class="autorefs autorefs-internal" href="../../reference/impacts/modeling/#impacts.modeling.ADPe"><code>ADPe</code></a> or <a class="autorefs autorefs-internal" href="../../reference/impacts/modeling/#impacts.modeling.PE"><code>PE</code></a> all share the following structure:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits.impacts.modeling</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseImpact</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits.utils.range_value</span><span class="w"> </span><span class="kn">import</span> <span class="n">RangeValue</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">GWP</span><span class="p">(</span><span class="n">BaseImpact</span><span class="p">):</span>  <span class="c1"># (1)!</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GWP&quot;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Global Warming Potential&quot;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;kgCO2eq&quot;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">RangeValue</span> <span class="o">=</span> <span class="mf">0.34</span> 
+</span></code></pre></div>
+<p>You can retrieve the <abbr title="Global Warming Potential">GWP</abbr> impact value from a request with the following:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span> <span class="c1">#  (1)!</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="mf">0.34</span>    <span class="c1"># Total GHG emissions in kgCO2eq.</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span> 
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="mf">0.23</span>    <span class="c1"># or for the usage phase only (2)</span>
 </span></code></pre></div>
 <ol>
 <li>Assuming you have made an inference and get the response in an <code>response</code> object.</li>
+<li>Impacts of the usage phase corresponds to the impacts of electricity consumption. Learn more about <a href="#usage">usage phase in the next section</a>.</li>
+</ol>
+<h3 id="example-with-a-rangevalue">Example with a <code>RangeValue</code></h3>
+<p>Impact values can also be represented as <strong>intervals with the <a class="autorefs autorefs-internal" href="../../reference/utils/range_value/#utils.range_value.RangeValue"><code>RangeValue</code></a></strong> object. They are used to give an estimate range of possible values between a <code>min</code> and a <code>max</code>. </p>
+<div class="admonition info">
+<p class="admonition-title">About <code>RangeValue</code> intervals</p>
+<p>This range of values corresponds a <strong>high-confidence approximation interval</strong>, within which we are confident enough that the true consumption lies. This interval is defined by several approximations, such as the model size (if unknown) and the statistical regressions that we perform for estimating quantities. For more information, see the <a href="../../methodology/llm_inference/">methodology</a>.</p>
+</div>
+<p>Example of an impact with a <code>RangeValue</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">RangeValue</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.48</span><span class="p">)</span> <span class="c1"># in kgCO2eq (1)</span>
+</span></code></pre></div>
+<ol>
 <li><a class="autorefs autorefs-internal" href="../../reference/utils/range_value/#utils.range_value.RangeValue"><code>RangeValue</code></a> are used to define intervals. It corresponds to the 95% confidence interval of our approximation.</li>
 </ol>
-<p>This range of values corresponds a <strong>high-confidence approximation interval</strong>, within which we are confident enough that the true consumption lies. This interval is defined by several approximations, such as the model size (if unknown) and the statistical regressions that we perform for estimating quantities. For more information, see the <a href="../../methodology/llm_inference/">methodology</a>.</p>
-<h2 id="criteria">Criteria</h2>
-<p>To evaluate the impact of human activities on the planet or on the climate we use criteria that usually focus on a specific issue such as <strong>GHG emissions for global warming</strong>, <strong>water consumption and pollution</strong> or the <strong>depletion of natural resources</strong>. We currently support three environmental impact criteria in addition with the direct energy consumption. </p>
-<p><strong>Monitoring multiple criteria is useful to avoid pollution shifting</strong>, which is defined as the transfer of pollution from one medium to another. It is a common pitfall to optimize only one criterion like GHG emissions (e.g. buying new hardware that is more energy efficient), that can lead to higher impacts on minerals and metals depletion for example (see <a href="https://www.encyclopedia.com/environment/educational-magazines/pollution-shifting">encyclopedia.com <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>).</p>
+<h2 id="impact-criteria">Impact Criteria</h2>
+<p>To evaluate the impact of human activities on the planet or on the climate we use criteria that usually focus on a specific issue such as <strong><abbr title="Greenhouse Gas">GHG</abbr> emissions for global warming</strong>, <strong>water consumption and pollution</strong> or the <strong>depletion of natural resources</strong>. We currently support three environmental impact criteria in addition with the direct energy consumption. </p>
+<p><strong>Monitoring multiple criteria is useful to avoid pollution shifting</strong>, which is defined as the transfer of pollution from one medium to another. It is a common pitfall to optimize only one criterion like <abbr title="Greenhouse Gas">GHG</abbr> emissions (e.g. buying new hardware that is more energy efficient), that can lead to higher impacts on minerals and metals depletion for example (see <a href="https://www.encyclopedia.com/environment/educational-magazines/pollution-shifting">encyclopedia.com <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>).</p>
 <h3 id="energy">Energy</h3>
 <p>The <a class="autorefs autorefs-internal" href="../../reference/impacts/modeling/#impacts.modeling.Energy"><code>Energy</code></a> criterion refers to the <strong>direct electricity consumption of GPUs, server and other equipments from the data center</strong>. As defined the energy criteria is not an environmental impact, but it is used to estimate other impacts in the <a href="#usage">usage phase</a>. This criterion is expressed in <strong>kilowatt-hour (kWh)</strong>.</p>
 <details class="note">
@@ -2046,11 +2164,11 @@
     </div>
 
 </div></details>
-<h3 id="global-warming-potential-gwp">Global Warming Potential (GWP)</h3>
+<h3 id="global-warming-potential-gwp">Global Warming Potential (<abbr title="Global Warming Potential">GWP</abbr>)</h3>
 <p>The Global Warming Potential (<a class="autorefs autorefs-internal" href="../../reference/impacts/modeling/#impacts.modeling.GWP"><code>GWP</code></a>) criterion is an index <strong>measuring how much heat is absorbed by greenhouse gases in the atmosphere compared to <abbr title="Carbon Dioxide chemical formula is CO2">carbon dioxide</abbr></strong>. This criterion is expressed in <strong>kilogram of <abbr title="Carbon Dioxide chemical formula is CO2">carbon dioxide</abbr> equivalent (kgCO2eq)</strong>.</p>
 <p>Learn more: <a href="https://en.wikipedia.org/wiki/Global_warming_potential">wikipedia.org <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <details class="note">
-<summary>GWP model attributes</summary>
+<summary><abbr title="Global Warming Potential">GWP</abbr> model attributes</summary>
 
 
 <div class="doc doc-object doc-class">
@@ -2070,7 +2188,7 @@
               (<code>str</code>)
           –
           <div class="doc-md-description">
-            <p>GWP</p>
+            <p><abbr title="Global Warming Potential">GWP</abbr></p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2086,7 +2204,7 @@
               (<code><span title="ecologits.utils.range_value.ValueOrRange">ValueOrRange</span></code>)
           –
           <div class="doc-md-description">
-            <p>GWP value</p>
+            <p><abbr title="Global Warming Potential">GWP</abbr> value</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2119,11 +2237,11 @@
     </div>
 
 </div></details>
-<h3 id="abiotic-depletion-potential-for-elements-adpe">Abiotic Depletion Potential for Elements (ADPe)</h3>
+<h3 id="abiotic-depletion-potential-for-elements-adpe">Abiotic Depletion Potential for Elements (<abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr>)</h3>
 <p>The Abiotic Depletion Potential – elements (<a class="autorefs autorefs-internal" href="../../reference/impacts/modeling/#impacts.modeling.ADPe"><code>ADPe</code></a>) criterion represents the <strong>reduction of non-renewable and non-living (abiotic) resources such as metals and minerals</strong>. This criterion is expressed in <strong>kilogram of <abbr title="Antimony symbol is Sb">antimony</abbr> equivalent (kgSbeq)</strong>.</p>
 <p>Learn more: <a href="https://www.sciencedirect.com/topics/engineering/abiotic-depletion-potential">sciencedirect.com <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <details class="note">
-<summary>ADPe model attributes</summary>
+<summary><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> model attributes</summary>
 
 
 <div class="doc doc-object doc-class">
@@ -2143,7 +2261,7 @@
               (<code>str</code>)
           –
           <div class="doc-md-description">
-            <p>ADPe</p>
+            <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr></p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2159,7 +2277,7 @@
               (<code><span title="ecologits.utils.range_value.ValueOrRange">ValueOrRange</span></code>)
           –
           <div class="doc-md-description">
-            <p>ADPe value</p>
+            <p><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> value</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2192,11 +2310,11 @@
     </div>
 
 </div></details>
-<h3 id="primary-energy-pe">Primary Energy (PE)</h3>
+<h3 id="primary-energy-pe">Primary Energy (<abbr title="Primary Energy">PE</abbr>)</h3>
 <p>The Primary Energy (<a class="autorefs autorefs-internal" href="../../reference/impacts/modeling/#impacts.modeling.PE"><code>PE</code></a>) criterion represents the amount of <strong>energy consumed from natural sources such as raw fuels and other forms of energy, including waste</strong>. This criterion is expressed in <strong>megajoule (MJ)</strong>. </p>
 <p>Learn more: <a href="https://en.wikipedia.org/wiki/Primary_energy">wikipedia.org <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <details class="note">
-<summary>PE model attributes</summary>
+<summary><abbr title="Primary Energy">PE</abbr> model attributes</summary>
 
 
 <div class="doc doc-object doc-class">
@@ -2216,7 +2334,7 @@
               (<code>str</code>)
           –
           <div class="doc-md-description">
-            <p>PE</p>
+            <p><abbr title="Primary Energy">PE</abbr></p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2232,7 +2350,7 @@
               (<code><span title="ecologits.utils.range_value.ValueOrRange">ValueOrRange</span></code>)
           –
           <div class="doc-md-description">
-            <p>PE value</p>
+            <p><abbr title="Primary Energy">PE</abbr> value</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2265,7 +2383,7 @@
     </div>
 
 </div></details>
-<h2 id="phases">Phases</h2>
+<h2 id="impact-phases">Impact Phases</h2>
 <p>Inspired from the Life Cycle Assessment methodology we classify impacts is two phases (usage and embodied). The <strong>usage phase</strong> is about the environmental impacts related to the energy consumption while using an AI model. The <strong>embodied phase</strong> encompasses upstream impacts such as resource extraction, manufacturing, and transportation. We currently do not support the third phase which is end-of-life due to a lack of open research and transparency on that matter.</p>
 <p>Learn more: <a href="https://en.wikipedia.org/wiki/Life-cycle_assessment">wikipedia.org <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <p>Another <strong>pitfall in environmental impact assessment is to only look at the usage phase and ignore upstream and downstream impacts</strong>. This can lead to higher overall impacts on the entire life cycle. If you replace old hardware by newer that is more energy efficient, you will get a reduction of impacts on the usage phase, but it will increase the upstream impacts as well.  </p>
@@ -2317,7 +2435,7 @@
               (<code><a class="autorefs autorefs-internal" title="impacts.modeling.GWP" href="../../reference/impacts/modeling/#impacts.modeling.GWP">GWP</a></code>)
           –
           <div class="doc-md-description">
-            <p>Global Warming Potential (GWP) usage impact</p>
+            <p>Global Warming Potential (<abbr title="Global Warming Potential">GWP</abbr>) usage impact</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2325,7 +2443,7 @@
               (<code><a class="autorefs autorefs-internal" title="impacts.modeling.ADPe" href="../../reference/impacts/modeling/#impacts.modeling.ADPe">ADPe</a></code>)
           –
           <div class="doc-md-description">
-            <p>Abiotic Depletion Potential for Elements (ADPe) usage impact</p>
+            <p>Abiotic Depletion Potential for Elements (<abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr>) usage impact</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2333,7 +2451,7 @@
               (<code><a class="autorefs autorefs-internal" title="impacts.modeling.PE" href="../../reference/impacts/modeling/#impacts.modeling.PE">PE</a></code>)
           –
           <div class="doc-md-description">
-            <p>Primary Energy (PE) usage impact</p>
+            <p>Primary Energy (<abbr title="Primary Energy">PE</abbr>) usage impact</p>
           </div>
         </li>
     </ul>
@@ -2397,7 +2515,7 @@
               (<code><a class="autorefs autorefs-internal" title="impacts.modeling.GWP" href="../../reference/impacts/modeling/#impacts.modeling.GWP">GWP</a></code>)
           –
           <div class="doc-md-description">
-            <p>Global Warming Potential (GWP) embodied impact</p>
+            <p>Global Warming Potential (<abbr title="Global Warming Potential">GWP</abbr>) embodied impact</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2405,7 +2523,7 @@
               (<code><a class="autorefs autorefs-internal" title="impacts.modeling.ADPe" href="../../reference/impacts/modeling/#impacts.modeling.ADPe">ADPe</a></code>)
           –
           <div class="doc-md-description">
-            <p>Abiotic Depletion Potential for Elements (ADPe) embodied impact</p>
+            <p>Abiotic Depletion Potential for Elements (<abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr>) embodied impact</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2413,7 +2531,7 @@
               (<code><a class="autorefs autorefs-internal" title="impacts.modeling.PE" href="../../reference/impacts/modeling/#impacts.modeling.PE">PE</a></code>)
           –
           <div class="doc-md-description">
-            <p>Primary Energy (PE) embodied impact</p>
+            <p>Primary Energy (<abbr title="Primary Energy">PE</abbr>) embodied impact</p>
           </div>
         </li>
     </ul>
@@ -2442,10 +2560,10 @@
 <p>We use impact factors to quantify environmental harm from human activities, measuring the ratio of greenhouse gases, resource consumption, and other criteria resulting from activities like energy consumption, industrial processes, transportation, waster management and more.</p>
 <h3 id="electricity-mix">Electricity Mix</h3>
 <p>When initializing <code>EcoLogits</code>, you can choose a specific electricity mix zone from the <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte® <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> database.</p>
-<div class="language-python highlight"><span class="filename">Select a different electricity mix</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Select the electricity mix of France</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">electricity_mix_zone</span><span class="o">=</span><span class="s2">&quot;FRA&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><span class="filename">Select a different electricity mix</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Select the electricity mix of France</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">electricity_mix_zone</span><span class="o">=</span><span class="s2">&quot;FRA&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>By default, the <code>WOR</code> World electricity mix is used, whose values are:</p>
 <table>
@@ -2458,17 +2576,17 @@
 </thead>
 <tbody>
 <tr>
-<td>GWP</td>
+<td><abbr title="Global Warming Potential">GWP</abbr></td>
 <td><span class="arithmatex">\(5.904e-1\)</span></td>
 <td>kgCO2eq / kWh</td>
 </tr>
 <tr>
-<td>ADPe</td>
+<td><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr></td>
 <td><span class="arithmatex">\(7.378e-7\)</span></td>
 <td>kgSbeq / kWh</td>
 </tr>
 <tr>
-<td>PE</td>
+<td><abbr title="Primary Energy">PE</abbr></td>
 <td><span class="arithmatex">\(9.988\)</span></td>
 <td>MJ / kWh</td>
 </tr>

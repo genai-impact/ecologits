@@ -520,6 +520,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Usage Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#impacts-output-in-a-nutshell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impacts output in a nutshell
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1036,6 +1051,28 @@
   
   <span class="md-ellipsis">
     Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="methodology/proprietary_models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proprietary models
     
   </span>
   
@@ -1760,6 +1797,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Usage Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#impacts-output-in-a-nutshell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impacts output in a nutshell
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1849,7 +1901,7 @@
 
 <p>For detailed instructions on each provider, refer to the complete list of <a href="tutorial/providers/">supported providers and features</a>. It is also possible to install EcoLogits without any provider.</p>
 <h2 id="usage-example">Usage Example</h2>
-<p>Below is a simple example demonstrating how to use the GPT-3.5-Turbo model from OpenAI with EcoLogits to track environmental impacts.</p>
+<p>Below is a simple example demonstrating how to use the GPT-4o-mini model from OpenAI with <strong>EcoLogits</strong> to track environmental impacts.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -1858,33 +1910,49 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&lt;OPENAI_API_KEY&gt;&quot;</span><span class="p">)</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span> <span class="c1"># (1)!</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}</span>
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="p">]</span>
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">)</span>
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="c1"># Get estimated environmental impacts of the inference</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy consumption: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kWh&quot;</span><span class="p">)</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GHG emissions: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kgCO2eq&quot;</span><span class="p">)</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy consumption: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kWh&quot;</span><span class="p">)</span> <span class="c1"># (2)!</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GHG emissions: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">gwp</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> kgCO2eq&quot;</span><span class="p">)</span> <span class="c1"># (3)!</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="c1"># Get potential warnings</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">has_warnings</span><span class="p">:</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">warnings</span><span class="p">:</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="c1"># (4)!</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="c1"># Get potential errors</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">has_errors</span><span class="p">:</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="c1"># (5)!</span>
 </span></code></pre></div>
-<p>Environmental impacts are quantified based on four criteria and across two phases:</p>
-<p>Criteria:</p>
+<ol>
+<li>You don't need to change your code when making a request! <img alt="🎉" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f389.svg" title=":tada:" /></li>
+<li>Total estimated energy consumption for the request in kilowatt-hour (kWh). You can expect an interval, see <a href="tutorial/impacts/#example-with-a-rangevalue">exemple here</a>. </li>
+<li>Total estimated greenhouse gas emissions for the request in kilogram of CO2 equivalent (kgCO2eq). You can expect an interval, see <a href="tutorial/impacts/#example-with-a-rangevalue">exemple here</a>. </li>
+<li>For <code>gpt-4o-mini</code>, you can expect two warnings: <a href="tutorial/warnings_and_errors/#model-arch-not-released"><code>model-arch-not-released</code></a> and <a href="tutorial/warnings_and_errors/#model-arch-multimodal"><code>model-arch-multimodal</code></a>.</li>
+<li>On this example you shouldn't get any errors.</li>
+</ol>
+<h3 id="impacts-output-in-a-nutshell">Impacts output in a nutshell</h3>
+<p><strong><a class="autorefs autorefs-internal" href="reference/tracers/utils/#tracers.utils.ImpactsOutput"><code>ImpactsOutput</code></a></strong> object is returned for each request made to supported clients. It gathers, <strong><a href="tutorial/impacts/">environmental impacts</a></strong> and potential <strong><a href="tutorial/warnings_and_errors/">warnings and errors</a></strong>.</p>
+<p>EcoLogits aims to give a comprehensive view of the environmental footprint of generative AI models at <strong>inference</strong>. Impacts are reported in total, but also <strong>per life cycle phases</strong>:</p>
 <ul>
-<li><strong>Energy</strong> (energy): Final energy consumption in kWh,</li>
-<li><strong>Global Warming Potential</strong> (gwp): Potential impact on global warming in kgCO2eq (commonly known as GHG/carbon emissions),</li>
-<li><strong>Abiotic Depletion Potential for Elements</strong> (adpe): Impact on the depletion of non-living resources such as minerals or metals in kgSbeq,</li>
-<li><strong>Primary Energy</strong> (pe): Total energy consumed from primary sources in MJ.</li>
+<li><strong>Usage</strong>: related to the impacts of the energy consumption during model execution.</li>
+<li><strong>Embodied</strong>: related to resource extraction, manufacturing and transportation of the hardware.</li>
 </ul>
-<p>Phases:</p>
+<p>And, <strong>multiple criteria</strong>:</p>
 <ul>
-<li><strong>Usage</strong> (usage): Represents the phase of energy consumption during model execution,</li>
-<li><strong>Embodied</strong> (embodied): Encompasses resource extraction, manufacturing, and transportation phases associated with the model's lifecycle.</li>
+<li><strong>Energy</strong>: related to the final electricity consumption in kWh. </li>
+<li><strong>Global Warming Potential</strong> (<abbr title="Global Warming Potential">GWP</abbr>): related to climate change, commonly known as <abbr title="Greenhouse Gas">GHG</abbr> emissions in kgCO2eq.</li>
+<li><strong>Abiotic Depletion Potential for Elements</strong> (<abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr>): related to the depletion of minerals and metals in kgSbeq.</li>
+<li><strong>Primary Energy</strong> (<abbr title="Primary Energy">PE</abbr>): related to the energy consumed from primary sources like oil, gas or coal in MJ. </li>
 </ul>
-<div class="admonition info">
-<p class="admonition-title">Learn more about environmental impacts assessment in the <a href="methodology/">methodology</a> section.</p>
-</div>
+<p>For detailed instructions on how to use the library, see our <strong><a href="tutorial/">tutorial section</a></strong>. If you want more details on the underlying impacts calculations, see our <strong><a href="methodology/">methodology section</a></strong>.</p>
 <h2 id="license">License</h2>
 <p>This project is licensed under the terms of the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0 (MPL-2.0) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h2 id="acknowledgements">Acknowledgements</h2>

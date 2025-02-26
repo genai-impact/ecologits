@@ -8,28 +8,28 @@
       
       
       
-        <link rel="canonical" href="https://ecologits.ai/latest/tutorial/providers/litellm/">
+        <link rel="canonical" href="https://ecologits.ai/latest/methodology/proprietary_models/">
       
       
-        <link rel="prev" href="../huggingface_hub/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../mistralai/">
+        <link rel="next" href="../llm_inference/">
       
       
-      <link rel="icon" href="../../../assets/leaf.svg">
+      <link rel="icon" href="../../assets/leaf.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.3">
     
     
       
-        <title>LiteLLM - EcoLogits</title>
+        <title>Proprietary models - EcoLogits</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.d7758b05.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d7758b05.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,13 +48,13 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../../css/extra.css">
+      <link rel="stylesheet" href="../../css/extra.css">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -63,11 +63,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="LiteLLM - EcoLogits" >
+        <meta  property="og:title"  content="Proprietary models - EcoLogits" >
       
         <meta  property="og:description"  content="None" >
       
-        <meta  property="og:image"  content="https://ecologits.ai/latest/assets/images/social/tutorial/providers/litellm.png" >
+        <meta  property="og:image"  content="https://ecologits.ai/latest/assets/images/social/methodology/proprietary_models.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -75,15 +75,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://ecologits.ai/latest/tutorial/providers/litellm/" >
+        <meta  property="og:url"  content="https://ecologits.ai/latest/methodology/proprietary_models/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="LiteLLM - EcoLogits" >
+        <meta  name="twitter:title"  content="Proprietary models - EcoLogits" >
       
         <meta  name="twitter:description"  content="None" >
       
-        <meta  name="twitter:image"  content="https://ecologits.ai/latest/assets/images/social/tutorial/providers/litellm.png" >
+        <meta  name="twitter:image"  content="https://ecologits.ai/latest/assets/images/social/methodology/proprietary_models.png" >
       
     
     
@@ -106,7 +106,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#litellm" class="md-skip">
+        <a href="#about-proprietary-models" class="md-skip">
           Skip to content
         </a>
       
@@ -141,9 +141,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="EcoLogits" class="md-header__button md-logo" aria-label="EcoLogits" data-md-component="logo">
+    <a href="../.." title="EcoLogits" class="md-header__button md-logo" aria-label="EcoLogits" data-md-component="logo">
       
-  <img src="../../../assets/leaf.svg" alt="logo">
+  <img src="../../assets/leaf.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -160,7 +160,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              LiteLLM
+              Proprietary models
             
           </span>
         </div>
@@ -269,10 +269,28 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../.." class="md-tabs__link">
+        <a href="../.." class="md-tabs__link">
           
   
   Get Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorial/" class="md-tabs__link">
+          
+  
+  Tutorial
 
         </a>
       </li>
@@ -289,25 +307,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../" class="md-tabs__link">
-          
-  
-  Tutorial
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../methodology/" class="md-tabs__link">
+        <a href="../" class="md-tabs__link">
           
   
   Methodology
@@ -325,7 +325,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../reference/_ecologits/" class="md-tabs__link">
+        <a href="../../reference/_ecologits/" class="md-tabs__link">
           
   
   API Reference
@@ -375,9 +375,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="EcoLogits" class="md-nav__button md-logo" aria-label="EcoLogits" data-md-component="logo">
+    <a href="../.." title="EcoLogits" class="md-nav__button md-logo" aria-label="EcoLogits" data-md-component="logo">
       
-  <img src="../../../assets/leaf.svg" alt="logo">
+  <img src="../../assets/leaf.svg" alt="logo">
 
     </a>
     EcoLogits
@@ -445,7 +445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -467,7 +467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../why/" class="md-nav__link">
+      <a href="../../why/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -489,7 +489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../tutorial/providers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -511,7 +511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../faq/" class="md-nav__link">
+      <a href="../../faq/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -533,7 +533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/" class="md-nav__link">
+      <a href="../../contributing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -559,30 +559,25 @@
       
   
   
-    
   
   
-  
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -594,7 +589,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Tutorial
@@ -608,7 +603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../tutorial/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -630,7 +625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../impacts/" class="md-nav__link">
+      <a href="../../tutorial/impacts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -652,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../warnings_and_errors/" class="md-nav__link">
+      <a href="../../tutorial/warnings_and_errors/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -674,7 +669,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../tutorial/providers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -693,30 +688,25 @@
                 
   
   
-    
   
   
-  
     
     
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -728,7 +718,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             Providers
@@ -742,7 +732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../anthropic/" class="md-nav__link">
+      <a href="../../tutorial/providers/anthropic/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -764,7 +754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cohere/" class="md-nav__link">
+      <a href="../../tutorial/providers/cohere/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -786,7 +776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../google/" class="md-nav__link">
+      <a href="../../tutorial/providers/google/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -808,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../huggingface_hub/" class="md-nav__link">
+      <a href="../../tutorial/providers/huggingface_hub/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -827,31 +817,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    LiteLLM
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorial/providers/litellm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -861,68 +830,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Installation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chat-completions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Chat Completions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Chat Completions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#streaming-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Streaming example
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -935,7 +842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mistralai/" class="md-nav__link">
+      <a href="../../tutorial/providers/mistralai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -957,7 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../openai/" class="md-nav__link">
+      <a href="../../tutorial/providers/openai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -991,25 +898,30 @@
       
   
   
+    
   
   
+  
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -1021,7 +933,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Methodology
@@ -1035,7 +947,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../methodology/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1054,10 +966,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../methodology/proprietary_models/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Proprietary models
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1067,6 +1000,86 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#extrapolation-from-open-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extrapolation from open models
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methodology-to-estimate-the-model-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methodology to estimate the model architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methodology to estimate the model architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-leaked-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      From leaked data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-evaluation-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      From evaluation benchmarks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-pricing-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      From pricing information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transparency-and-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transparency and updates
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1079,7 +1092,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../methodology/llm_inference/" class="md-nav__link">
+      <a href="../llm_inference/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1149,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/_ecologits/" class="md-nav__link">
+      <a href="../../reference/_ecologits/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1171,7 +1184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/electricity_mix_repository/" class="md-nav__link">
+      <a href="../../reference/electricity_mix_repository/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1193,7 +1206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/exceptions/" class="md-nav__link">
+      <a href="../../reference/exceptions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1256,7 +1269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/impacts/dag/" class="md-nav__link">
+      <a href="../../reference/impacts/dag/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1278,7 +1291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/impacts/llm/" class="md-nav__link">
+      <a href="../../reference/impacts/llm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1300,7 +1313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/impacts/modeling/" class="md-nav__link">
+      <a href="../../reference/impacts/modeling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1330,7 +1343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/log/" class="md-nav__link">
+      <a href="../../reference/log/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1352,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/model_repository/" class="md-nav__link">
+      <a href="../../reference/model_repository/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1374,7 +1387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/status_messages/" class="md-nav__link">
+      <a href="../../reference/status_messages/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1437,7 +1450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/anthropic_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/anthropic_tracer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1459,7 +1472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/cohere_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/cohere_tracer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1481,7 +1494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/google_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/google_tracer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1503,7 +1516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/huggingface_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/huggingface_tracer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1525,7 +1538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/litellm_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/litellm_tracer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1547,7 +1560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/mistralai_tracer_v0/" class="md-nav__link">
+      <a href="../../reference/tracers/mistralai_tracer_v0/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1569,7 +1582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/mistralai_tracer_v1/" class="md-nav__link">
+      <a href="../../reference/tracers/mistralai_tracer_v1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1591,7 +1604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/openai_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/openai_tracer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1613,7 +1626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/utils/" class="md-nav__link">
+      <a href="../../reference/tracers/utils/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1684,7 +1697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/utils/range_value/" class="md-nav__link">
+      <a href="../../reference/utils/range_value/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1762,37 +1775,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#extrapolation-from-open-models" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation
+      Extrapolation from open models
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#chat-completions" class="md-nav__link">
+  <a href="#methodology-to-estimate-the-model-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      Chat Completions
+      Methodology to estimate the model architecture
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Chat Completions">
+    <nav class="md-nav" aria-label="Methodology to estimate the model architecture">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
+  <a href="#from-leaked-data" class="md-nav__link">
     <span class="md-ellipsis">
-      Example
+      From leaked data
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#streaming-example" class="md-nav__link">
+  <a href="#from-evaluation-benchmarks" class="md-nav__link">
     <span class="md-ellipsis">
-      Streaming example
+      From evaluation benchmarks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-pricing-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      From pricing information
     </span>
   </a>
   
@@ -1800,6 +1822,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transparency-and-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transparency and updates
+    </span>
+  </a>
   
 </li>
       
@@ -1822,114 +1853,43 @@
   
 
 
-<h1 id="litellm">LiteLLM</h1>
-<div class="admonition warning">
-<p class="admonition-title">Lack of transparency</p>
-<p>Depending on the provider, the level of transparency varies. Thus, the environmental impacts can be estimated with a low precision.</p>
-</div>
-<p>This guide focuses on the integration of <img alt="🌱" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f331.svg" title=":seedling:" /> <strong>EcoLogits</strong> with the <a href="https://github.com/BerriAI/litellm">LiteLLM official Python client <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>Official links:</p>
+<h1 id="about-proprietary-models">About proprietary models</h1>
+<p>EcoLogits is designed to assess the environmental footprint of generative AI models, including both <strong>open and proprietary models</strong>, during the inference phase. Our methodology is based on <strong>open science, data and models</strong> to ensure <strong>transparency</strong> and <strong>explainability</strong>. However, evaluating proprietary models hosted by private AI providers <strong>presents unique challenges due to limited access to their technical details</strong>.</p>
+<p>This page explains our approach to modeling the environmental impacts of proprietary models and the <strong>potential sources of inaccuracy</strong>. We'll describe our methods for estimating model architectures and provide examples of how we make these estimations. Understanding these assumptions is <strong>crucial</strong> for users to interpret our results accurately and use EcoLogits with confidence.</p>
+<h2 id="extrapolation-from-open-models">Extrapolation from open models</h2>
+<p>Our methodology uses a bottom-up approach to model environmental impacts. This means we account for the physical infrastructure and resource consumption required to host generative AI services. Part of this modeling focuses on the AI models themselves, including:</p>
 <ul>
-<li>Repository: <a href="https://github.com/BerriAI/litellm"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span> BerriAI/litellm</a></li>
-<li>Documentation: <a href="https://docs.litellm.ai/docs/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2zm3-4v-2H6v2z"/></svg></span> litellm.vercel.app</a></li>
+<li>Model architecture (e.g., number of parameters)</li>
+<li>Deployment strategy and optimizations (e.g., backend types, quantization techniques)</li>
 </ul>
-<h2 id="installation">Installation</h2>
-<p>To install EcoLogits along with all necessary dependencies for compatibility with LiteLLM, please use the <code>litellm</code> extra-dependency option as follows:</p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ecologits<span class="o">[</span>litellm<span class="o">]</span>
-</span></code></pre></div>
-<p>This installation command ensures that EcoLogits is set up with the specific libraries required to interface seamlessly with LiteLLM's Python client.</p>
-<h2 id="chat-completions">Chat Completions</h2>
-<h3 id="example">Example</h3>
-<p>Integrating EcoLogits with your applications does not alter the standard outputs from the API responses. Instead, it enriches them by adding the <code>Impacts</code> object, which contains detailed environmental impact data. <strong>Make sure you have the api key of the provider used in an .env file.</strong> Make sure you call the litellm generation function as "litellm.completion" and not just "completion".</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Sync</label><label for="__tabbed_1_2">Async</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">litellm</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Initialize EcoLogits</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">response</span> <span class="o">=</span> <span class="n">litellm</span><span class="o">.</span><span class="n">completion</span><span class="p">(</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-2024-05-13&quot;</span><span class="p">,</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello, how are you?&quot;</span><span class="p">,</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">}]</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">)</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="c1"># Get estimated environmental impacts of the inference</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="p">)</span>
-</span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">litellm</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Initialize EcoLogits</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">litellm</span><span class="o">.</span><span class="n">acompletion</span><span class="p">(</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">,</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="p">]</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="p">)</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="c1"># Get estimated environmental impacts of the inference</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="p">)</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
-</span></code></pre></div>
-</div>
-</div>
-</div>
-<h3 id="streaming-example">Streaming example</h3>
-<p><strong>In streaming mode, the impacts are calculated incrementally</strong>, which means you don't need to sum the impacts from each data chunk. Instead, the impact information in the last chunk reflects the total cumulative environmental impacts for the entire request.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Sync</label><label for="__tabbed_2_2">Async</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">litellm</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Initialize EcoLogits</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">stream</span> <span class="o">=</span> <span class="n">litellm</span><span class="o">.</span><span class="n">completion</span><span class="p">(</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">,</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello World!&quot;</span><span class="p">}],</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">stream</span><span class="o">=</span><span class="kc">True</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p">)</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="c1"># Get cumulative estimated environmental impacts of the inference</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">impacts</span><span class="p">)</span>
-</span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">litellm</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Initialize EcoLogits</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">stream</span> <span class="o">=</span> <span class="k">await</span> <span class="n">litellm</span><span class="o">.</span><span class="n">acompletion</span><span class="p">(</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">,</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="p">]</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="p">)</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="k">async</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>        <span class="c1"># Get cumulative estimated environmental impacts of the inference</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">impacts</span><span class="p">)</span>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
-</span></code></pre></div>
-</div>
-</div>
+<p>For open models, obtaining this information is straightforward as the models are publicly available. However, for proprietary models, we must rely on extrapolations from open model characteristics. For example, to assess the energy consumption of a request, we use GPU energy consumption benchmarks from open models and apply them to proprietary models accordingly.</p>
+<h2 id="methodology-to-estimate-the-model-architecture">Methodology to estimate the model architecture</h2>
+<p>For LLMs, key architectural aspects include whether the model is <strong>dense</strong> or a <strong>mixture of experts (MoE)</strong>, and the <strong>model size</strong> (number of parameters). To estimate these characteristics for proprietary models, we leverage various information sources such as <strong>leaked data</strong>, <strong>evaluation benchmarks</strong>, and <strong>pricing information</strong>. This process is manual and may be updated as new information becomes available. Below are some examples of how we determine specific model architectures.</p>
+<h3 id="from-leaked-data">From leaked data</h3>
+<p>The model architecture of GPT-4 was leaked<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> and estimated to be a sparse mixture of experts model with a total of 1.8 trillion parameters and 16 experts of 111 billion parameters each. The number of active experts during inference could be around 2. We used this information to add GPT-4 to EcoLogits with a range of active experts between 2 and 8 (~half of the models), so active parameters are between 220B and 880B.</p>
+<h3 id="from-evaluation-benchmarks">From evaluation benchmarks</h3>
+<p>At the time of release Claude 3 Opus from Anthropic had about the same performance on general benchmarks such as MMLU or HelloSwag<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>. That is why we considered that Claude 3 Opus was about the same size of GPT-4. The model size is estimated to be about 2 trillion parameters<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>, and we also consider that it is a sparse mixture of experts, just like GPT-4, with between 250B and 1000B active parameters.</p>
+<h3 id="from-pricing-information">From pricing information</h3>
+<p>When OpenAI released GPT-4-Turbo we considered the model to be a distilled version of GPT-4 which justified the price drop<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>. We thus estimated that GPT-4-Turbo was a scaled down (2x when comparing output tokens price) architecture of GPT-4 and used the price difference to conclude that GPT-4-Turbo was a sparse mixture of experts of 880B total parameters and between 110B and 440B active parameters.</p>
+<h2 id="transparency-and-updates">Transparency and updates</h2>
+<p>To maintain transparency, we publish an <a href="https://docs.google.com/spreadsheets/d/1XkPTkrGxpwWpIVIxpVvgRJuInSZsqbndTQbFGcHhdd0/edit?usp=sharing"><strong>additional document</strong> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> detailing our estimations for model architectures. This document is regularly updated to stay in sync with new releases of EcoLogits.</p>
+<p>The full list of supported models is also available <a href="https://github.com/genai-impact/ecologits/blob/main/ecologits/data/models.json">on GitHub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Tweet from Yam Peleg (<a href="https://archive.ph/2RQ8X">https://archive.ph/2RQ8X</a>)&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Claude 3 family (<a href="https://www.anthropic.com/news/claude-3-family">https://www.anthropic.com/news/claude-3-family</a>)&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>LifeArchitect memo on Claude 3 Opus (<a href="https://lifearchitect.substack.com/p/the-memo-special-edition-claude-3">https://lifearchitect.substack.com/p/the-memo-special-edition-claude-3</a>)&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>OpenAI GPT-4-Turbo official release (<a href="https://openai.com/index/new-models-and-developer-products-announced-at-devday/">https://openai.com/index/new-models-and-developer-products-announced-at-devday/</a>)&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+</ol>
 </div>
 
 
@@ -2002,12 +1962,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "content.tabs.link", "content.code.copy", "content.code.annotate", "content.tooltips", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "content.tabs.link", "content.code.copy", "content.code.annotate", "content.tooltips", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f1b6f286.min.js"></script>
       
-        <script src="../../../js/katex.js"></script>
+        <script src="../../js/katex.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
       
