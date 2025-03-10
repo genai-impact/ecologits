@@ -111,7 +111,8 @@ Integrating EcoLogits with your applications does not alter the standard outputs
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "user", "content": "Tell me a funny joke!"}
-            ]
+            ], 
+            stream=True
         )
         
         async for chunk in stream:
