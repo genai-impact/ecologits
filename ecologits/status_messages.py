@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-STATUS_DOCS_URL = "https://ecologits/tutorial/warnings_and_errors/#{code}"
+STATUS_DOCS_URL = "https://ecologits.ai/tutorial/warnings_and_errors/#{code}"
 
 
 class _StatusMessage(BaseModel):
