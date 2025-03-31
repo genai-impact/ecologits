@@ -45,7 +45,7 @@ def gpu_energy(
     Compute energy consumption of a single GPU.
 
     Args:
-        model_active_parameter_count: Number of active parameters of the model.
+        model_active_parameter_count: Number of active parameters of the model (in billion). 
         output_token_count: Number of generated tokens.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
@@ -72,7 +72,7 @@ def generation_latency(
     Compute the token generation latency in seconds.
 
     Args:
-        model_active_parameter_count: Number of active parameters of the model.
+        model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
         gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.
         gpu_latency_beta: Beta parameter of the GPU linear latency profile.
@@ -99,7 +99,7 @@ def model_required_memory(
     Compute the required memory to load the model on GPU.
 
     Args:
-        model_total_parameter_count: Number of parameters of the model.
+        model_total_parameter_count: Number of parameters of the model (in billion).
         model_quantization_bits: Number of bits used to represent the model weights.
 
     Returns:
@@ -381,8 +381,8 @@ def compute_llm_impacts_dag(
     Compute the impacts dag of an LLM generation request.
 
     Args:
-        model_active_parameter_count: Number of active parameters of the model.
-        model_total_parameter_count: Number of parameters of the model.
+        model_active_parameter_count: Number of active parameters of the model (in billion).
+        model_total_parameter_count: Number of parameters of the model (in billion).
         output_token_count: Number of generated tokens.
         request_latency: Measured request latency in seconds.
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
@@ -454,8 +454,8 @@ def compute_llm_impacts( # noqa: PLR0912
     Compute the impacts of an LLM generation request.
 
     Args:
-        model_active_parameter_count: Number of active parameters of the model.
-        model_total_parameter_count: Number of total parameters of the model.
+        model_active_parameter_count: Number of active parameters of the model (in billion).
+        model_total_parameter_count: Number of total parameters of the model (in billion).
         output_token_count: Number of generated tokens.
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
