@@ -2115,7 +2115,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of active parameters of the model.</p>
+                <p>Number of active parameters of the model (in billion).</p>
               </div>
             </td>
             <td>
@@ -2242,7 +2242,7 @@
 </span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    Compute energy consumption of a single GPU.</span>
 </span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a>
 </span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        model_active_parameter_count: Number of active parameters of the model.</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        model_active_parameter_count: Number of active parameters of the model (in billion).</span>
 </span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        output_token_count: Number of generated tokens.</span>
 </span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.</span>
 </span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.</span>
@@ -2293,7 +2293,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of active parameters of the model.</p>
+                <p>Number of active parameters of the model (in billion).</p>
               </div>
             </td>
             <td>
@@ -2440,7 +2440,7 @@
 </span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    Compute the token generation latency in seconds.</span>
 </span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73"></a>
 </span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        model_active_parameter_count: Number of active parameters of the model.</span>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        model_active_parameter_count: Number of active parameters of the model (in billion).</span>
 </span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        output_token_count: Number of generated tokens.</span>
 </span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.</span>
 </span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        gpu_latency_beta: Beta parameter of the GPU linear latency profile.</span>
@@ -2495,7 +2495,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of parameters of the model.</p>
+                <p>Number of parameters of the model (in billion).</p>
               </div>
             </td>
             <td>
@@ -2568,7 +2568,7 @@
 </span><span id="__span-0-99"><a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">    Compute the required memory to load the model on GPU.</span>
 </span><span id="__span-0-100"><a id="__codelineno-0-100" name="__codelineno-0-100"></a>
 </span><span id="__span-0-101"><a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-102"><a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">        model_total_parameter_count: Number of parameters of the model.</span>
+</span><span id="__span-0-102"><a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">        model_total_parameter_count: Number of parameters of the model (in billion).</span>
 </span><span id="__span-0-103"><a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">        model_quantization_bits: Number of bits used to represent the model weights.</span>
 </span><span id="__span-0-104"><a id="__codelineno-0-104" name="__codelineno-0-104"></a>
 </span><span id="__span-0-105"><a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">    Returns:</span>
@@ -4263,7 +4263,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of active parameters of the model.</p>
+                <p>Number of active parameters of the model (in billion).</p>
               </div>
             </td>
             <td>
@@ -4277,7 +4277,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of parameters of the model.</p>
+                <p>Number of parameters of the model (in billion).</p>
               </div>
             </td>
             <td>
@@ -4752,8 +4752,8 @@
 </span><span id="__span-0-381"><a id="__codelineno-0-381" name="__codelineno-0-381"></a><span class="sd">    Compute the impacts dag of an LLM generation request.</span>
 </span><span id="__span-0-382"><a id="__codelineno-0-382" name="__codelineno-0-382"></a>
 </span><span id="__span-0-383"><a id="__codelineno-0-383" name="__codelineno-0-383"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-384"><a id="__codelineno-0-384" name="__codelineno-0-384"></a><span class="sd">        model_active_parameter_count: Number of active parameters of the model.</span>
-</span><span id="__span-0-385"><a id="__codelineno-0-385" name="__codelineno-0-385"></a><span class="sd">        model_total_parameter_count: Number of parameters of the model.</span>
+</span><span id="__span-0-384"><a id="__codelineno-0-384" name="__codelineno-0-384"></a><span class="sd">        model_active_parameter_count: Number of active parameters of the model (in billion).</span>
+</span><span id="__span-0-385"><a id="__codelineno-0-385" name="__codelineno-0-385"></a><span class="sd">        model_total_parameter_count: Number of parameters of the model (in billion).</span>
 </span><span id="__span-0-386"><a id="__codelineno-0-386" name="__codelineno-0-386"></a><span class="sd">        output_token_count: Number of generated tokens.</span>
 </span><span id="__span-0-387"><a id="__codelineno-0-387" name="__codelineno-0-387"></a><span class="sd">        request_latency: Measured request latency in seconds.</span>
 </span><span id="__span-0-388"><a id="__codelineno-0-388" name="__codelineno-0-388"></a><span class="sd">        if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).</span>
@@ -4847,7 +4847,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of active parameters of the model.</p>
+                <p>Number of active parameters of the model (in billion).</p>
               </div>
             </td>
             <td>
@@ -4861,7 +4861,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of total parameters of the model.</p>
+                <p>Number of total parameters of the model (in billion).</p>
               </div>
             </td>
             <td>
@@ -5093,8 +5093,8 @@
 </span><span id="__span-0-454"><a id="__codelineno-0-454" name="__codelineno-0-454"></a><span class="sd">    Compute the impacts of an LLM generation request.</span>
 </span><span id="__span-0-455"><a id="__codelineno-0-455" name="__codelineno-0-455"></a>
 </span><span id="__span-0-456"><a id="__codelineno-0-456" name="__codelineno-0-456"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-457"><a id="__codelineno-0-457" name="__codelineno-0-457"></a><span class="sd">        model_active_parameter_count: Number of active parameters of the model.</span>
-</span><span id="__span-0-458"><a id="__codelineno-0-458" name="__codelineno-0-458"></a><span class="sd">        model_total_parameter_count: Number of total parameters of the model.</span>
+</span><span id="__span-0-457"><a id="__codelineno-0-457" name="__codelineno-0-457"></a><span class="sd">        model_active_parameter_count: Number of active parameters of the model (in billion).</span>
+</span><span id="__span-0-458"><a id="__codelineno-0-458" name="__codelineno-0-458"></a><span class="sd">        model_total_parameter_count: Number of total parameters of the model (in billion).</span>
 </span><span id="__span-0-459"><a id="__codelineno-0-459" name="__codelineno-0-459"></a><span class="sd">        output_token_count: Number of generated tokens.</span>
 </span><span id="__span-0-460"><a id="__codelineno-0-460" name="__codelineno-0-460"></a><span class="sd">        if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).</span>
 </span><span id="__span-0-461"><a id="__codelineno-0-461" name="__codelineno-0-461"></a><span class="sd">        if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.</span>
