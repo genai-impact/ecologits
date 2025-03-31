@@ -45,7 +45,7 @@ def gpu_energy(
     Compute energy consumption of a single GPU.
 
     Args:
-        model_active_parameter_count: Number of active parameters of the model (in billion). 
+        model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
