@@ -11,6 +11,8 @@
 [![PyPI downloads](https://static.pepy.tech/badge/ecologits/month)](https://pepy.tech/projects/ecologits)
 [![Python version](https://img.shields.io/pypi/pyversions/ecologits)](https://pypi.org/project/ecologits/)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1VxrpJ5xuWZKQLsSN12kdqUqkppHRct3G?usp=sharing)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15132099.svg)](https://doi.org/10.5281/zenodo.15132099)
+
 
 EcoLogits was created and is actively maintained by the **[GenAI Impact](https://genai-impact.org/) non-profit**. 
 
