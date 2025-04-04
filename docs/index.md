@@ -120,6 +120,11 @@ And, **multiple criteria**:
 For detailed instructions on how to use the library, see our **[tutorial section](tutorial/index.md)**. If you want more details on the underlying impacts calculations, see our **[methodology section](methodology/index.md)**.
 
 
+## Sponsors
+
+[![Resilio](assets/sponsors/resilio.png)](https://resilio-solutions.com/)
+
+
 ## License
 
 This project is licensed under the terms of the [Mozilla Public License Version 2.0 (MPL-2.0) :octicons-link-external-16:](https://www.mozilla.org/en-US/MPL/2.0/).
