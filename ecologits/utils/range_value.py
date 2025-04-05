@@ -15,6 +15,10 @@ class RangeValue(BaseModel):
     min: Union[float, int]
     max: Union[float, int]
 
+    @property
+    def mean(self) -> float:
+        return (self.min + self.max) / 2
+
     @model_validator(mode="after")
     def check_order(self) -> Self:
         if self.min > self.max:
