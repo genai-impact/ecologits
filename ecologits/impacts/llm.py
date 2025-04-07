@@ -30,6 +30,16 @@ HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 
 DATACENTER_PUE = 1.2
 
+FIELDS = [
+    "request_energy",
+    "request_usage_gwp",
+    "request_usage_adpe",
+    "request_usage_pe",
+    "request_embodied_gwp",
+    "request_embodied_adpe",
+    "request_embodied_pe",
+]
+
 dag = DAG()
 
 
@@ -448,6 +458,7 @@ def compute_llm_impacts( # noqa: PLR0912
         if_electricity_mix_pe: float,
         if_electricity_mix_gwp: float,
         request_latency: Optional[float] = None,
+        fields: list = FIELDS,
         **kwargs: Any
 ) -> Impacts:
     """
@@ -461,6 +472,7 @@ def compute_llm_impacts( # noqa: PLR0912
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
         request_latency: Measured request latency in seconds.
+        fields: The fields you want to calculate the impacts on.
         **kwargs: Any other optional parameter.
 
     Returns:
@@ -483,8 +495,6 @@ def compute_llm_impacts( # noqa: PLR0912
             total_params = [model_total_parameter_count, model_total_parameter_count]
 
     results: dict[str, Union[RangeValue, float, int]] = {}
-    fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
-              "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
 
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
@@ -516,13 +526,13 @@ def compute_llm_impacts( # noqa: PLR0912
             else:
                 results[field] = res[field]
 
-    energy = Energy(value=results["request_energy"])
-    gwp_usage = GWP(value=results["request_usage_gwp"])
-    adpe_usage = ADPe(value=results["request_usage_adpe"])
-    pe_usage = PE(value=results["request_usage_pe"])
-    gwp_embodied = GWP(value=results["request_embodied_gwp"])
-    adpe_embodied = ADPe(value=results["request_embodied_adpe"])
-    pe_embodied = PE(value=results["request_embodied_pe"])
+    energy = Energy(value=results.get("request_energy", 0))
+    gwp_usage = GWP(value=results.get("request_usage_gwp", 0))
+    adpe_usage = ADPe(value=results.get("request_usage_adpe", 0))
+    pe_usage = PE(value=results.get("request_usage_pe", 0))
+    gwp_embodied = GWP(value=results.get("request_embodied_gwp", 0))
+    adpe_embodied = ADPe(value=results.get("request_embodied_adpe", 0))
+    pe_embodied = PE(value=results.get("request_embodied_pe", 0))
     return Impacts(
         energy=energy,
         gwp=gwp_usage + gwp_embodied,
