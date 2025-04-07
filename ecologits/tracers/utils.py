@@ -8,6 +8,7 @@ from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Usage
 from ecologits.log import logger
 from ecologits.model_repository import ParametersMoE, models
 from ecologits.status_messages import ErrorMessage, ModelNotRegisteredError, WarningMessage, ZoneNotRegisteredError
+from ecologits.impacts.llm import FIELDS
 
 
 class ImpactsOutput(BaseModel):
@@ -58,6 +59,7 @@ def llm_impacts(
     output_token_count: int,
     request_latency: float,
     electricity_mix_zone: str = "WOR",
+    fields: list = FIELDS,
 ) -> ImpactsOutput:
     """
     High-level function to compute the impacts of an LLM generation request.
@@ -68,6 +70,7 @@ def llm_impacts(
         output_token_count: Number of generated tokens.
         request_latency: Measured request latency in seconds.
         electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
+        fields: The fields you want to calculate the impacts on.
 
     Returns:
         The impacts of an LLM generation request.
@@ -103,6 +106,7 @@ def llm_impacts(
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe,
         if_electricity_mix_gwp=if_electricity_mix_gwp,
+        fields=fields,
     )
     impacts = ImpactsOutput.model_validate(impacts.model_dump())
 
