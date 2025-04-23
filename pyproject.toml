@@ -67,6 +67,7 @@ optional = true
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.2.0"
+safety = "<=2.3.5"
 pytest = "^7.2.0"
 # ruff = "^0.0.254"
 pytest-recording = "^0.13.1"
