@@ -40,16 +40,11 @@ def wrap_from_dict(response_dict: dict, impacts, async_mode = False) -> Union[Ge
     result = response_dict.get("_result")
 
     # Remove problematic keys from the dictionary, if they exist
-    if "_done" in response_dict:
-        del response_dict["_done"]
-    if "_iterator" in response_dict:
-        del response_dict["_iterator"]
-    if "_result" in response_dict:
-        del response_dict["_result"]
-    if "_chunks" in response_dict:
-        del response_dict["_chunks"]
-    if "_error" in response_dict:
-        del response_dict["_error"]
+    response_dict.pop("_done", None)
+    response_dict.pop("_iterator", None)
+    response_dict.pop("_result", None)
+    response_dict.pop("_chunks", None)
+    response_dict.pop("_error", None)
 
     if async_mode:
         return AsyncGenerateContentResponse(

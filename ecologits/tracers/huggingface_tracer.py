@@ -71,7 +71,7 @@ def huggingface_chat_wrapper_stream(
     stream = wrapped(*args, **kwargs)
     token_count = 0
     for chunk in stream:
-        token_count += 1
+        token_count += 1 # noqa: SIM113
         request_latency = time.perf_counter() - timer_start
         impacts = llm_impacts(
             provider=PROVIDER,
