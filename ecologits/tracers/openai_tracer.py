@@ -50,6 +50,20 @@ def openai_chat_wrapper_non_stream(
         request_latency=request_latency,
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
+    if EcoLogits.config.telemetry:
+        prompt_tokens = response.usage.prompt_tokens
+        completion_tokens = response.usage.completion_tokens
+        EcoLogits.config.telemetry.record_request(
+            prompt="." * prompt_tokens,
+            response="." * completion_tokens,
+            latency_s=request_latency,
+            energy_value=impacts.energy.value,
+            gwp_value=impacts.gwp.value,
+            adpe_value=impacts.adpe.value,
+            pe_value=impacts.pe.value,
+            model=model_name,
+            endpoint="/chat/completions"
+        )
     if impacts is not None:
         return ChatCompletion(**response.model_dump(), impacts=impacts)
     else:
