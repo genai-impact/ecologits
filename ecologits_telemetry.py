@@ -29,7 +29,7 @@ class EcologitsTelemetry:
             description="Total output tokens",
             unit="1"
         )
-        self.latency_hist = meter.create_histogram(
+        self.latency_hist = meter.create_counter(
             name="ecologits_request_latency_seconds",
             description="Request latency in seconds",
             unit="s"
@@ -55,7 +55,7 @@ class EcologitsTelemetry:
             unit="MJ"
         )
 
-    def record_request(self, prompt: str, response: str, latency_s: float, 
+    def record_request(self, prompt_tokens: int, completion_tokens: int, latency_s: float, 
                        energy_value: float, gwp_value: float, adpe_value: float, 
                        pe_value: float, model="gpt-4", endpoint="/ask") -> None:
         #request_id = str(uuid.uuid4())
@@ -66,9 +66,9 @@ class EcologitsTelemetry:
         }
 
         self.request_counter.add(1, labels)
-        self.tokens_input.add(len(prompt.split()), labels)
-        self.tokens_output.add(len(response.split()), labels)
-        self.latency_hist.record(float(latency_s), labels)
+        self.tokens_input.add(prompt_tokens, labels)
+        self.tokens_output.add(completion_tokens, labels)
+        self.latency_hist.add(float(latency_s), labels)
         self.energy_value.add(float(energy_value.max), labels)
         self.gwp_value.add(float(gwp_value.max), labels)
         self.adpe_value.add(float(adpe_value.max), labels)
