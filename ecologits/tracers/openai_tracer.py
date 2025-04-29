@@ -51,11 +51,9 @@ def openai_chat_wrapper_non_stream(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if EcoLogits.config.telemetry:
-        prompt_tokens = response.usage.prompt_tokens
-        completion_tokens = response.usage.completion_tokens
         EcoLogits.config.telemetry.record_request(
-            prompt="." * prompt_tokens,
-            response="." * completion_tokens,
+            prompt_tokens=response.usage.prompt_tokens,
+            completion_tokens=response.usage.completion_tokens,
             latency_s=request_latency,
             energy_value=impacts.energy.value,
             gwp_value=impacts.gwp.value,
