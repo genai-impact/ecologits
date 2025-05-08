@@ -51,14 +51,15 @@ def openai_chat_wrapper_non_stream(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if EcoLogits.config.opentelemetry:
+        # TODO: Define default behavior for missing impacts
         EcoLogits.config.opentelemetry.record_request(
             input_tokens=response.usage.prompt_tokens,
             output_tokens=response.usage.completion_tokens,
             request_latency=request_latency,
-            energy_value=impacts.energy.value,
-            gwp_value=impacts.gwp.value,
-            adpe_value=impacts.adpe.value,
-            pe_value=impacts.pe.value,
+            energy_value=impacts.energy.value if impacts.energy is not None else 0,
+            gwp_value=impacts.gwp.value if impacts.gwp is not None else 0,
+            adpe_value=impacts.adpe.value if impacts.adpe is not None else 0,
+            pe_value=impacts.pe.value if impacts.pe is not None else 0,
             model=model_name,
             endpoint="/chat/completions"
         )

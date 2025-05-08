@@ -148,9 +148,9 @@ class EcoLogits:
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
 
         if enable_opentelemetry:
-            if not opentelemetry_endpoint:
+            if opentelemetry_endpoint is None:
                 raise EcoLogitsError("Telemetry is enabled but no telemetry endpoint is provided.")
-        EcoLogits.config.opentelemetry = OpenTelemetry(endpoint=opentelemetry_endpoint)
+            EcoLogits.config.opentelemetry = OpenTelemetry(endpoint=opentelemetry_endpoint)
 
 
 def init_instruments(providers: list[str]) -> None:

@@ -1,11 +1,15 @@
+from typing import Union
+
 from opentelemetry import metrics
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 
+from ecologits.utils.range_value import RangeValue
+
 
 class OpenTelemetry:
-    def __init__(self, endpoint: str):
+    def __init__(self, endpoint: str) -> None:
         exporter = OTLPMetricExporter(endpoint=endpoint)
         reader = PeriodicExportingMetricReader(exporter, export_interval_millis=5000)
         provider = MeterProvider(metric_readers=[reader])
@@ -59,10 +63,10 @@ class OpenTelemetry:
             input_tokens: int,
             output_tokens: int,
             request_latency: float,
-            energy_value: float,
-            gwp_value: float,
-            adpe_value: float,
-            pe_value: float,
+            energy_value: Union[float, RangeValue],
+            gwp_value: Union[float, RangeValue],
+            adpe_value: Union[float, RangeValue],
+            pe_value: Union[float, RangeValue],
             model: str,
             endpoint: str
     ) -> None:
@@ -71,11 +75,16 @@ class OpenTelemetry:
             "model": model
         }
 
+        energy_value = energy_value if isinstance(energy_value, float) else energy_value.avg
+        gwp_value = gwp_value if isinstance(gwp_value, float) else gwp_value.avg
+        adpe_value = adpe_value if isinstance(adpe_value, float) else adpe_value.avg
+        pe_value = pe_value if isinstance(pe_value, float) else pe_value.avg
+
         self.request_counter.add(1, labels)
         self.input_tokens.add(input_tokens, labels)
         self.output_tokens.add(output_tokens, labels)
-        self.request_latency.add(float(request_latency), labels)
-        self.energy_value.add(float(energy_value.max), labels)
-        self.gwp_value.add(float(gwp_value.max), labels)
-        self.adpe_value.add(float(adpe_value.max), labels)
-        self.pe_value.add(float(pe_value.max), labels)
+        self.request_latency.add(request_latency, labels)
+        self.energy_value.add(energy_value, labels)
+        self.gwp_value.add(gwp_value, labels)
+        self.adpe_value.add(adpe_value, labels)
+        self.pe_value.add(pe_value, labels)
