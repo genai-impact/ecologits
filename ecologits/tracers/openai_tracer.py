@@ -50,11 +50,11 @@ def openai_chat_wrapper_non_stream(
         request_latency=request_latency,
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
-    if EcoLogits.config.telemetry:
-        EcoLogits.config.telemetry.record_request(
-            prompt_tokens=response.usage.prompt_tokens,
-            completion_tokens=response.usage.completion_tokens,
-            latency_s=request_latency,
+    if EcoLogits.config.opentelemetry:
+        EcoLogits.config.opentelemetry.record_request(
+            input_tokens=response.usage.prompt_tokens,
+            output_tokens=response.usage.completion_tokens,
+            request_latency=request_latency,
             energy_value=impacts.energy.value,
             gwp_value=impacts.gwp.value,
             adpe_value=impacts.adpe.value,
