@@ -7,6 +7,7 @@ from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
 from ecologits.log import logger
+from ecologits_telemetry import EcologitsTelemetry
 
 
 def init_openai_instrumentor() -> None:
@@ -117,6 +118,7 @@ class EcoLogits:
     class _Config:
         electricity_mix_zone: str = field(default="WOR")
         providers: list[str] = field(default_factory=list)
+        telemetry: Optional[EcologitsTelemetry] = None
 
     config = _Config()
 
@@ -124,6 +126,8 @@ class EcoLogits:
     def init(
         providers: Optional[Union[str, list[str]]] = None,
         electricity_mix_zone: str = "WOR",
+        enable_telemetry: bool = False,
+        telemetry_endpoint: Optional[str] = None
     ) -> None:
         """
         Initialization static method. Will attempt to initialize all providers by default.
@@ -142,6 +146,11 @@ class EcoLogits:
         EcoLogits.config.electricity_mix_zone = electricity_mix_zone
         EcoLogits.config.providers += providers
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
+
+        if enable_telemetry:
+            if not telemetry_endpoint:
+                raise ValueError("Telemetry is enabled but no telemetry endpoint is provided.")
+        EcoLogits.config.telemetry = EcologitsTelemetry(collector_url=telemetry_endpoint)
 
 
 def init_instruments(providers: list[str]) -> None:
