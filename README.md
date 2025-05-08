@@ -52,12 +52,6 @@ print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
 
 See package documentation on [EcoLogits](https://ecologits.ai/)
 
-## Open Telemetry
-Pour initialiser Open Telemetry il suffit d'ajouter ces paramètres à l'initialisation. Le reste de l'exemple au dessus est conforme.
-```python
-EcoLogits.init(enable_telemetry=True, telemetry_endpoint="http://localhost:4318/v1/metrics")
-```
-
 
 ## 💚 Sponsors
 
