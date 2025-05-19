@@ -501,18 +501,11 @@ def compute_llm_impacts( # noqa: PLR0912
             if field in results:
                 min_result = results[field]
                 max_result = res[field]
-                if isinstance(min_result, RangeValue) and isinstance(max_result, RangeValue):
-                    min_value = cast(Union[float, int], min_result.min)
-                    max_value = cast(Union[float, int], max_result.max)
-                    results[field] = RangeValue(min=min_value, max=max_value)
-                elif isinstance(min_result, (float, int)):
-                    min_value = cast(Union[float, int], min_result)
-                    max_value = cast(Union[float, int], max_result)
-                    results[field] = RangeValue(min=min_value, max=max_value)
-                else:
-                    raise TypeError(
-                        "Unexpected behaviour. With different parameters, DAG does not return the same type"
-                    )
+                if isinstance(min_result, RangeValue):
+                    min_result = cast(Union[float, int], min_result.min)
+                if isinstance(max_result, RangeValue):
+                    max_result = cast(Union[float, int], max_result.max)
+                results[field] = RangeValue(min=min_result, max=max_result)
             else:
                 results[field] = res[field]
 
