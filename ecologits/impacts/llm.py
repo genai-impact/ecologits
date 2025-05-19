@@ -440,7 +440,7 @@ def compute_llm_impacts_dag(
     return results
 
 
-def compute_llm_impacts( # noqa: PLR0912
+def compute_llm_impacts(
         model_active_parameter_count: ValueOrRange,
         model_total_parameter_count: ValueOrRange,
         output_token_count: float,
