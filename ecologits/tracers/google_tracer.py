@@ -66,7 +66,7 @@ def google_chat_wrapper(
     wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any
 ) -> Union[GenerateContentResponse, Iterable[GenerateContentResponse]]:
     """
-    Function that wraps a Google answer with computed impacts 
+    Function that wraps a Google answer with computed impacts
 
     Args:
         wrapped: Callable that returns the LLM response

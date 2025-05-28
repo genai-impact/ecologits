@@ -59,7 +59,7 @@ def litellm_chat_wrapper(
     kwargs: Any
 ) -> Union[ChatCompletion, CustomStreamWrapper]:
     """
-    Function that wraps a LiteLLM answer with computed impacts 
+    Function that wraps a LiteLLM answer with computed impacts
 
     Args:
         wrapped: Callable that returns the LLM response

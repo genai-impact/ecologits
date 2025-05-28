@@ -38,7 +38,7 @@ def huggingface_chat_wrapper(
     kwargs: Any
 ) -> Union[ChatCompletionOutput, Iterable[ChatCompletionStreamOutput]]:
     """
-    Function that wraps a HuggingFace Hub answer with computed impacts 
+    Function that wraps a HuggingFace Hub answer with computed impacts
 
     Args:
         wrapped: Callable that returns the LLM response

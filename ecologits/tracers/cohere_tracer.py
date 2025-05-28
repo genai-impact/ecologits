@@ -38,7 +38,7 @@ def cohere_chat_wrapper(
     wrapped: Callable, instance: Client, args: Any, kwargs: Any  # noqa: ARG001
 ) -> NonStreamedChatResponse:
     """
-    Function that wraps a Cohere answer with computed impacts 
+    Function that wraps a Cohere answer with computed impacts
 
     Args:
         wrapped: Callable that returns the LLM response

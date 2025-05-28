@@ -48,7 +48,7 @@ class Model(BaseModel):
         name: Name of the model (e.g. "gpt-4o-mini")
         architecture: Architecture type (dense or mixture-of-experts)
         warnings: Warnings linked to the model (e.g. "model-arch-not-released" or "model-arch-multimodal")
-        sources: Source of the model information (website link) 
+        sources: Source of the model information (website link)
     """
 
     provider: Providers

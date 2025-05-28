@@ -141,7 +141,7 @@ def anthropic_chat_wrapper(
     wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
     """
-    Function that wraps an Anthropic answer with computed impacts 
+    Function that wraps an Anthropic answer with computed impacts
 
     Args:
         wrapped: Callable that returns the LLM response

@@ -34,7 +34,7 @@ def openai_chat_wrapper(
     kwargs: Any
 ) -> Union[ChatCompletion, Stream[ChatCompletionChunk]]:
     """
-    Function that wraps an OpenAI answer with computed impacts 
+    Function that wraps an OpenAI answer with computed impacts
 
     Args:
         wrapped: Callable that returns the LLM response
