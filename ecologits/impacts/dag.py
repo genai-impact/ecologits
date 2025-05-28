@@ -4,6 +4,10 @@ from typing import Any, Callable
 
 
 class DAG:
+    """
+        Directed Acyclic Graph (DAG) of computations
+    """
+
     def __init__(self) -> None:
         self.__tasks: dict[str, Callable] = {}
         self.__dependencies: dict[str, set] = {}

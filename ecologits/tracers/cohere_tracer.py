@@ -15,6 +15,9 @@ PROVIDER = "cohere"
 
 
 class NonStreamedChatResponse(_NonStreamedChatResponse):
+    """
+        Wrapper of `cohere.types.non_streamed_chat_response.NonStreamedChatResponse` with `ImpactsOutput`
+    """
     impacts: Optional[ImpactsOutput] = None
 
     class Config:
@@ -22,6 +25,9 @@ class NonStreamedChatResponse(_NonStreamedChatResponse):
 
 
 class StreamEndStreamedChatResponse(_StreamEndStreamedChatResponse):
+    """
+        Wrapper of `cohere.types.streamed_chat_response.StreamEndStreamedChatResponse` with `ImpactsOutput`
+    """
     impacts: Optional[ImpactsOutput] = None
 
     class Config:
@@ -31,6 +37,18 @@ class StreamEndStreamedChatResponse(_StreamEndStreamedChatResponse):
 def cohere_chat_wrapper(
     wrapped: Callable, instance: Client, args: Any, kwargs: Any  # noqa: ARG001
 ) -> NonStreamedChatResponse:
+    """
+    Function that wraps a Cohere answer with computed impacts 
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `NonStreamedChatResponse` with impacts
+    """
     timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
@@ -49,6 +67,18 @@ def cohere_chat_wrapper(
 async def cohere_async_chat_wrapper(
     wrapped: Callable, instance: AsyncClient, args: Any, kwargs: Any    # noqa: ARG001
 ) -> NonStreamedChatResponse:
+    """
+    Function that wraps a Cohere answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `NonStreamedChatResponse` with impacts
+    """
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
@@ -67,6 +97,19 @@ async def cohere_async_chat_wrapper(
 def cohere_stream_chat_wrapper(
     wrapped: Callable, instance: Client, args: Any, kwargs: Any # noqa: ARG001
 ) -> Iterator[StreamedChatResponse]:
+    """
+    Function that wraps a Cohere answer with computed impacts in streaming mode
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `Iterator[StreamedChatResponse]` with impacts
+    """
+
     model_name = kwargs.get("model", "command-r")
     timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
@@ -89,6 +132,19 @@ def cohere_stream_chat_wrapper(
 async def cohere_async_stream_chat_wrapper(
     wrapped: Callable, instance: AsyncClient, args: Any, kwargs: Any # noqa: ARG001
 ) -> AsyncIterator[StreamedChatResponse]:
+    """
+    Function that wraps a Cohere answer with computed impacts in streaming and async mode
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `AsyncIterator[StreamedChatResponse]` with impacts
+    """
+
     model_name = kwargs.get("model", "command-r")
     timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
@@ -109,6 +165,10 @@ async def cohere_async_stream_chat_wrapper(
 
 
 class CohereInstrumentor:
+    """
+        Instrumentor initialized by EcoLogits to automatically wrap all Cohere calls
+    """
+
     def __init__(self) -> None:
         self.wrapped_methods = [
             {

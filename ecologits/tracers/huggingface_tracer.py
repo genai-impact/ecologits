@@ -17,11 +17,17 @@ PROVIDER = "huggingface_hub"
 
 @dataclass
 class ChatCompletionOutput(_ChatCompletionOutput):
+    """
+        Wrapper of `huggingface_hub.ChatCompletionOutput` with `ImpactsOutput`
+    """
     impacts: Optional[ImpactsOutput] = None
 
 
 @dataclass
 class ChatCompletionStreamOutput(_ChatCompletionStreamOutput):
+    """
+        Wrapper of `huggingface_hub.ChatCompletionStreamOutput` with `ImpactsOutput`
+    """
     impacts: Optional[ImpactsOutput] = None
 
 
@@ -31,6 +37,19 @@ def huggingface_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletionOutput, Iterable[ChatCompletionStreamOutput]]:
+    """
+    Function that wraps a HuggingFace Hub answer with computed impacts 
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletionOutput` or `Iterable[ChatCompletionStreamOutput]` with impacts
+    """
+
     if kwargs.get("stream", False):
         return huggingface_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -92,6 +111,19 @@ async def huggingface_async_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletionOutput, AsyncIterable[ChatCompletionStreamOutput]]:
+    """
+    Function that wraps a HuggingFace Hub answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletionOutput` or `AsyncIterable[ChatCompletionStreamOutput]]` with impacts
+    """
+
     if kwargs.get("stream", False):
         return huggingface_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -148,6 +180,10 @@ async def huggingface_async_chat_wrapper_stream(
 
 
 class HuggingfaceInstrumentor:
+    """
+        Instrumentor initialized by EcoLogits to automatically wrap all HuggingFace Hub calls
+    """
+
     def __init__(self) -> None:
         self.wrapped_methods = [
             {

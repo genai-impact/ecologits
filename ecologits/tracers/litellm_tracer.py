@@ -14,10 +14,16 @@ from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 
 class ChatCompletion(ModelResponse):
+    """
+        Wrapper of `litellm.types.utils.ModelResponse` with `ImpactsOutput`
+    """
     impacts: ImpactsOutput
 
 
 class ChatCompletionChunk(ModelResponse):
+    """
+        Wrapper of `litellm.types.utils.ModelResponse` with `ImpactsOutput`
+    """
     impacts: ImpactsOutput
 
 
@@ -52,6 +58,19 @@ def litellm_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletion, CustomStreamWrapper]:
+    """
+    Function that wraps a LiteLLM answer with computed impacts 
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletion` or `CustomStreamWrapper` with impacts
+    """
+
     if kwargs.get("stream", False):
         return litellm_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -120,6 +139,18 @@ async def litellm_async_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletion,CustomStreamWrapper]:
+    """
+    Function that wraps a LiteLLM answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletion` or `CustomStreamWrapper` with impacts
+    """
     if kwargs.get("stream", False):
         return litellm_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -184,6 +215,10 @@ async def litellm_async_chat_wrapper_stream(  # type: ignore[misc]
 
 
 class LiteLLMInstrumentor:
+    """
+        Instrumentor initialized by EcoLogits to automatically wrap all LiteLLM calls
+    """
+
     def __init__(self) -> None:
         self.wrapped_methods = [
             {
