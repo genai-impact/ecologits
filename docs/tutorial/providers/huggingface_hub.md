@@ -37,7 +37,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     # Initialize EcoLogits
     EcoLogits.init()
     
-    client = InferenceClient(model="HuggingFaceH4/zephyr-7b-beta")
+    client = InferenceClient(model="meta-llama/Meta-Llama-3.1-8B")
     response = client.chat_completion(
         messages=[{"role": "user", "content": "Tell me a funny joke!"}],
         max_tokens=15
@@ -57,7 +57,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     # Initialize EcoLogits
     EcoLogits.init()
     
-    client = AsyncInferenceClient(model="HuggingFaceH4/zephyr-7b-beta")
+    client = AsyncInferenceClient(model="meta-llama/Meta-Llama-3.1-8B")
     
     async def main() -> None:
         response = await client.chat_completion(
@@ -86,7 +86,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     # Initialize EcoLogits
     EcoLogits.init()
     
-    client = InferenceClient(model="HuggingFaceH4/zephyr-7b-beta")
+    client = InferenceClient(model="meta-llama/Meta-Llama-3.1-8B")
     stream = client.chat_completion(
         messages=[{"role": "user", "content": "Tell me a funny joke!"}],
         max_tokens=15,
@@ -108,7 +108,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     # Initialize EcoLogits
     EcoLogits.init()
     
-    client = AsyncInferenceClient(model="HuggingFaceH4/zephyr-7b-beta")
+    client = AsyncInferenceClient(model="meta-llama/Meta-Llama-3.1-8B")
     
     async def main() -> None:
         stream = await client.chat_completion(
