@@ -16,6 +16,9 @@ PROVIDER = "google"
 
 
 class GenerateContentResponse(_GenerateContentResponse):
+    """
+        Wrapper of `google.generativeai.types.GenerateContentResponse` with `ImpactsOutput`
+    """
     def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None:   # noqa: ANN001 ANN002 ANN003
         super().__init__(done, iterator, result, impacts, *args, **kwargs)
         self.impacts = impacts
@@ -25,6 +28,9 @@ class GenerateContentResponse(_GenerateContentResponse):
 
 
 class AsyncGenerateContentResponse(_AsyncGenerateContentResponse):
+    """
+        Wrapper of `google.generativeai.types.AsyncGenerateContentResponse` with `ImpactsOutput`
+    """
     def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None: # noqa: ANN001 ANN002 ANN003
         super().__init__(done, iterator, result, impacts, *args, **kwargs)
         self.impacts = impacts
@@ -59,6 +65,19 @@ def wrap_from_dict(response_dict: dict, impacts, async_mode = False) -> Union[Ge
 def google_chat_wrapper(
     wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any
 ) -> Union[GenerateContentResponse, Iterable[GenerateContentResponse]]:
+    """
+    Function that wraps a Google answer with computed impacts 
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `GenerateContentResponse` or `Iterable[GenerateContentResponse]` with impacts
+    """
+
     if kwargs.get("stream", False):
         return google_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -114,6 +133,19 @@ def google_chat_wrapper_stream(
 async def google_async_chat_wrapper(
     wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any
 ) -> Union[AsyncGenerateContentResponse, Iterable[AsyncGenerateContentResponse]]:
+    """
+    Function that wraps a Google answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `AsyncGenerateContentResponse` or `Iterable[AsyncGenerateContentResponse]]` with impacts
+    """
+
     if kwargs.get("stream", False):
         return google_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -167,6 +199,10 @@ async def google_async_chat_wrapper_stream(  # type: ignore[misc]
 
 
 class GoogleInstrumentor:
+    """
+        Instrumentor initialized by EcoLogits to automatically wrap all Google calls
+    """
+
     def __init__(self) -> None:
         self.wrapped_methods = [
             {

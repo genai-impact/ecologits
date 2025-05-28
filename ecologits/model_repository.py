@@ -40,6 +40,17 @@ class Alias(BaseModel):
 
 
 class Model(BaseModel):
+    """
+    LLM Model
+
+    Attributes:
+        provider: Provider of the model (e.g. "OpenAI")
+        name: Name of the model (e.g. "gpt-4o-mini")
+        architecture: Architecture type (dense or mixture-of-experts)
+        warnings: Warnings linked to the model (e.g. "model-arch-not-released" or "model-arch-multimodal")
+        sources: Source of the model information (website link) 
+    """
+
     provider: Providers
     name: str
     architecture: Architecture
@@ -65,6 +76,9 @@ class Model(BaseModel):
 
 
 class ModelRepository:
+    """
+    Repository of models
+    """
 
     def __init__(self, models: list[Model], aliases: Optional[list[Alias]] = None) -> None:
         self.__models: dict[tuple[str, str], Model] = {}
