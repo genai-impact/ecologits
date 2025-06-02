@@ -5,7 +5,7 @@ from typing import Any, Callable
 
 class DAG:
     """
-        Directed Acyclic Graph (DAG) of computations
+    Directed Acyclic Graph (DAG) of computations
     """
 
     def __init__(self) -> None:

@@ -23,7 +23,7 @@ class ElectricityMix:
 
 class ElectricityMixRepository:
     """
-    Repository of electricity mixes
+    Repository of electricity mixes.
     """
 
     def __init__(self, electricity_mixes: list[ElectricityMix]) -> None:

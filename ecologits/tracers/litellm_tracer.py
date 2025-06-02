@@ -15,14 +15,14 @@ from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 class ChatCompletion(ModelResponse):
     """
-        Wrapper of `litellm.types.utils.ModelResponse` with `ImpactsOutput`
+    Wrapper of `litellm.types.utils.ModelResponse` with `ImpactsOutput`
     """
     impacts: ImpactsOutput
 
 
 class ChatCompletionChunk(ModelResponse):
     """
-        Wrapper of `litellm.types.utils.ModelResponse` with `ImpactsOutput`
+    Wrapper of `litellm.types.utils.ModelResponse` with `ImpactsOutput`
     """
     impacts: ImpactsOutput
 
@@ -216,7 +216,7 @@ async def litellm_async_chat_wrapper_stream(  # type: ignore[misc]
 
 class LiteLLMInstrumentor:
     """
-        Instrumentor initialized by EcoLogits to automatically wrap all LiteLLM calls
+    Instrumentor initialized by EcoLogits to automatically wrap all LiteLLM calls
     """
 
     def __init__(self) -> None:

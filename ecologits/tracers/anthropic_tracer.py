@@ -23,14 +23,14 @@ AsyncMessageStreamT = TypeVar("AsyncMessageStreamT", bound=_AsyncMessageStream)
 
 class Message(_Message):
     """
-        Wrapper of `anthropic.types.Message` with `ImpactsOutput`
+    Wrapper of `anthropic.types.Message` with `ImpactsOutput`
     """
     impacts: ImpactsOutput
 
 
 class MessageStream(_MessageStream):
     """
-        Wrapper of `anthropic.lib.streaming.MessageStream` with `ImpactsOutput`
+    Wrapper of `anthropic.lib.streaming.MessageStream` with `ImpactsOutput`
     """
     impacts: Optional[ImpactsOutput] = None
 
@@ -62,7 +62,7 @@ class MessageStream(_MessageStream):
 
 class AsyncMessageStream(_AsyncMessageStream):
     """
-        Wrapper of `anthropic.lib.streaming.AsyncMessageStream` with `ImpactsOutput`
+    Wrapper of `anthropic.lib.streaming.AsyncMessageStream` with `ImpactsOutput`
     """
     impacts: Optional[ImpactsOutput] = None
 
@@ -94,7 +94,7 @@ class AsyncMessageStream(_AsyncMessageStream):
 
 class MessageStreamManager(Generic[MessageStreamT]):
     """
-        Re-writing of Anthropic's `MessageStreamManager` with wrapped `MessageStream`
+    Re-writing of Anthropic's `MessageStreamManager` with wrapped `MessageStream`
     """
 
     def __init__(self, api_request: Callable[[], MessageStream]) -> None:
@@ -117,7 +117,7 @@ class MessageStreamManager(Generic[MessageStreamT]):
 
 class AsyncMessageStreamManager(Generic[AsyncMessageStreamT]):
     """
-        Re-writing of Anthropic's `AsyncMessageStreamManager` with wrapped `AsyncMessageStream`
+    Re-writing of Anthropic's `AsyncMessageStreamManager` with wrapped `AsyncMessageStream`
     """
     def __init__(self, api_request: Awaitable[AsyncMessageStream]) -> None:
         self.__api_request = api_request
@@ -243,7 +243,7 @@ def anthropic_async_stream_chat_wrapper(
 
 class AnthropicInstrumentor:
     """
-        Instrumentor initialized by EcoLogits to automatically wrap all Anthropic calls
+    Instrumentor initialized by EcoLogits to automatically wrap all Anthropic calls
     """
     def __init__(self) -> None:
         self.wrapped_methods = [

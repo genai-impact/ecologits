@@ -17,7 +17,7 @@ PROVIDER = "google"
 
 class GenerateContentResponse(_GenerateContentResponse):
     """
-        Wrapper of `google.generativeai.types.GenerateContentResponse` with `ImpactsOutput`
+    Wrapper of `google.generativeai.types.GenerateContentResponse` with `ImpactsOutput`
     """
     def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None:   # noqa: ANN001 ANN002 ANN003
         super().__init__(done, iterator, result, impacts, *args, **kwargs)
@@ -29,7 +29,7 @@ class GenerateContentResponse(_GenerateContentResponse):
 
 class AsyncGenerateContentResponse(_AsyncGenerateContentResponse):
     """
-        Wrapper of `google.generativeai.types.AsyncGenerateContentResponse` with `ImpactsOutput`
+    Wrapper of `google.generativeai.types.AsyncGenerateContentResponse` with `ImpactsOutput`
     """
     def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None: # noqa: ANN001 ANN002 ANN003
         super().__init__(done, iterator, result, impacts, *args, **kwargs)
@@ -200,7 +200,7 @@ async def google_async_chat_wrapper_stream(  # type: ignore[misc]
 
 class GoogleInstrumentor:
     """
-        Instrumentor initialized by EcoLogits to automatically wrap all Google calls
+    Instrumentor initialized by EcoLogits to automatically wrap all Google calls
     """
 
     def __init__(self) -> None:
