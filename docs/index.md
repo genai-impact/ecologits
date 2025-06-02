@@ -123,6 +123,7 @@ For detailed instructions on how to use the library, see our **[tutorial section
 ## Sponsors
 
 [![Resilio](assets/sponsors/resilio.png)](https://resilio-solutions.com/)
+[![Terra Cognita](assets/sponsors/terra_cognita.png)](https://www.terra-cognita.ai/)
 
 
 ## License

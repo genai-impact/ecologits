@@ -59,6 +59,10 @@ See package documentation on [EcoLogits](https://ecologits.ai/)
 <img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/resilio.png" alt="Resilio" height="100" width="250">
 </a>
 
+<a href="https://www.terra-cognita.ai/" target="_blank">
+<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/terra_cognita.png" alt="Terra Cognita" height="100" width="250">
+</a>
+
 
 ## 💪 Contributing
 
