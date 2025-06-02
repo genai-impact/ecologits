@@ -16,7 +16,7 @@ PROVIDER = "cohere"
 
 class NonStreamedChatResponse(_NonStreamedChatResponse):
     """
-        Wrapper of `cohere.types.non_streamed_chat_response.NonStreamedChatResponse` with `ImpactsOutput`
+    Wrapper of `cohere.types.non_streamed_chat_response.NonStreamedChatResponse` with `ImpactsOutput`
     """
     impacts: Optional[ImpactsOutput] = None
 
@@ -26,7 +26,7 @@ class NonStreamedChatResponse(_NonStreamedChatResponse):
 
 class StreamEndStreamedChatResponse(_StreamEndStreamedChatResponse):
     """
-        Wrapper of `cohere.types.streamed_chat_response.StreamEndStreamedChatResponse` with `ImpactsOutput`
+    Wrapper of `cohere.types.streamed_chat_response.StreamEndStreamedChatResponse` with `ImpactsOutput`
     """
     impacts: Optional[ImpactsOutput] = None
 
@@ -166,7 +166,7 @@ async def cohere_async_stream_chat_wrapper(
 
 class CohereInstrumentor:
     """
-        Instrumentor initialized by EcoLogits to automatically wrap all Cohere calls
+    Instrumentor initialized by EcoLogits to automatically wrap all Cohere calls
     """
 
     def __init__(self) -> None:

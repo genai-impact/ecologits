@@ -20,14 +20,14 @@ PROVIDER = "mistralai"
 
 class ChatCompletionResponse(_ChatCompletionResponse):
     """
-        Wrapper of `mistralai.models.chat_completion.ChatCompletionResponse` with `ImpactsOutput`
+    Wrapper of `mistralai.models.chat_completion.ChatCompletionResponse` with `ImpactsOutput`
     """
     impacts: ImpactsOutput
 
 
 class ChatCompletionStreamResponse(_ChatCompletionStreamResponse):
     """
-        Wrapper of `mistralai.models.chat_completion.ChatCompletionStreamResponse` with `ImpactsOutput`
+    Wrapper of `mistralai.models.chat_completion.ChatCompletionStreamResponse` with `ImpactsOutput`
     """
     impacts: ImpactsOutput
 
@@ -177,7 +177,7 @@ async def mistralai_async_chat_wrapper_stream(
 
 class MistralAIInstrumentor:
     """
-        Instrumentor initialized by EcoLogits to automatically wrap all MistralAI calls
+    Instrumentor initialized by EcoLogits to automatically wrap all MistralAI calls
     """
     def __init__(self) -> None:
         self.wrapped_methods = [

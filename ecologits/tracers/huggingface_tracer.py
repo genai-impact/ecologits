@@ -18,7 +18,7 @@ PROVIDER = "huggingface_hub"
 @dataclass
 class ChatCompletionOutput(_ChatCompletionOutput):
     """
-        Wrapper of `huggingface_hub.ChatCompletionOutput` with `ImpactsOutput`
+    Wrapper of `huggingface_hub.ChatCompletionOutput` with `ImpactsOutput`
     """
     impacts: Optional[ImpactsOutput] = None
 
@@ -26,7 +26,7 @@ class ChatCompletionOutput(_ChatCompletionOutput):
 @dataclass
 class ChatCompletionStreamOutput(_ChatCompletionStreamOutput):
     """
-        Wrapper of `huggingface_hub.ChatCompletionStreamOutput` with `ImpactsOutput`
+    Wrapper of `huggingface_hub.ChatCompletionStreamOutput` with `ImpactsOutput`
     """
     impacts: Optional[ImpactsOutput] = None
 
@@ -181,7 +181,7 @@ async def huggingface_async_chat_wrapper_stream(
 
 class HuggingfaceInstrumentor:
     """
-        Instrumentor initialized by EcoLogits to automatically wrap all HuggingFace Hub calls
+    Instrumentor initialized by EcoLogits to automatically wrap all HuggingFace Hub calls
     """
 
     def __init__(self) -> None:

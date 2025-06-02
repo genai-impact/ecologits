@@ -15,14 +15,14 @@ PROVIDER = "openai"
 
 class ChatCompletion(_ChatCompletion):
     """
-        Wrapper of `openai.types.chat.ChatCompletion` with `ImpactsOutput`
+    Wrapper of `openai.types.chat.ChatCompletion` with `ImpactsOutput`
     """
     impacts: ImpactsOutput
 
 
 class ChatCompletionChunk(_ChatCompletionChunk):
     """
-        Wrapper of `openai.types.chat.ChatCompletionChunk` with `ImpactsOutput`
+    Wrapper of `openai.types.chat.ChatCompletionChunk` with `ImpactsOutput`
     """
     impacts: ImpactsOutput
 
@@ -184,7 +184,7 @@ async def openai_async_chat_wrapper_stream(  # type: ignore[misc]
 
 class OpenAIInstrumentor:
     """
-        Instrumentor initialized by EcoLogits to automatically wrap all OpenAI calls
+    Instrumentor initialized by EcoLogits to automatically wrap all OpenAI calls
     """
     def __init__(self) -> None:
         self.wrapped_methods = [

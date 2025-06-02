@@ -4,9 +4,8 @@ from typing import Any, Union, cast
 
 class EcoLogitsLogger(logging.Logger):
     """
-        Logger for EcoLogits (implements `logging.Logger`)
+    Logger for EcoLogits (implements `logging.Logger`)
     """
-
 
     def __init__(self, name: str, level: Union[int, str] = logging.NOTSET) -> None:
         super().__init__(name, level)
