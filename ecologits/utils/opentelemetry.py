@@ -75,10 +75,10 @@ class OpenTelemetry:
             "model": model
         }
 
-        energy_value = energy_value if isinstance(energy_value, float) else energy_value.avg
-        gwp_value = gwp_value if isinstance(gwp_value, float) else gwp_value.avg
-        adpe_value = adpe_value if isinstance(adpe_value, float) else adpe_value.avg
-        pe_value = pe_value if isinstance(pe_value, float) else pe_value.avg
+        energy_value = energy_value if isinstance(energy_value, (int, float)) else energy_value.avg
+        gwp_value = gwp_value if isinstance(gwp_value, (int, float)) else gwp_value.avg
+        adpe_value = adpe_value if isinstance(adpe_value, (int, float)) else adpe_value.avg
+        pe_value = pe_value if isinstance(pe_value, (int, float)) else pe_value.avg
 
         self.request_counter.add(1, labels)
         self.input_tokens.add(input_tokens, labels)
