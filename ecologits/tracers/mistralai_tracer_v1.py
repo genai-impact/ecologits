@@ -2,39 +2,48 @@ import time
 from collections.abc import AsyncGenerator, Iterable
 from typing import Any, Callable
 
-from wrapt import wrap_function_wrapper
+from mistralai import Mistral
+from mistralai.models import ChatCompletionResponse as _ChatCompletionResponse
+from mistralai.models import CompletionChunk as _CompletionChunk
+from mistralai.models import CompletionEvent
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
-
-try:
-    from mistralai import Mistral
-    from mistralai.models import CompletionChunk as _CompletionChunk
-    from mistralai.models import CompletionEvent
-    from mistralai.models.chatcompletionresponse import ChatCompletionResponse as _ChatCompletionResponse
-except ImportError:
-    Mistral = object()
-    _ChatCompletionResponse = object()
-    CompletionEvent = object()
-    _CompletionChunk = object()
-
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 PROVIDER = "mistralai"
 
 
 class ChatCompletionResponse(_ChatCompletionResponse):
-    impacts: Impacts
+    """
+    Wrapper of `mistralai.models.ChatCompletionResponse` with `ImpactsOutput`
+    """
+    impacts: ImpactsOutput
 
 
 class CompletionChunk(_CompletionChunk):
-    impacts: Impacts
+    """
+    Wrapper of `mistralai.models.CompletionChunk` with `ImpactsOutput`
+    """
+    impacts: ImpactsOutput
 
 
 
 def mistralai_chat_wrapper(
     wrapped: Callable, instance: Mistral, args: Any, kwargs: Any  # noqa: ARG001
 ) -> ChatCompletionResponse:
+    """
+    Function that wraps a MistralAI answer with computed impacts
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletionResponse` with impacts
+    """
     timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
@@ -54,6 +63,18 @@ def mistralai_chat_wrapper(
 def mistralai_chat_wrapper_stream(
     wrapped: Callable, instance: Mistral, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Iterable[CompletionEvent]:
+    """
+    Function that wraps a MistralAI answer with computed impacts in streaming mode
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `Iterable[CompletionEvent]` with impacts
+    """
     timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
     token_count = 0
@@ -82,6 +103,18 @@ async def mistralai_async_chat_wrapper(
     args: Any,
     kwargs: Any,
 ) -> ChatCompletionResponse:
+    """
+    Function that wraps a MistralAI answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletionResponse` with impacts
+    """
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
@@ -127,12 +160,27 @@ async def mistralai_async_chat_wrapper_stream(
     args: Any,
     kwargs: Any,
 ) -> AsyncGenerator[CompletionEvent, None]:
+    """
+    Function that wraps a MistralAI answer with computed impacts in streaming and async mode
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `AsyncGenerator[CompletionEvent, None]` with impacts
+    """
     timer_start = time.perf_counter()
     stream = await wrapped(*args, **kwargs)
     return _generator(stream, timer_start)
 
 
 class MistralAIInstrumentor:
+    """
+    Instrumentor initialized by EcoLogits to automatically wrap all MistralAI calls
+    """
     def __init__(self) -> None:
         self.wrapped_methods = [
             {

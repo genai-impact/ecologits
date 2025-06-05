@@ -13,6 +13,7 @@ nav:
   - 'Tutorial':
       - 'Introduction': tutorial/index.md
       - 'Environmental Impacts': tutorial/impacts.md
+      - 'Warnings and Errors': tutorial/warnings_and_errors.md
       - 'Supported providers': tutorial/providers.md
       - 'Providers':
           - 'Anthropic': tutorial/providers/anthropic.md
@@ -24,6 +25,7 @@ nav:
           - 'OpenAI': tutorial/providers/openai.md
   - 'Methodology':
       - 'Introduction': methodology/index.md
+      - 'Proprietary models': methodology/proprietary_models.md
       - 'LLM Inference': methodology/llm_inference.md
   - 'API Reference': reference/
   - 'Online Calculator': 'https://huggingface.co/spaces/genai-impact/ecologits-calculator'
@@ -114,6 +116,7 @@ markdown_extensions:
   - tables
   - admonition
   - def_list
+  - footnotes
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.arithmatex:
@@ -126,7 +129,9 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.snippets:
+      auto_append:
+        - docs/_abbreviations
   - pymdownx.superfences
   - pymdownx.details
   - pymdownx.tabbed:

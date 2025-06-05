@@ -1,17 +1,12 @@
 # Environmental Impacts of LLM Inference
 
-<span class="badge" makdown>
+<span class="badge" markdown>
     <span class="badge__icon">:material-tag-outline:</span>
     <span class="badge__text">v1.0</span>
 </span>
 
-??? info "Known limitations and hypotheses"
-    
-    - Based on a production setup: models are quantized, high-end servers with A100...
-    - We currently assume that the used electricity mix correspond only to national average mixes (taken from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/)). If the user does not specify the country, the world average mix is used. 
-    - Model architectures are assumed when not dislosed by the provider.
-    - Not accounting the impacts of unused cloud resources, data center building, network and end-user devices, model training and data collection...
-    - Not tested on multi-modal models for text-to-text generation only.
+
+## Introduction
 
 The environmental impacts of a request, $I_{\text{request}}$ to a Large Language Model (LLM) can be divided into two components: the usage impacts, $I_{\text{request}}^{\text{u}}$, which account for energy consumption, and the embodied impacts, $I_{\text{request}}^{\text{e}}$, which account for resource extraction, hardware manufacturing, and transportation:
 
@@ -62,16 +57,22 @@ We fit a linear regression model to the dataset, which models the energy consump
   <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions)</figcaption>
 </figure>
 
-The linear regression gives
+??? info "What is a 95% confidence interval?"
+
+    The standard deviation $\delta$ of a linear regression measures "how close are the datapoints to the fitted line". A priori, the larger it is, the worse is the approximation. Consider a linear regression $Y(x) \approx \alpha x + \beta$. Given some assumptions, we can say that $Y(x) \in [\alpha x + \beta - 1.96\delta, \alpha x + \beta + 1.96\delta]$ with probability 95% (see [[1]](https://en.wikipedia.org/wiki/Linear_regression) and [[2]](https://en.wikipedia.org/wiki/97.5th_percentile_point) for more details).
+
+In our methodology, **in order to take into account approximation errors as much as possible**, we provide the **95% confidence interval** of our linear approximation. The computed linear regression gives a confidence interval of
 
 $$
-\frac{E_{\text{GPU}}}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta, 
+\frac{E_{\text{GPU}}}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma, 
 $$
 
-with $\alpha = 8.91e-5$ and $\beta = 1.43e-3$. Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens $\#T_{\text{out}}$ and the number of active parameters $P_{\text{active}}$:
+with $\alpha = 8.91e-5$, $\beta = 1.43e-3$ and $\sigma = 5.19e-4$. 
+
+Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens $\#T_{\text{out}}$ and the number of active parameters $P_{\text{active}}$:
 
 $$
-E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta).
+E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma).
 $$
 
 If the model requires multiple GPUs to be loaded into VRAM, the energy consumption $E_{\text{GPU}}$ should be multiplied by the number of required GPUs, $\text{GPU}$ (see [below](#complete-server-energy-consumption)).
@@ -102,22 +103,22 @@ We fit a linear regression model on the dataset modeling the generation latency 
   <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions)</figcaption>
 </figure>
 
-The fit gives
+Again, we propagate 95% confidence intervals through our computations. The fit gives an interval of
 
 $$
-\frac{\Delta T}{\#T_{\text{out}}} = A \times P_{\text{active}} + B, 
+\frac{\Delta T}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96\delta, 
 $$
 
-with $A = 8.02e-4$ and $B = 2.23e-2$. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
+with $\alpha = 8.02e-4$, $\beta = 2.23e-2$ and $\delta = 7.00e-6$. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
 
 $$
-\Delta T(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (A \times P_{\text{active}} + B).
+\Delta T(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96\delta).
 $$
 
 With the request latency, the generation latency is defined as follows:
 
 $$
-\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times (A \times P_{\text{active}} + B), \Delta T_{\text{request}} \right\}.
+\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \delta), \Delta T_{\text{request}} \right\}.
 $$
 
 #### Estimating the number of active GPUs
@@ -227,11 +228,11 @@ The embodied environmental impacts of the cloud instance are:
 
 Boavizta is currently developing a methodology to provide multicriteria embodied impacts for GPU cards. For this analysis, we use the embodied impact data they computed for a NVIDIA A100 80GB GPU. These values will be used to estimate the embodied impacts of a single GPU, denoted as $I^{\text{e}}_{\text{GPU}}$.
 
-|                 | NIDIA A100 80GB  |
-|-----------------|------------------|
-| GWP (kgCO2eq) | $143$              |
-| ADPe (kgSbeq) | $5.09 \times 10^{-3}$ |
-| PE (MJ)       | $1,828$            |
+|                | NIDIA A100 80GB       |
+|----------------|-----------------------|
+| GWP (kgCO2eq)  | $143$                 |
+| ADPe (kgSbeq)  | $5.09 \times 10^{-3}$ |
+| PE (MJ)        | $1,828$               |
 
 !!! warning "The GPU embodied impacts will be soon available in the BoaviztAPI tool."
 
@@ -254,9 +255,82 @@ I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\te
 $$
 
 
-### Conclusion
+## Assumptions and limitations
 
-This paper presents a methodology to assess the environmental impacts of Large Language Model (LLM) inference, considering both usage and embodied impacts. We model server and GPU energy consumption based on various parameters and incorporate PUE and electricity mix impact factors. For embodied impacts, we use the BoaviztAPI tool to estimate environmental impacts of IT hardware. Our methodology offers a comprehensive understanding of the environmental footprint of LLM inference, guiding researchers and practitioners towards more sustainable AI practices. Future work may involve refining the methodology and exploring the impacts of multi-modal models or RAG applications.
+To be able to estimate environmental impacts of LLMs at inference we took the approach of modeling the key components that compose the service. In this section we will list major assumptions we make when modeling environmental impacts as well as known limitations. When possible we will try to quantify the potential inaccuracies.
+
+### On models
+
+Two major information we are looking for is the required infrastructure to host the AI model, such as the number of GPUs as well as the energy consumption that results from doing an inference on the model.
+
+Assuming the **required infrastructure** for open models can be relatively straightforward because the model size is known. But for proprietary models this can very be challenging given that some AI provider do not disclose any technical information on that matter. That's why we rely on estimations of parameters count for closed models, to learn more [read the dedicated section](proprietary_models.md).
+
+Assuming the **energy consumption** for AI models is done through benchmarking open models. We tend to rely on external sources for benchmarking, but we conduct our own experiments as well. Because of our limited capacity and the technical complexity to host very big AI models we extrapolate the consumption of smaller models to bigger models.
+
+**Assumptions:**
+
+* Models are deployed with pytorch backend.
+* Models are quantized to 4 bits.
+
+**Limitations:**
+
+* We do not account for other inference optimizations such as flash attention, batching or parallelism.
+* We do not benchmark models bigger than 70 billion parameters.
+* We do not have benchmarks for multi-GPU deployments.
+* We do not account for the multiple modalities of a model (only text-to-text generation).
+
+### On benchmarking data
+
+We use **linear regression models** to approximate energy consumption per token and latency per token as a function of the number of active parameters in the LLM. We represent the linear model as $Y = a \times X + b + \epsilon$, where $Y$ is the predicted value, $X$ is the input variable, $a$ and $b$ are the regression coefficients, and $\epsilon$ is the error term. We assume that the errors ($\epsilon$) follow a **normal distribution** with a mean of zero and a constant variance, represented as $\epsilon \sim \mathcal{N}(0, \sigma^2)$. This enables us to use the 95% confidence interval, calculated using the standard deviation of the errors ($\sigma$) and the 97.5th percentile point of the standard normal distribution (approximately 1.96).
+
+### On hardware
+
+We estimate the **required infrastructure** to run the service in terms of hardware. We consider that the service is hosted in the cloud on servers equipped with high-end GPUs. 
+
+**Assumptions:**
+
+* Models are deployed on NVIDIA A100 GPUs with 80GB of memory.
+* Base servers are similar to p4de.24xlarge AWS cloud instances.
+
+**Limitations:**
+
+* We do not account for TPUs or other type of accelerators.
+* We do not account for networking or storage primitives.
+* We do not account for infrastructure overheads or utilization factors.
+
+### On data centers
+
+The type of services we model rely on high-end hardware that we consider is hosted by cloud service providers. Thus, we model data centers impacts as well and especially the overhead for cooling equipments.
+
+We consider the **Power Usage Effectiveness** (PUE) metric from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. That's why we prefer to rely on a global average for PUE that can be overridden for providers that disclose more precise data.
+
+**Assumptions:**
+
+* PUE = 1.2 (arbitrary value, [valid for hyperscalers](https://semianalysis.com/2024/03/13/ai-datacenter-energy-dilemma-race/#datacenter-math))
+
+**Limitations:**
+
+* We do not know precisely where are located the data centers that run AI models.
+* We do not account for the specific infrastructure or way to cooldown servers in data centers.
+* We do not account for the local electricity generation (private power plants) specific to the data center.
+* We do not account for the overhead of the cloud provider for internal services like backing up or monitoring.
+
+
+### On impact factors
+
+To transform physical values such as energy consumption into environmental impacts we use **impact factors**. These can be hard to estimate and precise and up-to-date data is rarely open to use.
+
+**Assumptions:**
+
+* Electricity mix are taken from the ADEME Base Empreinte database and averaged per country.
+
+**Limitations:**
+
+* We do not account for local electricity generation for data center or regional electricity mixes the smallest supported zone is a country.
+
+### On embodied impacts
+
+We aim at covering the largest scope possible when assessing the environmental impacts. That is why we rely extensively on the work done by [Boavizta](https://boavizta.org/) non-profit. Unfortunately, assessing the environmental impacts of resources extraction, hardware manufacturing and transportation is very challenging mainly due to a lack of transparency from all the organizations that are involved. Estimations of the inaccuracies are currently not supported within Boavizta's methodology and tool ([BoaviztAPI](https://doc.api.boavizta.org/)).
 
 
 ## References

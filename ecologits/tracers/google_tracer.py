@@ -2,27 +2,23 @@ import time
 from collections.abc import Iterable
 from typing import Any, Callable, Union
 
-from wrapt import wrap_function_wrapper
+from google.generativeai import GenerativeModel  # type: ignore[import-untyped]
+from google.generativeai.types import (  # type: ignore[import-untyped]
+    AsyncGenerateContentResponse as _AsyncGenerateContentResponse,
+)
+from google.generativeai.types import GenerateContentResponse as _GenerateContentResponse
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
 from ecologits.tracers.utils import llm_impacts
-
-try:
-    from google.generativeai import GenerativeModel
-    from google.generativeai.types import AsyncGenerateContentResponse as _AsyncGenerateContentResponse
-    from google.generativeai.types import (
-        GenerateContentResponse as _GenerateContentResponse,
-    )
-except ImportError:
-    GenerativeModel = object()
-    _GenerateContentResponse = object()
-    _AsyncGenerateContentResponse = object()
-
 
 PROVIDER = "google"
 
 
 class GenerateContentResponse(_GenerateContentResponse):
+    """
+    Wrapper of `google.generativeai.types.GenerateContentResponse` with `ImpactsOutput`
+    """
     def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None:   # noqa: ANN001 ANN002 ANN003
         super().__init__(done, iterator, result, impacts, *args, **kwargs)
         self.impacts = impacts
@@ -32,6 +28,9 @@ class GenerateContentResponse(_GenerateContentResponse):
 
 
 class AsyncGenerateContentResponse(_AsyncGenerateContentResponse):
+    """
+    Wrapper of `google.generativeai.types.AsyncGenerateContentResponse` with `ImpactsOutput`
+    """
     def __init__(self, done, iterator, result, impacts, *args, **kwargs) -> None: # noqa: ANN001 ANN002 ANN003
         super().__init__(done, iterator, result, impacts, *args, **kwargs)
         self.impacts = impacts
@@ -47,16 +46,11 @@ def wrap_from_dict(response_dict: dict, impacts, async_mode = False) -> Union[Ge
     result = response_dict.get("_result")
 
     # Remove problematic keys from the dictionary, if they exist
-    if "_done" in response_dict:
-        del response_dict["_done"]
-    if "_iterator" in response_dict:
-        del response_dict["_iterator"]
-    if "_result" in response_dict:
-        del response_dict["_result"]
-    if "_chunks" in response_dict:
-        del response_dict["_chunks"]
-    if "_error" in response_dict:
-        del response_dict["_error"]
+    response_dict.pop("_done", None)
+    response_dict.pop("_iterator", None)
+    response_dict.pop("_result", None)
+    response_dict.pop("_chunks", None)
+    response_dict.pop("_error", None)
 
     if async_mode:
         return AsyncGenerateContentResponse(
@@ -71,6 +65,19 @@ def wrap_from_dict(response_dict: dict, impacts, async_mode = False) -> Union[Ge
 def google_chat_wrapper(
     wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any
 ) -> Union[GenerateContentResponse, Iterable[GenerateContentResponse]]:
+    """
+    Function that wraps a Google answer with computed impacts
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `GenerateContentResponse` or `Iterable[GenerateContentResponse]` with impacts
+    """
+
     if kwargs.get("stream", False):
         return google_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -126,6 +133,19 @@ def google_chat_wrapper_stream(
 async def google_async_chat_wrapper(
     wrapped: Callable, instance: GenerativeModel, args: Any, kwargs: Any
 ) -> Union[AsyncGenerateContentResponse, Iterable[AsyncGenerateContentResponse]]:
+    """
+    Function that wraps a Google answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `AsyncGenerateContentResponse` or `Iterable[AsyncGenerateContentResponse]]` with impacts
+    """
+
     if kwargs.get("stream", False):
         return google_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -155,7 +175,7 @@ async def google_async_chat_wrapper_non_stream(
     return response
 
 
-async def google_async_chat_wrapper_stream(
+async def google_async_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: GenerativeModel,
     args: Any,
@@ -179,6 +199,10 @@ async def google_async_chat_wrapper_stream(
 
 
 class GoogleInstrumentor:
+    """
+    Instrumentor initialized by EcoLogits to automatically wrap all Google calls
+    """
+
     def __init__(self) -> None:
         self.wrapped_methods = [
             {

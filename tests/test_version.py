@@ -15,4 +15,4 @@ def get_poetry_version() -> Optional[str]:
     path = Path(__file__).resolve().parents[1] / 'pyproject.toml'
     with open(str(path), "r") as fd:
         pyproject = toml.loads(fd.read())
-        return pyproject['tool']['poetry']['version']
+        return pyproject['project']['version']

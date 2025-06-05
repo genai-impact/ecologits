@@ -1,0 +1,4405 @@
+{
+    "aliases": [
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo",
+            "alias": "gpt-3.5-turbo"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-0125",
+            "alias": "gpt-3.5-turbo-0125"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-1106",
+            "alias": "gpt-3.5-turbo-1106"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-16k",
+            "alias": "gpt-3.5-turbo-16k"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-instruct-0914",
+            "alias": "gpt-3.5-turbo-instruct-0914"
+        },
+        {
+            "type": "alias",
+            "provider": "openai",
+            "name": "gpt-35-turbo-instruct",
+            "alias": "gpt-3.5-turbo-instruct"
+        }
+    ],
+    "models": [
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "c4ai-aya-expanse-8b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereForAI/aya-expanse-8b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "c4ai-aya-expanse-32b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 32.3
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereForAI/aya-expanse-32b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command",
+            "architecture": {
+                "type": "dense",
+                "parameters": 52
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://docs.oracle.com/en-us/iaas/Content/generative-ai/pretrained-models.htm"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-nightly",
+            "architecture": {
+                "type": "dense",
+                "parameters": 52
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://docs.oracle.com/en-us/iaas/Content/generative-ai/pretrained-models.htm"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-light",
+            "architecture": {
+                "type": "dense",
+                "parameters": 6
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://docs.oracle.com/en-us/iaas/Content/generative-ai/pretrained-models.htm"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-light-nightly",
+            "architecture": {
+                "type": "dense",
+                "parameters": 6
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://docs.oracle.com/en-us/iaas/Content/generative-ai/pretrained-models.htm"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-r",
+            "architecture": {
+                "type": "dense",
+                "parameters": 32.3
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereForAI/c4ai-command-r-08-2024  "
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-r-03-2024",
+            "architecture": {
+                "type": "dense",
+                "parameters": 32.3
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereForAI/c4ai-command-r-08-2024  "
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-r-08-2024",
+            "architecture": {
+                "type": "dense",
+                "parameters": 32.3
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereForAI/c4ai-command-r-08-2024  "
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-r-plus",
+            "architecture": {
+                "type": "dense",
+                "parameters": 104
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-r-plus-04-2024",
+            "architecture": {
+                "type": "dense",
+                "parameters": 104
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-r-plus-08-2024",
+            "architecture": {
+                "type": "dense",
+                "parameters": 104
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-r7b-12-2024",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereForAI/c4ai-command-r7b-12-2024"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "databricks/dolly-v1-6b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 6.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/databricks/dolly-v1-6b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "databricks/dolly-v2-12b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 12.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/databricks/dolly-v2-12b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "databricks/dolly-v2-7b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/databricks/dolly-v2-7b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "databricks/dolly-v2-3b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 3.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/databricks/dolly-v2-3b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "databricks/dbrx-base",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 132,
+                    "active": 36
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/databricks/dbrx-base"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "databricks/dbrx-instruct",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 132,
+                    "active": 36
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/databricks/dbrx-instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mistral-7B-v0.1",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.24
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mistral-7B-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mistral-7B-Instruct-v0.1",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.24
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mixtral-8x7B-v0.1",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 46.7,
+                    "active": 12.9
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mixtral-8x7B-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 46.7,
+                    "active": 12.9
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mistral-7B-Instruct-v0.2",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.24
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mixtral-8x22B-v0.1",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mixtral-8x22B-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mixtral-8x22B-Instruct-v0.1",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mistral-7B-v0.3",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.25
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mistral-7B-v0.3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mistral-7B-Instruct-v0.3",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.25
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Codestral-22B-v0.1",
+            "architecture": {
+                "type": "dense",
+                "parameters": 22.25
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Codestral-22B-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mathstral-7B-v0.1",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.25
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mathstral-7B-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mistral-Nemo-Instruct-2407",
+            "architecture": {
+                "type": "dense",
+                "parameters": 12.25
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mistral-Nemo-Base-2407",
+            "architecture": {
+                "type": "dense",
+                "parameters": 12.25
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mistral-Nemo-Base-2407"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistralai/Mistral-Large-Instruct-2407",
+            "architecture": {
+                "type": "dense",
+                "parameters": 122.61
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistralai/Mistral-Large-Instruct-2407"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/Mistral-7B-v0.2",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.24
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/Mistral-7B-v0.2"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/Mixtral-8x22B-v0.1",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/Mixtral-8x22B-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/Mixtral-8x22B-v0.1-original",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/Mixtral-8x22B-v0.1-original"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/Mixtral-8x22B-v0.1-4bit",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/Mixtral-8x22B-v0.1-4bit"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/Mixtral-8x22B-v0.1-AWQ",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/Mixtral-8x22B-v0.1-AWQ"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/Mixtral-8x22B-Instruct-v0.1-4bit",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/Mixtral-8x22B-Instruct-v0.1-4bit"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/mixtral-8x22B-Instruct-v0.3-original",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/mixtral-8x22B-Instruct-v0.3-original"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/mixtral-8x22B-v0.3-original",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/mixtral-8x22B-v0.3-original"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/mixtral-8x22B-v0.3",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/mixtral-8x22B-v0.3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/Mistral-7B-Instruct-v0.3",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.25
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/Mistral-7B-Instruct-v0.3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "mistral-community/Codestral-22B-v0.1",
+            "architecture": {
+                "type": "dense",
+                "parameters": 22.25
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/mistral-community/Codestral-22B-v0.1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3.1-8B",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3.1-8B"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3.1-70B",
+            "architecture": {
+                "type": "dense",
+                "parameters": 70.55
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3.1-70B"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3.1-70B-Instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 70.55
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3.1-405B",
+            "architecture": {
+                "type": "dense",
+                "parameters": 405.85
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3.1-405B"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3.1-405B-Instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 405.85
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3.1-405B-FP8",
+            "architecture": {
+                "type": "dense",
+                "parameters": 405.87
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-FP8"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3.1-405B-Instruct-FP8",
+            "architecture": {
+                "type": "dense",
+                "parameters": 405.87
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-Guard-3-8B",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-Guard-3-8B"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-Guard-3-8B-INT8",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-Guard-3-8B-INT8"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Prompt-Guard-86M",
+            "architecture": {
+                "type": "dense",
+                "parameters": 0.28
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Prompt-Guard-86M"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3-8B",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3-8B"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3-8B-Instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3-70B-Instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 70.55
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-3-70B",
+            "architecture": {
+                "type": "dense",
+                "parameters": 70.55
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-3-70B"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Meta-Llama-Guard-2-8B",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Meta-Llama-Guard-2-8B"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-7b-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 6.74
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-7b-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-13b-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.02
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-13b-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-70b-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 68.98
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-70b-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-7b-chat-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 6.74
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-7b-chat-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-13b-chat-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.02
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-13b-chat-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-70b-chat-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 68.98
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-70b-chat-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-7b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-7b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-13b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-13b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-70b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 70.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-70b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-7b-chat",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-7b-chat"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-13b-chat",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-13b-chat"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/Llama-2-70b-chat",
+            "architecture": {
+                "type": "dense",
+                "parameters": 70.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/Llama-2-70b-chat"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/LlamaGuard-7b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/LlamaGuard-7b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-7b-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-7b-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-13b-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-13b-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-34b-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 34.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-34b-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-70b-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 70.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-70b-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-7b-Python-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-7b-Python-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-34b-Python-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 34.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-34b-Python-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-13b-Python-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-13b-Python-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-70b-Python-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 70.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-70b-Python-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-7b-Instruct-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-7b-Instruct-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-13b-Instruct-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-13b-Instruct-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-34b-Instruct-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 34.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-34b-Instruct-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "meta-llama/CodeLlama-70b-Instruct-hf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 70.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/meta-llama/CodeLlama-70b-Instruct-hf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "CohereForAI/aya-23-8B",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.03
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/CohereForAI/aya-23-8B"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "CohereForAI/aya-23-35B",
+            "architecture": {
+                "type": "dense",
+                "parameters": 34.98
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/CohereForAI/aya-23-35B"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "CohereForAI/c4ai-command-r-plus",
+            "architecture": {
+                "type": "dense",
+                "parameters": 103.81
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/CohereForAI/c4ai-command-r-plus"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "CohereForAI/c4ai-command-r-plus-4bit",
+            "architecture": {
+                "type": "dense",
+                "parameters": 55.05
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/CohereForAI/c4ai-command-r-plus-4bit"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "CohereForAI/c4ai-command-r-v01",
+            "architecture": {
+                "type": "dense",
+                "parameters": 34.98
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/CohereForAI/c4ai-command-r-v01"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "CohereForAI/c4ai-command-r-v01-4bit",
+            "architecture": {
+                "type": "dense",
+                "parameters": 19.05
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/CohereForAI/c4ai-command-r-v01-4bit"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-2b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.61
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-2b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-2b-it",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.61
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-2b-it"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-9b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 9.24
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-9b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-9b-it",
+            "architecture": {
+                "type": "dense",
+                "parameters": 9.24
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-9b-it"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-27b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 27.23
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-27b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-27b-it",
+            "architecture": {
+                "type": "dense",
+                "parameters": 27.23
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-27b-it"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-2b-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-2b-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-2b-it-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-2b-it-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-9b-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 9.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-9b-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-9b-it-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 9.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-9b-it-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-27b-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 27.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-27b-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-27b-it-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 27.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-27b-it-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-9b-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 9.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-9b-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2-instruct-9b-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 9.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2-instruct-9b-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-2b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.51
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-2b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-7b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.54
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-7b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-7b-it",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.54
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-7b-it"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-7b-it-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-7b-it-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-2b-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-2b-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-7b-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-7b-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-7b-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-7b-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-2b-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-2b-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-7b-it-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-7b-it-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-2b-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-2b-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-7b-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-7b-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-7b-it-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-7b-it-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-1.1-7b-it",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.54
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-1.1-7b-it"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-1.1-2b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.51
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-1.1-2b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-1.1-2b-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-1.1-2b-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-1.1-7b-it-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-1.1-7b-it-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-1.1-2b-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-1.1-2b-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/codegemma-1.1-7b-it-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/codegemma-1.1-7b-it-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-1.1-2b-it",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.51
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-1.1-2b-it"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-1.1-7b-it",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.54
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-1.1-7b-it"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-1.1-7b-it-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-1.1-7b-it-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-1.1-2b-it-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-1.1-2b-it-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-1.1-2b-it-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-1.1-2b-it-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-1.1-7b-it-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-1.1-7b-it-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.54
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-it",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.54
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-it"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.51
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-it",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.51
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-it"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-it-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-it-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-it-GGUF",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-it-GGUF"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-it-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-it-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-quant-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-quant-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-it-quant-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-it-quant-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-it-pytorch",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-it-pytorch"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-flax",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-flax"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-it-flax",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-it-flax"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-flax",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-flax"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-it-flax",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-it-flax"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-it-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-it-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-it-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-it-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-sfp-cpp",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-sfp-cpp"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-it-cpp",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-it-cpp"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-sfp-cpp",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-sfp-cpp"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-cpp",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-cpp"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-it-cpp",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-it-cpp"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-7b-it-sfp-cpp",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-7b-it-sfp-cpp"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-it-sfp-cpp",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-it-sfp-cpp"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-cpp",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-cpp"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-1.1-2b-it-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-1.1-2b-it-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-1.1-7b-it-keras",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-1.1-7b-it-keras"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-1.1-2b-it-tflite",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-1.1-2b-it-tflite"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "google/gemma-2b-it-tflite",
+            "architecture": {
+                "type": "dense",
+                "parameters": 2.0
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/google/gemma-2b-it-tflite"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/phi-1",
+            "architecture": {
+                "type": "dense",
+                "parameters": 1.42
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/phi-1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/phi-1_5",
+            "architecture": {
+                "type": "dense",
+                "parameters": 1.42
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/phi-1_5"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-mini-4k-instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 3.82
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-mini-4k-instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-mini-128k-instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 3.82
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-mini-128k-instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-small-8k-instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.39
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-small-8k-instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-small-128k-instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.39
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-small-128k-instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-medium-4k-instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.96
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-medium-4k-instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-medium-128k-instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.96
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-medium-128k-instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-vision-128k-instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": 4.15
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-vision-128k-instruct"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-mini-4k-instruct-onnx",
+            "architecture": {
+                "type": "dense",
+                "parameters": 3.82
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-onnx"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-mini-4k-instruct-onnx-web",
+            "architecture": {
+                "type": "dense",
+                "parameters": 3.82
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-onnx-web"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-mini-128k-instruct-onnx",
+            "architecture": {
+                "type": "dense",
+                "parameters": 3.82
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-mini-128k-instruct-onnx"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-small-8k-instruct-onnx-cuda",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.39
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-small-8k-instruct-onnx-cuda"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-small-128k-instruct-onnx-cuda",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.39
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-small-128k-instruct-onnx-cuda"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-medium-4k-instruct-onnx-cpu",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.96
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-medium-4k-instruct-onnx-cpu"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-medium-4k-instruct-onnx-cuda",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.96
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-medium-4k-instruct-onnx-cuda"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-medium-4k-instruct-onnx-directml",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.96
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-medium-4k-instruct-onnx-directml"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-medium-128k-instruct-onnx-cpu",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.96
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-medium-128k-instruct-onnx-cpu"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-medium-128k-instruct-onnx-cuda",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.96
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-medium-128k-instruct-onnx-cuda"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-medium-128k-instruct-onnx-directml",
+            "architecture": {
+                "type": "dense",
+                "parameters": 13.96
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-medium-128k-instruct-onnx-directml"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-vision-128k-instruct-onnx-cpu",
+            "architecture": {
+                "type": "dense",
+                "parameters": 4.15
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-vision-128k-instruct-onnx-cpu"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-vision-128k-instruct-onnx-cuda",
+            "architecture": {
+                "type": "dense",
+                "parameters": 4.15
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-vision-128k-instruct-onnx-cuda"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-vision-128k-instruct-onnx-directml",
+            "architecture": {
+                "type": "dense",
+                "parameters": 4.15
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-vision-128k-instruct-onnx-directml"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "microsoft/Phi-3-mini-4k-instruct-gguf",
+            "architecture": {
+                "type": "dense",
+                "parameters": 3.82
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "codestral-2405",
+            "architecture": {
+                "type": "dense",
+                "parameters": 22.2
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/codestral"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "codestral-2411-rc5",
+            "architecture": {
+                "type": "dense",
+                "parameters": 22.2
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/codestral"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "codestral-2412",
+            "architecture": {
+                "type": "dense",
+                "parameters": 22.2
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/codestral"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "codestral-2501",
+            "architecture": {
+                "type": "dense",
+                "parameters": 22.2
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/codestral"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "codestral-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": 22.2
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/codestral"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "ministral-3b-2410",
+            "architecture": {
+                "type": "dense",
+                "parameters": 3.32
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/ministraux"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "ministral-3b-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": 3.32
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/ministraux"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "ministral-8b-2410",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.02
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/ministraux"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "ministral-8b-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": 8.02
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/ministraux"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-large-2402",
+            "architecture": {
+                "type": "dense",
+                "parameters": 123
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-large-2407"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-large-2407",
+            "architecture": {
+                "type": "dense",
+                "parameters": 123
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-large-2407"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-large-2411",
+            "architecture": {
+                "type": "dense",
+                "parameters": 123
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-large-2407"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-large-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": 123
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-large-2407"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-large-pixtral-2411",
+            "architecture": {
+                "type": "dense",
+                "parameters": 123
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-large-2407"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-medium",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 70,
+                    "max": 120
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-medium-2312",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 70,
+                    "max": 120
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-medium-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 70,
+                    "max": 120
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-saba-2502",
+            "architecture": {
+                "type": "dense",
+                "parameters": 24
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-saba"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-saba-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": 24
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-saba"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-small",
+            "architecture": {
+                "type": "dense",
+                "parameters": 23.6
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-small-3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-small-2312",
+            "architecture": {
+                "type": "dense",
+                "parameters": 23.6
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-small-3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-small-2402",
+            "architecture": {
+                "type": "dense",
+                "parameters": 23.6
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-small-3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-small-2409",
+            "architecture": {
+                "type": "dense",
+                "parameters": 23.6
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-small-3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-small-2501",
+            "architecture": {
+                "type": "dense",
+                "parameters": 23.6
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-small-3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-small-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": 23.6
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-small-3"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-tiny",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.3
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-tiny-2312",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.3
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-tiny-2407",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.3
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "mistral-tiny-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.3
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "open-mistral-7b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 7.3
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/announcing-mistral-7b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "open-mistral-nemo",
+            "architecture": {
+                "type": "dense",
+                "parameters": 12.2
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-nemo"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "open-mistral-nemo-2407",
+            "architecture": {
+                "type": "dense",
+                "parameters": 12.2
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mistral-nemo"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "open-mixtral-8x22b",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mixtral-8x22b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "open-mixtral-8x22b-2404",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 140.6,
+                    "active": 39.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mixtral-8x22b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "open-mixtral-8x7b",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 46.7,
+                    "active": 12.9
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/mixtral-of-experts"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "pixtral-12b",
+            "architecture": {
+                "type": "dense",
+                "parameters": 12
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/pixtral-12b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "pixtral-12b-2409",
+            "architecture": {
+                "type": "dense",
+                "parameters": 12
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/pixtral-12b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "pixtral-12b-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": 12
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/pixtral-12b"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "pixtral-large-2411",
+            "architecture": {
+                "type": "dense",
+                "parameters": 123
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/pixtral-large"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "pixtral-large-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": 123
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/pixtral-large"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.0-pro",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.0-pro-001",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.0-pro-002",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.0-pro-vision",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.0-pro-vision-001",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.5-pro",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.5-pro-001",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.5-pro-002",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.5-flash",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.5-flash-001",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-1.5-flash-002",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-2.0-flash",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-2.0-flash-001",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-2.0-flash-lite",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 8,
+                    "max": 28
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google",
+            "name": "gemini-2.0-flash-lite-001",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 8,
+                    "max": 28
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-2.0",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 130,
+                    "max": 130
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-2.1",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 130,
+                    "max": 130
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-5-haiku-20241022",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "total": {
+                        "min": 8,
+                        "max": 28
+                    },
+                    "active": {
+                        "min": 8,
+                        "max": 28
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-5-haiku-latest",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "total": {
+                        "min": 8,
+                        "max": 28
+                    },
+                    "active": {
+                        "min": 8,
+                        "max": 28
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-5-sonnet-20240620",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-5-sonnet-20241022",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-5-sonnet-latest",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-7-sonnet-20250219",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-7-sonnet-latest",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-haiku-20240307",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 300,
+                    "active": {
+                        "min": 75,
+                        "max": 150
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-opus-20240229",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 2000,
+                    "active": {
+                        "min": 250,
+                        "max": 1000
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-opus-latest",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 2000,
+                    "active": {
+                        "min": 250,
+                        "max": 1000
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-3-sonnet-20240229",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 800,
+                    "active": {
+                        "min": 100,
+                        "max": 400
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "chatgpt-4o-latest",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-3.5-turbo",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-3-5-turbo"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-3.5-turbo-0125",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-3-5-turbo"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-3.5-turbo-1106",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-3-5-turbo"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-3.5-turbo-16k",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-3-5-turbo"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-3.5-turbo-instruct",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-3-5-turbo"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-3.5-turbo-instruct-0914",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 20,
+                    "max": 70
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-3-5-turbo"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 1760,
+                    "active": {
+                        "min": 220,
+                        "max": 880
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4-0125-preview",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 1760,
+                    "active": {
+                        "min": 220,
+                        "max": 880
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4-0613",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 1760,
+                    "active": {
+                        "min": 220,
+                        "max": 880
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4-1106-preview",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 1760,
+                    "active": {
+                        "min": 220,
+                        "max": 880
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4-turbo",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 880,
+                    "active": {
+                        "min": 110,
+                        "max": 440
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4-turbo-2024-04-09",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 880,
+                    "active": {
+                        "min": 110,
+                        "max": 440
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4-turbo-preview",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 880,
+                    "active": {
+                        "min": 110,
+                        "max": 440
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-2024-05-13",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-2024-08-06",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-2024-11-20",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-audio-preview",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-audio-preview-2024-10-01",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-audio-preview-2024-12-17",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-mini",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 8,
+                    "max": 28
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o-mini"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-mini-2024-07-18",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 8,
+                    "max": 28
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o-mini"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-mini-audio-preview",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 8,
+                    "max": 28
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o-mini"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-mini-audio-preview-2024-12-17",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 8,
+                    "max": 28
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o-mini"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-realtime-preview",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-realtime-preview-2024-10-01",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-4o-realtime-preview-2024-12-17",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#gpt-4o"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "o1",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#o1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "o1-2024-12-17",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#o1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "o1-mini",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 8,
+                    "max": 28
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#o1-mini"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "o1-mini-2024-09-12",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 8,
+                    "max": 28
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#o1-mini"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "o1-preview",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#o1"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "o1-preview-2024-09-12",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models#o1"
+            ]
+        }
+    ]
+}

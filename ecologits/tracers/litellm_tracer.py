@@ -1,32 +1,55 @@
 import time
-from typing import Any, Callable, Union
+from typing import Any, Callable, Optional, Union
 
-from wrapt import wrap_function_wrapper
+import litellm
+from litellm import AsyncCompletions, Completions
+from litellm.types.utils import ModelResponse
+from litellm.utils import CustomStreamWrapper
+from rapidfuzz import fuzz, process
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
 from ecologits.model_repository import models
-from ecologits.tracers.utils import llm_impacts
-
-try:
-    import litellm
-    from litellm import AsyncCompletions, Completions
-    from litellm.types.utils import ModelResponse
-    from litellm.utils import CustomStreamWrapper
-
-except ImportError:
-    ModelResponse = object()
-    CustomStreamWrapper = object()
-    Completions = object()
-    AsyncCompletions = object()
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 
 class ChatCompletion(ModelResponse):
-    impacts: Impacts
+    """
+    Wrapper of `litellm.types.utils.ModelResponse` with `ImpactsOutput`
+    """
+    impacts: ImpactsOutput
 
 
 class ChatCompletionChunk(ModelResponse):
-    impacts: Impacts
+    """
+    Wrapper of `litellm.types.utils.ModelResponse` with `ImpactsOutput`
+    """
+    impacts: ImpactsOutput
+
+
+_model_choices = [f"{m.provider.value}/{m.name}" for m in models.list_models()]
+
+
+def litellm_match_model(model_name: str) -> Optional[tuple[str, str]]:
+    """
+    Match according provider and model from a litellm model_name.
+
+    Args:
+        model_name: Name of the model as used in litellm.
+
+    Returns:
+        A tuple (provider, model_name) matching a record of the ModelRepository.
+    """
+    candidate = process.extractOne(
+        query=model_name,
+        choices=_model_choices,
+        scorer=fuzz.token_sort_ratio,
+        score_cutoff=51
+    )
+    if candidate is not None:
+        provider, model_name = candidate[0].split("/", 1)
+        return provider, model_name
+    return None
 
 
 def litellm_chat_wrapper(
@@ -35,13 +58,26 @@ def litellm_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletion, CustomStreamWrapper]:
+    """
+    Function that wraps a LiteLLM answer with computed impacts
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletion` or `CustomStreamWrapper` with impacts
+    """
+
     if kwargs.get("stream", False):
         return litellm_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
         return litellm_chat_wrapper_non_stream(wrapped, instance, args, kwargs)
 
 
-def litellm_chat_wrapper_stream(
+def litellm_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: Completions,      # noqa: ARG001
     args: Any,
@@ -54,16 +90,20 @@ def litellm_chat_wrapper_stream(
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1
         request_latency = time.perf_counter() - timer_start
-        model_name = chunk.model
-        impacts = llm_impacts(
-            provider=models.find_provider(model_name=model_name),
-            model_name=model_name,
-            output_token_count=token_count,
-            request_latency=request_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone,
-        )
-        if impacts is not None:
-            yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
+
+        model_match = litellm_match_model(chunk.model)
+        if model_match is not None:
+            impacts = llm_impacts(
+                provider=model_match[0],
+                model_name=model_match[1],
+                output_token_count=token_count,
+                request_latency=request_latency,
+                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            )
+            if impacts is not None:
+                yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
+            else:
+                yield chunk
         else:
             yield chunk
 
@@ -77,10 +117,12 @@ def litellm_chat_wrapper_non_stream(
     timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
-    model_name = response.model
+    model_match = litellm_match_model(response.model)
+    if model_match is None:
+        return response
     impacts = llm_impacts(
-        provider=models.find_provider(model_name=model_name),
-        model_name=model_name,
+        provider=model_match[0],
+        model_name=model_match[1],
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
@@ -97,6 +139,18 @@ async def litellm_async_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletion,CustomStreamWrapper]:
+    """
+    Function that wraps a LiteLLM answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletion` or `CustomStreamWrapper` with impacts
+    """
     if kwargs.get("stream", False):
         return litellm_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -112,10 +166,12 @@ async def litellm_async_chat_wrapper_base(
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
-    model_name = response.model
+    model_match = litellm_match_model(response.model)
+    if model_match is None:
+        return response
     impacts = llm_impacts(
-        provider=models.find_provider(model_name=model_name),
-        model_name=model_name,
+        provider=model_match[0],
+        model_name=model_match[1],
         output_token_count=response.usage.completion_tokens,
         request_latency=request_latency,
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
@@ -126,7 +182,7 @@ async def litellm_async_chat_wrapper_base(
         return response
 
 
-async def litellm_async_chat_wrapper_stream(
+async def litellm_async_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: AsyncCompletions,      # noqa: ARG001
     args: Any,
@@ -140,22 +196,29 @@ async def litellm_async_chat_wrapper_stream(
         if i > 0 and chunk.choices[0].finish_reason is None:
             token_count += 1
         request_latency = time.perf_counter() - timer_start
-        model_name = chunk.model
-        impacts = llm_impacts(
-            provider=models.find_provider(model_name=model_name),
-            model_name=model_name,
-            output_token_count=token_count,
-            request_latency=request_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
-        )
-        if impacts is not None:
-            yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
+        model_match = litellm_match_model(chunk.model)
+        if model_match is not None:
+            impacts = llm_impacts(
+                provider=model_match[0],
+                model_name=model_match[1],
+                output_token_count=token_count,
+                request_latency=request_latency,
+                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            )
+            if impacts is not None:
+                yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
+            else:
+                yield chunk
         else:
             yield chunk
         i += 1
 
 
 class LiteLLMInstrumentor:
+    """
+    Instrumentor initialized by EcoLogits to automatically wrap all LiteLLM calls
+    """
+
     def __init__(self) -> None:
         self.wrapped_methods = [
             {

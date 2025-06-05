@@ -17,55 +17,76 @@ interactions:
       User-Agent:
       - python-requests/2.32.3
       x-goog-api-client:
-      - genai-py/0.7.2 gl-python/3.11.8 grpc/1.64.1 gax/2.19.1
+      - genai-py/0.8.4 gl-python/3.13.1 grpc/1.70.0 gax/2.24.1
       x-goog-request-params:
       - model=models/gemini-1.5-flash
     method: POST
     uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint
   response:
     body:
-      string: !!binary |
-        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
+      string: "{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
+        [\n          {\n            \"text\": \"Elara wasn't your typical twelve-year-old.
+        While her classmates obsessed over pop stars and TikTok dances, Elara dreamt
+        of faraway lands, of shimmering deserts and whispering forests. Her dreams,
+        however, were always grounded in the harsh reality of her small, dusty town.
+        \ That is, until she found the backpack.\\n\\nIt wasn't much to look at \u2013
+        a worn, leather thing she discovered tucked away in her grandmother's attic,
+        smelling faintly of cinnamon and old parchment. But the moment Elara slung
+        it over her shoulders, a warmth spread through her, a tingling sensation that
+        promised adventure.\\n\\nThe first time she used it, she'd wished for a strawberry
+        milkshake.  A perfectly chilled, strawberry-pink milkshake materialized in
+        the backpack, complete with a straw.  The second time, a little bolder, she
+        wished for a trip to the beach.  The backpack's contents shifted, a gentle
+        humming resonating from within.  When she opened it, she wasn't in her grandmother's
+        attic anymore, but standing on warm sand, the salty air filling her lungs,
+        the sound of crashing waves washing over her.\\n\\nWord of Elara's magical
+        backpack spread like wildfire through her small town.  Requests poured in.
+        \ Mrs. Gable, the baker, needed sugar; old Mr. Fitzwilliam, who lived alone,
+        wanted a friendly cat. The backpack delivered, always with a touch of whimsy.
+        \ A mountain of sugar appeared for Mrs. Gable, and Mr. Fitzwilliam found a
+        fluffy Persian kitten purring contentedly in his lap, the backpack having
+        even conjured a tiny bowl of milk.\\n\\nBut the backpack wasn't just about
+        fulfilling desires. It was about understanding them.  One day, a heartbroken
+        boy named Leo asked for a lost toy.  Instead of the toy itself, the backpack
+        produced a small, intricately carved wooden bird, the wood smooth and warm
+        to the touch.  Leo, initially disappointed, realized the bird was a perfect
+        replica of his grandfather's favorite carving \u2013 a carving his grandfather
+        had made for him, before passing away. The backpack had provided something
+        more valuable than a mere replacement.\\n\\nElara learned that the backpack
+        wasn't a genie granting wishes, but a magical conduit, amplifying and interpreting
+        true need.  She realized the importance of intention, of understanding the
+        heart behind every request.\\n\\nOne day, a traveling storyteller arrived
+        in town.  He spoke of a legendary city hidden deep within a jungle, a city
+        rumored to hold the key to unimaginable power.  Elara felt a powerful pull,
+        a longing for something beyond her small town.  She packed a small bag, not
+        with wishes for riches or fame, but with hope and a yearning for knowledge.
+        \ She wished for the jungle, for the path leading to the legendary city, and
+        the backpack responded, opening to a lush, vibrant jungle teeming with life,
+        a path winding through the emerald foliage leading her towards her destiny.\\n\\nElara,
+        armed with her magic backpack and a heart filled with wonder, stepped into
+        the unknown.  The journey ahead was uncertain, but one thing was clear: the
+        magic wasn't just in the backpack; it was in her heart, in her courage to
+        seek adventure, and in her understanding of the profound power of genuine
+        desire.\\n\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n
+        \     \"finishReason\": 1,\n      \"avgLogprobs\": -0.61674470297542339\n
+        \   }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 8,\n    \"candidatesTokenCount\":
+        679,\n    \"totalTokenCount\": 687,\n    \"promptTokensDetails\": [\n      {\n
+        \       \"modality\": 1,\n        \"tokenCount\": 8\n      }\n    ],\n    \"candidatesTokensDetails\":
+        [\n      {\n        \"modality\": 1,\n        \"tokenCount\": 679\n      }\n
+        \   ]\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n"
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Cache-Control:
-      - private
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Wed, 17 Jul 2024 11:45:56 GMT
+      - Fri, 07 Feb 2025 07:50:57 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=5138
+      - gfet4t7; dur=4655
       Transfer-Encoding:
       - chunked
       Vary:

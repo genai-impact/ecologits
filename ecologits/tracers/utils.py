@@ -1,14 +1,55 @@
 from typing import Optional
 
+from pydantic import BaseModel
+
 from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
-from ecologits.impacts.modeling import Impacts, Range
+from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Usage
 from ecologits.log import logger
-from ecologits.model_repository import models
+from ecologits.model_repository import ParametersMoE, models
+from ecologits.status_messages import ErrorMessage, ModelNotRegisteredError, WarningMessage, ZoneNotRegisteredError
 
 
-def _avg(value_range: tuple) -> float:
-    return sum(value_range) / len(value_range)
+class ImpactsOutput(BaseModel):
+    """
+    Impacts output data model.
+
+    Attributes:
+        energy: Total energy consumption
+        gwp: Total Global Warming Potential (GWP) impact
+        adpe: Total Abiotic Depletion Potential for Elements (ADPe) impact
+        pe: Total Primary Energy (PE) impact
+        usage: Impacts for the usage phase
+        embodied: Impacts for the embodied phase
+        warnings: List of warnings
+        errors: List of errors
+    """
+    energy: Optional[Energy] = None
+    gwp: Optional[GWP] = None
+    adpe: Optional[ADPe] = None
+    pe: Optional[PE] = None
+    usage: Optional[Usage] = None
+    embodied: Optional[Embodied] = None
+    warnings: Optional[list[WarningMessage]] = None
+    errors: Optional[list[ErrorMessage]] = None
+
+    @property
+    def has_warnings(self) -> bool:
+        return isinstance(self.warnings, list) and len(self.warnings) > 0
+
+    @property
+    def has_errors(self) -> bool:
+        return isinstance(self.errors, list) and len(self.errors) > 0
+
+    def add_warning(self, warning: WarningMessage) -> None:
+        if self.warnings is None:
+            self.warnings = []
+        self.warnings.append(warning)
+
+    def add_errors(self, error: ErrorMessage) -> None:
+        if self.errors is None:
+            self.errors = []
+        self.errors.append(error)
 
 
 def llm_impacts(
@@ -16,8 +57,8 @@ def llm_impacts(
     model_name: str,
     output_token_count: int,
     request_latency: float,
-    electricity_mix_zone: Optional[str] = "WOR",
-) -> Optional[Impacts]:
+    electricity_mix_zone: str = "WOR",
+) -> ImpactsOutput:
     """
     High-level function to compute the impacts of an LLM generation request.
 
@@ -34,22 +75,27 @@ def llm_impacts(
 
     model = models.find_model(provider=provider, model_name=model_name)
     if model is None:
-        logger.debug(f"Could not find model `{model_name}` for {provider} provider.")
-        return None
-    model_active_params = model.active_parameters \
-                          or Range(min=model.active_parameters_range[0], max=model.active_parameters_range[1])
-    model_total_params = model.total_parameters \
-                         or Range(min=model.total_parameters_range[0], max=model.total_parameters_range[1])
+        error = ModelNotRegisteredError(message=f"Could not find model `{model_name}` for {provider} provider.")
+        logger.warning_once(str(error))
+        return ImpactsOutput(errors=[error])
+
+    if isinstance(model.architecture.parameters, ParametersMoE):
+        model_total_params = model.architecture.parameters.total
+        model_active_params = model.architecture.parameters.active
+    else:
+        model_total_params = model.architecture.parameters
+        model_active_params = model.architecture.parameters
 
     electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_mix_zone)
     if electricity_mix is None:
-        logger.debug(f"Could not find electricity mix `{electricity_mix_zone}` in the ADEME database")
-        return None
+        error = ZoneNotRegisteredError(message=f"Could not find electricity mix for `{electricity_mix_zone}` zone.")
+        logger.warning_once(str(error))
+        return ImpactsOutput(errors=[error])
+
     if_electricity_mix_adpe=electricity_mix.adpe
     if_electricity_mix_pe=electricity_mix.pe
     if_electricity_mix_gwp=electricity_mix.gwp
-
-    return compute_llm_impacts(
+    impacts = compute_llm_impacts(
         model_active_parameter_count=model_active_params,
         model_total_parameter_count=model_total_params,
         output_token_count=output_token_count,
@@ -58,3 +104,11 @@ def llm_impacts(
         if_electricity_mix_pe=if_electricity_mix_pe,
         if_electricity_mix_gwp=if_electricity_mix_gwp,
     )
+    impacts = ImpactsOutput.model_validate(impacts.model_dump())
+
+    if model.has_warnings:
+        for w in model.warnings:
+            logger.warning_once(str(w))
+            impacts.add_warning(w)
+
+    return impacts

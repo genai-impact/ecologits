@@ -6,6 +6,15 @@ from typing import Optional
 
 @dataclass
 class ElectricityMix:
+    """
+    Electricity mix of a country
+
+    Attributes:
+        zone: ISO 3166-1 alpha-3 code of the electricity mix zone
+        adpe: Abiotic Depletion Potential of the mix (in kgSbeq / kWh)
+        pe: Primary Energy of the mix (in MJ / kWh)
+        gwp: Global Warming Potential of the mix (in kgCO2eq / kWh)
+    """
     zone: str
     adpe: float
     pe: float
@@ -13,6 +22,10 @@ class ElectricityMix:
 
 
 class ElectricityMixRepository:
+    """
+    Repository of electricity mixes.
+    """
+
     def __init__(self, electricity_mixes: list[ElectricityMix]) -> None:
         self.__electricity_mixes = electricity_mixes
 

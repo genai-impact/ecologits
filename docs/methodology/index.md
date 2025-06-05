@@ -22,11 +22,30 @@ Our assessment considers **three key environmental criteria**:
 - Abiotic Resource Depletion for Elements (ADPe): Assesses the consumption of raw minerals and metals, expressed in antimony equivalents.
 - Primary Energy (PE): Calculates energy consumed from natural sources, expressed in megajoules.
 
-Using a **bottom-up modeling approach**, we assess and aggregate the environmental impacts of all individual service components. This method differs from top-down approaches by allowing precise allocation of each resource's impact to the overall environmental footprint.
+Using a **bottom-up modeling approach**, we assess and aggregate the environmental impacts of all individual service components within scope. This method differs from top-down approaches by allowing precise allocation of each resource's impact to the overall environmental footprint. The key advantage of bottom-up modeling is that our methodology can be customized for each provider that share information.
 
-Our current focus is on high-performance GPU-accelerated cloud instances, crucial for GenAI inference tasks. While we exclude impacts from training, networking, and end-user devices, we thoroughly evaluate the impacts associated with hosting and running the model inferences.
+Our method computes **high-confidence approximation intervals**, providing a range of values within which we are confident enough that the true consumption lies.
 
 The methodology is grounded in **transparency** and **reproducibility**, utilizing open market and technical data to ensure our results are reliable and verifiable.
+
+## Scope of the methodology
+
+Our methodology focuses on **assessing the environmental impacts of GenAI inference tasks**. That is why we exclude impacts from training, networking and end-used devices, we thoroughly evaluate the impacts associated with hosting and running the model inferences.
+
+<figure markdown="span">
+  ![Figure: Energy consumption per output token vs. number of active parameters ](../assets/methodology/llm/figure_boundaries.png)
+  <figcaption>Boundaries of our impact assessment methodology.</figcaption>
+</figure>
+
+Because evaluating the environmental footprint of GenAI services is hard we make some **assumptions** to simplify the assessment. In the following section we will describe general assumptions that we use, if you want to learn more about the specifics look at the according methodology page.  
+
+
+## Assumptions and limitations
+
+Estimating the environmental impacts of generative AI services at inference can be really challenging because of the **lack of open data and transparent information** from the key players (AI/cloud providers, hardware manufacturers, environmental impact databases, etc.) In the [LLM inference](llm_inference.md) methodology we explain at high-level all the [**assumptions and limitations**](llm_inference.md#assumptions-and-limitations) of our bottom-up approach.
+
+!!! info "Regarding the assumptions we make on **proprietary models**, we have a [dedicated section](proprietary_models.md) for increased transparency and explainability."
+
 
 ## Licenses and citations
 

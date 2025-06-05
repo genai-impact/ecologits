@@ -1,43 +1,34 @@
 import time
 from collections.abc import AsyncIterable, Iterable
 from dataclasses import asdict, dataclass
-from typing import Any, Callable, Union
+from typing import Any, Callable, Optional, Union
 
-from wrapt import wrap_function_wrapper
+import tiktoken
+from huggingface_hub import AsyncInferenceClient, InferenceClient  # type: ignore[import-untyped]
+from huggingface_hub import ChatCompletionOutput as _ChatCompletionOutput
+from huggingface_hub import ChatCompletionStreamOutput as _ChatCompletionStreamOutput
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
-
-try:
-    import tiktoken
-    from huggingface_hub import AsyncInferenceClient, InferenceClient
-    from huggingface_hub import ChatCompletionOutput as _ChatCompletionOutput
-    from huggingface_hub import ChatCompletionStreamOutput as _ChatCompletionStreamOutput
-except ImportError:
-    InferenceClient = object()
-    AsyncInferenceClient = object()
-
-    @dataclass
-    class _ChatCompletionOutput:
-        pass
-
-    @dataclass
-    class _ChatCompletionStreamOutput:
-        pass
-
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 PROVIDER = "huggingface_hub"
 
 
 @dataclass
 class ChatCompletionOutput(_ChatCompletionOutput):
-    impacts: Impacts
+    """
+    Wrapper of `huggingface_hub.ChatCompletionOutput` with `ImpactsOutput`
+    """
+    impacts: Optional[ImpactsOutput] = None
 
 
 @dataclass
 class ChatCompletionStreamOutput(_ChatCompletionStreamOutput):
-    impacts: Impacts
+    """
+    Wrapper of `huggingface_hub.ChatCompletionStreamOutput` with `ImpactsOutput`
+    """
+    impacts: Optional[ImpactsOutput] = None
 
 
 def huggingface_chat_wrapper(
@@ -46,6 +37,19 @@ def huggingface_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletionOutput, Iterable[ChatCompletionStreamOutput]]:
+    """
+    Function that wraps a HuggingFace Hub answer with computed impacts
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletionOutput` or `Iterable[ChatCompletionStreamOutput]` with impacts
+    """
+
     if kwargs.get("stream", False):
         return huggingface_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -86,7 +90,7 @@ def huggingface_chat_wrapper_stream(
     stream = wrapped(*args, **kwargs)
     token_count = 0
     for chunk in stream:
-        token_count += 1
+        token_count += 1 # noqa: SIM113
         request_latency = time.perf_counter() - timer_start
         impacts = llm_impacts(
             provider=PROVIDER,
@@ -107,6 +111,19 @@ async def huggingface_async_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletionOutput, AsyncIterable[ChatCompletionStreamOutput]]:
+    """
+    Function that wraps a HuggingFace Hub answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletionOutput` or `AsyncIterable[ChatCompletionStreamOutput]]` with impacts
+    """
+
     if kwargs.get("stream", False):
         return huggingface_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -163,6 +180,10 @@ async def huggingface_async_chat_wrapper_stream(
 
 
 class HuggingfaceInstrumentor:
+    """
+    Instrumentor initialized by EcoLogits to automatically wrap all HuggingFace Hub calls
+    """
+
     def __init__(self) -> None:
         self.wrapped_methods = [
             {

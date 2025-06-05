@@ -1,77 +1,16 @@
 from functools import total_ordering
-from typing import Any, Union
+from typing import TypeVar
 
-from pydantic import BaseModel, model_validator
-from typing_extensions import Self
+from pydantic import BaseModel
 
 from ecologits.exceptions import ModelingError
+from ecologits.utils.range_value import ValueOrRange
 
-
-class Range(BaseModel):
-    """
-    RangeValue data model to represent intervals.
-
-    Attributes:
-        min: Lower bound of the interval.
-        max: Upper bound of the interval.
-    """
-    min: float
-    max: float
-
-    @model_validator(mode="after")
-    def check_order(self) -> Self:
-        if self.min > self.max:
-            raise ValueError("min value must be lower than max value")
-        return self
-
-    def __add__(self, other: Any) -> "Range":
-        if isinstance(other, Range):
-            return Range(
-                min=self.min + other.min,
-                max=self.max + other.max,
-            )
-        else:
-            return Range(
-                min=self.min + other,
-                max=self.max + other
-            )
-
-    def __eq__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.min == other.min and self.max == other.max
-        else:
-            return self.min == other and self.max == other
-
-    def __le__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.max <= other.max
-        else:
-            return self.max <= other
-
-    def __lt__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.max < other.min
-        else:
-            return self.max < other
-
-    def __ge__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.min >= other.min
-        else:
-            return self.min >= other
-
-    def __gt__(self, other: Any) -> bool:
-        if isinstance(other, Range):
-            return self.min > other.max
-        else:
-            return self.min > other
-
-
-ValueOrRange = Union[int, float, Range]
+Impact = TypeVar("Impact", bound="BaseImpact")
 
 
 @total_ordering
-class Impact(BaseModel):
+class BaseImpact(BaseModel):
     """
     Base impact data model.
 
@@ -86,8 +25,8 @@ class Impact(BaseModel):
     value: ValueOrRange
     unit: str
 
-    def __add__(self, other: "Impact") -> "Impact":
-        if not isinstance(other, Impact):
+    def __add__(self: Impact, other: object) -> Impact:
+        if not isinstance(other, BaseImpact):
             raise ModelingError(f"Error occurred, cannot add an Impact with {type(other)}.")
         if self.type != other.type:
             raise ModelingError(f"Error occurred, cannot add a {self.type} Impact with {other.type} Impact.")
@@ -98,29 +37,29 @@ class Impact(BaseModel):
             unit=self.unit
         )
 
-    def __eq__(self, other: "Impact") -> bool:
-        if not isinstance(other, Impact):
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, BaseImpact):
             raise ModelingError(f"Error occurred, cannot compare an Impact with {type(other)}.")
         if self.type != other.type:
             raise ModelingError(f"Error occurred, cannot compare a {self.type} Impact with {other.type} Impact.")
         return self.value == other.value
 
-    def __le__(self, other: "Impact") -> bool:
-        if not isinstance(other, Impact):
+    def __le__(self, other: object) -> bool:
+        if not isinstance(other, BaseImpact):
             raise ModelingError(f"Error occurred, cannot compare an Impact with {type(other)}.")
         if self.type != other.type:
             raise ModelingError(f"Error occurred, cannot compare a {self.type} Impact with {other.type} Impact.")
         return self.value <= other.value
 
-    def __ge__(self, other: "Impact") -> bool:
-        if not isinstance(other, Impact):
+    def __ge__(self, other: object) -> bool:
+        if not isinstance(other, BaseImpact):
             raise ModelingError(f"Error occurred, cannot compare an Impact with {type(other)}.")
         if self.type != other.type:
             raise ModelingError(f"Error occurred, cannot compare a {self.type} Impact with {other.type} Impact.")
         return self.value >= other.value
 
 
-class Energy(Impact):
+class Energy(BaseImpact):
     """
     Energy consumption.
 
@@ -138,7 +77,7 @@ class Energy(Impact):
     unit: str = "kWh"
 
 
-class GWP(Impact):
+class GWP(BaseImpact):
     """
     Global Warming Potential (GWP) impact.
 
@@ -156,7 +95,7 @@ class GWP(Impact):
     unit: str = "kgCO2eq"
 
 
-class ADPe(Impact):
+class ADPe(BaseImpact):
     """
     Abiotic Depletion Potential for Elements (ADPe) impact.
 
@@ -174,7 +113,7 @@ class ADPe(Impact):
     unit: str = "kgSbeq"
 
 
-class PE(Impact):
+class PE(BaseImpact):
     """
     Primary Energy (PE) impact.
 

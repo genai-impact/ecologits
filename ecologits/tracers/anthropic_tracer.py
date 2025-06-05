@@ -3,29 +3,17 @@ from collections.abc import AsyncIterator, Awaitable, Iterator
 from types import TracebackType
 from typing import Any, Callable, Generic, Optional, TypeVar
 
+from anthropic import Anthropic, AsyncAnthropic
+from anthropic.lib.streaming import AsyncMessageStream as _AsyncMessageStream
+from anthropic.lib.streaming import MessageStream as _MessageStream
+from anthropic.types import Message as _Message
+from anthropic.types.message_delta_event import MessageDeltaEvent
+from anthropic.types.message_start_event import MessageStartEvent
 from typing_extensions import override
-from wrapt import wrap_function_wrapper
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
-
-try:
-    from anthropic import Anthropic, AsyncAnthropic
-    from anthropic.lib.streaming import AsyncMessageStream as _AsyncMessageStream
-    from anthropic.lib.streaming import MessageStream as _MessageStream
-    from anthropic.types import Message as _Message
-    from anthropic.types.message_delta_event import MessageDeltaEvent
-    from anthropic.types.message_start_event import MessageStartEvent
-except ImportError:
-    Anthropic = object()
-    AsyncAnthropic = object()
-    _Message = object()
-    _MessageStream = object()
-    _AsyncMessageStream = object()
-    MessageDeltaEvent = object()
-    MessageStartEvent = object()
-
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 PROVIDER = "anthropic"
 
@@ -34,14 +22,20 @@ AsyncMessageStreamT = TypeVar("AsyncMessageStreamT", bound=_AsyncMessageStream)
 
 
 class Message(_Message):
-    impacts: Impacts
+    """
+    Wrapper of `anthropic.types.Message` with `ImpactsOutput`
+    """
+    impacts: ImpactsOutput
 
 
 class MessageStream(_MessageStream):
-    impacts: Impacts
+    """
+    Wrapper of `anthropic.lib.streaming.MessageStream` with `ImpactsOutput`
+    """
+    impacts: Optional[ImpactsOutput] = None
 
     @override
-    def __stream_text__(self) -> Iterator[str]:
+    def __stream_text__(self) -> Iterator[str]:  # type: ignore[misc]
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
@@ -55,27 +49,25 @@ class MessageStream(_MessageStream):
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
-        self.impacts = llm_impacts(
-            provider=PROVIDER,
-            model_name=model_name,
-            output_token_count=output_tokens,
-            request_latency=requests_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
-        )
+        if model_name is not None:
+            self.impacts = llm_impacts(
+                provider=PROVIDER,
+                model_name=model_name,
+                output_token_count=output_tokens,
+                request_latency=requests_latency,
+                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            )
 
-    def __init__(self, parent) -> None:     # noqa: ANN001
-        super().__init__(
-            cast_to=parent._cast_to,        # noqa: SLF001
-            response=parent.response,
-            client=parent._client           # noqa: SLF001
-        )
 
 
 class AsyncMessageStream(_AsyncMessageStream):
-    impacts: Impacts
+    """
+    Wrapper of `anthropic.lib.streaming.AsyncMessageStream` with `ImpactsOutput`
+    """
+    impacts: Optional[ImpactsOutput] = None
 
     @override
-    async def __stream_text__(self) -> AsyncIterator[str]:
+    async def __stream_text__(self) -> AsyncIterator[str]:  # type: ignore[misc]
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
@@ -89,28 +81,26 @@ class AsyncMessageStream(_AsyncMessageStream):
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
         requests_latency = time.perf_counter() - timer_start
-        self.impacts = llm_impacts(
-            provider=PROVIDER,
-            model_name=model_name,
-            output_token_count=output_tokens,
-            request_latency=requests_latency,
-            electricity_mix_zone=EcoLogits.config.electricity_mix_zone
-        )
+        if model_name is not None:
+            self.impacts = llm_impacts(
+                provider=PROVIDER,
+                model_name=model_name,
+                output_token_count=output_tokens,
+                request_latency=requests_latency,
+                electricity_mix_zone=EcoLogits.config.electricity_mix_zone
+            )
 
-    def __init__(self, parent) -> None:     # noqa: ANN001
-        super().__init__(
-            cast_to=parent._cast_to,        # noqa: SLF001
-            response=parent.response,
-            client=parent._client           # noqa: SLF001
-        )
 
 
 class MessageStreamManager(Generic[MessageStreamT]):
-    def __init__(self, api_request: Callable[[], MessageStreamT]) -> None:
-        self.__stream: Optional[MessageStreamT] = None
+    """
+    Re-writing of Anthropic's `MessageStreamManager` with wrapped `MessageStream`
+    """
+
+    def __init__(self, api_request: Callable[[], MessageStream]) -> None:
         self.__api_request = api_request
 
-    def __enter__(self) -> MessageStreamT:
+    def __enter__(self) -> MessageStream:
         self.__stream = self.__api_request()
         self.__stream = MessageStream(self.__stream)
         return self.__stream
@@ -126,11 +116,13 @@ class MessageStreamManager(Generic[MessageStreamT]):
 
 
 class AsyncMessageStreamManager(Generic[AsyncMessageStreamT]):
-    def __init__(self, api_request: Awaitable[AsyncMessageStreamT]) -> None:
-        self.__stream: Optional[AsyncMessageStreamT] = None
+    """
+    Re-writing of Anthropic's `AsyncMessageStreamManager` with wrapped `AsyncMessageStream`
+    """
+    def __init__(self, api_request: Awaitable[AsyncMessageStream]) -> None:
         self.__api_request = api_request
 
-    async def __aenter__(self) -> AsyncMessageStreamT:
+    async def __aenter__(self) -> AsyncMessageStream:
         self.__stream = await self.__api_request
         self.__stream = AsyncMessageStream(self.__stream)
         return self.__stream
@@ -148,6 +140,19 @@ class AsyncMessageStreamManager(Generic[AsyncMessageStreamT]):
 def anthropic_chat_wrapper(
     wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
+    """
+    Function that wraps an Anthropic answer with computed impacts
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `Message` with impacts
+    """
+
     timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
@@ -168,6 +173,19 @@ def anthropic_chat_wrapper(
 async def anthropic_async_chat_wrapper(
     wrapped: Callable, instance: AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> Message:
+    """
+    Function that wraps an Anthropic answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `Message` with impacts
+    """
+
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
@@ -188,6 +206,18 @@ async def anthropic_async_chat_wrapper(
 def anthropic_stream_chat_wrapper(
     wrapped: Callable, instance: Anthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> MessageStreamManager:
+    """
+    Function that wraps an Anthropic answer with computed impacts in streaming mode
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `MessageStreamManager` with impacts
+    """
     response = wrapped(*args, **kwargs)
     return MessageStreamManager(response._MessageStreamManager__api_request)    # noqa: SLF001
 
@@ -195,11 +225,26 @@ def anthropic_stream_chat_wrapper(
 def anthropic_async_stream_chat_wrapper(
     wrapped: Callable, instance: AsyncAnthropic, args: Any, kwargs: Any  # noqa: ARG001
 ) -> AsyncMessageStreamManager:
+    """
+    Function that wraps an Anthropic answer with computed impacts in streaming and async mode
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `AsyncMessageStreamManager` with impacts
+    """
     response = wrapped(*args, **kwargs)
     return AsyncMessageStreamManager(response._AsyncMessageStreamManager__api_request)  # noqa: SLF001
 
 
 class AnthropicInstrumentor:
+    """
+    Instrumentor initialized by EcoLogits to automatically wrap all Anthropic calls
+    """
     def __init__(self) -> None:
         self.wrapped_methods = [
             {

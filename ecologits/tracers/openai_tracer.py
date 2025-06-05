@@ -1,35 +1,30 @@
 import time
 from typing import Any, Callable, Union
 
-from wrapt import wrap_function_wrapper
+from openai import AsyncStream, Stream
+from openai.resources.chat import AsyncCompletions, Completions
+from openai.types.chat import ChatCompletion as _ChatCompletion
+from openai.types.chat import ChatCompletionChunk as _ChatCompletionChunk
+from wrapt import wrap_function_wrapper  # type: ignore[import-untyped]
 
 from ecologits._ecologits import EcoLogits
-from ecologits.impacts import Impacts
-from ecologits.tracers.utils import llm_impacts
-
-try:
-    from openai import AsyncStream, Stream
-    from openai.resources.chat import AsyncCompletions, Completions
-    from openai.types.chat import ChatCompletion as _ChatCompletion
-    from openai.types.chat import ChatCompletionChunk as _ChatCompletionChunk
-except ImportError:
-    AsyncStream = object()
-    Stream = object()
-    AsyncCompletions = object()
-    Completions = object()
-    _ChatCompletion = object()
-    _ChatCompletionChunk = object()
-
+from ecologits.tracers.utils import ImpactsOutput, llm_impacts
 
 PROVIDER = "openai"
 
 
 class ChatCompletion(_ChatCompletion):
-    impacts: Impacts
+    """
+    Wrapper of `openai.types.chat.ChatCompletion` with `ImpactsOutput`
+    """
+    impacts: ImpactsOutput
 
 
 class ChatCompletionChunk(_ChatCompletionChunk):
-    impacts: Impacts
+    """
+    Wrapper of `openai.types.chat.ChatCompletionChunk` with `ImpactsOutput`
+    """
+    impacts: ImpactsOutput
 
 
 def openai_chat_wrapper(
@@ -38,6 +33,18 @@ def openai_chat_wrapper(
     args: Any,
     kwargs: Any
 ) -> Union[ChatCompletion, Stream[ChatCompletionChunk]]:
+    """
+    Function that wraps an OpenAI answer with computed impacts
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletion` or `Stream[ChatCompletionChunk]` with impacts
+    """
     if kwargs.get("stream", False):
         return openai_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -67,7 +74,7 @@ def openai_chat_wrapper_non_stream(
         return response
 
 
-def openai_chat_wrapper_stream(
+def openai_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: Completions,      # noqa: ARG001
     args: Any,
@@ -103,6 +110,18 @@ async def openai_async_chat_wrapper(
     args: Any,
     kwargs: Any,
 ) -> Union[ChatCompletion, AsyncStream[ChatCompletionChunk]]:
+    """
+    Function that wraps an OpenAI answer with computed impacts in async mode
+
+    Args:
+        wrapped: Async callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `ChatCompletion` or `AsyncStream[ChatCompletionChunk]` with impacts
+    """
     if kwargs.get("stream", False):
         return openai_async_chat_wrapper_stream(wrapped, instance, args, kwargs)
     else:
@@ -132,7 +151,7 @@ async def openai_async_chat_wrapper_base(
         return response
 
 
-async def openai_async_chat_wrapper_stream(
+async def openai_async_chat_wrapper_stream(  # type: ignore[misc]
     wrapped: Callable,
     instance: AsyncCompletions,     # noqa: ARG001
     args: Any,
@@ -164,6 +183,9 @@ async def openai_async_chat_wrapper_stream(
 
 
 class OpenAIInstrumentor:
+    """
+    Instrumentor initialized by EcoLogits to automatically wrap all OpenAI calls
+    """
     def __init__(self) -> None:
         self.wrapped_methods = [
             {

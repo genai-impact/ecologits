@@ -17,75 +17,126 @@ interactions:
       User-Agent:
       - python-requests/2.32.3
       x-goog-api-client:
-      - genai-py/0.7.2 gl-python/3.11.8 grpc/1.64.1 gax/2.19.1
+      - genai-py/0.8.4 gl-python/3.13.1 grpc/1.70.0 gax/2.24.1
       x-goog-request-params:
       - model=models/gemini-1.5-flash
     method: POST
     uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?%24alt=json%3Benum-encoding%3Dint
   response:
     body:
-      string: !!binary |
-        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
-        /4oFAAAA//8DAKFCZN3PMQAA
+      string: "[{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
+        [\n          {\n            \"text\": \"El\"\n          }\n        ],\n        \"role\":
+        \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
+        9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \"ara clutched the worn leather straps of her backpack,
+        its brass buckle gleaming faintly in\"\n          }\n        ],\n        \"role\":
+        \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
+        9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \" the dim light of the dusty attic.  It wasn't just
+        any backpack\"\n          }\n        ],\n        \"role\": \"model\"\n      }\n
+        \   }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
+        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
+        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
+        \"; it was her grandmother's, a legacy whispered about in hushed tones.  Grandmother
+        Elara, a renowned botanist, had vanished years ago, leaving\"\n          }\n
+        \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
+        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
+        {\n        \"parts\": [\n          {\n            \"text\": \" behind only
+        this backpack and a cryptic note: \\\"The seeds of wonder lie within.\\\"\\n\\nElara,
+        a practical teenager with a penchant for science over superstition,\"\n          }\n
+        \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
+        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
+        {\n        \"parts\": [\n          {\n            \"text\": \" initially dismissed
+        the note as sentimental nonsense.  But the attic was freezing, and the backpack
+        looked surprisingly warm against her back.  As she shifted it, a small, velvet
+        pouch slipped from a hidden pocket. Inside, nestled amongst dried lavender\"\n
+        \         }\n        ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n
+        \ \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
+        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
+        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
+        \", were three tiny seeds \u2013 one crimson, one emerald, and one sapphire.\\n\\nCuriosity
+        overriding skepticism, Elara planted the seeds in three separate pots in her
+        window box. The crimson seed sprouted a vine that bore luminous, cherry\"\n
+        \         }\n        ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n
+        \ \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
+        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
+        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
+        \"-sized tomatoes that tasted of sunshine and laughter. The emerald seed blossomed
+        into a miniature oak tree, its leaves shimmering with a gentle, healing light
+        that seemed to soothe her headache. The sapphire seed produced a single, iridescent
+        flower that, when touched, filled the air with the intoxicating scent of the
+        sea.\\n\\nElara\"\n          }\n        ],\n        \"role\": \"model\"\n
+        \     }\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n
+        \   \"totalTokenCount\": 9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n
+        \ \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n
+        \           \"text\": \" realized then \u2013 the backpack wasn't just a backpack;
+        it was a conduit, amplifying the magic inherent in nature.  She experimented,
+        planting different seeds, each yielding extraordinary results.  A sunflower
+        seed yielded blooms that tracked the sun with almost unnerving precision,
+        their petals whispering secrets of the day.  A\"\n          }\n        ],\n
+        \       \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\": {\n
+        \   \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
+        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
+        {\n        \"parts\": [\n          {\n            \"text\": \" dandelion seed
+        produced a puff of shimmering dust that cleansed the air, leaving behind a
+        fragrance of fresh rain.\\n\\nWord of Elara's extraordinary garden spread.
+        \ Soon, people came to her, their faces etched with worry and despair.  A
+        child with a persistent cough breathed deeply by the healing oak, finding
+        relief\"\n          }\n        ],\n        \"role\": \"model\"\n      }\n
+        \   }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
+        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
+        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
+        \".  A wilting rose bush, brought by a heartbroken gardener, thrived anew
+        under the care of the magic backpack.\\n\\nBut the magic wasn't without its
+        limits. One day, a desperate woman asked Elara to grow a seed that would bring
+        her lost husband back. Elara, despite her compassion, knew\"\n          }\n
+        \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
+        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
+        {\n        \"parts\": [\n          {\n            \"text\": \" the backpack
+        couldn't defy the natural order.  She explained gently, the weight of responsibility
+        settling on her young shoulders.\\n\\nThat night, Elara examined the backpack
+        closely.  She discovered a tiny inscription on the buckle: \u201CAmplify,
+        but do not create.\u201D  Grandmother Elara\u2019s wisdom echoed\"\n          }\n
+        \       ],\n        \"role\": \"model\"\n      }\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\": 9\n  },\n  \"modelVersion\":
+        \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\": [\n    {\n      \"content\":
+        {\n        \"parts\": [\n          {\n            \"text\": \" in those words.
+        The backpack could enhance the wonders of nature, but it could not create
+        life or undo death.\\n\\nElara continued her work, using the backpack not
+        to solve every problem, but to nurture and heal.  She learned that true magic
+        lay not in bending reality, but in appreciating the extraordinary potential
+        already\"\n          }\n        ],\n        \"role\": \"model\"\n      }\n
+        \   }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 9,\n    \"totalTokenCount\":
+        9\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n,\r\n{\n  \"candidates\":
+        [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\":
+        \" present in the world \u2013 a potential amplified by the simple, worn leather
+        backpack and the seeds of wonder it contained.  And the backpack, in turn,
+        seemed to hum with a quiet satisfaction, its magic deepened by Elara's understanding
+        and responsible stewardship.\\n\"\n          }\n        ],\n        \"role\":
+        \"model\"\n      },\n      \"finishReason\": 1\n    }\n  ],\n  \"usageMetadata\":
+        {\n    \"promptTokenCount\": 8,\n    \"candidatesTokenCount\": 630,\n    \"totalTokenCount\":
+        638,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": 1,\n
+        \       \"tokenCount\": 8\n      }\n    ],\n    \"candidatesTokensDetails\":
+        [\n      {\n        \"modality\": 1,\n        \"tokenCount\": 630\n      }\n
+        \   ]\n  },\n  \"modelVersion\": \"gemini-1.5-flash\"\n}\n]"
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-      Cache-Control:
-      - private
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Wed, 17 Jul 2024 11:45:57 GMT
+      - Fri, 07 Feb 2025 07:50:58 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=958
+      - gfet4t7; dur=363
       Transfer-Encoding:
       - chunked
       Vary:

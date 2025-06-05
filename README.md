@@ -8,10 +8,15 @@
 🌱 **EcoLogits** tracks the energy consumption and environmental impacts of using generative AI models through APIs.
 
 [![PyPI version](https://img.shields.io/pypi/v/ecologits?color=00bf63)](https://pypi.org/project/ecologits/)
+[![PyPI downloads](https://static.pepy.tech/badge/ecologits/month)](https://pepy.tech/projects/ecologits)
 [![Python version](https://img.shields.io/pypi/pyversions/ecologits)](https://pypi.org/project/ecologits/)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1VxrpJ5xuWZKQLsSN12kdqUqkppHRct3G?usp=sharing)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15132099.svg)](https://doi.org/10.5281/zenodo.15132099)
 
-**Documentation: [ecologits.ai](https://ecologits.ai/)**
+
+EcoLogits was created and is actively maintained by the **[GenAI Impact](https://genai-impact.org/) non-profit**. 
+
+Read the full **documentation on [ecologits.ai](https://ecologits.ai/)**.
 
 
 ## ⚙️ Installation
@@ -34,7 +39,7 @@ EcoLogits.init()
 client = OpenAI(api_key="<OPENAI_API_KEY>")
 
 response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
+    model="gpt-4o-mini",
     messages=[
         {"role": "user", "content": "Tell me a funny joke!"}
     ]
@@ -46,6 +51,18 @@ print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
 ```
 
 See package documentation on [EcoLogits](https://ecologits.ai/)
+
+## 💚 Sponsors
+
+
+<a href="https://resilio-solutions.com/" target="_blank">
+<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/resilio.png" alt="Resilio" height="100" width="250">
+</a>
+
+<a href="https://www.terra-cognita.ai/" target="_blank">
+<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/terra_cognita.png" alt="Terra Cognita" height="100" width="250">
+</a>
+
 
 ## 💪 Contributing
 
