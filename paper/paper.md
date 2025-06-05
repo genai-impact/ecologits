@@ -16,7 +16,7 @@ authors:
 affiliations:
   - name: GenAI Impact
     index: 1
-  - name: Alygne
+  - name: EthiFinance
     index: 2
   - name: ICTEAM, UCLouvain, Belgium
     index: 3
