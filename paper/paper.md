@@ -9,17 +9,15 @@ authors:
   - name: Samuel Rincé
     mail: samuel@genai-impact.org
     orcid: 0009-0000-0739-6114
-    affiliation: "1,2"
+    affiliation: "1"
   - name: Adrien Banse
     orcid: 0000-0002-4456-6618
-    affiliation: "1,3"
+    affiliation: "1,2"
 affiliations:
   - name: GenAI Impact
     index: 1
-  - name: EthiFinance
-    index: 2
   - name: ICTEAM, UCLouvain, Belgium
-    index: 3
+    index: 2
 date: TODO
 bibliography: paper.bib
 ---
