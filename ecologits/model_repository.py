@@ -84,20 +84,26 @@ class ModelRepository:
         self.__models: dict[tuple[str, str], Model] = {}
         if models is not None:
             for m in models:
-                key = m.provider.value, m.name
-                if key in self.__models:
-                    raise ValueError(f"duplicated models with: {key}")
-                self.__models[key] = m
+                self.add_model(m)
 
         if aliases is not None:
             for a in aliases:
-                model_key = a.provider.value, a.alias
-                if model_key not in self.__models:
-                    raise ValueError(f"model alias not found: {model_key}")
-                alias_key = a.provider.value, a.name
-                model = self.__models[model_key].model_copy()
-                model.name = a.name
-                self.__models[alias_key] = model
+                self.add_alias(a)
+
+    def add_model(self, model: Model) -> None:
+        key = model.provider.value, model.name
+        if key in self.__models:
+            raise ValueError(f"duplicated models with: {key}")
+        self.__models[key] = model
+
+    def add_alias(self, alias: Alias) -> None:
+        model_key = alias.provider.value, alias.alias
+        if model_key not in self.__models:
+            raise ValueError(f"model alias not found: {model_key}")
+        alias_key = alias.provider.value, alias.name
+        model = self.__models[model_key].model_copy()
+        model.name = alias.name
+        self.__models[alias_key] = model
 
     def find_model(self, provider: str, model_name: str) -> Optional[Model]:
         return self.__models.get((provider, model_name))
