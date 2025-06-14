@@ -40,16 +40,26 @@
         margin-top: 1rem;
     }
 
+    .mdx-hero__image img {
+        content: url("../assets/logo_light.png");
+    }
+
+    [data-md-color-scheme="slate"] {
+        .mdx-hero__image img {
+            content: url("../assets/logo_dark.png");
+        }
+    }
+
     .project-cards {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
         margin-top: 6rem;
         margin-bottom: 4rem;
+        max-width: 1000px;
     }
 
     .project-card {
-        background-color: #fff;
         border-radius: 12px;
         padding: 1rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -147,6 +157,17 @@
             grid-row: auto;
         }
     }
+
+    [data-md-color-scheme="slate"] {
+        .project-card {
+            border-color: #484848;
+        }
+
+        .project-card .code-snippet {
+            background-color: #293034;
+        }
+    }
+
 </style>
 
 <section class="mdx-container">
