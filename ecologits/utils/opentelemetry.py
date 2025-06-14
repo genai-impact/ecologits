@@ -1,10 +1,12 @@
-from typing import Union
+from typing import Optional
 
 from opentelemetry import metrics
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 
+from ecologits.impacts.modeling import GWP, PE, ADPe, Energy
+from ecologits.log import logger
 from ecologits.utils.range_value import RangeValue
 
 
@@ -63,22 +65,29 @@ class OpenTelemetry:
             input_tokens: int,
             output_tokens: int,
             request_latency: float,
-            energy_value: Union[float, RangeValue],
-            gwp_value: Union[float, RangeValue],
-            adpe_value: Union[float, RangeValue],
-            pe_value: Union[float, RangeValue],
+            energy: Optional[Energy],
+            gwp: Optional[GWP],
+            adpe: Optional[ADPe],
+            pe: Optional[PE],
             model: str,
             endpoint: str
     ) -> None:
+        if energy is None \
+                or gwp is None \
+                or adpe is None \
+                or pe is None:
+            logger.error("Skipped sending request metrics because one of the impact values is None.")
+            return
+
         labels = {
             "endpoint": endpoint,
             "model": model
         }
 
-        energy_value = energy_value if isinstance(energy_value, (int, float)) else energy_value.mean
-        gwp_value = gwp_value if isinstance(gwp_value, (int, float)) else gwp_value.mean
-        adpe_value = adpe_value if isinstance(adpe_value, (int, float)) else adpe_value.mean
-        pe_value = pe_value if isinstance(pe_value, (int, float)) else pe_value.mean
+        energy_value = energy.value.mean if isinstance(energy.value, RangeValue) else energy.value
+        gwp_value = gwp.value.mean if isinstance(gwp.value, RangeValue) else gwp.value
+        adpe_value = adpe.value.mean if isinstance(adpe.value, RangeValue) else adpe.value
+        pe_value = pe.value.mean if isinstance(pe.value, RangeValue) else pe.value
 
         self.request_counter.add(1, labels)
         self.input_tokens.add(input_tokens, labels)
