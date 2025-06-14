@@ -25,10 +25,6 @@ class RangeValue(BaseModel):
             raise ValueError("min value must be lower than max value")
         return self
 
-    @property
-    def avg(self) -> float:
-        return (self.min + self.max) / 2
-
     def __add__(self, other: Union["RangeValue", int, float]) -> "RangeValue":
         if isinstance(other, RangeValue):
             return RangeValue(
