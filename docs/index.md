@@ -200,6 +200,7 @@ For detailed instructions on how to use the library, see our **[tutorial section
 
 [![Resilio](assets/sponsors/resilio.png)](https://resilio-solutions.com/)
 [![Terra Cognita](assets/sponsors/terra_cognita.png)](https://www.terra-cognita.ai/)
+[![Sopht](assets/sponsors/sopht.png)](https://sopht.com/)
 
 
 ## License

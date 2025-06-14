@@ -62,6 +62,10 @@ See package documentation on [EcoLogits](https://ecologits.ai/)
 <img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/terra_cognita.png" alt="Terra Cognita" height="100" width="250">
 </a>
 
+<a href="https://sopht.com/" target="_blank">
+<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/sopht.png" alt="Sopht" height="100" width="250">
+</a>
+
 
 ## 💪 Contributing
 
