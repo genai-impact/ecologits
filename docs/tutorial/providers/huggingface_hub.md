@@ -35,7 +35,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from huggingface_hub import InferenceClient
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["huggingface_hub"])
     
     client = InferenceClient(model="meta-llama/Meta-Llama-3.1-8B")
     response = client.chat_completion(
@@ -55,7 +55,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from huggingface_hub import AsyncInferenceClient
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["huggingface_hub"])
     
     client = AsyncInferenceClient(model="meta-llama/Meta-Llama-3.1-8B")
     
@@ -84,7 +84,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from huggingface_hub import InferenceClient
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["huggingface_hub"])
     
     client = InferenceClient(model="meta-llama/Meta-Llama-3.1-8B")
     stream = client.chat_completion(
@@ -106,7 +106,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from huggingface_hub import AsyncInferenceClient
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["huggingface_hub"])
     
     client = AsyncInferenceClient(model="meta-llama/Meta-Llama-3.1-8B")
     

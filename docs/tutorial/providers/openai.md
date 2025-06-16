@@ -36,7 +36,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from openai import OpenAI
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["openai"])
     
     client = OpenAI(api_key="<OPENAI_API_KEY>")
     
@@ -59,7 +59,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from openai import AsyncOpenAI
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["openai"])
     
     client = AsyncOpenAI(api_key="<OPENAI_API_KEY>")
     
@@ -89,7 +89,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from openai import OpenAI
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["openai"])
     
     client = OpenAI(api_key="<OPENAI_API_KEY>")
     
@@ -112,7 +112,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from openai import AsyncOpenAI
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["openai"])
     
     client = AsyncOpenAI(api_key="<OPENAI_API_KEY>")
     
@@ -144,7 +144,7 @@ from ecologits import EcoLogits
 from openai import AzureOpenAI
 
 # Initialize EcoLogits
-EcoLogits.init()
+EcoLogits.init(providers=["openai"])
 
 client = AzureOpenAI(
     azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"), 

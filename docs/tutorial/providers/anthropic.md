@@ -34,7 +34,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["anthropic"])
     
     client = Anthropic(api_key="<ANTHROPIC_API_KEY>")
     
@@ -56,7 +56,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["anthropic"])
     
     client = AsyncAnthropic(api_key="<ANTHROPIC_API_KEY>")
     
@@ -86,7 +86,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["anthropic"])
     
     client = Anthropic(api_key="<ANTHROPIC_API_KEY>")
     
@@ -109,7 +109,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["anthropic"])
     
     client = AsyncAnthropic(api_key="<ANTHROPIC_API_KEY>")
     
