@@ -88,16 +88,13 @@ class EcoLogits:
     """
     EcoLogits instrumentor to initialize function patching for each provider.
 
-    By default, the initialization will be done on all available and compatible providers that are supported by the
-    library.
-
     Examples:
         EcoLogits initialization example with OpenAI.
         ```python
         from ecologits import EcoLogits
         from openai import OpenAI
 
-        EcoLogits.init()
+        EcoLogits.init_openai()
 
         client = OpenAI(api_key="<OPENAI_API_KEY>")
         response = client.chat.completions.create(
