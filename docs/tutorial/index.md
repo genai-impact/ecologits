@@ -45,28 +45,13 @@ It achieves this by **patching the Python client libraries**, ensuring that each
 
 ## Initialization of EcoLogits
 
-To use EcoLogits in your projects, you will need to initialize the client tracers that are used internally to intercept and enrich responses. The default initialization will use default parameters and enable tracking of all available providers. To change that behaviour, read along on how to configure EcoLogits.
+To use EcoLogits in your projects, you will need to initialize the client tracers that are used internally to intercept and enrich responses.
 
 ```python
 from ecologits import EcoLogits
 
-# Default initialization method
-EcoLogits.init()
-```
-
-
-### Configure providers
-
-You can select which provider to enable with EcoLogits using the `providers` parameter.
-
-!!! info "Default behavior is to enable all available providers."
-
-```python title="Select a providers to enable"
-from ecologits import EcoLogits
-
-# Examples on how to enable one or multiple providers
-EcoLogits.init(providers="openai")
-EcoLogits.init(providers=["anthropic", "mistralai"])
+# Example for OpenAI and Anthropic
+EcoLogits.init(providers=["openai", "anthropic"])
 ```
 
 ??? warning "Disabling a provider at runtime is not supported"
@@ -88,5 +73,5 @@ Electricity mixes for each geographic zone are sourced from the [ADEME Base Empr
 from ecologits import EcoLogits
 
 # Select the electricity mix of France
-EcoLogits.init(electricity_mix_zone="FRA")
+EcoLogits.init(providers=[...], electricity_mix_zone="FRA")
 ```

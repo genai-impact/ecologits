@@ -70,7 +70,7 @@ Below are simple examples demonstrating how to use LLM models with **EcoLogits**
     from openai import OpenAI
 
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(provider=["openai"])
 
     client = OpenAI(api_key="<OPENAI_API_KEY>")
 
@@ -109,7 +109,7 @@ Below are simple examples demonstrating how to use LLM models with **EcoLogits**
     from anthropic import Anthropic
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(provider=["anthropic"])
     
     client = Anthropic(api_key="<ANTHROPIC_API_KEY>")
     
@@ -147,7 +147,7 @@ Below are simple examples demonstrating how to use LLM models with **EcoLogits**
     from huggingface_hub import InferenceClient
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(provider=["huggingface_hub"])
     
     client = InferenceClient(model="meta-llama/Meta-Llama-3.1-8B")
     response = client.chat_completion( # (1)!

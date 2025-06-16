@@ -88,16 +88,13 @@ class EcoLogits:
     """
     EcoLogits instrumentor to initialize function patching for each provider.
 
-    By default, the initialization will be done on all available and compatible providers that are supported by the
-    library.
-
     Examples:
         EcoLogits initialization example with OpenAI.
         ```python
         from ecologits import EcoLogits
         from openai import OpenAI
 
-        EcoLogits.init()
+        EcoLogits.init(providers=["openai"])
 
         client = OpenAI(api_key="<OPENAI_API_KEY>")
         response = client.chat.completions.create(
@@ -129,12 +126,15 @@ class EcoLogits:
         Initialization static method. Will attempt to initialize all providers by default.
 
         Args:
-            providers: list of providers to initialize (all providers by default).
+            providers: list of providers to initialize (must select at least one provider).
             electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
         """
         if isinstance(providers, str):
             providers = [providers]
         if providers is None:
+            logger.warning("Initializing EcoLogits without defining providers will soon no longer be supported. For "
+                           "example with OpenAI, you should use `EcoLogits.init_openai()` or "
+                           "`EcoLogits.init(providers=['openai'])` instead.")
             providers = list(_INSTRUMENTS.keys())
 
         init_instruments(providers)
