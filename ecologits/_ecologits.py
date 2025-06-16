@@ -143,6 +143,34 @@ class EcoLogits:
         EcoLogits.config.providers += providers
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
 
+    @classmethod
+    def init_anthropic(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["anthropic"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_cohere(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["cohere"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_google(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["google"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_huggingface_hub(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["huggingface_hub"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_mistralai(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["mistralai"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_litellm(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["litellm"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_openai(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["openai"], electricity_mix_zone=electricity_mix_zone)
+
 
 def init_instruments(providers: list[str]) -> None:
     for provider in providers:
