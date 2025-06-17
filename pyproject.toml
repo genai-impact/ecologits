@@ -54,9 +54,23 @@ openai = ["openai (>=1.61.1,<2.0.0)"]
 mistralai = ["mistralai (>=1.5.0,<2.0.0)"]
 anthropic = ["anthropic (>=0.45.2,<0.46.0)"]
 cohere = ["cohere (>=5.13.12,<6.0.0)"]
-huggingface-hub = ["huggingface-hub (>=0.28.1,<0.29.0)", "tiktoken (>=0.8.0,<0.9.0)", "aiohttp (>=3.11.12,<4.0.0)", "minijinja (>=2.7.0,<3.0.0)"]
+huggingface-hub = [
+    "huggingface-hub (>=0.28.1,<0.29.0)",
+    "tiktoken (>=0.8.0,<0.10.0)",
+    "aiohttp (>=3.11.12,<4.0.0)",
+    "minijinja (>=2.7.0,<3.0.0)"
+]
 google-generativeai = ["google-generativeai (>=0.8.4,<0.9.0)"]
-litellm = ["litellm (>=1.60.6,<2.0.0)", "rapidfuzz (>=3.12.1,<4.0.0)"]
+litellm = [
+    "litellm (>=1.60.6,<2.0.0)",
+    "rapidfuzz (>=3.12.1,<4.0.0)"
+]
+opentelemetry = [
+    "opentelemetry-api (>=1.32.1,<2.0.0)",
+    "opentelemetry-sdk (>=1.32.1,<2.0.0)",
+    "opentelemetry-exporter-otlp (>=1.32.1,<2.0.0)",
+    "tiktoken (>=0.8.0,<0.10.0)"
+]
 
 
 [tool.poetry]
@@ -88,9 +102,6 @@ mkdocs-gen-files = "^0.5.0"
 mkdocs-autorefs = "^1.0.1"
 mkdocs-literate-nav = "^0.6.1"
 mike = "^2.1.2"
-
-
-
 
 [tool.poetry.group.opentelemetry.dependencies]
 opentelemetry-api = "^1.32.1"
