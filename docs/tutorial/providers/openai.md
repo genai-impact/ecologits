@@ -121,7 +121,8 @@ Integrating EcoLogits with your applications does not alter the standard outputs
             model="gpt-4o-mini",
             messages=[
                 {"role": "user", "content": "Tell me a funny joke!"}
-            ]
+            ],
+            stream=True
         )
         
         async for chunk in stream:
