@@ -64,14 +64,17 @@ class Model(BaseModel):
     @classmethod
     def from_json(cls, data: dict[str, Any]) -> "Model":
         warnings = []
-        if data["warnings"] is not None:
+        sources = []
+        if "warnings" in data and data["warnings"] is not None:
             warnings = [WarningMessage.from_code(code) for code in data["warnings"]]
+        if "source" in data and data["sources"] is not None:
+            sources = data["sources"]
         return cls(
             provider=Providers(data["provider"]),
             name=data["name"],
             architecture=Architecture.model_validate(data["architecture"]),
             warnings=warnings,
-            sources=data["sources"] or []
+            sources=sources
         )
 
 
@@ -84,26 +87,27 @@ class ModelRepository:
         self.__models: dict[tuple[str, str], Model] = {}
         if models is not None:
             for m in models:
-                self.add_model(m)
+                key = m.provider.value, m.name
+                if key in self.__models:
+                    raise ValueError(f"duplicated models with: {key}")
+                self.__models[key] = m
 
         if aliases is not None:
             for a in aliases:
-                self.add_alias(a)
+                model_key = a.provider.value, a.alias
+                if model_key not in self.__models:
+                    raise ValueError(f"model alias not found: {model_key}")
+                alias_key = a.provider.value, a.name
+                model = self.__models[model_key].model_copy()
+                model.name = a.name
+                self.__models[alias_key] = model
 
-    def add_model(self, model: Model) -> None:
+    def add_model(self, data: dict[str, Any]) -> None:
+        model = Model.from_json(data)
         key = model.provider.value, model.name
         if key in self.__models:
             raise ValueError(f"duplicated models with: {key}")
         self.__models[key] = model
-
-    def add_alias(self, alias: Alias) -> None:
-        model_key = alias.provider.value, alias.alias
-        if model_key not in self.__models:
-            raise ValueError(f"model alias not found: {model_key}")
-        alias_key = alias.provider.value, alias.name
-        model = self.__models[model_key].model_copy()
-        model.name = alias.name
-        self.__models[alias_key] = model
 
     def find_model(self, provider: str, model_name: str) -> Optional[Model]:
         return self.__models.get((provider, model_name))
