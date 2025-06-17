@@ -1,13 +1,13 @@
 import pytest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 from ecologits.impacts.modeling import GWP, ADPe, PE, Energy
 from ecologits.utils.range_value import RangeValue
 from ecologits.utils.opentelemetry import OpenTelemetry
+from ecologits.tracers.utils import ImpactsOutput
 
 
 @pytest.fixture
 def mock_opentelemetry_setup():
-    """Fixture to mock all OpenTelemetry dependencies"""
     with patch('ecologits.utils.opentelemetry.OTLPMetricExporter') as mock_exporter_class, \
             patch('ecologits.utils.opentelemetry.PeriodicExportingMetricReader') as mock_reader_class, \
             patch('ecologits.utils.opentelemetry.MeterProvider') as mock_provider_class, \
@@ -39,9 +39,8 @@ def mock_opentelemetry_setup():
 
 
 def test_init(mock_opentelemetry_setup):
-    """Test the initialization of OpenTelemetry class"""
     endpoint = "http://localhost:4318/v1/metrics"
-    telemetry = OpenTelemetry(endpoint)
+    _ = OpenTelemetry(endpoint)
 
     # Verify OTLPMetricExporter was initialized with the correct endpoint
     mock_opentelemetry_setup['exporter_class'].assert_called_once_with(endpoint=endpoint)
@@ -63,7 +62,6 @@ def test_init(mock_opentelemetry_setup):
 
 
 def test_record_request_with_valid_data(mock_opentelemetry_setup):
-    """Test record_request method with valid data"""
     telemetry = OpenTelemetry("http://localhost:4318/v1/metrics")
 
     # Reset the mock to clear the initialization calls
@@ -74,10 +72,6 @@ def test_record_request_with_valid_data(mock_opentelemetry_setup):
     input_tokens = 100
     output_tokens = 50
     request_latency = 1.5
-    energy = Energy(value=0.1)
-    gwp = GWP(value=0.2)
-    adpe = ADPe(value=0.3)
-    pe = PE(value=0.4)
     model = "gpt-4o-mini"
     endpoint = "openai"
 
@@ -86,10 +80,12 @@ def test_record_request_with_valid_data(mock_opentelemetry_setup):
         input_tokens=input_tokens,
         output_tokens=output_tokens,
         request_latency=request_latency,
-        energy=energy,
-        gwp=gwp,
-        adpe=adpe,
-        pe=pe,
+        impacts=ImpactsOutput(
+            energy=Energy(value=0.1),
+            gwp=GWP(value=0.2),
+            adpe=ADPe(value=0.3),
+            pe=PE(value=0.4)
+        ),
         model=model,
         endpoint=endpoint
     )
@@ -112,28 +108,22 @@ def test_record_request_with_valid_data(mock_opentelemetry_setup):
 
 
 def test_record_request_with_range_values(mock_opentelemetry_setup):
-    """Test record_request method with RangeValue inputs"""
     telemetry = OpenTelemetry("http://locahost:4318/v1/metrics")
 
     # Reset the mock to clear the initialization calls
     mock_counter = mock_opentelemetry_setup['counter']
     mock_counter.add.reset_mock()
 
-    # Create test data with RangeValue
-    energy = Energy(value=RangeValue(min=0.05, max=0.15))  # mean = 0.1
-    gwp = GWP(value=RangeValue(min=0.1, max=0.3))  # mean = 0.2
-    adpe = ADPe(value=RangeValue(min=0.2, max=0.4))  # mean = 0.3
-    pe = PE(value=RangeValue(min=0.3, max=0.5))  # mean = 0.4
-
-    # Call the method
     telemetry.record_request(
         input_tokens=100,
         output_tokens=50,
         request_latency=1.5,
-        energy=energy,
-        gwp=gwp,
-        adpe=adpe,
-        pe=pe,
+        impacts=ImpactsOutput(
+            energy=Energy(value=RangeValue(min=0.05, max=0.15)),    # mean = 0.1
+            gwp=GWP(value=RangeValue(min=0.1, max=0.3)),            # mean = 0.2
+            adpe=ADPe(value=RangeValue(min=0.2, max=0.4)),          # mean = 0.3
+            pe=PE(value=RangeValue(min=0.3, max=0.5)),              # mean = 0.4
+        ),
         model="gpt-4o-mini",
         endpoint="openai"
     )
@@ -146,7 +136,6 @@ def test_record_request_with_range_values(mock_opentelemetry_setup):
 
 
 def test_record_request_with_missing_data(mock_opentelemetry_setup):
-    """Test record_request method with None values"""
     telemetry = OpenTelemetry("http://localhost:4318/v1/metrics")
 
     # Reset the mock to clear the initialization calls
@@ -158,10 +147,12 @@ def test_record_request_with_missing_data(mock_opentelemetry_setup):
         input_tokens=100,
         output_tokens=50,
         request_latency=1.5,
-        energy=None,
-        gwp=GWP(value=0.2),
-        adpe=ADPe(value=0.3),
-        pe=PE(value=0.4),
+        impacts=ImpactsOutput(
+            energy=None,
+            gwp=GWP(value=0.2),
+            adpe=ADPe(value=0.3),
+            pe=PE(value=0.4)
+        ),
         model="gpt-4o-mini",
         endpoint="openai"
     )
@@ -174,10 +165,12 @@ def test_record_request_with_missing_data(mock_opentelemetry_setup):
         input_tokens=100,
         output_tokens=50,
         request_latency=1.5,
-        energy=Energy(value=0.1),
-        gwp=GWP(value=0.2),
-        adpe=None,
-        pe=PE(value=0.4),
+        impacts=ImpactsOutput(
+            energy=Energy(value=0.1),
+            gwp=GWP(value=0.2),
+            adpe=None,
+            pe=PE(value=0.4)
+        ),
         model="gpt-4o-mini",
         endpoint="openai"
     )

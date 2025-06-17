@@ -73,10 +73,7 @@ def openai_chat_wrapper_non_stream(
             input_tokens=response.usage.prompt_tokens,
             output_tokens=response.usage.completion_tokens,
             request_latency=request_latency,
-            energy=impacts.energy,
-            gwp=impacts.gwp,
-            adpe=impacts.adpe,
-            pe=impacts.pe,
+            impacts=impacts,
             model=model_name,
             endpoint="/chat/completions"
         )
