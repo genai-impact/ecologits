@@ -68,16 +68,17 @@ def openai_chat_wrapper_non_stream(
         request_latency=request_latency,
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
-    if EcoLogits.config.opentelemetry:
-        EcoLogits.config.opentelemetry.record_request(
-            input_tokens=response.usage.prompt_tokens,
-            output_tokens=response.usage.completion_tokens,
-            request_latency=request_latency,
-            impacts=impacts,
-            model=model_name,
-            endpoint="/chat/completions"
-        )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.usage.prompt_tokens,
+                output_tokens=response.usage.completion_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                model=model_name,
+                endpoint="/chat/completions"
+            )
+
         return ChatCompletion(**response.model_dump(), impacts=impacts)
     else:
         return response
@@ -91,23 +92,40 @@ def openai_chat_wrapper_stream(  # type: ignore[misc]
 ) -> Stream[ChatCompletionChunk]:
     timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
-    token_count = 0
+    output_token_count = 0
     for i, chunk in enumerate(stream):
         # azure openai has an empty first chunk so we skip it
         if i == 0 and chunk.model == "":
             continue
         if i > 0 and chunk.choices[0].finish_reason is None:
-            token_count += 1
+            output_token_count += 1
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
         impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,
-            output_token_count=token_count,
+            output_token_count=output_token_count,
             request_latency=request_latency,
             electricity_mix_zone=EcoLogits.config.electricity_mix_zone
         )
         if impacts is not None:
+            if EcoLogits.config.opentelemetry \
+                    and chunk.choices[0].finish_reason is not None:
+                import tiktoken
+
+                # Compute input tokens
+                encoder = tiktoken.get_encoding("cl100k_base")
+                input_token_count =  len(encoder.encode(kwargs["messages"][0]["content"]))
+
+                EcoLogits.config.opentelemetry.record_request(
+                    input_tokens=input_token_count,
+                    output_tokens=output_token_count,
+                    request_latency=request_latency,
+                    impacts=impacts,
+                    model=model_name,
+                    endpoint="/chat/completions"
+                )
+
             yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
         else:
             yield chunk
@@ -155,6 +173,16 @@ async def openai_async_chat_wrapper_base(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.usage.prompt_tokens,
+                output_tokens=response.usage.completion_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                model=model_name,
+                endpoint="/chat/completions"
+            )
+
         return ChatCompletion(**response.model_dump(), impacts=impacts)
     else:
         return response
@@ -169,22 +197,39 @@ async def openai_async_chat_wrapper_stream(  # type: ignore[misc]
     timer_start = time.perf_counter()
     stream = await wrapped(*args, **kwargs)
     i = 0
-    token_count = 0
+    output_token_count = 0
     async for chunk in stream:
         if i == 0 and chunk.model == "":
             continue
         if i > 0 and chunk.choices[0].finish_reason is None:
-            token_count += 1
+            output_token_count += 1
         request_latency = time.perf_counter() - timer_start
         model_name = chunk.model
         impacts = llm_impacts(
             provider=PROVIDER,
             model_name=model_name,
-            output_token_count=token_count,
+            output_token_count=output_token_count,
             request_latency=request_latency,
             electricity_mix_zone=EcoLogits.config.electricity_mix_zone
         )
         if impacts is not None:
+            if EcoLogits.config.opentelemetry \
+                    and chunk.choices[0].finish_reason is not None:
+                import tiktoken
+
+                # Compute input tokens
+                encoder = tiktoken.get_encoding("cl100k_base")
+                input_token_count =  len(encoder.encode(kwargs["messages"][0]["content"]))
+
+                EcoLogits.config.opentelemetry.record_request(
+                    input_tokens=input_token_count,
+                    output_tokens=output_token_count,
+                    request_latency=request_latency,
+                    impacts=impacts,
+                    model=model_name,
+                    endpoint="/chat/completions"
+                )
+
             yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
         else:
             yield chunk
