@@ -71,7 +71,7 @@ class OpenTelemetry:
                 or impacts.gwp is None \
                 or impacts.adpe is None \
                 or impacts.pe is None:
-            logger.error("Skipped sending request metrics because one of the impact values is None.")
+            logger.error("Skipped sending request metrics because at least one of the impact values is none.")
             return
 
         labels = {
