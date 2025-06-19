@@ -88,16 +88,13 @@ class EcoLogits:
     """
     EcoLogits instrumentor to initialize function patching for each provider.
 
-    By default, the initialization will be done on all available and compatible providers that are supported by the
-    library.
-
     Examples:
         EcoLogits initialization example with OpenAI.
         ```python
         from ecologits import EcoLogits
         from openai import OpenAI
 
-        EcoLogits.init()
+        EcoLogits.init_openai()
 
         client = OpenAI(api_key="<OPENAI_API_KEY>")
         response = client.chat.completions.create(
@@ -129,12 +126,15 @@ class EcoLogits:
         Initialization static method. Will attempt to initialize all providers by default.
 
         Args:
-            providers: list of providers to initialize (all providers by default).
+            providers: list of providers to initialize (must select at least one provider).
             electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
         """
         if isinstance(providers, str):
             providers = [providers]
         if providers is None:
+            logger.warning("Initializing EcoLogits without defining providers will soon no longer be supported. For "
+                           "example with OpenAI, you should use `EcoLogits.init_openai()` or "
+                           "`EcoLogits.init(providers=['openai'])` instead.")
             providers = list(_INSTRUMENTS.keys())
 
         init_instruments(providers)
@@ -142,6 +142,34 @@ class EcoLogits:
         EcoLogits.config.electricity_mix_zone = electricity_mix_zone
         EcoLogits.config.providers += providers
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
+
+    @classmethod
+    def init_anthropic(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["anthropic"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_cohere(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["cohere"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_google(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["google"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_huggingface_hub(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["huggingface_hub"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_mistralai(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["mistralai"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_litellm(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["litellm"], electricity_mix_zone=electricity_mix_zone)
+
+    @classmethod
+    def init_openai(cls, electricity_mix_zone: str = "WOR") -> None:
+        cls.init(providers=["openai"], electricity_mix_zone=electricity_mix_zone)
 
 
 def init_instruments(providers: list[str]) -> None:

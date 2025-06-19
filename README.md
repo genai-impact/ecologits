@@ -33,7 +33,7 @@ from ecologits import EcoLogits
 from openai import OpenAI
 
 # Initialize EcoLogits
-EcoLogits.init()
+EcoLogits.init_openai()
 
 client = OpenAI(api_key="<OPENAI_API_KEY>")
 
@@ -45,8 +45,8 @@ response = client.chat.completions.create(
 )
 
 # Get estimated environmental impacts of the inference
-print(f"Energy consumption: {response.impacts.energy.value} kWh")
-print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
+print(f"Energy consumption: {response.impacts.energy.value.mean} kWh")
+print(f"GHG emissions: {response.impacts.gwp.value.mean} kgCO2eq")
 ```
 
 See package documentation on [EcoLogits](https://ecologits.ai/)
