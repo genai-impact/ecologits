@@ -83,7 +83,7 @@ class ModelRepository:
     Repository of models
     """
 
-    def __init__(self, models: list[Model], aliases: Optional[list[Alias]] = None) -> None:
+    def __init__(self, models: Optional[list[Model]] = None, aliases: Optional[list[Alias]] = None) -> None:
         self.__models: dict[tuple[str, str], Model] = {}
         if models is not None:
             for m in models:
