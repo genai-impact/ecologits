@@ -1,5 +1,6 @@
 import importlib.metadata
 import importlib.util
+import warnings
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
@@ -132,9 +133,13 @@ class EcoLogits:
         if isinstance(providers, str):
             providers = [providers]
         if providers is None:
-            logger.warning("Initializing EcoLogits without defining providers will soon no longer be supported. For "
-                           "example with OpenAI, you should use `EcoLogits.init_openai()` or "
-                           "`EcoLogits.init(providers=['openai'])` instead.")
+            warnings.warn(
+                "Initializing EcoLogits without defining providers will soon no longer be supported. For example "
+                "with OpenAI, you should use `EcoLogits.init(providers=['openai'])` instead.",
+                DeprecationWarning,
+                stacklevel=2
+            )
+
             providers = list(_INSTRUMENTS.keys())
 
         init_instruments(providers)
