@@ -4,7 +4,7 @@
 2. Commit, tag and push changes.
     ```shell
     git add .
-    git commit -m "chore bump version to x.y.z"
+    git commit -m "chore: bump version to x.y.z"
     git push origin  # wait for all CI jobs to succeed 
     git tag x.y.z
     git push origin --tags 
