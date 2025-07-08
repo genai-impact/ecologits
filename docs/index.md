@@ -212,12 +212,12 @@ This project is licensed under the terms of the [Mozilla Public License Version 
 
 ## About GenAI Impact
 <div style="display: flex; align-items: center; gap: 16px;">
-<p style="margin: 0;">
+  <a href="https://www.genai-impact.org/" target="_blank">
+    <img src="https://github.com/genai-impact/.github/blob/main/profile/assets/logo.png?raw=true" alt="GenAI Impact" height="200" width="200">
+  </a>
+  <p style="margin: 0;">
     <strong>GenAI Impact</strong> is a non-profit that creates commons for sustainable AI. We conceive and develop open-source methodologies and tools to assess and limit the environmental footprint of Generative AI.
   </p>
-  <a href="https://www.genai-impact.org/" target="_blank">
-    <img src="https://github.com/genai-impact/.github/blob/main/profile/assets/logo.png?raw=true" alt="GenAI Impact" height="150" width="150">
-  </a>
   </div>
 
 ## Acknowledgements
