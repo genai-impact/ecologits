@@ -64,9 +64,9 @@ See package documentation on [EcoLogits](https://ecologits.ai/)
 <a href="https://sopht.com/" target="_blank">
 <img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/sopht.png" alt="Sopht" height="100" width="250">
 </a>
-
-<a href="https://www.culture.gouv.fr/fr/" target="_blank">
-<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/ministereculture.png" alt="Ministere de la culture" height="100" width="250">
+ <br>
+<a href="https://www.culture.gouv.fr/" target="_blank">
+<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/ministere-culture.png" alt="Ministere de la culture" height="350" width="150">
 </a>
 
 ## 💪 Contributing
