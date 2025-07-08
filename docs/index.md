@@ -202,11 +202,23 @@ For detailed instructions on how to use the library, see our **[tutorial section
 [![Terra Cognita](assets/sponsors/terra_cognita.png)](https://www.terra-cognita.ai/)
 [![Sopht](assets/sponsors/sopht.png)](https://sopht.com/)
 
+## Benefactors
+[![Ministere de la Culture](assets/sponsors/ministere-culture.png)](https://www.culture.gouv.fr/fr)
 
 ## License
 
 This project is licensed under the terms of the [Mozilla Public License Version 2.0 (MPL-2.0) :octicons-link-external-16:](https://www.mozilla.org/en-US/MPL/2.0/).
 
+
+## About GenAI Impact
+<div style="display: flex; align-items: center; gap: 16px;">
+<p style="margin: 0;">
+    <strong>GenAI Impact</strong> is a non-profit that creates commons for sustainable AI. We conceive and develop open-source methodologies and tools to assess and limit the environmental footprint of Generative AI.
+  </p>
+  <a href="https://www.genai-impact.org/" target="_blank">
+    <img src="https://github.com/genai-impact/.github/blob/main/profile/assets/logo.png?raw=true" alt="GenAI Impact" height="150" width="150">
+  </a>
+  </div>
 
 ## Acknowledgements
 
