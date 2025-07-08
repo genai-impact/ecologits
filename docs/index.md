@@ -211,7 +211,7 @@ This project is licensed under the terms of the [Mozilla Public License Version 
 
 
 ## About GenAI Impact
-<div style="display: flex; align-items: center; gap: 16px;">
+<div style="display: flex; align-items: center; gap: 16px; min-height: 320px;">
   <a href="https://www.genai-impact.org/" target="_blank">
     <img src="https://github.com/genai-impact/.github/blob/main/profile/assets/logo.png?raw=true" alt="GenAI Impact" height="200" width="200">
   </a>
