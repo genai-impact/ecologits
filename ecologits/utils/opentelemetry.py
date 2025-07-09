@@ -1,3 +1,6 @@
+from contextlib import contextmanager
+from contextvars import ContextVar
+
 from opentelemetry import metrics
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.sdk.metrics import MeterProvider
@@ -6,6 +9,43 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from ecologits.log import logger
 from ecologits.tracers.utils import ImpactsOutput
 from ecologits.utils.range_value import RangeValue
+
+# For storing user-defined labels
+_user_labels: ContextVar[dict[str, str]] = ContextVar('otel_labels', default={})
+
+
+@contextmanager
+def otel_labels(**user_labels):
+    """
+    Context manager to add custom labels to metrics within a block.
+    
+    Args:
+        **user_labels: Key-value pairs to add as metric labels/attributes
+        
+    Example:
+        with otel_labels(user_id="jay123", step="ocr"):
+            response = client.chat.completions.create(...)
+            # All metrics include endpoint and model labels by default
+    """
+    # Get current labels from context
+    current_labels = _user_labels.get({})
+    
+    # Merge current with new labels (new labels take precedence)
+    merged_labels = {**current_labels, **user_labels}
+    
+    # Set new context
+    token = _user_labels.set(merged_labels)
+    
+    try:
+        yield
+    finally:
+        # Restore previous context
+        _user_labels.reset(token)
+
+
+def get_current_labels() -> dict[str, str]:
+    """Get the currently active user-defined labels from context."""
+    return _user_labels.get({})
 
 
 class OpenTelemetry:
@@ -74,10 +114,15 @@ class OpenTelemetry:
             logger.error("Skipped sending request metrics because at least one of the impact values is none.")
             return
 
+        # Build default labels
         labels = {
             "endpoint": endpoint,
             "model": model
         }
+        
+        # Merge with user-defined labels from context
+        user_labels = get_current_labels()
+        labels.update(user_labels)
 
         energy_value = impacts.energy.value.mean if isinstance(impacts.energy.value,
                                                                RangeValue) else impacts.energy.value
