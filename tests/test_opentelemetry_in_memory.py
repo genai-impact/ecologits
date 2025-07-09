@@ -5,7 +5,7 @@ from opentelemetry.sdk.metrics.export import InMemoryMetricReader
 from opentelemetry import metrics
 from ecologits.impacts.modeling import GWP, ADPe, PE, Energy
 from ecologits.utils.range_value import RangeValue
-from ecologits.utils.opentelemetry import OpenTelemetry
+from ecologits.utils.opentelemetry import OpenTelemetry, otel_labels, get_current_labels
 from ecologits.tracers.utils import ImpactsOutput
 
 
@@ -225,3 +225,202 @@ def test_record_request_with_missing_data(in_memory_telemetry):
     # Verify still no counters were updated
     request_metric = get_metric_data(reader, "ecologits_requests_total")
     assert request_metric is None or len(request_metric.data.data_points) == 0
+
+def test_otel_labels_context_basic_functionality():
+    """Test that otel_labels context manager correctly stores and retrieves labels."""
+    # Test outside context - should be empty
+    assert get_current_labels() == {}
+    
+    # Test inside context
+    with otel_labels(user_id="user123", experiment="test"):
+        labels = get_current_labels()
+        assert labels == {"user_id": "user123", "experiment": "test"}
+    
+    # Test after context - should be empty again
+    assert get_current_labels() == {}
+
+
+def test_otel_labels_nested_contexts():
+    """Test nested otel_labels contexts merge correctly."""
+    with otel_labels(experiment="main", version="1.0"):
+        # First level
+        assert get_current_labels() == {"experiment": "main", "version": "1.0"}
+        
+        with otel_labels(user_id="user123", experiment="override"):
+            # Second level - experiment should be overridden
+            expected = {"experiment": "override", "version": "1.0", "user_id": "user123"}
+            assert get_current_labels() == expected
+            
+            with otel_labels(temp_flag=True):
+                # Third level - add more labels
+                expected = {
+                    "experiment": "override", 
+                    "version": "1.0", 
+                    "user_id": "user123",
+                    "temp_flag": True
+                }
+                assert get_current_labels() == expected
+            
+            # Back to second level
+            expected = {"experiment": "override", "version": "1.0", "user_id": "user123"}
+            assert get_current_labels() == expected
+        
+        # Back to first level
+        assert get_current_labels() == {"experiment": "main", "version": "1.0"}
+
+
+def test_record_request_with_user_labels(in_memory_telemetry):
+    """Test that user labels from context are included in metrics."""
+    telemetry, reader = in_memory_telemetry
+    
+    # Record request with user labels
+    with otel_labels(user_id="user123", experiment="test_run"):
+        telemetry.record_request(
+            input_tokens=200,
+            output_tokens=100,
+            request_latency=2.0,
+            impacts=ImpactsOutput(
+                energy=Energy(value=0.2),
+                gwp=GWP(value=0.4),
+                adpe=ADPe(value=0.6),
+                pe=PE(value=0.8)
+            ),
+            model="gpt-4",
+            endpoint="openai"
+        )
+    
+    # Force collection
+    reader.collect()
+    
+    # Check that metrics include both system and user labels
+    expected_attributes = {
+        "endpoint": "openai", 
+        "model": "gpt-4",
+        "user_id": "user123",
+        "experiment": "test_run"
+    }
+    
+    request_metric = get_metric_data(reader, "ecologits_requests_total")
+    assert request_metric is not None
+    assert get_metric_value_with_attributes(request_metric, expected_attributes) == 1
+    
+    energy_metric = get_metric_data(reader, "ecologits_energy_total")
+    assert energy_metric is not None
+    assert get_metric_value_with_attributes(energy_metric, expected_attributes) == 0.2
+
+
+def test_multiple_requests_with_different_labels(in_memory_telemetry):
+    """Test multiple requests with different label combinations."""
+    telemetry, reader = in_memory_telemetry
+    
+    # First request with user labels
+    with otel_labels(user_id="user1", environment="prod"):
+        telemetry.record_request(
+            input_tokens=100,
+            output_tokens=50,
+            request_latency=1.0,
+            impacts=ImpactsOutput(
+                energy=Energy(value=0.1),
+                gwp=GWP(value=0.1),
+                adpe=ADPe(value=0.1),
+                pe=PE(value=0.1)
+            ),
+            model="gpt-4",
+            endpoint="openai"
+        )
+    
+    # Second request with different user labels
+    with otel_labels(user_id="user2", environment="dev"):
+        telemetry.record_request(
+            input_tokens=150,
+            output_tokens=75,
+            request_latency=1.5,
+            impacts=ImpactsOutput(
+                energy=Energy(value=0.15),
+                gwp=GWP(value=0.15),
+                adpe=ADPe(value=0.15),
+                pe=PE(value=0.15)
+            ),
+            model="gpt-4",
+            endpoint="openai"
+        )
+    
+    # Third request without user labels
+    telemetry.record_request(
+        input_tokens=200,
+        output_tokens=100,
+        request_latency=2.0,
+        impacts=ImpactsOutput(
+            energy=Energy(value=0.2),
+            gwp=GWP(value=0.2),
+            adpe=ADPe(value=0.2),
+            pe=PE(value=0.2)
+        ),
+        model="gpt-4",
+        endpoint="openai"
+    )
+    
+    # Force collection
+    reader.collect()
+    
+    # Check that we have three separate metric series
+    request_metric = get_metric_data(reader, "ecologits_requests_total")
+    assert request_metric is not None
+    assert len(request_metric.data.data_points) == 3
+    
+    # Check specific values for each label combination
+    attrs1 = {"endpoint": "openai", "model": "gpt-4", "user_id": "user1", "environment": "prod"}
+    attrs2 = {"endpoint": "openai", "model": "gpt-4", "user_id": "user2", "environment": "dev"}
+    attrs3 = {"endpoint": "openai", "model": "gpt-4"}
+    
+    assert get_metric_value_with_attributes(request_metric, attrs1) == 1
+    assert get_metric_value_with_attributes(request_metric, attrs2) == 1
+    assert get_metric_value_with_attributes(request_metric, attrs3) == 1
+    
+    # Check input tokens for each series
+    input_tokens_metric = get_metric_data(reader, "ecologits_input_tokens")
+    assert get_metric_value_with_attributes(input_tokens_metric, attrs1) == 100
+    assert get_metric_value_with_attributes(input_tokens_metric, attrs2) == 150
+    assert get_metric_value_with_attributes(input_tokens_metric, attrs3) == 200
+
+
+def test_context_isolation_across_threads():
+    """Test that contextvars properly isolate labels across different contexts."""
+    import threading
+    import queue
+    import time
+    
+    results = queue.Queue()
+    
+    def worker(worker_id, result_queue):
+        with otel_labels(worker_id=worker_id, thread="worker"):
+            # Sleep to allow other threads to run
+            time.sleep(0.1)
+            labels = get_current_labels()
+            result_queue.put((worker_id, labels))
+    
+    # Start multiple threads
+    threads = []
+    for i in range(3):
+        t = threading.Thread(target=worker, args=(f"worker_{i}", results))
+        threads.append(t)
+        t.start()
+    
+    # Wait for all threads
+    for t in threads:
+        t.join()
+    
+    # Check results - each thread should have its own labels
+    collected_results = []
+    while not results.empty():
+        collected_results.append(results.get())
+    
+    assert len(collected_results) == 3
+    
+    # Each worker should have its own worker_id
+    worker_ids = {result[1]["worker_id"] for result in collected_results}
+    assert worker_ids == {"worker_0", "worker_1", "worker_2"}
+    
+    # All should have the same thread label
+    thread_labels = {result[1]["thread"] for result in collected_results}
+    assert thread_labels == {"worker"}
