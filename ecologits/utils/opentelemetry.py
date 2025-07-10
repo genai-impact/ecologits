@@ -1,7 +1,6 @@
 from contextlib import contextmanager
-from contextvars import ContextVar
 
-from opentelemetry import metrics
+from opentelemetry import metrics, context
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
@@ -10,42 +9,31 @@ from ecologits.log import logger
 from ecologits.tracers.utils import ImpactsOutput
 from ecologits.utils.range_value import RangeValue
 
-# For storing user-defined labels
-_user_labels: ContextVar[dict[str, str]] = ContextVar('otel_labels', default={})
+# Create a context key for your labels
+_LABELS_KEY = context.create_key("ecologits_labels")
 
 
 @contextmanager
 def otel_labels(**user_labels):
-    """
-    Context manager to add custom labels to metrics within a block.
-    
-    Args:
-        **user_labels: Key-value pairs to add as metric labels/attributes
-        
-    Example:
-        with otel_labels(user_id="jay123", step="ocr"):
-            response = client.chat.completions.create(...)
-            # All metrics include endpoint and model labels by default
-    """
-    # Get current labels from context
-    current_labels = _user_labels.get({})
-    
-    # Merge current with new labels (new labels take precedence)
+    """Context manager using OpenTelemetry's Context API."""
+    # Get current labels and merge with new ones
+    current_labels = context.get_value(_LABELS_KEY) or {}
     merged_labels = {**current_labels, **user_labels}
     
-    # Set new context
-    token = _user_labels.set(merged_labels)
+    # Create new context with merged labels
+    new_ctx = context.set_value(_LABELS_KEY, merged_labels)
+    
+    # Attach the new context
+    token = context.attach(new_ctx)
     
     try:
         yield
     finally:
-        # Restore previous context
-        _user_labels.reset(token)
-
+        context.detach(token)
 
 def get_current_labels() -> dict[str, str]:
-    """Get the currently active user-defined labels from context."""
-    return _user_labels.get({})
+    """Get labels from current context."""
+    return context.get_value(_LABELS_KEY) or {}
 
 
 class OpenTelemetry:
