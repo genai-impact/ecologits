@@ -36,7 +36,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     import litellm
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["litellm"])
     
     response = litellm.completion(
         model="gpt-4o-2024-05-13",
@@ -55,7 +55,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["litellm"])
     
     async def main() -> None:
         response = await litellm.acompletion(
@@ -83,7 +83,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     import litellm
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["litellm"])
     
     stream = litellm.completion(
         model="gpt-3.5-turbo",
@@ -104,7 +104,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["litellm"])
     
     async def main() -> None:
         stream = await litellm.acompletion(

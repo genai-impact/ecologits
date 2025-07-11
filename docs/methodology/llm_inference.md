@@ -198,7 +198,7 @@ The embodied environmental impacts of the cloud instance are:
 | ADPe (kgSbeq)   | $0.25$               |
 | PE (MJ)         | $39,000$             |
 
-!!! warning "These impacts does not take into account the eight GPUs. ([see below](#gpu-embodied-impacts))"
+!!! warning "These impacts do not take into account the eight GPUs. ([see below](#gpu-embodied-impacts))"
 
 ??? info "Example request to reproduce this calculation"
 

@@ -40,6 +40,17 @@ class Alias(BaseModel):
 
 
 class Model(BaseModel):
+    """
+    LLM Model
+
+    Attributes:
+        provider: Provider of the model (e.g. "OpenAI")
+        name: Name of the model (e.g. "gpt-4o-mini")
+        architecture: Architecture type (dense or mixture-of-experts)
+        warnings: Warnings linked to the model (e.g. "model-arch-not-released" or "model-arch-multimodal")
+        sources: Source of the model information (website link)
+    """
+
     provider: Providers
     name: str
     architecture: Architecture
@@ -53,20 +64,26 @@ class Model(BaseModel):
     @classmethod
     def from_json(cls, data: dict[str, Any]) -> "Model":
         warnings = []
-        if data["warnings"] is not None:
+        sources = []
+        if "warnings" in data and data["warnings"] is not None:
             warnings = [WarningMessage.from_code(code) for code in data["warnings"]]
+        if "source" in data and data["sources"] is not None:
+            sources = data["sources"]
         return cls(
             provider=Providers(data["provider"]),
             name=data["name"],
             architecture=Architecture.model_validate(data["architecture"]),
             warnings=warnings,
-            sources=data["sources"] or []
+            sources=sources
         )
 
 
 class ModelRepository:
+    """
+    Repository of models
+    """
 
-    def __init__(self, models: list[Model], aliases: Optional[list[Alias]] = None) -> None:
+    def __init__(self, models: Optional[list[Model]] = None, aliases: Optional[list[Alias]] = None) -> None:
         self.__models: dict[tuple[str, str], Model] = {}
         if models is not None:
             for m in models:
@@ -84,6 +101,13 @@ class ModelRepository:
                 model = self.__models[model_key].model_copy()
                 model.name = a.name
                 self.__models[alias_key] = model
+
+    def add_model(self, data: dict[str, Any]) -> None:
+        model = Model.from_json(data)
+        key = model.provider.value, model.name
+        if key in self.__models:
+            raise ValueError(f"duplicated models with: {key}")
+        self.__models[key] = model
 
     def find_model(self, provider: str, model_name: str) -> Optional[Model]:
         return self.__models.get((provider, model_name))

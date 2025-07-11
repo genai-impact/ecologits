@@ -39,4 +39,12 @@ def vcr_config():
 
 @pytest.fixture(scope="session")
 def tracer_init():
-    EcoLogits.init()
+    EcoLogits.init(providers=[
+        "anthropic",
+        "cohere",
+        "google",
+        "huggingface_hub",
+        "litellm",
+        "mistralai",
+        "openai"
+    ])

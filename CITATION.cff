@@ -1,0 +1,34 @@
+cff-version: "1.2.0"
+authors:
+- family-names: Rincé
+  given-names: Samuel
+  orcid: "https://orcid.org/0009-0000-0739-6114"
+- family-names: Banse
+  given-names: Adrien
+  orcid: "https://orcid.org/0000-0002-4456-6618"
+doi: 10.5281/zenodo.15601289
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
+  - family-names: Rincé
+    given-names: Samuel
+    orcid: "https://orcid.org/0009-0000-0739-6114"
+  - family-names: Banse
+    given-names: Adrien
+    orcid: "https://orcid.org/0000-0002-4456-6618"
+  date-published: 2025-07-09
+  doi: 10.21105/joss.07471
+  issn: 2475-9066
+  issue: 111
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 7471
+  title: "EcoLogits: Evaluating the Environmental Impacts of Generative
+    AI"
+  type: article
+  url: "https://joss.theoj.org/papers/10.21105/joss.07471"
+  volume: 10
+title: "EcoLogits: Evaluating the Environmental Impacts of Generative
+  AI"

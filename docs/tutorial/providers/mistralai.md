@@ -41,7 +41,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from mistralai import Mistral
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["mistralai"])
     
     client = Mistral(api_key="<MISTRAL_API_KEY>")
 
@@ -66,7 +66,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from mistralai import Mistral
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["mistralai"])
     
     client = Mistral(api_key="<MISTRAL_API_KEY>")
     
@@ -99,7 +99,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from mistralai import Mistral
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["mistralai"])
     
     client = Mistral(api_key="<MISTRAL_API_KEY>")
     
@@ -126,7 +126,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from mistralai import Mistral
     
     # Initialize EcoLogits
-    EcoLogits.init()
+    EcoLogits.init(providers=["mistralai"])
     
     client = Mistral(api_key="<MISTRAL_API_KEY>")
     
