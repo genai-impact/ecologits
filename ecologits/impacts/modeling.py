@@ -130,6 +130,23 @@ class PE(BaseImpact):
     name: str = "Primary Energy"
     unit: str = "MJ"
 
+class Water(BaseImpact):
+    """
+    Water (PE) impact.
+
+    Info:
+        Total water consumption.
+
+    Attributes:
+        type: water
+        name: Water
+        value: Water value
+        unit: Liter (L)
+    """
+    type: str = "water"
+    name: str = "Water"
+    unit: str = "Liters"
+
 
 class Phase(BaseModel):
     """
@@ -164,6 +181,7 @@ class Usage(Phase):
     gwp: GWP
     adpe: ADPe
     pe: PE
+    water: Water
 
 
 class Embodied(Phase):
@@ -185,6 +203,7 @@ class Embodied(Phase):
     gwp: GWP
     adpe: ADPe
     pe: PE
+    water: Water
 
 
 class Impacts(BaseModel):
@@ -203,5 +222,6 @@ class Impacts(BaseModel):
     gwp: GWP
     adpe: ADPe
     pe: PE
+    water: Water
     usage: Usage
     embodied: Embodied

@@ -3,7 +3,7 @@ from math import ceil
 from typing import Any, Optional, Union, cast
 
 from ecologits.impacts.dag import DAG
-from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
+from ecologits.impacts.modeling import GWP, PE, ADPe, Water, Embodied, Energy, Impacts, Usage
 from ecologits.utils.range_value import RangeValue, ValueOrRange
 
 MODEL_QUANTIZATION_BITS = 4
@@ -29,6 +29,61 @@ SERVER_EMBODIED_IMPACT_PE = 38000
 HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 
 DATACENTER_PUE = 1.2
+
+# From https://docs.google.com/spreadsheets/d/1uj8yA601uBtJ7GSf7k96Lv1NoQBfsCnVmTCII2HgZvo/edit?gid=0#gid=0
+# Google : https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf
+# Meta: https://sustainability.atmeta.com/wp-content/uploads/2024/08/Meta-2024-Sustainability-Report.pdf
+# Microsoft: https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/
+# OVHCloud: https://corporate.ovhcloud.com/en/sustainability/environment/
+# Scaleway: https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf
+# AWS: https://sustainability.aboutamazon.com/2023-report
+# Equinix: https://www.equinix.com/resources/infopapers/2023-corporate-sustainability-report
+PROVIDER_WUE_ONSITE = { #Water use efficiency on-site, as opposed to off-site generated energy 
+    "Google" : 0.916,
+    "Meta": 0.18,    # L/kWh, 2023
+    "Microsoft": 0.49, #2022
+    "OVHCloud": 0.37, #2024
+    "Scaleway": 0.216, #2023
+    "AWS" : 0.18, #2023
+    "Equinix" : 1.07 #2023
+}
+
+
+# Google https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf
+# Meta https://sustainability.atmeta.com/data-centers/#:~:text=Meta's%20operational%20data%20centers%2C%20on,Effectiveness%20(WUE)%20of%200.20.
+# Microsoft https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/
+# OVHCloud https://corporate.ovhcloud.com/en/sustainability/environment/
+# Scaleway https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf
+# AWS https://sustainability.aboutamazon.com/products-services/aws-cloud
+# Equinix https://www.equinix.com/content/dam/eqxcorp/en_us/documents/resources/infopapers/ip_2023_sustainability_en.pdf
+PROVIDER_PUE = { #Power use efficiency 
+    "Google" : 1.09,
+    "Meta" : 1.09,	
+    "Microsoft" : 1.18,	
+    "OVHCloud" : 1.26,	
+    "Scaleway" : 1.37,	
+    "AWS" : 1.15,	
+    "Equinix" : 1.42	
+}
+
+AI_COMPANY_TO_DATA_CENTER_PROVIDER = { #A list that draws the connection between AI companies and their data center providers 
+    "anthropic"	: "Google",
+    "mistralai"	: "OVHCloud",
+    "cohere"	: "AWS", 
+    "azureopenai" : "Microsoft", #traité comme Openai
+    "huggingfacehub" : "AWS",
+    "google" : "Google", 
+    "microsoft"	: "Microsoft", 
+    "openai" : "Microsoft",
+}
+
+BATCHING_SIZE = 16
+
+GPUS_IN_SERVER = 8
+
+WATER_FABRICATING_GPU = 8327.906
+#8327.906 liters of pure water used to fabricate a microchip. 
+#This number will change depends on reclaim rate of water and the amount needed to filter to get pure water.
 
 dag = DAG()
 
@@ -223,6 +278,31 @@ def request_usage_pe(
     """
     return request_energy * if_electricity_mix_pe
 
+@dag.asset
+def request_usage_water(
+        request_energy: ValueOrRange,
+        if_electricity_mix_wcf: float,
+        provider: str
+) -> ValueOrRange:
+    """
+    Compute the water usage impact of the request.
+
+    Args:
+        request_energy: Energy consumption of the request in kWh.
+        wcf_os: water consumption factor on-site. Depends on the data center.
+        PUE: Power usage efficiency. Depends on the data center
+        if_electricity_mix_wcf: water consumption factor off-site, water consumption to electricity cosnumption. Depends on the data center's location. 
+        
+    Returns:
+        The water usage impact of the request in liters.
+    """
+    #print("the provider is", provider)
+
+
+    output = request_energy * (PROVIDER_WUE_ONSITE[AI_COMPANY_TO_DATA_CENTER_PROVIDER[provider]] + PROVIDER_PUE[AI_COMPANY_TO_DATA_CENTER_PROVIDER[provider]] * if_electricity_mix_wcf )
+    
+    return output
+
 
 @dag.asset
 def server_gpu_embodied_gwp(
@@ -350,7 +430,42 @@ def request_embodied_pe(
     return (generation_latency / server_lifetime) * server_gpu_embodied_pe
 
 
+#TODO: avec  (generation_latency / server_lifetime), c'est tout à fait possible de calculer 
+@dag.asset
+def request_embodied_water(
+        server_gpu_embodied_pe: float,
+        server_lifetime: float,
+        generation_latency: ValueOrRange
+) -> ValueOrRange:
+    """
+    Compute the Primary Energy (PE) embodied impact of the request.
+
+    Args:
+        server_gpu_embodied_pe: PE embodied impact of the server and the GPUs in MJ.
+        server_lifetime: Lifetime duration of the server in seconds.
+        generation_latency: Token generation latency in seconds.
+
+    Returns:
+        The PE embodied impact of the request in MJ.
+    """
+    #https://oecd.ai/en/wonk/how-much-water-does-ai-consume
+    #"For example, to produce a microchip takes approximately 2,200 gallons of Ultra-Pure Water (UPW)."
+    #assuming a server of 8 gpu's 
+    #8327.906 liters * 8 = 66623.248
+
+    #with a batching size of 16 on average (need source) per gpu, and 8 gpu per server, we devide the water consumption of the server by 16
+    #source https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices?utm_source=chatgpt.com
+    #^needs clarification
+
+    #down here
+    output = generation_latency *WATER_FABRICATING_GPU * GPUS_IN_SERVER/ (server_lifetime * BATCHING_SIZE)
+
+    return output
+
+
+
 def compute_llm_impacts_dag(
+        provider: str,
         model_active_parameter_count: ValueOrRange,
         model_total_parameter_count: ValueOrRange,
         output_token_count: float,
@@ -358,6 +473,7 @@ def compute_llm_impacts_dag(
         if_electricity_mix_adpe: float,
         if_electricity_mix_pe: float,
         if_electricity_mix_gwp: float,
+        if_electricity_mix_wcf: float,
         model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
         gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
         gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
@@ -381,6 +497,7 @@ def compute_llm_impacts_dag(
     Compute the impacts dag of an LLM generation request.
 
     Args:
+        provider: The provider of the model
         model_active_parameter_count: Number of active parameters of the model (in billion).
         model_total_parameter_count: Number of parameters of the model (in billion).
         output_token_count: Number of generated tokens.
@@ -388,6 +505,7 @@ def compute_llm_impacts_dag(
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
+        if_electricity_mix_wcf: water consumption factor, water consumption to electricity consumption in liters / kWh.
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
@@ -411,6 +529,7 @@ def compute_llm_impacts_dag(
         The impacts dag with all intermediate states.
     """
     results = dag.execute(
+        provider=provider,
         model_active_parameter_count=model_active_parameter_count,
         model_total_parameter_count=model_total_parameter_count,
         model_quantization_bits=model_quantization_bits,
@@ -419,6 +538,7 @@ def compute_llm_impacts_dag(
         if_electricity_mix_gwp=if_electricity_mix_gwp,
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe,
+        if_electricity_mix_wcf=if_electricity_mix_wcf,
         gpu_energy_alpha=gpu_energy_alpha,
         gpu_energy_beta=gpu_energy_beta,
         gpu_energy_stdev=gpu_energy_stdev,
@@ -441,12 +561,14 @@ def compute_llm_impacts_dag(
 
 
 def compute_llm_impacts(
+        provider: str,
         model_active_parameter_count: ValueOrRange,
         model_total_parameter_count: ValueOrRange,
         output_token_count: float,
         if_electricity_mix_adpe: float,
         if_electricity_mix_pe: float,
         if_electricity_mix_gwp: float,
+        if_electricity_mix_wcf:float,
         request_latency: Optional[float] = None,
         **kwargs: Any
 ) -> Impacts:
@@ -454,12 +576,14 @@ def compute_llm_impacts(
     Compute the impacts of an LLM generation request.
 
     Args:
+        provider: the provider of the model
         model_active_parameter_count: Number of active parameters of the model (in billion).
         model_total_parameter_count: Number of total parameters of the model (in billion).
         output_token_count: Number of generated tokens.
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
+        if_electricity_mix_wcf: water consumption factor, water consumption to electricity consumption in liters / kwh.
         request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
 
@@ -483,11 +607,12 @@ def compute_llm_impacts(
             total_params = [model_total_parameter_count, model_total_parameter_count]
 
     results: dict[str, Union[RangeValue, float, int]] = {}
-    fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
-              "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
+    fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe", "request_usage_water",
+              "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe", "request_embodied_water"]
 
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
+            provider=provider,
             model_active_parameter_count=act_param,
             model_total_parameter_count=tot_param,
             output_token_count=output_token_count,
@@ -495,6 +620,7 @@ def compute_llm_impacts(
             if_electricity_mix_adpe=if_electricity_mix_adpe,
             if_electricity_mix_pe=if_electricity_mix_pe,
             if_electricity_mix_gwp=if_electricity_mix_gwp,
+            if_electricity_mix_wcf=if_electricity_mix_wcf,
             **kwargs
         )
         for field in fields:
@@ -513,23 +639,29 @@ def compute_llm_impacts(
     gwp_usage = GWP(value=results["request_usage_gwp"])
     adpe_usage = ADPe(value=results["request_usage_adpe"])
     pe_usage = PE(value=results["request_usage_pe"])
+    water_usage = Water(value=results["request_usage_water"])
     gwp_embodied = GWP(value=results["request_embodied_gwp"])
     adpe_embodied = ADPe(value=results["request_embodied_adpe"])
     pe_embodied = PE(value=results["request_embodied_pe"])
+    water_embodied = Water(value=results["request_embodied_water"])
+
     return Impacts(
         energy=energy,
         gwp=gwp_usage + gwp_embodied,
         adpe=adpe_usage + adpe_embodied,
         pe=pe_usage + pe_embodied,
+        water=water_usage + water_embodied,
         usage=Usage(
             energy=energy,
             gwp=gwp_usage,
             adpe=adpe_usage,
-            pe=pe_usage
+            pe=pe_usage,
+            water = water_usage
         ),
         embodied=Embodied(
             gwp=gwp_embodied,
             adpe=adpe_embodied,
-            pe=pe_embodied
+            pe=pe_embodied,
+            water=water_embodied
         )
     )
