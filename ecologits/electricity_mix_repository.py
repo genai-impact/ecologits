@@ -19,6 +19,7 @@ class ElectricityMix:
     adpe: float
     pe: float
     gwp: float
+    wcf: float
 
 
 class ElectricityMixRepository:
@@ -45,12 +46,19 @@ class ElectricityMixRepository:
         with open(filepath) as fd:
             csv = DictReader(fd)
             for row in csv:
+                if row["name"].upper() == "WOR":
+                    wcf_wor_value = row.get("wcf", "")
+                wcf_value = row.get("wcf", "") # enlève les espaces éventuels
+                wcf = float(wcf_value) if wcf_value else wcf_wor_value
+                #TODO : n'oublie pas d'afficher un message de avertissement si la valeur qu'on prend est un zéro (on utilise la moyenne mondiale dans ce cas)
+
                 electricity_mixes.append(
                     ElectricityMix(
                         zone=row["name"],
                         adpe=float(row["adpe"]),
                         pe=float(row["pe"]),
                         gwp=float(row["gwp"]),
+                        wcf=wcf
                     )
                 )
         return cls(electricity_mixes)
