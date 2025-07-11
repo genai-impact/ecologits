@@ -72,7 +72,7 @@ See package documentation on [EcoLogits](https://ecologits.ai/)
 </a>
 
 <a href="https://www.culture.gouv.fr/" target="_blank">
-<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/ministere_culture.png" alt="Ministère de la Culture" height="350" width="150">
+<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/ministere_culture.png" alt="Ministère de la Culture" height="100" width="132">
 </a>
 
 
