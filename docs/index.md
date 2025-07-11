@@ -201,9 +201,10 @@ For detailed instructions on how to use the library, see our **[tutorial section
 [![Resilio](assets/sponsors/resilio.png)](https://resilio-solutions.com/)
 [![Terra Cognita](assets/sponsors/terra_cognita.png)](https://www.terra-cognita.ai/)
 [![Sopht](assets/sponsors/sopht.png)](https://sopht.com/)
+[![Avanade](assets/sponsors/avanade.png)](https://www.avanade.com/)
 
 ## Benefactors
-[![Ministere de la Culture](assets/sponsors/ministere-culture.png)](https://www.culture.gouv.fr/fr)
+[![Ministère de la Culture](assets/sponsors/ministere_culture.png)](https://www.culture.gouv.fr/fr)
 
 ## License
 

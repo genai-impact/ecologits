@@ -26,6 +26,7 @@ pip install ecologits
 
 For integration with a specific provider, use `pip install ecologits[openai]`. We are currently supporting the following providers: `anthropic`, `cohere`, `google-generativeai`, `huggingface-hub`, `mistralai` and `openai`. See the full [list of providers](https://ecologits.ai/latest/tutorial/providers/).
 
+
 ## 🚀 Usage
 
 ```python
@@ -51,6 +52,7 @@ print(f"GHG emissions: {response.impacts.gwp.value} kgCO2eq")
 
 See package documentation on [EcoLogits](https://ecologits.ai/)
 
+
 ## 💚 Sponsors & benefactors
 
 <a href="https://resilio-solutions.com/" target="_blank">
@@ -64,14 +66,20 @@ See package documentation on [EcoLogits](https://ecologits.ai/)
 <a href="https://sopht.com/" target="_blank">
 <img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/sopht.png" alt="Sopht" height="100" width="250">
 </a>
- <br>
-<a href="https://www.culture.gouv.fr/" target="_blank">
-<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/ministere-culture.png" alt="Ministere de la culture" height="350" width="150">
+
+<a href="https://www.avanade.com/" target="_blank">
+<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/avanade.png" alt="Avanade" height="100" width="250">
 </a>
+
+<a href="https://www.culture.gouv.fr/" target="_blank">
+<img src="https://raw.githubusercontent.com/genai-impact/ecologits/main/docs/assets/sponsors/ministere_culture.png" alt="Ministère de la Culture" height="350" width="150">
+</a>
+
 
 ## 💪 Contributing
 
 To get started with setting up a development environment and making a contribution to EcoLogits, see [Contributing to EcoLogits](https://ecologits.ai/latest/contributing/).
+
 
 ## ⚖️ License
 
