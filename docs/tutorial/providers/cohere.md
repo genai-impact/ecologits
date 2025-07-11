@@ -35,7 +35,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.EcoLogits.init(providers=["cohere"])
+    EcoLogits.init(providers=["cohere"])
     
     client = Client(api_key="<COHERE_API_KEY>")
     
@@ -56,7 +56,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.EcoLogits.init(providers=["cohere"])
+    EcoLogits.init(providers=["cohere"])
     
     client = AsyncClient(api_key="<COHERE_API_KEY>")
     
@@ -84,7 +84,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.EcoLogits.init(providers=["cohere"])
+    EcoLogits.init(providers=["cohere"])
     
     client = Client(api_key="<COHERE_API_KEY>")
     
@@ -107,7 +107,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from ecologits import EcoLogits
     
     # Initialize EcoLogits
-    EcoLogits.EcoLogits.init(providers=["cohere"])
+    EcoLogits.init(providers=["cohere"])
     
     client = AsyncClient(api_key="<COHERE_API_KEY>")
     
