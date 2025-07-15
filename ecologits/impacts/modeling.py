@@ -145,7 +145,7 @@ class Water(BaseImpact):
     """
     type: str = "water"
     name: str = "Water"
-    unit: str = "Liters"
+    unit: str = "L"
 
 
 class Phase(BaseModel):

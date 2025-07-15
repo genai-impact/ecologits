@@ -70,6 +70,8 @@ AI_COMPANY_TO_DATA_CENTER_PROVIDER = { #A list that draws the connection between
     "anthropic"	: "Google",
     "mistralai"	: "OVHCloud",
     "cohere"	: "AWS", 
+    "databricks" : "Microsoft", 
+    "meta"	: "Meta",
     "azureopenai" : "Microsoft", #traité comme Openai
     "huggingfacehub" : "AWS",
     "google" : "Google", 
