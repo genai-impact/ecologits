@@ -282,24 +282,27 @@ def request_usage_pe(
 def request_usage_water(
         request_energy: ValueOrRange,
         if_electricity_mix_wcf: float,
-        provider: str
+        provider: str,
+        provider_wue_onsite: dict,
+        provider_pue: dict,
+        ai_company_to_data_center_provider: dict
 ) -> ValueOrRange:
     """
     Compute the water usage impact of the request.
 
     Args:
         request_energy: Energy consumption of the request in kWh.
-        wcf_os: water consumption factor on-site. Depends on the data center.
-        PUE: Power usage efficiency. Depends on the data center
-        if_electricity_mix_wcf: water consumption factor off-site, water consumption to electricity cosnumption. Depends on the data center's location. 
-        
+        if_electricity_mix_wcf: Water consumption factor off-site, water consumption to electricity cosnumption. Depends on the data center's location. 
+        provider_wue_onsite: Water consumption factor on-site. Depends on the data center.
+        provider_pue: Power usage efficiency. Depends on the data center provider.
+        ai_company_to_data_center_provider: A dictionary mapping AI providers to their data center providers.
     Returns:
         The water usage impact of the request in liters.
     """
-    #print("the provider is", provider)
+        
 
 
-    output = request_energy * (PROVIDER_WUE_ONSITE[AI_COMPANY_TO_DATA_CENTER_PROVIDER[provider]] + PROVIDER_PUE[AI_COMPANY_TO_DATA_CENTER_PROVIDER[provider]] * if_electricity_mix_wcf )
+    output = request_energy * (provider_wue_onsite[ai_company_to_data_center_provider[provider]] + provider_pue[ai_company_to_data_center_provider[provider]] * if_electricity_mix_wcf )
     
     return output
 
@@ -430,34 +433,35 @@ def request_embodied_pe(
     return (generation_latency / server_lifetime) * server_gpu_embodied_pe
 
 
-#TODO: avec  (generation_latency / server_lifetime), c'est tout à fait possible de calculer 
 @dag.asset
 def request_embodied_water(
-        server_gpu_embodied_pe: float,
         server_lifetime: float,
         generation_latency: ValueOrRange
 ) -> ValueOrRange:
     """
-    Compute the Primary Energy (PE) embodied impact of the request.
+    Compute the water embodied impact of the request.
 
     Args:
-        server_gpu_embodied_pe: PE embodied impact of the server and the GPUs in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
-
+        WATER_FABRICATING_GPU: The amount of water used in fabricating a gpu.
+        GPUS_IN_SERVER: The number of GPUs in a server.
+        BATCHING_SIZE: The number of requests handled concurrently by the server. 
+        
     Returns:
         The PE embodied impact of the request in MJ.
     """
+    
+
     #https://oecd.ai/en/wonk/how-much-water-does-ai-consume
     #"For example, to produce a microchip takes approximately 2,200 gallons of Ultra-Pure Water (UPW)."
     #assuming a server of 8 gpu's 
     #8327.906 liters * 8 = 66623.248
 
-    #with a batching size of 16 on average (need source) per gpu, and 8 gpu per server, we devide the water consumption of the server by 16
+    #with a batching size of 16 as the industry standard (see source below) and 8 gpu per server, we devide the water consumption of the server by 16
     #source https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices?utm_source=chatgpt.com
-    #^needs clarification
-
-    #down here
+    #here
+    
     output = generation_latency *WATER_FABRICATING_GPU * GPUS_IN_SERVER/ (server_lifetime * BATCHING_SIZE)
 
     return output
@@ -492,6 +496,12 @@ def compute_llm_impacts_dag(
         server_embodied_pe: Optional[float] = SERVER_EMBODIED_IMPACT_PE,
         server_lifetime: Optional[float] = HARDWARE_LIFESPAN,
         datacenter_pue: Optional[float] = DATACENTER_PUE,
+        provider_wue_onsite: Optional[dict] = PROVIDER_WUE_ONSITE,
+        provider_pue: Optional[dict] = PROVIDER_PUE,
+        ai_company_to_data_center_provider: Optional[dict] = AI_COMPANY_TO_DATA_CENTER_PROVIDER,
+        water_fabricating_gpu: Optional[float] = WATER_FABRICATING_GPU,
+        gpus_in_server: Optional[float] = GPUS_IN_SERVER, 
+        batching_size: Optional[float] =  BATCHING_SIZE
 ) -> dict[str, ValueOrRange]:
     """
     Compute the impacts dag of an LLM generation request.
@@ -524,7 +534,12 @@ def compute_llm_impacts_dag(
         server_embodied_pe: PE embodied impact of the server in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
         datacenter_pue: PUE of the datacenter.
-
+        provider_wue_onsite: Water consumption factor on-site. Depends on the data center.
+        provider_pue: Power usage efficiency. Depends on the data center provider.
+        ai_company_to_data_center_provider: A dictionary mapping AI providers to their data center providers.
+        water_fabricating_gpu: The amount of water used in fabricating a gpu.
+        gpus_in_server: The number of GPUs in a server, default set to 8.
+        batching_size: The number of requests handled concurrently by the server, default set to 16.
     Returns:
         The impacts dag with all intermediate states.
     """
@@ -556,6 +571,12 @@ def compute_llm_impacts_dag(
         server_embodied_pe=server_embodied_pe,
         server_lifetime=server_lifetime,
         datacenter_pue=datacenter_pue,
+        provider_wue_onsite=provider_wue_onsite,
+        provider_pue=provider_pue,
+        ai_company_to_data_center_provider=ai_company_to_data_center_provider,
+        water_fabricating_gpu=water_fabricating_gpu,
+        gpus_in_server=gpus_in_server,
+        batching_size=batching_size
     )
     return results
 
