@@ -177,6 +177,29 @@ Note that the user can still chose another electricity mix from the [ADEME Base 
     | 🇨🇳 China                                                                | $1,057$            | $8.515 \times 10^{-8}$   | $14.1$  |
     | 🇫🇷 France                                                               | $81.3$            | $4.858 \times 10^{-8}$   | $11.3$     |
 
+### Modeling request usage water impact
+
+- Water Use (water): Water consumption from this request. The formula for quantifying this is:
+
+$$
+\begin{equation*}
+WCF_{\text{request}} = E_{\text{server}} \times \left( \text{WUE}_{\text{on-site}} + \text{PUE} \times \text{WUE}_{\text{off-site}} \right) + \frac{\Delta T \times WCF_{\text{embodied}}}{\Delta L \times N_{\text{requests}}}
+\end{equation*}
+$$
+
+Where
+
+* $WCF_{request}$ : Water consumption footprint for the request
+* $E_{\text{server}}$ : Energy cost at the server for the request 
+* $WUE_{on-site}$ : Water usage efficiency at the data center 
+* $PUE$: Power usage efficiency at the data center 
+* $WUE_{off-site}$ : Water usage efficiency of the local electricity mix 
+* ${\Delta T}$ : Generation latency, or the time it takes for the server to process the request, in seconds
+* ${\Delta L}$ : Server lifespan in seconds
+* ${N_{requests}}$ : Number of simultanous reqeusts handled by the server
+* ${WCF_{embodied}}$ : Embodied water consumption footprint for manufacturing the server
+
+
 
 ## Embodied impacts
 
@@ -254,6 +277,9 @@ $$
 I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\text{server}}.
 $$
 
+## Modeling water embodied impacts
+
+We draw from an [article](https://oecd.ai/en/wonk/how-much-water-does-ai-consume) from assuming that each GPU consumes 8327.906 liters (2,200 gallons) of water to produce. We assume that each server as 8 GPUs, and each GPU handles 16 requests in a batch. There is no definitive source on the batching, but this [article](https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices?utm_source=chatgpt.com) indicates that 16 might be a common industry practice.
 
 ## Assumptions and limitations
 
@@ -315,6 +341,8 @@ We consider the **Power Usage Effectiveness** (PUE) metric from data centers. Th
 * We do not account for the local electricity generation (private power plants) specific to the data center.
 * We do not account for the overhead of the cloud provider for internal services like backing up or monitoring.
 
+The data on water consumption of during the microchips' fabrication is not transparent, which makes the estimation for embodied water cost not as reliable as we would like it do be. The water consumption for the production of electricity varies widely by regions, and you could consider checking out our [enviornmental impact simulator](https://huggingface.co/spaces/genai-impact/ecologits-calculator) to find out about regional differences.  
+
 
 ### On impact factors
 
@@ -344,7 +372,12 @@ We aim at covering the largest scope possible when assessing the environmental i
 Please cite **GenAI Impact** non-profit organization and **link to this documentation page**. 
 
 ```bibtex
-Coming soon...
+"""
+@software{ecologits,
+  author = {Samuel Rincé, Adrien Banse, Vinh Nguyen, Luc Berton, and Chieh Hsu},
+  publisher = {GenAI Impact},
+  title = {EcoLogits: track the energy consumption and environmental footprint of using generative AI models through APIs.},
+}"""
 ```
 
 ## :material-scale-balance: License
