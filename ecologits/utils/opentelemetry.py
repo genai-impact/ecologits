@@ -15,7 +15,7 @@ _LABELS_KEY = context.create_key("ecologits_labels")
 
 
 @contextmanager
-def otel_labels(**user_labels: str) -> Generator[None, None, None]:
+def opentelemetry_labels(**user_labels: str) -> Generator[None, None, None]:
     """Context manager using OpenTelemetry's Context API."""
     # Get current labels and merge with new ones
     current_labels = context.get_value(_LABELS_KEY) or {}
