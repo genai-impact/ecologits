@@ -2,13 +2,13 @@ import importlib.metadata
 import importlib.util
 import warnings
 from dataclasses import dataclass, field
-from typing import Optional, Union
+from typing import Optional, Union, ContextManager
 
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
 from ecologits.log import logger
-from ecologits.utils.opentelemetry import OpenTelemetry
+from ecologits.utils.opentelemetry import OpenTelemetry, opentelemetry_labels
 
 
 def init_openai_instrumentor() -> None:
@@ -156,6 +156,12 @@ class EcoLogits:
             if opentelemetry_endpoint is None:
                 raise EcoLogitsError("Telemetry is enabled but no telemetry endpoint is provided.")
             EcoLogits.config.opentelemetry = OpenTelemetry(endpoint=opentelemetry_endpoint)
+
+    @staticmethod
+    def label(**labels: str) -> ContextManager[None]:
+        if EcoLogits.config.opentelemetry is None:
+            raise EcoLogitsError("Labels require OpenTelemetry. Initialize with enable_opentelemetry=True.")
+        return opentelemetry_labels(**labels)
 
 
 def init_instruments(providers: list[str]) -> None:
