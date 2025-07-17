@@ -1,6 +1,7 @@
 from contextlib import contextmanager
+from typing import Generator
 
-from opentelemetry import metrics, context
+from opentelemetry import context, metrics
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
@@ -14,22 +15,23 @@ _LABELS_KEY = context.create_key("ecologits_labels")
 
 
 @contextmanager
-def otel_labels(**user_labels):
+def otel_labels(**user_labels: str) -> Generator[None, None, None]:
     """Context manager using OpenTelemetry's Context API."""
     # Get current labels and merge with new ones
     current_labels = context.get_value(_LABELS_KEY) or {}
     merged_labels = {**current_labels, **user_labels}
-    
+
     # Create new context with merged labels
     new_ctx = context.set_value(_LABELS_KEY, merged_labels)
-    
+
     # Attach the new context
     token = context.attach(new_ctx)
-    
+
     try:
         yield
     finally:
         context.detach(token)
+
 
 def get_current_labels() -> dict[str, str]:
     """Get labels from current context."""
@@ -107,7 +109,7 @@ class OpenTelemetry:
             "endpoint": endpoint,
             "model": model
         }
-        
+
         # Merge with user-defined labels from context
         user_labels = get_current_labels()
         labels.update(user_labels)
