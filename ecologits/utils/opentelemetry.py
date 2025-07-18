@@ -39,13 +39,13 @@ class OpenTelemetryLabels:
     def __call__(self, func: Callable) -> Callable:
         if asyncio.iscoroutinefunction(func):
             @wraps(func)
-            async def async_wrapper(*args: Any, **kwargs: Any):
+            async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
                 with self:
                     return await func(*args, **kwargs)
             return async_wrapper
         else:
             @wraps(func)
-            def wrapper(*args: Any, **kwargs: Any):
+            def wrapper(*args: Any, **kwargs: Any) -> Any:
                 with self:
                     return func(*args, **kwargs)
             return wrapper
