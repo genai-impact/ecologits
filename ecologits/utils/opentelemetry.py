@@ -79,7 +79,7 @@ class OpenTelemetry:
         meter = metrics.get_meter("ecologits")
 
         self.request_counter = meter.create_counter(
-            name="ecologits_requests_total",
+            name="ecologits_requests",
             description="Total number of AI requests",
             unit="1"
         )
@@ -94,29 +94,29 @@ class OpenTelemetry:
             unit="1"
         )
         self.request_latency = meter.create_counter(
-            name="ecologits_request_latency_seconds",
+            name="ecologits_request_latency",
             description="Request latency in seconds",
             unit="s"
         )
         self.energy_value = meter.create_counter(
-            name="ecologits_energy_total",
+            name="ecologits_energy",
             description="Total energy consumption",
-            unit="kWh"
+            unit="joules"
         )
         self.gwp_value = meter.create_counter(
-            name="ecologits_gwp_total",
+            name="ecologits_gwp",
             description="Total Global Warming Potential",
-            unit="kg"
+            unit="gCO2eq"
         )
         self.adpe_value = meter.create_counter(
-            name="ecologits_adpe_total",
+            name="ecologits_adpe",
             description="Total Abiotic Depletion Potential for Elements",
-            unit="kg"
+            unit="gSbeq"
         )
         self.pe_value = meter.create_counter(
-            name="ecologits_pe_total",
+            name="ecologits_pe",
             description="Total Primary Energy",
-            unit="MJ"
+            unit="joules"
         )
 
     def record_request(
@@ -145,11 +145,19 @@ class OpenTelemetry:
         user_labels = get_current_labels()
         labels.update(user_labels)
 
-        energy_value = impacts.energy.value.mean if isinstance(impacts.energy.value,
-                                                               RangeValue) else impacts.energy.value
+        energy_value = (
+            impacts.energy.value.mean if isinstance(impacts.energy.value, RangeValue) else impacts.energy.value
+        )
+        energy_value *= 3_600_000  # convert kWh to J
+
         gwp_value = impacts.gwp.value.mean if isinstance(impacts.gwp.value, RangeValue) else impacts.gwp.value
+        gwp_value *= 1000  # convert kg to g
+
         adpe_value = impacts.adpe.value.mean if isinstance(impacts.adpe.value, RangeValue) else impacts.adpe.value
+        adpe_value *= 1000  # convert kg to g
+
         pe_value = impacts.pe.value.mean if isinstance(impacts.pe.value, RangeValue) else impacts.pe.value
+        pe_value *= 1_000_000  # convert MJ to J
 
         self.request_counter.add(1, labels)
         self.input_tokens.add(input_tokens, labels)
