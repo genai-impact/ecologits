@@ -2,6 +2,19 @@
 
 With the support of [OpenTelemetry :octicons-link-external-16:](https://opentelemetry.io/) in EcoLogits you can monitor request metrics such as the number of input/output tokens or the environmental impacts in time.
 
+## Installation
+
+To install EcoLogits along with all necessary dependencies for compatibility with the OpenTelemetry, please use the `opentelemetry` extra-dependency option as follows:
+
+```shell
+pip install ecologits[opentelemetry] # (1)!
+```
+
+1. Also include the provider you use in the installation command.
+
+This installation command ensures that EcoLogits is set up with the specific libraries required to work seamlessly with OpenTelemetry.
+
+
 ## Configuration
 
 To configure OpenTelemetry with EcoLogits, you will need to provide the URL endpoint at the initialization.
