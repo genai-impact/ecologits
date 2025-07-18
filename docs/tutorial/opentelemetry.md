@@ -4,7 +4,7 @@ With the support of [OpenTelemetry :octicons-link-external-16:](https://opentele
 
 ## Installation
 
-To install EcoLogits along with all necessary dependencies for compatibility with the OpenTelemetry, please use the `opentelemetry` extra-dependency option as follows:
+To install EcoLogits along with all necessary dependencies for compatibility with OpenTelemetry, please use the `opentelemetry` extra-dependency option as follows:
 
 ```shell
 pip install ecologits[opentelemetry] # (1)!
