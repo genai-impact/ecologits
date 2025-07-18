@@ -75,6 +75,7 @@ def openai_chat_wrapper_non_stream(
                 output_tokens=response.usage.completion_tokens,
                 request_latency=request_latency,
                 impacts=impacts,
+                provider=PROVIDER,
                 model=model_name,
                 endpoint="/chat/completions"
             )
@@ -122,6 +123,7 @@ def openai_chat_wrapper_stream(  # type: ignore[misc]
                     output_tokens=output_token_count,
                     request_latency=request_latency,
                     impacts=impacts,
+                    provider=PROVIDER,
                     model=model_name,
                     endpoint="/chat/completions"
                 )
@@ -179,6 +181,7 @@ async def openai_async_chat_wrapper_base(
                 output_tokens=response.usage.completion_tokens,
                 request_latency=request_latency,
                 impacts=impacts,
+                provider=PROVIDER,
                 model=model_name,
                 endpoint="/chat/completions"
             )
@@ -226,6 +229,7 @@ async def openai_async_chat_wrapper_stream(  # type: ignore[misc]
                     output_tokens=output_token_count,
                     request_latency=request_latency,
                     impacts=impacts,
+                    provider=PROVIDER,
                     model=model_name,
                     endpoint="/chat/completions"
                 )

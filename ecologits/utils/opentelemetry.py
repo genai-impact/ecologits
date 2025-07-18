@@ -124,6 +124,7 @@ class OpenTelemetry:
             output_tokens: int,
             request_latency: float,
             impacts: ImpactsOutput,
+            provider: str,
             model: str,
             endpoint: str
     ) -> None:
@@ -136,6 +137,7 @@ class OpenTelemetry:
 
         # Build default labels
         labels = {
+            "provider": provider,
             "endpoint": endpoint,
             "model": model
         }

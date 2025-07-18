@@ -51,6 +51,7 @@ EcoLogits will automatically report the following metrics when OpenTelemetry is 
 
 By default, EcoLogits will report two labels:
 
+- `provider`: Name of the provider
 - `model`: Name of the model used
 - `endpoint`: API endpoint of the request
 
