@@ -39,24 +39,39 @@ class MessageStream(_MessageStream):
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
+        input_tokens = None
         for chunk in self:
             if type(chunk) is MessageStartEvent:
                 message = chunk.message
                 model_name = message.model
+                input_tokens = message.usage.input_tokens
                 output_tokens += message.usage.output_tokens
             elif type(chunk) is MessageDeltaEvent:
                 output_tokens += chunk.usage.output_tokens
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
-        requests_latency = time.perf_counter() - timer_start
+        request_latency = time.perf_counter() - timer_start
         if model_name is not None:
-            self.impacts = llm_impacts(
+            impacts = llm_impacts(
                 provider=PROVIDER,
                 model_name=model_name,
                 output_token_count=output_tokens,
-                request_latency=requests_latency,
+                request_latency=request_latency,
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
+            self.impacts = impacts
+
+            if impacts is not None:
+                if EcoLogits.config.opentelemetry:
+                    EcoLogits.config.opentelemetry.record_request(
+                        input_tokens=input_tokens,
+                        output_tokens=output_tokens,
+                        request_latency=request_latency,
+                        impacts=impacts,
+                        provider=PROVIDER,
+                        model=model_name,
+                        endpoint="/messages"
+                    )
 
 
 
@@ -71,24 +86,39 @@ class AsyncMessageStream(_AsyncMessageStream):
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
+        input_tokens = None
         async for chunk in self:
             if type(chunk) is MessageStartEvent:
                 message = chunk.message
                 model_name = message.model
+                input_tokens = message.usage.input_tokens
                 output_tokens += message.usage.output_tokens
             elif type(chunk) is MessageDeltaEvent:
                 output_tokens += chunk.usage.output_tokens
             elif chunk.type == "content_block_delta" and chunk.delta.type == "text_delta":
                 yield chunk.delta.text
-        requests_latency = time.perf_counter() - timer_start
+        request_latency = time.perf_counter() - timer_start
         if model_name is not None:
-            self.impacts = llm_impacts(
+            impacts = llm_impacts(
                 provider=PROVIDER,
                 model_name=model_name,
                 output_token_count=output_tokens,
-                request_latency=requests_latency,
+                request_latency=request_latency,
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
+            self.impacts = impacts
+
+            if impacts is not None:
+                if EcoLogits.config.opentelemetry:
+                    EcoLogits.config.opentelemetry.record_request(
+                        input_tokens=input_tokens,
+                        output_tokens=output_tokens,
+                        request_latency=request_latency,
+                        impacts=impacts,
+                        provider=PROVIDER,
+                        model=model_name,
+                        endpoint="/messages"
+                    )
 
 
 
@@ -165,6 +195,17 @@ def anthropic_chat_wrapper(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.usage.input_tokens,
+                output_tokens=response.usage.output_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=model_name,
+                endpoint="/messages"
+            )
+
         return Message(**response.model_dump(), impacts=impacts)
     else:
         return response
@@ -198,6 +239,17 @@ async def anthropic_async_chat_wrapper(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.usage.input_tokens,
+                output_tokens=response.usage.output_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=model_name,
+                endpoint="/messages"
+            )
+
         return Message(**response.model_dump(), impacts=impacts)
     else:
         return response
