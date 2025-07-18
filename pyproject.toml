@@ -103,11 +103,6 @@ mkdocs-autorefs = "^1.0.1"
 mkdocs-literate-nav = "^0.6.1"
 mike = "^2.1.2"
 
-[tool.poetry.group.opentelemetry.dependencies]
-opentelemetry-api = "^1.32.1"
-opentelemetry-sdk = "^1.32.1"
-opentelemetry-exporter-otlp = "^1.32.1"
-
 [pytest]
 env_files = [".env"]
 
