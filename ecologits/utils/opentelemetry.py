@@ -3,7 +3,6 @@ from functools import wraps
 from typing import Any, Callable, Optional
 
 from opentelemetry import context, metrics
-from opentelemetry.context import Context
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
@@ -19,18 +18,18 @@ _LABELS_KEY = context.create_key("ecologits_labels")
 class OpenTelemetryLabels:
     """Context manager supporting both sync and async for OpenTelemetry labels."""
 
-    def __init__(self, **user_labels: str):
+    def __init__(self, **user_labels: str) -> None:
         self.user_labels = user_labels
         self.token = None
 
-    def __enter__(self) -> 'OpenTelemetryLabels':
+    def __enter__(self) -> "OpenTelemetryLabels":
         self._setup_context()
         return self
 
     def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception], exc_tb: Optional[Any]) -> None:
         self._cleanup_context()
 
-    async def __aenter__(self) -> 'OpenTelemetryLabels':
+    async def __aenter__(self) -> "OpenTelemetryLabels":
         self._setup_context()
         return self
 
@@ -40,13 +39,13 @@ class OpenTelemetryLabels:
     def __call__(self, func: Callable) -> Callable:
         if asyncio.iscoroutinefunction(func):
             @wraps(func)
-            async def async_wrapper(*args, **kwargs):
+            async def async_wrapper(*args: Any, **kwargs: Any):
                 with self:
                     return await func(*args, **kwargs)
             return async_wrapper
         else:
             @wraps(func)
-            def wrapper(*args, **kwargs):
+            def wrapper(*args: Any, **kwargs: Any):
                 with self:
                     return func(*args, **kwargs)
             return wrapper

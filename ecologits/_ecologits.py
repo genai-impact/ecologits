@@ -3,6 +3,7 @@ import importlib.util
 import warnings
 from dataclasses import dataclass, field
 from typing import Optional, Union
+
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
