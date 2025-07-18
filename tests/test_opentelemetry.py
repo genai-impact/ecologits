@@ -5,7 +5,7 @@ from opentelemetry.sdk.metrics.export import InMemoryMetricReader
 from opentelemetry import metrics
 from ecologits.impacts.modeling import GWP, ADPe, PE, Energy
 from ecologits.utils.range_value import RangeValue
-from ecologits.utils.opentelemetry import OpenTelemetry, opentelemetry_labels, get_current_labels
+from ecologits.utils.opentelemetry import OpenTelemetry, OpenTelemetryLabels, get_current_labels
 from ecologits.tracers.utils import ImpactsOutput
 
 
@@ -232,7 +232,7 @@ def test_otel_labels_context_basic_functionality():
     assert get_current_labels() == {}
     
     # Test inside context
-    with opentelemetry_labels(user_id="user123", experiment="test"):
+    with OpenTelemetryLabels(user_id="user123", experiment="test"):
         labels = get_current_labels()
         assert labels == {"user_id": "user123", "experiment": "test"}
     
@@ -242,16 +242,16 @@ def test_otel_labels_context_basic_functionality():
 
 def test_otel_labels_nested_contexts():
     """Test nested otel_labels contexts merge correctly."""
-    with opentelemetry_labels(experiment="main", version="1.0"):
+    with OpenTelemetryLabels(experiment="main", version="1.0"):
         # First level
         assert get_current_labels() == {"experiment": "main", "version": "1.0"}
         
-        with opentelemetry_labels(user_id="user123", experiment="override"):
+        with OpenTelemetryLabels(user_id="user123", experiment="override"):
             # Second level - experiment should be overridden
             expected = {"experiment": "override", "version": "1.0", "user_id": "user123"}
             assert get_current_labels() == expected
             
-            with opentelemetry_labels(temp_flag=True):
+            with OpenTelemetryLabels(temp_flag=True):
                 # Third level - add more labels
                 expected = {
                     "experiment": "override", 
@@ -274,7 +274,7 @@ def test_record_request_with_user_labels(in_memory_telemetry):
     telemetry, reader = in_memory_telemetry
     
     # Record request with user labels
-    with opentelemetry_labels(user_id="user123", experiment="test_run"):
+    with OpenTelemetryLabels(user_id="user123", experiment="test_run"):
         telemetry.record_request(
             input_tokens=200,
             output_tokens=100,
@@ -314,7 +314,7 @@ def test_multiple_requests_with_different_labels(in_memory_telemetry):
     telemetry, reader = in_memory_telemetry
     
     # First request with user labels
-    with opentelemetry_labels(user_id="user1", environment="prod"):
+    with OpenTelemetryLabels(user_id="user1", environment="prod"):
         telemetry.record_request(
             input_tokens=100,
             output_tokens=50,
@@ -330,7 +330,7 @@ def test_multiple_requests_with_different_labels(in_memory_telemetry):
         )
     
     # Second request with different user labels
-    with opentelemetry_labels(user_id="user2", environment="dev"):
+    with OpenTelemetryLabels(user_id="user2", environment="dev"):
         telemetry.record_request(
             input_tokens=150,
             output_tokens=75,
@@ -393,7 +393,7 @@ def test_context_isolation_across_threads():
     results = queue.Queue()
     
     def worker(worker_id, result_queue):
-        with opentelemetry_labels(worker_id=worker_id, thread="worker"):
+        with OpenTelemetryLabels(worker_id=worker_id, thread="worker"):
             # Sleep to allow other threads to run
             time.sleep(0.1)
             labels = get_current_labels()
