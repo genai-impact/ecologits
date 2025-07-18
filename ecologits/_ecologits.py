@@ -8,6 +8,7 @@ from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
 from ecologits.log import logger
+from ecologits.utils.opentelemetry import OpenTelemetry, OpenTelemetryLabels
 
 
 def init_openai_instrumentor() -> None:
@@ -115,6 +116,7 @@ class EcoLogits:
     class _Config:
         electricity_mix_zone: str = field(default="WOR")
         providers: list[str] = field(default_factory=list)
+        opentelemetry: Optional[OpenTelemetry] = None
 
     config = _Config()
 
@@ -122,6 +124,7 @@ class EcoLogits:
     def init(
         providers: Optional[Union[str, list[str]]] = None,
         electricity_mix_zone: str = "WOR",
+        opentelemetry_endpoint: Optional[str] = None
     ) -> None:
         """
         Initialization static method. Will attempt to initialize all providers by default.
@@ -129,6 +132,7 @@ class EcoLogits:
         Args:
             providers: list of providers to initialize (must select at least one provider).
             electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
+            opentelemetry_endpoint: enable OpenTelemetry with the URL endpoint.
         """
         if isinstance(providers, str):
             providers = [providers]
@@ -147,6 +151,50 @@ class EcoLogits:
         EcoLogits.config.electricity_mix_zone = electricity_mix_zone
         EcoLogits.config.providers += providers
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
+
+        if opentelemetry_endpoint is not None:
+            EcoLogits.config.opentelemetry = OpenTelemetry(endpoint=opentelemetry_endpoint)
+
+    @staticmethod
+    def label(**labels: str) -> OpenTelemetryLabels:
+        """
+        Create OpenTelemetry labels. Can be used as a context manager or as a function decorator.
+
+        Args:
+            **labels: Key-value pairs of OpenTelemetry labels.
+
+        Returns:
+            OpenTelemetryLabels instance.
+
+        Examples:
+            Context manager usage:
+            ```python
+            with EcoLogits.label(task="summarization"):
+                response = client.chat.completions.create(...)
+
+            # or in async mode
+            async with EcoLogits.label(task="summarization"):
+                response = await async_client.chat.completions.create(...)
+            ```
+
+            Decorator usage:
+            ```python
+            @EcoLogits.label(task="summarization")
+            def text_summarization(text: str) -> str:
+                response = client.chat.completions.create(...)
+                ...
+
+            # or in async mode
+            @EcoLogits.label(task="summarization")
+            async def text_summarization(text: str) -> str:
+                response = await async_client.chat.completions.create(...)
+                ...
+            ```
+        """
+        if EcoLogits.config.opentelemetry is None:
+            raise EcoLogitsError("You must enable OpenTelemetry to use labels. Initialize with "
+                                 "opentelemetry_endpoint='http://localhost:4318/v1/metrics' for instance.")
+        return OpenTelemetryLabels(**labels)
 
 
 def init_instruments(providers: list[str]) -> None:
