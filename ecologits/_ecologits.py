@@ -156,6 +156,40 @@ class EcoLogits:
 
     @staticmethod
     def label(**labels: str) -> OpenTelemetryLabels:
+        """
+        Create OpenTelemetry labels. Can be used as a context manager or as a function decorator.
+
+        Args:
+            **labels: Key-value pairs of OpenTelemetry labels.
+
+        Returns:
+            OpenTelemetryLabels instance.
+
+        Examples:
+            Context manager usage:
+            ```python
+            with EcoLogits.label(task="summarization"):
+                response = client.chat.completions.create(...)
+
+            # or in async mode
+            async with EcoLogits.label(task="summarization"):
+                response = await async_client.chat.completions.create(...)
+            ```
+
+            Decorator usage:
+            ```python
+            @EcoLogits.label(task="summarization")
+            def text_summarization(text: str) -> str:
+                response = client.chat.completions.create(...)
+                ...
+
+            # or in async mode
+            @EcoLogits.label(task="summarization")
+            async def text_summarization(text: str) -> str:
+                response = await async_client.chat.completions.create(...)
+                ...
+            ```
+        """
         if EcoLogits.config.opentelemetry is None:
             raise EcoLogitsError("You must enable OpenTelemetry to use labels. Initialize with "
                                  "opentelemetry_endpoint='http://localhost:4318/v1/metrics' for instance.")
