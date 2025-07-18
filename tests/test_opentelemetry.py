@@ -112,7 +112,7 @@ def test_record_request_with_valid_data(in_memory_telemetry):
     expected_labels = {"endpoint": endpoint, "model": model}
 
     # Check that metrics were created with correct values
-    request_metric = get_metric_data(reader, "ecologits_requests_total")
+    request_metric = get_metric_data(reader, "ecologits_requests")
     assert request_metric is not None
     assert get_metric_value_with_attributes(request_metric, expected_labels) == 1
 
@@ -124,25 +124,25 @@ def test_record_request_with_valid_data(in_memory_telemetry):
     assert output_tokens_metric is not None
     assert get_metric_value_with_attributes(output_tokens_metric, expected_labels) == output_tokens
 
-    request_latency_metric = get_metric_data(reader, "ecologits_request_latency_seconds")
+    request_latency_metric = get_metric_data(reader, "ecologits_request_latency")
     assert request_latency_metric is not None
     assert get_metric_value_with_attributes(request_latency_metric, expected_labels) == request_latency
 
-    energy_metric = get_metric_data(reader, "ecologits_energy_total")
+    energy_metric = get_metric_data(reader, "ecologits_energy")
     assert energy_metric is not None
-    assert get_metric_value_with_attributes(energy_metric, expected_labels) == 0.1
+    assert get_metric_value_with_attributes(energy_metric, expected_labels) == 0.1 * 3_600_000
 
-    gwp_metric = get_metric_data(reader, "ecologits_gwp_total")
+    gwp_metric = get_metric_data(reader, "ecologits_gwp")
     assert gwp_metric is not None
-    assert get_metric_value_with_attributes(gwp_metric, expected_labels) == 0.2
+    assert get_metric_value_with_attributes(gwp_metric, expected_labels) == 0.2 * 1000
 
-    adpe_metric = get_metric_data(reader, "ecologits_adpe_total")
+    adpe_metric = get_metric_data(reader, "ecologits_adpe")
     assert adpe_metric is not None
-    assert get_metric_value_with_attributes(adpe_metric, expected_labels) == 0.3
+    assert get_metric_value_with_attributes(adpe_metric, expected_labels) == 0.3 * 1000
 
-    pe_metric = get_metric_data(reader, "ecologits_pe_total")
+    pe_metric = get_metric_data(reader, "ecologits_pe")
     assert pe_metric is not None
-    assert get_metric_value_with_attributes(pe_metric, expected_labels) == 0.4
+    assert get_metric_value_with_attributes(pe_metric, expected_labels) == 0.4 * 1_000_000
 
 
 def test_record_request_with_range_values(in_memory_telemetry):
@@ -168,17 +168,17 @@ def test_record_request_with_range_values(in_memory_telemetry):
     # Verify mean values were used
     expected_labels = {"endpoint": "openai", "model": "gpt-4o-mini"}
 
-    energy_metric = get_metric_data(reader, "ecologits_energy_total")
-    assert get_metric_value_with_attributes(energy_metric, expected_labels) == pytest.approx(0.1)
+    energy_metric = get_metric_data(reader, "ecologits_energy")
+    assert get_metric_value_with_attributes(energy_metric, expected_labels) == pytest.approx(0.1 * 3_600_000)
 
-    gwp_metric = get_metric_data(reader, "ecologits_gwp_total")
-    assert get_metric_value_with_attributes(gwp_metric, expected_labels) == pytest.approx(0.2)
+    gwp_metric = get_metric_data(reader, "ecologits_gwp")
+    assert get_metric_value_with_attributes(gwp_metric, expected_labels) == pytest.approx(0.2 * 1000)
 
-    adpe_metric = get_metric_data(reader, "ecologits_adpe_total")
-    assert get_metric_value_with_attributes(adpe_metric, expected_labels) == pytest.approx(0.3)
+    adpe_metric = get_metric_data(reader, "ecologits_adpe")
+    assert get_metric_value_with_attributes(adpe_metric, expected_labels) == pytest.approx(0.3 * 1000)
 
-    pe_metric = get_metric_data(reader, "ecologits_pe_total")
-    assert get_metric_value_with_attributes(pe_metric, expected_labels) == pytest.approx(0.4)
+    pe_metric = get_metric_data(reader, "ecologits_pe")
+    assert get_metric_value_with_attributes(pe_metric, expected_labels) == pytest.approx(0.4 * 1_000_000)
 
 
 def test_record_request_with_missing_data(in_memory_telemetry):
@@ -202,7 +202,7 @@ def test_record_request_with_missing_data(in_memory_telemetry):
     reader.collect()
 
     # Verify no counters were updated
-    request_metric = get_metric_data(reader, "ecologits_requests_total")
+    request_metric = get_metric_data(reader, "ecologits_requests")
     assert request_metric is None or len(request_metric.data.data_points) == 0
 
     # Test with another None value
@@ -223,7 +223,7 @@ def test_record_request_with_missing_data(in_memory_telemetry):
     reader.collect()
 
     # Verify still no counters were updated
-    request_metric = get_metric_data(reader, "ecologits_requests_total")
+    request_metric = get_metric_data(reader, "ecologits_requests")
     assert request_metric is None or len(request_metric.data.data_points) == 0
 
 def test_otel_labels_context_basic_functionality():
@@ -300,13 +300,13 @@ def test_record_request_with_user_labels(in_memory_telemetry):
         "experiment": "test_run"
     }
     
-    request_metric = get_metric_data(reader, "ecologits_requests_total")
+    request_metric = get_metric_data(reader, "ecologits_requests")
     assert request_metric is not None
     assert get_metric_value_with_attributes(request_metric, expected_attributes) == 1
     
-    energy_metric = get_metric_data(reader, "ecologits_energy_total")
+    energy_metric = get_metric_data(reader, "ecologits_energy")
     assert energy_metric is not None
-    assert get_metric_value_with_attributes(energy_metric, expected_attributes) == 0.2
+    assert get_metric_value_with_attributes(energy_metric, expected_attributes) == 0.2 * 3_600_000
 
 
 def test_multiple_requests_with_different_labels(in_memory_telemetry):
@@ -364,7 +364,7 @@ def test_multiple_requests_with_different_labels(in_memory_telemetry):
     reader.collect()
     
     # Check that we have three separate metric series
-    request_metric = get_metric_data(reader, "ecologits_requests_total")
+    request_metric = get_metric_data(reader, "ecologits_requests")
     assert request_metric is not None
     assert len(request_metric.data.data_points) == 3
     
