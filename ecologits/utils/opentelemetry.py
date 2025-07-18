@@ -1,7 +1,9 @@
-from contextlib import contextmanager
-from typing import Generator
+import asyncio
+from functools import wraps
+from typing import Any, Callable, Optional
 
 from opentelemetry import context, metrics
+from opentelemetry.context import Context
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
@@ -14,23 +16,52 @@ from ecologits.utils.range_value import RangeValue
 _LABELS_KEY = context.create_key("ecologits_labels")
 
 
-@contextmanager
-def opentelemetry_labels(**user_labels: str) -> Generator[None, None, None]:
-    """Context manager using OpenTelemetry's Context API."""
-    # Get current labels and merge with new ones
-    current_labels = context.get_value(_LABELS_KEY) or {}
-    merged_labels = {**current_labels, **user_labels}
+class OpenTelemetryLabels:
+    """Context manager supporting both sync and async for OpenTelemetry labels."""
 
-    # Create new context with merged labels
-    new_ctx = context.set_value(_LABELS_KEY, merged_labels)
+    def __init__(self, **user_labels: str):
+        self.user_labels = user_labels
+        self.token = None
 
-    # Attach the new context
-    token = context.attach(new_ctx)
+    def __enter__(self) -> 'OpenTelemetryLabels':
+        self._setup_context()
+        return self
 
-    try:
-        yield
-    finally:
-        context.detach(token)
+    def __exit__(self, exc_type: Optional[type], exc_val: Optional[Exception], exc_tb: Optional[Any]) -> None:
+        self._cleanup_context()
+
+    async def __aenter__(self) -> 'OpenTelemetryLabels':
+        self._setup_context()
+        return self
+
+    async def __aexit__(self, exc_type: Optional[type], exc_val: Optional[Exception], exc_tb: Optional[Any]) -> None:
+        self._cleanup_context()
+
+    def __call__(self, func: Callable) -> Callable:
+        if asyncio.iscoroutinefunction(func):
+            @wraps(func)
+            async def async_wrapper(*args, **kwargs):
+                with self:
+                    return await func(*args, **kwargs)
+            return async_wrapper
+        else:
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+                with self:
+                    return func(*args, **kwargs)
+            return wrapper
+
+    def _setup_context(self) -> None:
+        """Common setup logic for both sync and async."""
+        current_labels = context.get_value(_LABELS_KEY) or {}
+        merged_labels = {**current_labels, **self.user_labels}
+        new_ctx = context.set_value(_LABELS_KEY, merged_labels)
+        self.token = context.attach(new_ctx)
+
+    def _cleanup_context(self) -> None:
+        """Common cleanup logic for both sync and async."""
+        if self.token is not None:
+            context.detach(self.token)
 
 
 def get_current_labels() -> dict[str, str]:

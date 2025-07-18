@@ -2,13 +2,12 @@ import importlib.metadata
 import importlib.util
 import warnings
 from dataclasses import dataclass, field
-from typing import Optional, Union, ContextManager
-
+from typing import Optional, Union
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
 from ecologits.log import logger
-from ecologits.utils.opentelemetry import OpenTelemetry, opentelemetry_labels
+from ecologits.utils.opentelemetry import OpenTelemetry, OpenTelemetryLabels
 
 
 def init_openai_instrumentor() -> None:
@@ -124,7 +123,6 @@ class EcoLogits:
     def init(
         providers: Optional[Union[str, list[str]]] = None,
         electricity_mix_zone: str = "WOR",
-        enable_opentelemetry: bool = False,
         opentelemetry_endpoint: Optional[str] = None
     ) -> None:
         """
@@ -133,6 +131,7 @@ class EcoLogits:
         Args:
             providers: list of providers to initialize (must select at least one provider).
             electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
+            opentelemetry_endpoint: enable OpenTelemetry with the URL endpoint.
         """
         if isinstance(providers, str):
             providers = [providers]
@@ -152,16 +151,15 @@ class EcoLogits:
         EcoLogits.config.providers += providers
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
 
-        if enable_opentelemetry:
-            if opentelemetry_endpoint is None:
-                raise EcoLogitsError("Telemetry is enabled but no telemetry endpoint is provided.")
+        if opentelemetry_endpoint is not None:
             EcoLogits.config.opentelemetry = OpenTelemetry(endpoint=opentelemetry_endpoint)
 
     @staticmethod
-    def label(**labels: str) -> ContextManager[None]:
+    def label(**labels: str) -> OpenTelemetryLabels:
         if EcoLogits.config.opentelemetry is None:
-            raise EcoLogitsError("Labels require OpenTelemetry. Initialize with enable_opentelemetry=True.")
-        return opentelemetry_labels(**labels)
+            raise EcoLogitsError("You must enable OpenTelemetry to use labels. Initialize with "
+                                 "opentelemetry_endpoint='http://localhost:4318/v1/metrics' for instance.")
+        return OpenTelemetryLabels(**labels)
 
 
 def init_instruments(providers: list[str]) -> None:
