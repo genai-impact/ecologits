@@ -52,6 +52,12 @@ EcoLogits relies on key libraries to provide essential functionalities:
     <label for="openai">OpenAI</label>
 </span>
 
+<p><strong>Select features</strong></p>
+<span class="provider-item">
+    <input type="checkbox" id="opentelemetry" value="opentelemetry" class="provider-option">
+    <label for="opentelemetry">OpenTelemetry</label>
+</span>
+
 <p><strong>Run this command</strong></p>
 <pre><code id="install-command"></code></pre>
 <script src="js/installer.js"></script>
