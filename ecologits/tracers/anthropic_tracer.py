@@ -39,7 +39,7 @@ class MessageStream(_MessageStream):
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
-        input_tokens = None
+        input_tokens = 0
         for chunk in self:
             if type(chunk) is MessageStartEvent:
                 message = chunk.message
@@ -61,8 +61,8 @@ class MessageStream(_MessageStream):
             )
             self.impacts = impacts
 
-            if impacts is not None:
-                if EcoLogits.config.opentelemetry:
+            if impacts is not None \
+                and EcoLogits.config.opentelemetry:
                     EcoLogits.config.opentelemetry.record_request(
                         input_tokens=input_tokens,
                         output_tokens=output_tokens,
@@ -86,7 +86,7 @@ class AsyncMessageStream(_AsyncMessageStream):
         timer_start = time.perf_counter()
         output_tokens = 0
         model_name = None
-        input_tokens = None
+        input_tokens = 0
         async for chunk in self:
             if type(chunk) is MessageStartEvent:
                 message = chunk.message
@@ -108,8 +108,8 @@ class AsyncMessageStream(_AsyncMessageStream):
             )
             self.impacts = impacts
 
-            if impacts is not None:
-                if EcoLogits.config.opentelemetry:
+            if impacts is not None \
+                and EcoLogits.config.opentelemetry:
                     EcoLogits.config.opentelemetry.record_request(
                         input_tokens=input_tokens,
                         output_tokens=output_tokens,
