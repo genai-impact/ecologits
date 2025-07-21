@@ -61,7 +61,21 @@ def cohere_chat_wrapper(
         request_latency=request_latency,
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
-    return NonStreamedChatResponse(**response.dict(), impacts=impacts)
+    if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.meta.tokens.input_tokens,
+                output_tokens=response.meta.tokens.output_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=model_name,
+                endpoint="/chat"
+            )
+
+        return NonStreamedChatResponse(**response.dict(), impacts=impacts)
+    else:
+        return response
 
 
 async def cohere_async_chat_wrapper(
@@ -91,7 +105,21 @@ async def cohere_async_chat_wrapper(
         request_latency=request_latency,
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
-    return NonStreamedChatResponse(**response.dict(), impacts=impacts)
+    if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.meta.tokens.input_tokens,
+                output_tokens=response.meta.tokens.output_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=model_name,
+                endpoint="/chat"
+            )
+
+        return NonStreamedChatResponse(**response.dict(), impacts=impacts)
+    else:
+        return response
 
 
 def cohere_stream_chat_wrapper(
@@ -124,7 +152,22 @@ def cohere_stream_chat_wrapper(
                 request_latency=request_latency,
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
-            yield StreamEndStreamedChatResponse(**event.dict(), impacts=impacts)
+
+            if impacts is not None:
+                if EcoLogits.config.opentelemetry:
+                    EcoLogits.config.opentelemetry.record_request(
+                        input_tokens=event.response.meta.tokens.input_tokens,
+                        output_tokens=event.response.meta.tokens.output_tokens,
+                        request_latency=request_latency,
+                        impacts=impacts,
+                        provider=PROVIDER,
+                        model=model_name,
+                        endpoint="/chat"
+                    )
+
+                yield StreamEndStreamedChatResponse(**event.dict(), impacts=impacts)
+            else:
+                yield event
         else:
             yield event
 
@@ -159,7 +202,21 @@ async def cohere_async_stream_chat_wrapper(
                 request_latency=request_latency,
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
-            yield StreamEndStreamedChatResponse(**event.dict(), impacts=impacts)
+            if impacts is not None:
+                if EcoLogits.config.opentelemetry:
+                    EcoLogits.config.opentelemetry.record_request(
+                        input_tokens=event.response.meta.tokens.input_tokens,
+                        output_tokens=event.response.meta.tokens.output_tokens,
+                        request_latency=request_latency,
+                        impacts=impacts,
+                        provider=PROVIDER,
+                        model=model_name,
+                        endpoint="/chat"
+                    )
+
+                yield StreamEndStreamedChatResponse(**event.dict(), impacts=impacts)
+            else:
+                yield event
         else:
             yield event
 
