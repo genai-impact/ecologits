@@ -112,7 +112,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     client = AsyncClient(api_key="<COHERE_API_KEY>")
     
     async def main() -> None:
-        stream = await client.chat_stream(
+        stream = client.chat_stream(
             message="Tell me a funny joke!", 
             max_tokens=100
         )
