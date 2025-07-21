@@ -1,13 +1,18 @@
+from __future__ import annotations
+
 import importlib.metadata
 import importlib.util
 import warnings
 from dataclasses import dataclass, field
-from typing import Optional, Union
+from typing import TYPE_CHECKING
 
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
 from ecologits.log import logger
+
+if TYPE_CHECKING:
+    from ecologits.utils.opentelemetry import OpenTelemetry, OpenTelemetryLabels
 
 
 def init_openai_instrumentor() -> None:
@@ -115,15 +120,15 @@ class EcoLogits:
     class _Config:
         electricity_mix_zone: str = field(default="WOR")
         providers: list[str] = field(default_factory=list)
-        opentelemetry: Optional["OpenTelemetry"] = None
+        opentelemetry: OpenTelemetry | None = None
 
     config = _Config()
 
     @staticmethod
     def init(
-        providers: Optional[Union[str, list[str]]] = None,
+        providers: str | list[str] | None = None,
         electricity_mix_zone: str = "WOR",
-        opentelemetry_endpoint: Optional[str] = None
+        opentelemetry_endpoint: str | None = None
     ) -> None:
         """
         Initialization static method. Will attempt to initialize all providers by default.
@@ -162,7 +167,7 @@ class EcoLogits:
             EcoLogits.config.opentelemetry = OpenTelemetry(endpoint=opentelemetry_endpoint)
 
     @staticmethod
-    def label(**labels: str) -> "OpenTelemetryLabels":
+    def label(**labels: str) -> OpenTelemetryLabels:
         """
         Create OpenTelemetry labels. Can be used as a context manager or as a function decorator.
 
@@ -222,7 +227,4 @@ def is_opentelemetry_installed() -> bool:
         "opentelemetry.sdk",
         "opentelemetry.exporter"
     ]
-    for p in otel_pkgs:
-        if importlib.util.find_spec(p) is None:
-            return False
-    return True
+    return all(importlib.util.find_spec(p) is not None for p in otel_pkgs)
