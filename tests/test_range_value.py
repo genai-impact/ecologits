@@ -1,7 +1,9 @@
-import pytest
 import operator
 
+import pytest
+
 from ecologits.utils.range_value import RangeValue
+
 
 def test_range_formats_ok():
     range = RangeValue(min =0.00000006, max=0.00008)

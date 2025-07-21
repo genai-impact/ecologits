@@ -1,5 +1,5 @@
-import pytest
 import google.generativeai as genai
+import pytest
 
 
 @pytest.mark.vcr
@@ -28,7 +28,7 @@ def test_google_stream_chat(tracer_init):
     genai.configure(transport="rest")
     model = genai.GenerativeModel("gemini-1.5-flash")
     stream = model.generate_content(
-        "Write a story about a magic backpack.", 
+        "Write a story about a magic backpack.",
         stream=True
     )
     for chunk in stream:
