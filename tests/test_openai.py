@@ -1,6 +1,7 @@
 import os
+
 import pytest
-from openai import OpenAI, AsyncOpenAI, AzureOpenAI, AsyncAzureOpenAI
+from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
 
 
 @pytest.mark.vcr
@@ -54,7 +55,7 @@ async def test_openai_async_stream_chat(tracer_init):
 @pytest.mark.vcr
 def test_azure_openai_chat(tracer_init):
     client = AzureOpenAI(azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"))
-    response = client.chat.completions.create(        
+    response = client.chat.completions.create(
         messages=[{"role": "user", "content": "Hello World!"}],
         model=os.getenv("AZURE_MODEL_DEPLOYMENT"),
     )
