@@ -131,7 +131,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     client = Mistral(api_key="<MISTRAL_API_KEY>")
     
     async def main() -> None:
-        response = await client.chat.stream_async(# (1)! 
+        stream = await client.chat.stream_async(# (1)! 
             messages=[
                 {"role": "user", "content": "Tell me a funny joke!"}
             ],
@@ -140,8 +140,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
         
         async for chunk in stream:
             # Get cumulative estimated environmental impacts of the inference
-            if hasattr(chunk, "impacts"):
-                print(chunk.data.impacts) # (2)!  
+            print(chunk.data.impacts) # (2)!  
     
     
     asyncio.run(main())
