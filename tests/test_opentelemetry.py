@@ -88,7 +88,8 @@ def test_record_request_with_valid_data(in_memory_telemetry):
     output_tokens = 50
     request_latency = 1.5
     model = "gpt-4o-mini"
-    endpoint = "openai"
+    provider = "openai"
+    endpoint = "/chat/completions"
 
     # Call the method
     telemetry.record_request(
@@ -101,6 +102,7 @@ def test_record_request_with_valid_data(in_memory_telemetry):
             adpe=ADPe(value=0.3),
             pe=PE(value=0.4)
         ),
+        provider=provider,
         model=model,
         endpoint=endpoint
     )
@@ -109,7 +111,7 @@ def test_record_request_with_valid_data(in_memory_telemetry):
     reader.collect()
 
     # Verify counters were updated with correct values
-    expected_labels = {"endpoint": endpoint, "model": model}
+    expected_labels = {"endpoint": endpoint, "model": model, "provider": provider}
 
     # Check that metrics were created with correct values
     request_metric = get_metric_data(reader, "ecologits_requests")
@@ -158,15 +160,16 @@ def test_record_request_with_range_values(in_memory_telemetry):
             adpe=ADPe(value=RangeValue(min=0.2, max=0.4)),          # mean = 0.3
             pe=PE(value=RangeValue(min=0.3, max=0.5)),              # mean = 0.4
         ),
+        provider="openai",
         model="gpt-4o-mini",
-        endpoint="openai"
+        endpoint="/chat/completions"
     )
 
     # Force collection
     reader.collect()
 
     # Verify mean values were used
-    expected_labels = {"endpoint": "openai", "model": "gpt-4o-mini"}
+    expected_labels = {"provider": "openai", "model": "gpt-4o-mini", "endpoint": "/chat/completions"}
 
     energy_metric = get_metric_data(reader, "ecologits_energy")
     assert get_metric_value_with_attributes(energy_metric, expected_labels) == pytest.approx(0.1 * 3_600_000)
@@ -195,8 +198,9 @@ def test_record_request_with_missing_data(in_memory_telemetry):
             adpe=ADPe(value=0.3),
             pe=PE(value=0.4)
         ),
+        provider="openai",
         model="gpt-4o-mini",
-        endpoint="openai"
+        endpoint="/chat/completions"
     )
 
     reader.collect()
@@ -216,8 +220,9 @@ def test_record_request_with_missing_data(in_memory_telemetry):
             adpe=None,
             pe=PE(value=0.4)
         ),
+        provider="openai",
         model="gpt-4o-mini",
-        endpoint="openai"
+        endpoint="/chat/completions"
     )
 
     reader.collect()
@@ -225,6 +230,7 @@ def test_record_request_with_missing_data(in_memory_telemetry):
     # Verify still no counters were updated
     request_metric = get_metric_data(reader, "ecologits_requests")
     assert request_metric is None or len(request_metric.data.data_points) == 0
+
 
 def test_otel_labels_context_basic_functionality():
     """Test that otel_labels context manager correctly stores and retrieves labels."""
@@ -285,8 +291,9 @@ def test_record_request_with_user_labels(in_memory_telemetry):
                 adpe=ADPe(value=0.6),
                 pe=PE(value=0.8)
             ),
+            provider="openai",
             model="gpt-4",
-            endpoint="openai"
+            endpoint="/chat/completions"
         )
     
     # Force collection
@@ -294,8 +301,9 @@ def test_record_request_with_user_labels(in_memory_telemetry):
     
     # Check that metrics include both system and user labels
     expected_attributes = {
-        "endpoint": "openai", 
+        "provider": "openai",
         "model": "gpt-4",
+        "endpoint": "/chat/completions",
         "user_id": "user123",
         "experiment": "test_run"
     }
@@ -325,8 +333,9 @@ def test_multiple_requests_with_different_labels(in_memory_telemetry):
                 adpe=ADPe(value=0.1),
                 pe=PE(value=0.1)
             ),
+            provider="openai",
             model="gpt-4",
-            endpoint="openai"
+            endpoint="/chat/completions"
         )
     
     # Second request with different user labels
@@ -341,8 +350,9 @@ def test_multiple_requests_with_different_labels(in_memory_telemetry):
                 adpe=ADPe(value=0.15),
                 pe=PE(value=0.15)
             ),
+            provider="openai",
             model="gpt-4",
-            endpoint="openai"
+            endpoint="/chat/completions"
         )
     
     # Third request without user labels
@@ -356,8 +366,9 @@ def test_multiple_requests_with_different_labels(in_memory_telemetry):
             adpe=ADPe(value=0.2),
             pe=PE(value=0.2)
         ),
+        provider="openai",
         model="gpt-4",
-        endpoint="openai"
+        endpoint="/chat/completions"
     )
     
     # Force collection
@@ -369,9 +380,11 @@ def test_multiple_requests_with_different_labels(in_memory_telemetry):
     assert len(request_metric.data.data_points) == 3
     
     # Check specific values for each label combination
-    attrs1 = {"endpoint": "openai", "model": "gpt-4", "user_id": "user1", "environment": "prod"}
-    attrs2 = {"endpoint": "openai", "model": "gpt-4", "user_id": "user2", "environment": "dev"}
-    attrs3 = {"endpoint": "openai", "model": "gpt-4"}
+    attrs1 = {"provider": "openai", "model": "gpt-4", "endpoint": "/chat/completions", "user_id": "user1",
+              "environment": "prod"}
+    attrs2 = {"provider": "openai", "model": "gpt-4", "endpoint": "/chat/completions", "user_id": "user2",
+              "environment": "dev"}
+    attrs3 = {"provider": "openai", "model": "gpt-4", "endpoint": "/chat/completions"}
     
     assert get_metric_value_with_attributes(request_metric, attrs1) == 1
     assert get_metric_value_with_attributes(request_metric, attrs2) == 1
