@@ -101,6 +101,19 @@ def litellm_chat_wrapper_stream(  # type: ignore[misc]
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
             if impacts is not None:
+                if EcoLogits.config.opentelemetry \
+                        and hasattr(chunk, "usage") \
+                        and chunk.usage is not None:
+                    EcoLogits.config.opentelemetry.record_request(
+                        input_tokens=chunk.usage.prompt_tokens,
+                        output_tokens=chunk.usage.completion_tokens,
+                        request_latency=request_latency,
+                        impacts=impacts,
+                        provider=model_match[0],
+                        model=model_match[1],
+                        endpoint="/chat/completions"
+                    )
+
                 yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
             else:
                 yield chunk
@@ -128,17 +141,28 @@ def litellm_chat_wrapper_non_stream(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.usage.prompt_tokens,
+                output_tokens=response.usage.completion_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=model_match[0],
+                model=model_match[1],
+                endpoint="/chat/completions"
+            )
+
         return ChatCompletion(**response.model_dump(), impacts=impacts)
     else:
         return response
 
 
 async def litellm_async_chat_wrapper(
-    wrapped: Callable,
-    instance: AsyncCompletions,
-    args: Any,
-    kwargs: Any
-) -> Union[ChatCompletion,CustomStreamWrapper]:
+        wrapped: Callable,
+        instance: AsyncCompletions,
+        args: Any,
+        kwargs: Any
+) -> Union[ChatCompletion, CustomStreamWrapper]:
     """
     Function that wraps a LiteLLM answer with computed impacts in async mode
 
@@ -177,6 +201,17 @@ async def litellm_async_chat_wrapper_base(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.usage.prompt_tokens,
+                output_tokens=response.usage.completion_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=model_match[0],
+                model=model_match[1],
+                endpoint="/chat/completions"
+            )
+
         return ChatCompletion(**response.model_dump(), impacts=impacts)
     else:
         return response
@@ -206,6 +241,19 @@ async def litellm_async_chat_wrapper_stream(  # type: ignore[misc]
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone
             )
             if impacts is not None:
+                if EcoLogits.config.opentelemetry \
+                        and hasattr(chunk, "usage") \
+                        and chunk.usage is not None:
+                    EcoLogits.config.opentelemetry.record_request(
+                        input_tokens=chunk.usage.prompt_tokens,
+                        output_tokens=chunk.usage.completion_tokens,
+                        request_latency=request_latency,
+                        impacts=impacts,
+                        provider=model_match[0],
+                        model=model_match[1],
+                        endpoint="/chat/completions"
+                    )
+
                 yield ChatCompletionChunk(**chunk.model_dump(), impacts=impacts)
             else:
                 yield chunk
