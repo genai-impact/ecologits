@@ -1,4 +1,4 @@
-from ecologits.electricity_mix_repository import ElectricityMixRepository, ElectricityMix
+from ecologits.electricity_mix_repository import ElectricityMix, ElectricityMixRepository
 
 
 def test_create_electricity_mix_repository_default():
@@ -10,8 +10,8 @@ def test_create_electricity_mix_repository_default():
 def test_create_electricity_mix_repository_from_scratch():
     electricity_mixes = ElectricityMixRepository([
         ElectricityMix(
-            zone="wonderland", 
-            adpe=0., 
+            zone="wonderland",
+            adpe=0.,
             pe=0.,
             gwp=0.,
         )

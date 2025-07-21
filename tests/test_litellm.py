@@ -1,5 +1,5 @@
-import pytest
 import litellm
+import pytest
 
 from ecologits.tracers.litellm_tracer import litellm_match_model
 

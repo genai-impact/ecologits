@@ -1,10 +1,10 @@
-from ecologits.tracers.utils import llm_impacts
 from ecologits.status_messages import (
-    ModelArchNotReleasedWarning,
     ModelArchMultimodalWarning,
+    ModelArchNotReleasedWarning,
     ModelNotRegisteredError,
-    ZoneNotRegisteredError
+    ZoneNotRegisteredError,
 )
+from ecologits.tracers.utils import llm_impacts
 
 
 def test_warnings():

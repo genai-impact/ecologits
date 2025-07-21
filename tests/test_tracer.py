@@ -1,8 +1,8 @@
 import pytest
-from ecologits import EcoLogits
-
-from openai import OpenAI
 from anthropic import Anthropic
+from openai import OpenAI
+
+from ecologits import EcoLogits
 
 
 @pytest.mark.vcr
@@ -63,13 +63,13 @@ def test_init_with_different_mixes():
     openai_client = OpenAI()
     openai_response_world = openai_client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": "Hello World!"}], 
+        messages=[{"role": "user", "content": "Hello World!"}],
         seed=seed,
     )
     EcoLogits.init(providers="openai", electricity_mix_zone="FRA") # Switch to France's mix
     openai_response_france = openai_client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": "Hello World!"}], 
+        messages=[{"role": "user", "content": "Hello World!"}],
         seed=seed,
     )
     assert openai_response_france.choices == openai_response_world.choices

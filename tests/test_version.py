@@ -12,7 +12,7 @@ def test_version_alignment():
 
 
 def get_poetry_version() -> Optional[str]:
-    path = Path(__file__).resolve().parents[1] / 'pyproject.toml'
-    with open(str(path), "r") as fd:
+    path = Path(__file__).resolve().parents[1] / "pyproject.toml"
+    with open(str(path)) as fd:
         pyproject = toml.loads(fd.read())
-        return pyproject['project']['version']
+        return pyproject["project"]["version"]

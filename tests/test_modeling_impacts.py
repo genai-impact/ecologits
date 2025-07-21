@@ -2,10 +2,9 @@ import operator
 
 import pytest
 
-from ecologits.impacts.modeling import BaseImpact, Energy, GWP, ADPe, PE
 from ecologits.exceptions import ModelingError
+from ecologits.impacts.modeling import GWP, PE, ADPe, BaseImpact, Energy
 from ecologits.utils.range_value import RangeValue
-
 
 impact_config = dict(
     type="test",
@@ -14,7 +13,7 @@ impact_config = dict(
 )
 
 
-@pytest.mark.parametrize('impact_1,impact_2,result', [
+@pytest.mark.parametrize("impact_1,impact_2,result", [
     (
             BaseImpact(**impact_config, value=1),
             BaseImpact(**impact_config, value=1),
@@ -40,7 +39,7 @@ def test_impact_add(impact_1, impact_2, result):
     assert impact_sum == result
 
 
-@pytest.mark.parametrize('impact_1,impact_2', [
+@pytest.mark.parametrize("impact_1,impact_2", [
     (BaseImpact(**impact_config, value=1), BaseImpact(type="other", name="Other", value=1, unit="")),
     (BaseImpact(**impact_config, value=RangeValue(min=1, max=2)), BaseImpact(type="other", name="Other", value=1, unit="")),
     (BaseImpact(**impact_config, value=RangeValue(min=1, max=2)),
@@ -57,7 +56,7 @@ def test_impact_cannot_add(impact_1, impact_2):
         impact_1 + impact_2
 
 
-@pytest.mark.parametrize('impact_1,impact_2,op', [
+@pytest.mark.parametrize("impact_1,impact_2,op", [
     (BaseImpact(**impact_config, value=1), BaseImpact(**impact_config, value=1), operator.eq),
     (BaseImpact(**impact_config, value=1), BaseImpact(**impact_config, value=2), operator.lt),
     (BaseImpact(**impact_config, value=2), BaseImpact(**impact_config, value=2), operator.le),
@@ -107,7 +106,7 @@ def test_impact_compare(impact_1, impact_2, op):
     assert op(impact_1, impact_2)
 
 
-@pytest.mark.parametrize('impact_1,impact_2,op', [
+@pytest.mark.parametrize("impact_1,impact_2,op", [
     (BaseImpact(**impact_config, value=1), BaseImpact(type="other", name="Other", value=1, unit=""), operator.eq),
     (
             BaseImpact(**impact_config, value=RangeValue(min=1, max=2)),
