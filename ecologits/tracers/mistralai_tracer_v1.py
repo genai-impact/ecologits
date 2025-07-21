@@ -55,6 +55,17 @@ def mistralai_chat_wrapper(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.usage.prompt_tokens,
+                output_tokens=response.usage.completion_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=response.model,
+                endpoint="/chat/completions"
+            )
+
         return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
     else:
         return response
@@ -91,6 +102,19 @@ def mistralai_chat_wrapper_stream(
             electricity_mix_zone=EcoLogits.config.electricity_mix_zone
         )
         if impacts is not None:
+            if EcoLogits.config.opentelemetry \
+                and chunk.data.choices[0].finish_reason is not None:
+
+                EcoLogits.config.opentelemetry.record_request(
+                    input_tokens=chunk.data.usage.prompt_tokens,
+                    output_tokens=chunk.data.usage.completion_tokens,
+                    request_latency=request_latency,
+                    impacts=impacts,
+                    provider=PROVIDER,
+                    model=model_name,
+                    endpoint="/chat/completions"
+                )
+
             chunk.data = CompletionChunk(**chunk.data.model_dump(), impacts=impacts)
             yield chunk
         else:
@@ -126,6 +150,17 @@ async def mistralai_async_chat_wrapper(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=response.usage.prompt_tokens,
+                output_tokens=response.usage.completion_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=response.model,
+                endpoint="/chat/completions"
+            )
+
         return ChatCompletionResponse(**response.model_dump(), impacts=impacts)
     else:
         return response
@@ -148,6 +183,19 @@ async def _generator(
             electricity_mix_zone=EcoLogits.config.electricity_mix_zone
         )
         if impacts is not None:
+            if EcoLogits.config.opentelemetry \
+                and chunk.data.choices[0].finish_reason is not None:
+
+                EcoLogits.config.opentelemetry.record_request(
+                    input_tokens=chunk.data.usage.prompt_tokens,
+                    output_tokens=chunk.data.usage.completion_tokens,
+                    request_latency=request_latency,
+                    impacts=impacts,
+                    provider=PROVIDER,
+                    model=model_name,
+                    endpoint="/chat/completions"
+                )
+
             chunk.data = CompletionChunk(**chunk.data.model_dump(), impacts=impacts)
             yield chunk
         else:
