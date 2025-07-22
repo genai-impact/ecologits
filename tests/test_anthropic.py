@@ -31,7 +31,7 @@ async def test_anthropic_async_chat(tracer_init):
 def test_anthropic_stream_chat(tracer_init):
     client = Anthropic()
 
-    text_response = ''
+    text_response = ""
     with client.messages.stream(
         max_tokens=100,
         messages=[{"role": "user", "content": "Hello World!"}],
@@ -49,7 +49,7 @@ def test_anthropic_stream_chat(tracer_init):
 async def test_anthropic_async_stream_chat(tracer_init):
     client = AsyncAnthropic()
 
-    text_response = ''
+    text_response = ""
     async with client.messages.stream(
         max_tokens=100,
         messages=[{"role": "user", "content": "Hello World!"}],
@@ -58,5 +58,5 @@ async def test_anthropic_async_stream_chat(tracer_init):
         async for text in stream.text_stream:
             text_response += text
         assert stream.impacts.energy.value >= 0
-    
+
     assert len(text_response) > 0

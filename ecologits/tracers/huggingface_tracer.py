@@ -65,16 +65,28 @@ def huggingface_chat_wrapper_non_stream(
     timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
-    encoder = tiktoken.get_encoding("cl100k_base")
-    output_tokens = len(encoder.encode(response.choices[0].message.content))
+    output_tokens = response.usage["completion_tokens"]
+    input_tokens = response.usage["prompt_tokens"]
+    model_name = instance.model or kwargs.get("model")
     impacts = llm_impacts(
         provider=PROVIDER,
-        model_name=instance.model,
+        model_name=model_name,
         output_token_count=output_tokens,
         request_latency=request_latency,
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=input_tokens,
+                output_tokens=output_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=model_name,
+                endpoint="/chat/completions"
+            )
+
         return ChatCompletionOutput(**asdict(response), impacts=impacts)
     else:
         return response
@@ -86,20 +98,36 @@ def huggingface_chat_wrapper_stream(
     args: Any,
     kwargs: Any
 ) -> Iterable[ChatCompletionStreamOutput]:
+    encoder = tiktoken.get_encoding("cl100k_base")
+    prompt_text = "".join([m["content"] for m in kwargs["messages"]])
+    input_tokens = len(encoder.encode(prompt_text))
+    model_name = instance.model or kwargs.get("model")
     timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
-    token_count = 0
+    output_tokens = 0
     for chunk in stream:
-        token_count += 1 # noqa: SIM113
+        output_tokens += 1 # noqa: SIM113
         request_latency = time.perf_counter() - timer_start
         impacts = llm_impacts(
             provider=PROVIDER,
-            model_name=instance.model,
-            output_token_count=token_count,
+            model_name=model_name,
+            output_token_count=output_tokens,
             request_latency=request_latency,
             electricity_mix_zone=EcoLogits.config.electricity_mix_zone
         )
         if impacts is not None:
+            if EcoLogits.config.opentelemetry \
+                    and chunk.choices[0]["finish_reason"] is not None:
+                EcoLogits.config.opentelemetry.record_request(
+                    input_tokens=input_tokens,
+                    output_tokens=output_tokens,
+                    request_latency=request_latency,
+                    impacts=impacts,
+                    provider=PROVIDER,
+                    model=model_name,
+                    endpoint="/chat/completions"
+                )
+
             yield ChatCompletionStreamOutput(**asdict(chunk), impacts=impacts)
         else:
             yield chunk
@@ -139,16 +167,28 @@ async def huggingface_async_chat_wrapper_non_stream(
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
-    encoder = tiktoken.get_encoding("cl100k_base")
-    output_tokens = len(encoder.encode(response.choices[0].message.content))
+    output_tokens = response.usage["completion_tokens"]
+    input_tokens = response.usage["prompt_tokens"]
+    model_name = instance.model or kwargs.get("model")
     impacts = llm_impacts(
         provider=PROVIDER,
-        model_name=instance.model,
+        model_name=model_name,
         output_token_count=output_tokens,
         request_latency=request_latency,
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=input_tokens,
+                output_tokens=output_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=model_name,
+                endpoint="/chat/completions"
+            )
+
         return ChatCompletionOutput(**asdict(response), impacts=impacts)
     else:
         return response
@@ -160,20 +200,36 @@ async def huggingface_async_chat_wrapper_stream(
     args: Any,
     kwargs: Any
 ) -> AsyncIterable[ChatCompletionStreamOutput]:
+    encoder = tiktoken.get_encoding("cl100k_base")
+    prompt_text = "".join([m["content"] for m in kwargs["messages"]])
+    input_tokens = len(encoder.encode(prompt_text))
+    model_name = instance.model or kwargs.get("model")
     timer_start = time.perf_counter()
     stream = await wrapped(*args, **kwargs)
-    token_count = 0
+    output_tokens = 0
     async for chunk in stream:
-        token_count += 1
+        output_tokens += 1
         request_latency = time.perf_counter() - timer_start
         impacts = llm_impacts(
             provider=PROVIDER,
-            model_name=instance.model,
-            output_token_count=token_count,
+            model_name=model_name,
+            output_token_count=output_tokens,
             request_latency=request_latency,
             electricity_mix_zone=EcoLogits.config.electricity_mix_zone
         )
         if impacts is not None:
+            if EcoLogits.config.opentelemetry \
+                    and chunk.choices[0]["finish_reason"] is not None:
+                EcoLogits.config.opentelemetry.record_request(
+                    input_tokens=input_tokens,
+                    output_tokens=output_tokens,
+                    request_latency=request_latency,
+                    impacts=impacts,
+                    provider=PROVIDER,
+                    model=model_name,
+                    endpoint="/chat/completions"
+                )
+
             yield ChatCompletionStreamOutput(**asdict(chunk), impacts=impacts)
         else:
             yield chunk

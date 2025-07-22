@@ -1,13 +1,18 @@
+from __future__ import annotations
+
 import importlib.metadata
 import importlib.util
 import warnings
 from dataclasses import dataclass, field
-from typing import Optional, Union
+from typing import TYPE_CHECKING
 
 from packaging.version import Version
 
 from ecologits.exceptions import EcoLogitsError
 from ecologits.log import logger
+
+if TYPE_CHECKING:
+    from ecologits.utils.opentelemetry import OpenTelemetry, OpenTelemetryLabels
 
 
 def init_openai_instrumentor() -> None:
@@ -115,13 +120,15 @@ class EcoLogits:
     class _Config:
         electricity_mix_zone: str = field(default="WOR")
         providers: list[str] = field(default_factory=list)
+        opentelemetry: OpenTelemetry | None = None
 
     config = _Config()
 
     @staticmethod
     def init(
-        providers: Optional[Union[str, list[str]]] = None,
+        providers: str | list[str] | None = None,
         electricity_mix_zone: str = "WOR",
+        opentelemetry_endpoint: str | None = None
     ) -> None:
         """
         Initialization static method. Will attempt to initialize all providers by default.
@@ -129,6 +136,7 @@ class EcoLogits:
         Args:
             providers: list of providers to initialize (must select at least one provider).
             electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).
+            opentelemetry_endpoint: enable OpenTelemetry with the URL endpoint.
         """
         if isinstance(providers, str):
             providers = [providers]
@@ -148,6 +156,61 @@ class EcoLogits:
         EcoLogits.config.providers += providers
         EcoLogits.config.providers = list(set(EcoLogits.config.providers))
 
+        if opentelemetry_endpoint is not None:
+            if not is_opentelemetry_installed():
+                logger.error("OpenTelemetry package is not installed. Install with "
+                             "`pip install ecologits[opentelemetry]`.")
+                raise EcoLogitsError("OpenTelemetry package is not installed.")
+
+            from ecologits.utils.opentelemetry import OpenTelemetry
+
+            EcoLogits.config.opentelemetry = OpenTelemetry(endpoint=opentelemetry_endpoint)
+
+    @staticmethod
+    def label(**labels: str) -> OpenTelemetryLabels:
+        """
+        Create OpenTelemetry labels. Can be used as a context manager or as a function decorator.
+
+        Args:
+            **labels: Key-value pairs of OpenTelemetry labels.
+
+        Returns:
+            OpenTelemetryLabels instance.
+
+        Examples:
+            Context manager usage:
+            ```python
+            with EcoLogits.label(task="summarization"):
+                response = client.chat.completions.create(...)
+
+            # or in async mode
+            async with EcoLogits.label(task="summarization"):
+                response = await async_client.chat.completions.create(...)
+            ```
+
+            Decorator usage:
+            ```python
+            @EcoLogits.label(task="summarization")
+            def text_summarization(text: str) -> str:
+                response = client.chat.completions.create(...)
+                ...
+
+            # or in async mode
+            @EcoLogits.label(task="summarization")
+            async def text_summarization(text: str) -> str:
+                response = await async_client.chat.completions.create(...)
+                ...
+            ```
+        """
+        if EcoLogits.config.opentelemetry is None:
+            logger.error("You must enable OpenTelemetry to use labels. Initialize with "
+                         "opentelemetry_endpoint='http://localhost:4318/v1/metrics' for instance.")
+            raise EcoLogitsError("OpenTelemetry is not enabled.")
+
+        from ecologits.utils.opentelemetry import OpenTelemetryLabels
+
+        return OpenTelemetryLabels(**labels)
+
 
 def init_instruments(providers: list[str]) -> None:
     for provider in providers:
@@ -156,3 +219,12 @@ def init_instruments(providers: list[str]) -> None:
         if provider not in EcoLogits.config.providers:
             init_func = _INSTRUMENTS[provider]
             init_func()
+
+
+def is_opentelemetry_installed() -> bool:
+    otel_pkgs = [
+        "opentelemetry",
+        "opentelemetry.sdk",
+        "opentelemetry.exporter"
+    ]
+    return all(importlib.util.find_spec(p) is not None for p in otel_pkgs)

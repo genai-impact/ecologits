@@ -1,5 +1,6 @@
 from ecologits.model_repository import ModelRepository
 
+
 def test_create_empty_repository():
     models = ModelRepository()
     assert isinstance(models, ModelRepository)
@@ -36,9 +37,9 @@ def test_add_custom_model():
         "provider": "openai",
         "name": "gpt-4.1-2025-04-14",
         "architecture": {
-            "type": "moe", 
+            "type": "moe",
             "parameters": 1000
         }
     }
     models.add_model(custom_model_data)
-    assert models.find_model("openai", "gpt-4.1-2025-04-14") is not None    
+    assert models.find_model("openai", "gpt-4.1-2025-04-14") is not None

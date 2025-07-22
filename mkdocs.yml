@@ -15,6 +15,7 @@ nav:
       - 'Environmental Impacts': tutorial/impacts.md
       - 'Warnings and Errors': tutorial/warnings_and_errors.md
       - 'Supported providers': tutorial/providers.md
+      - 'OpenTelemetry': tutorial/opentelemetry.md
       - 'Providers':
           - 'Anthropic': tutorial/providers/anthropic.md
           - 'Cohere': tutorial/providers/cohere.md
