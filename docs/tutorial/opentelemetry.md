@@ -62,7 +62,7 @@ EcoLogits will automatically report the following metrics when OpenTelemetry is 
 
 ## Labels
 
-By default, EcoLogits will report two labels:
+By default, EcoLogits will report three labels:
 
 - `provider`: Name of the provider
 - `model`: Name of the model used
