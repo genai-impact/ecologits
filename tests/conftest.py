@@ -41,7 +41,7 @@ def tracer_init():
     EcoLogits.init(providers=[
         "anthropic",
         "cohere",
-        "google",
+        "google_genai",
         "huggingface_hub",
         "litellm",
         "mistralai",

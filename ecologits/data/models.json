@@ -3360,7 +3360,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.0-pro",
             "architecture": {
                 "type": "dense",
@@ -3378,7 +3378,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.0-pro-001",
             "architecture": {
                 "type": "dense",
@@ -3396,7 +3396,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.0-pro-002",
             "architecture": {
                 "type": "dense",
@@ -3414,7 +3414,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.0-pro-vision",
             "architecture": {
                 "type": "dense",
@@ -3433,7 +3433,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.0-pro-vision-001",
             "architecture": {
                 "type": "dense",
@@ -3452,7 +3452,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.5-pro",
             "architecture": {
                 "type": "moe",
@@ -3474,7 +3474,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.5-pro-001",
             "architecture": {
                 "type": "moe",
@@ -3496,7 +3496,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.5-pro-002",
             "architecture": {
                 "type": "moe",
@@ -3518,7 +3518,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.5-flash",
             "architecture": {
                 "type": "dense",
@@ -3537,7 +3537,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.5-flash-001",
             "architecture": {
                 "type": "dense",
@@ -3556,7 +3556,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-1.5-flash-002",
             "architecture": {
                 "type": "dense",
@@ -3575,7 +3575,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-2.0-flash",
             "architecture": {
                 "type": "dense",
@@ -3594,7 +3594,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-2.0-flash-001",
             "architecture": {
                 "type": "dense",
@@ -3613,7 +3613,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-2.0-flash-lite",
             "architecture": {
                 "type": "dense",
@@ -3632,7 +3632,7 @@
         },
         {
             "type": "model",
-            "provider": "google",
+            "provider": "google_genai",
             "name": "gemini-2.0-flash-lite-001",
             "architecture": {
                 "type": "dense",
