@@ -62,12 +62,12 @@ def init_cohere_instrumentor() -> None:
         instrumentor.instrument()
 
 
-def init_google_instrumentor() -> None:
+def init_google_genai_instrumentor() -> None:
     if importlib.util.find_spec("google") is not None \
-            and importlib.util.find_spec("google.generativeai") is not None:
-        from ecologits.tracers.google_tracer import GoogleInstrumentor
+            and importlib.util.find_spec("google.genai") is not None:
+        from ecologits.tracers.google_genai_tracer import GoogleGenaiInstrumentor
 
-        instrumentor = GoogleInstrumentor()
+        instrumentor = GoogleGenaiInstrumentor()
         instrumentor.instrument()
 
 
@@ -85,7 +85,7 @@ _INSTRUMENTS = {
     "mistralai": init_mistralai_instrumentor,
     "huggingface_hub": init_huggingface_instrumentor,
     "cohere": init_cohere_instrumentor,
-    "google": init_google_instrumentor,
+    "google_genai": init_google_genai_instrumentor,
     "litellm": init_litellm_instrumentor
 }
 

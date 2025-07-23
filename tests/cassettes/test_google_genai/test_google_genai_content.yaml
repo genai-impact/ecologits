@@ -1,0 +1,61 @@
+interactions:
+- request:
+    body: '{"contents": [{"parts": [{"text": "Tell me a joke!"}], "role": "user"}]}'
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '72'
+      content-type:
+      - application/json
+      host:
+      - generativelanguage.googleapis.com
+      user-agent:
+      - google-genai-sdk/1.26.0 gl-python/3.9.18
+      x-goog-api-client:
+      - google-genai-sdk/1.26.0 gl-python/3.9.18
+    method: POST
+    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAC/61RwU7CQBC99yvWvXihpKVQxYsB5YBIJNKIiXhY6dBuaHeb7pTYEP7dbUuh1at7
+        2GzmvX1v5s3BIIRumPC5zxAUvSMfukLIobwLTAoEgRqoS7qYsBQv3OocGm9NQfguPtFVmBNfimsk
+        asO1EFeoCKaZQsJQxup+LdZiDBuWKSAYQk5itgOSJQT2kOYYchFcrQVtqB/P78/OpadURlAYxtKH
+        qKYfawLdcsFV+ApMSVHQlt7Lgp5Rtg+eZZCk8qsYy7S6ljW0rL4zcB1nOLhxbl2jdi49aaZYAHNA
+        pmNj53CoVogT9OQOxIPMytgGlUkj5BZsuyccJbKoBfXszh9V9ag9edQMv7EXPTuLOObFgN7k3aON
+        fLDVVJ2P0Yjxd4v/5GW7bTPjtJZqU2+QKl6tJIBYL8nsdS1zGzEVmpZll6o0BZVIoWDqF7xJMBux
+        ubl86q9m9mK6cAf5eDWixtH4AYKzem7OAgAA
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Tue, 22 Jul 2025 21:26:43 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Server-Timing:
+      - gfet4t7; dur=456
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      - X-Origin
+      - Referer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+version: 1

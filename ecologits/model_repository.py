@@ -16,6 +16,7 @@ class Providers(Enum):
     huggingface_hub = "huggingface_hub"
     cohere = "cohere"
     google = "google"
+    google_genai = "google_genai"
 
 
 class ArchitectureTypes(Enum):
