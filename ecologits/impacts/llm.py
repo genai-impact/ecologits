@@ -28,8 +28,6 @@ SERVER_EMBODIED_IMPACT_PE = 38000
 
 HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 
-DATACENTER_PUE = 1.2
-
 # From https://docs.google.com/spreadsheets/d/1uj8yA601uBtJ7GSf7k96Lv1NoQBfsCnVmTCII2HgZvo/edit?gid=0#gid=0
 # Google : https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf
 # Meta: https://sustainability.atmeta.com/wp-content/uploads/2024/08/Meta-2024-Sustainability-Report.pdf
@@ -66,7 +64,8 @@ PROVIDER_PUE = { #Power use efficiency
     "Equinix" : 1.42	
 }
 
-AI_COMPANY_TO_DATA_CENTER_PROVIDER = { #A list that draws the connection between AI companies and their data center providers 
+#A list that draws the connection between AI companies and their data center providers 
+AI_COMPANY_TO_DATA_CENTER_PROVIDER = { 
     "anthropic"	: "Google",
     "mistralai"	: "OVHCloud",
     "cohere"	: "AWS", 
@@ -83,9 +82,23 @@ BATCHING_SIZE = 16
 
 GPUS_IN_SERVER = 8
 
-WATER_FABRICATING_GPU = 8327.906
-#8327.906 liters of pure water used to fabricate a microchip. 
-#This number will change depends on reclaim rate of water and the amount needed to filter to get pure water.
+WATER_FABRICATING_GPU = 0.56178343949
+# https://waferpro.com/how-many-chips-can-be-cut-from-a-silicon-wafer/?srsltid=AfmBOoriSA25IQoHzZsc2-7QC8kMqAn8GRsnDFlA0OcSnvNFPFH0zUH8
+# Estimate of Chips per 300mm Wafer
+# Assume a 15mm x 15mm chip size:
+
+# 300mm wafer: ~70,685 mm² area (π * (150mm)²)
+# 15mm x 15mm chip: 225 mm²
+# So, the simple calculation would be:
+
+# 70,685 mm2 / 225 mm2 ​≈ 314 chips
+
+# https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf
+# page 114, 2023 
+# 2023 - 176.4 Water consumption per wafer-layer (Liter/12-inch equivalent wafer mask layer)
+# 176.4/314 = 
+# 0.56178343949 L/chip
+
 
 dag = DAG()
 
@@ -207,7 +220,9 @@ def server_energy(
 
 @dag.asset
 def request_energy(
-        datacenter_pue: float,
+        provider: str,
+        provider_pue: dict,
+        ai_company_to_data_center_provider: dict,
         server_energy: float,
         gpu_required_count: int,
         gpu_energy: ValueOrRange
@@ -216,7 +231,9 @@ def request_energy(
     Compute the energy consumption of the request.
 
     Args:
-        datacenter_pue: PUE of the datacenter.
+        provider: the provider of AI that we are measuring
+        provider_pue: Power usage efficiency. Depends on the data center provider.
+        ai_company_to_data_center_provider: A dictionary mapping AI providers to their data center providers.
         server_energy: Energy consumption of the server in kWh.
         gpu_required_count: Number of required GPUs to load the model.
         gpu_energy: Energy consumption of a single GPU in kWh.
@@ -224,7 +241,7 @@ def request_energy(
     Returns:
         The energy consumption of the request in kWh.
     """
-    return datacenter_pue * (server_energy + gpu_required_count * gpu_energy)
+    return provider_pue[ai_company_to_data_center_provider[provider]] * (server_energy + gpu_required_count * gpu_energy)
 
 
 @dag.asset
@@ -284,8 +301,8 @@ def request_usage_pe(
 def request_usage_water(
         request_energy: ValueOrRange,
         if_electricity_mix_wcf: float,
-        provider: str,
         provider_wue_onsite: dict,
+        provider: str,
         provider_pue: dict,
         ai_company_to_data_center_provider: dict
 ) -> ValueOrRange:
@@ -296,6 +313,7 @@ def request_usage_water(
         request_energy: Energy consumption of the request in kWh.
         if_electricity_mix_wcf: Water consumption factor off-site, water consumption to electricity cosnumption. Depends on the data center's location. 
         provider_wue_onsite: Water consumption factor on-site. Depends on the data center.
+        provider: the provider of AI that we are measuring
         provider_pue: Power usage efficiency. Depends on the data center provider.
         ai_company_to_data_center_provider: A dictionary mapping AI providers to their data center providers.
     Returns:
@@ -438,6 +456,9 @@ def request_embodied_pe(
 @dag.asset
 def request_embodied_water(
         server_lifetime: float,
+        batching_size: float,
+        water_fabricating_gpu: float,
+        gpus_in_server: float,
         generation_latency: ValueOrRange
 ) -> ValueOrRange:
     """
@@ -446,9 +467,9 @@ def request_embodied_water(
     Args:
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
-        WATER_FABRICATING_GPU: The amount of water used in fabricating a gpu.
-        GPUS_IN_SERVER: The number of GPUs in a server.
-        BATCHING_SIZE: The number of requests handled concurrently by the server. 
+        water_fabricating_gpu: The amount of water used in fabricating a gpu.
+        gpus_in_server: The number of GPUs in a server.
+        batching_size: The number of requests handled concurrently by the server. 
         
     Returns:
         The PE embodied impact of the request in MJ.
@@ -464,7 +485,7 @@ def request_embodied_water(
     #source https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices?utm_source=chatgpt.com
     #here
     
-    output = generation_latency *WATER_FABRICATING_GPU * GPUS_IN_SERVER/ (server_lifetime * BATCHING_SIZE)
+    output = generation_latency *water_fabricating_gpu * gpus_in_server/ (server_lifetime * batching_size)
 
     return output
 
@@ -497,7 +518,6 @@ def compute_llm_impacts_dag(
         server_embodied_adpe: Optional[float] = SERVER_EMBODIED_IMPACT_ADPE,
         server_embodied_pe: Optional[float] = SERVER_EMBODIED_IMPACT_PE,
         server_lifetime: Optional[float] = HARDWARE_LIFESPAN,
-        datacenter_pue: Optional[float] = DATACENTER_PUE,
         provider_wue_onsite: Optional[dict] = PROVIDER_WUE_ONSITE,
         provider_pue: Optional[dict] = PROVIDER_PUE,
         ai_company_to_data_center_provider: Optional[dict] = AI_COMPANY_TO_DATA_CENTER_PROVIDER,
@@ -535,7 +555,6 @@ def compute_llm_impacts_dag(
         server_embodied_adpe: ADPe embodied impact of the server in kgSbeq.
         server_embodied_pe: PE embodied impact of the server in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
-        datacenter_pue: PUE of the datacenter.
         provider_wue_onsite: Water consumption factor on-site. Depends on the data center.
         provider_pue: Power usage efficiency. Depends on the data center provider.
         ai_company_to_data_center_provider: A dictionary mapping AI providers to their data center providers.
@@ -572,7 +591,6 @@ def compute_llm_impacts_dag(
         server_embodied_adpe=server_embodied_adpe,
         server_embodied_pe=server_embodied_pe,
         server_lifetime=server_lifetime,
-        datacenter_pue=datacenter_pue,
         provider_wue_onsite=provider_wue_onsite,
         provider_pue=provider_pue,
         ai_company_to_data_center_provider=ai_company_to_data_center_provider,

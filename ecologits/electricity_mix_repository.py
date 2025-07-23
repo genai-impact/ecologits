@@ -2,6 +2,8 @@ import os
 from csv import DictReader
 from dataclasses import dataclass
 from typing import Optional
+import warnings
+
 
 
 @dataclass
@@ -30,9 +32,26 @@ class ElectricityMixRepository:
     def __init__(self, electricity_mixes: list[ElectricityMix]) -> None:
         self.__electricity_mixes = electricity_mixes
 
-    def find_electricity_mix(self, zone: str) -> Optional[ElectricityMix]:
+    def find_electricity_mix(self, zone: str, filepath: Optional[str] = None) -> Optional[ElectricityMix]:
+        if filepath is None:
+            filepath = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "data", "electricity_mixes.csv"
+            )
+        with open(filepath) as fd:
+            csv = DictReader(fd)
+            for row in csv:
+                if row["name"].upper() == "WOR":
+                    wcf_wor_value = row.get("wcf", "")
+                    wcf_wor_value_record = float(wcf_wor_value)
+                    
         for electricity_mix in self.__electricity_mixes:
             if electricity_mix.zone == zone:
+                if electricity_mix.wcf == wcf_wor_value_record:
+                    warnings.warn(
+                        "Local WCF data not found. Using world average instead.",
+                        UserWarning,
+                        stacklevel=2
+                    )
                 return electricity_mix
         return None
 
@@ -48,9 +67,9 @@ class ElectricityMixRepository:
             for row in csv:
                 if row["name"].upper() == "WOR":
                     wcf_wor_value = row.get("wcf", "")
+                    wcf_wor_value_record = float(wcf_wor_value)
                 wcf_value = row.get("wcf", "") # enlève les espaces éventuels
-                wcf = float(wcf_value) if wcf_value else wcf_wor_value
-                #TODO : n'oublie pas d'afficher un message de avertissement si la valeur qu'on prend est un zéro (on utilise la moyenne mondiale dans ce cas)
+                wcf = float(wcf_value) if wcf_value else wcf_wor_value_record
 
                 electricity_mixes.append(
                     ElectricityMix(
@@ -62,6 +81,5 @@ class ElectricityMixRepository:
                     )
                 )
         return cls(electricity_mixes)
-
 
 electricity_mixes = ElectricityMixRepository.from_csv()
