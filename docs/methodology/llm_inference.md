@@ -215,7 +215,7 @@ A table of the AI providers and thier datacenter providers is given by:
 | OpenAI           | Microsoft           |
 
   
-For each datacenter provider, we use their gloabally averaged PUE number.  
+For each datacenter provider, we use their globally averaged PUE number.  
   
 | Datacenter Provider | PUE  | Source |
 |---------------------|------|--------|
@@ -239,7 +239,7 @@ The $WUE_{on-site}$ of each datacenter provider:
 | AWS                 | 0.18  | [source](https://sustainability.aboutamazon.com/2023-report) |
 | Equinix             | 1.07  | [source](https://www.equinix.com/resources/infopapers/2023-corporate-sustainability-report) |
   
-Finally, for $WUE_{off-site}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the world resource institute. For brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used. 
+Finally, for $WUE_{off-site}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used. 
 
 
 ## Embodied impacts
@@ -320,7 +320,12 @@ $$
 
 ## Modeling water embodied impacts
 
-We draw from the [ESG report](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf) of TSMC that states that each 12-inch wafer layer consumes about 176.4 liters to produce, and according to this [article](https://waferpro.com/how-many-chips-can-be-cut-from-a-silicon-wafer/?srsltid=AfmBOoriSA25IQoHzZsc2-7QC8kMqAn8GRsnDFlA0OcSnvNFPFH0zUH8), this includes around 314 chips. This brings us to 0.562 L/chip. We assume that each server has 8 GPUs, and each GPU handles 16 requests in a batch. There is no definitive source on the batching, but this [article](https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices?utm_source=chatgpt.com) indicates that 16 might be a common industry practice.
+We draw from the [ESG report](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf) of [Taiwan Semiconductor Manufacturing Company](https://www.tsmc.com/english) that states that each 12-inch wafer layer consumes about 176.4 liters to produce. According to this [article](https://waferpro.com/how-many-chips-can-be-cut-from-a-silicon-wafer/?srsltid=AfmBOoriSA25IQoHzZsc2-7QC8kMqAn8GRsnDFlA0OcSnvNFPFH0zUH8), assuming a 15mm x 15mm chip size:  
+300mm wafer: ~70,685 mm² area (π * (150mm)²)  
+15mm x 15mm chip: 225 mm²  
+Which brings us to
+70,685 mm2 / 225 mm2 ​≈ 314 chips per wafer.  
+Using the 176.4 liters per wafer divided by 314 chips per wafer, this brings us to 0.562 L/chip. According to this [article](https://massedcompute.com/faq-answers/?question=How%20many%20NVIDIA%20L40S%20GPUs%20can%20be%20installed%20in%20a%20single%20server?#:~:text=1U%20Servers%3A%20Typically%20support%201,for%20AI%20training%20and%20inference.), there are around 8 GPUs in a specialized inference server. So we assume that each server has 8 GPUs, and each GPU handles 16 requests in a batch. There is no definitive source on the batching, but this [article](https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices?utm_source=chatgpt.com) indicates that 16 might be a common industry practice.
 
 ## Assumptions and limitations
 
@@ -379,7 +384,7 @@ We consider the **Power Usage Effectiveness** (PUE) metric from data centers. Th
 * We do not account for the local electricity generation (private power plants) specific to the data center.
 * We do not account for the overhead of the cloud provider for internal services like backing up or monitoring.
 
-The water consumption for the production of electricity varies widely by regions, and you could consider checking out our [enviornmental impact simulator](https://huggingface.co/spaces/genai-impact/ecologits-calculator) to find out about regional differences.  
+The water consumption for the production of electricity varies widely by regions, and you could consider checking out our [environmental impact simulator](https://huggingface.co/spaces/genai-impact/ecologits-calculator) to find out about regional differences.  
 
 
 ### On impact factors
