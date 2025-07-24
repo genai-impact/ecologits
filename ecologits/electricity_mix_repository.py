@@ -1,9 +1,8 @@
 import os
+import warnings
 from csv import DictReader
 from dataclasses import dataclass
 from typing import Optional
-import warnings
-
 
 
 @dataclass
@@ -43,12 +42,12 @@ class ElectricityMixRepository:
                 if row["name"].upper() == "WOR":
                     wcf_wor_value = row.get("wcf", "")
                     wcf_wor_value_record = float(wcf_wor_value)
-                    
+
         for electricity_mix in self.__electricity_mixes:
             if electricity_mix.zone == zone:
-                if electricity_mix.wcf == wcf_wor_value_record:
+                if electricity_mix.wcf == wcf_wor_value_record and zone != "WOR":
                     warnings.warn(
-                        "Local WCF data not found. Using world average instead.",
+                        f"Local WCF data on {zone} not found. Using world average instead.",
                         UserWarning,
                         stacklevel=2
                     )
@@ -68,7 +67,7 @@ class ElectricityMixRepository:
                 if row["name"].upper() == "WOR":
                     wcf_wor_value = row.get("wcf", "")
                     wcf_wor_value_record = float(wcf_wor_value)
-                wcf_value = row.get("wcf", "") # enlève les espaces éventuels
+                wcf_value = row.get("wcf", "") # remove spaces if they appear
                 wcf = float(wcf_value) if wcf_value else wcf_wor_value_record
 
                 electricity_mixes.append(

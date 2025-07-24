@@ -132,7 +132,7 @@ class PE(BaseImpact):
 
 class Water(BaseImpact):
     """
-    Water (PE) impact.
+    Water impact.
 
     Info:
         Total water consumption.

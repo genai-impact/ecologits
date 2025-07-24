@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
-from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Water, Usage
+from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Usage, Water
 from ecologits.log import logger
 from ecologits.model_repository import ParametersMoE, models
 from ecologits.status_messages import ErrorMessage, ModelNotRegisteredError, WarningMessage, ZoneNotRegisteredError
@@ -110,14 +110,13 @@ def llm_impacts(
     )
     impacts = ImpactsOutput.model_validate(impacts.model_dump())
 
-    
+
 
 
     if model.has_warnings:
         for w in model.warnings:
             logger.warning_once(str(w))
             impacts.add_warning(w)
-    #TODO : n'oublie pas d'ajouter l'avertissement si une région sans donnés sur WCF a été choisie.
 
     return impacts
 

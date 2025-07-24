@@ -3,7 +3,7 @@ from math import ceil
 from typing import Any, Optional, Union, cast
 
 from ecologits.impacts.dag import DAG
-from ecologits.impacts.modeling import GWP, PE, ADPe, Water, Embodied, Energy, Impacts, Usage
+from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage, Water
 from ecologits.utils.range_value import RangeValue, ValueOrRange
 
 MODEL_QUANTIZATION_BITS = 4
@@ -28,15 +28,7 @@ SERVER_EMBODIED_IMPACT_PE = 38000
 
 HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 
-# From https://docs.google.com/spreadsheets/d/1uj8yA601uBtJ7GSf7k96Lv1NoQBfsCnVmTCII2HgZvo/edit?gid=0#gid=0
-# Google : https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf
-# Meta: https://sustainability.atmeta.com/wp-content/uploads/2024/08/Meta-2024-Sustainability-Report.pdf
-# Microsoft: https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/
-# OVHCloud: https://corporate.ovhcloud.com/en/sustainability/environment/
-# Scaleway: https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf
-# AWS: https://sustainability.aboutamazon.com/2023-report
-# Equinix: https://www.equinix.com/resources/infopapers/2023-corporate-sustainability-report
-PROVIDER_WUE_ONSITE = { #Water use efficiency on-site, as opposed to off-site generated energy 
+PROVIDER_WUE_ONSITE = { #Water use efficiency on-site, as opposed to off-site generated energy
     "Google" : 0.916,
     "Meta": 0.18,    # L/kWh, 2023
     "Microsoft": 0.49, #2022
@@ -47,34 +39,27 @@ PROVIDER_WUE_ONSITE = { #Water use efficiency on-site, as opposed to off-site ge
 }
 
 
-# Google https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf
-# Meta https://sustainability.atmeta.com/data-centers/#:~:text=Meta's%20operational%20data%20centers%2C%20on,Effectiveness%20(WUE)%20of%200.20.
-# Microsoft https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/
-# OVHCloud https://corporate.ovhcloud.com/en/sustainability/environment/
-# Scaleway https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf
-# AWS https://sustainability.aboutamazon.com/products-services/aws-cloud
-# Equinix https://www.equinix.com/content/dam/eqxcorp/en_us/documents/resources/infopapers/ip_2023_sustainability_en.pdf
-PROVIDER_PUE = { #Power use efficiency 
+PROVIDER_PUE = { #Power use efficiency
     "Google" : 1.09,
-    "Meta" : 1.09,	
-    "Microsoft" : 1.18,	
-    "OVHCloud" : 1.26,	
-    "Scaleway" : 1.37,	
-    "AWS" : 1.15,	
-    "Equinix" : 1.42	
+    "Meta" : 1.09,
+    "Microsoft" : 1.18,
+    "OVHCloud" : 1.26,
+    "Scaleway" : 1.37,
+    "AWS" : 1.15,
+    "Equinix" : 1.42
 }
 
-#A list that draws the connection between AI companies and their data center providers 
-AI_COMPANY_TO_DATA_CENTER_PROVIDER = { 
+#A list that draws the connection between AI companies and their data center providers
+AI_COMPANY_TO_DATA_CENTER_PROVIDER = {
     "anthropic"	: "Google",
     "mistralai"	: "OVHCloud",
-    "cohere"	: "AWS", 
-    "databricks" : "Microsoft", 
+    "cohere"	: "AWS",
+    "databricks" : "Microsoft",
     "meta"	: "Meta",
     "azureopenai" : "Microsoft", #traité comme Openai
     "huggingfacehub" : "AWS",
-    "google" : "Google", 
-    "microsoft"	: "Microsoft", 
+    "google" : "Google",
+    "microsoft"	: "Microsoft",
     "openai" : "Microsoft",
 }
 
@@ -94,9 +79,9 @@ WATER_FABRICATING_GPU = 0.56178343949
 # 70,685 mm2 / 225 mm2 ​≈ 314 chips
 
 # https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf
-# page 114, 2023 
+# page 114, 2023
 # 2023 - 176.4 Water consumption per wafer-layer (Liter/12-inch equivalent wafer mask layer)
-# 176.4/314 = 
+# 176.4/314 =
 # 0.56178343949 L/chip
 
 
@@ -231,7 +216,7 @@ def request_energy(
     Compute the energy consumption of the request.
 
     Args:
-        provider: the provider of AI that we are measuring
+        provider: The provider of AI that we are measuring
         provider_pue: Power usage efficiency. Depends on the data center provider.
         ai_company_to_data_center_provider: A dictionary mapping AI providers to their data center providers.
         server_energy: Energy consumption of the server in kWh.
@@ -241,7 +226,9 @@ def request_energy(
     Returns:
         The energy consumption of the request in kWh.
     """
-    return provider_pue[ai_company_to_data_center_provider[provider]] * (server_energy + gpu_required_count * gpu_energy)
+    results = {provider_pue[ai_company_to_data_center_provider[provider]] *
+               (server_energy + gpu_required_count * gpu_energy)}
+    return results
 
 
 @dag.asset
@@ -311,19 +298,21 @@ def request_usage_water(
 
     Args:
         request_energy: Energy consumption of the request in kWh.
-        if_electricity_mix_wcf: Water consumption factor off-site, water consumption to electricity cosnumption. Depends on the data center's location. 
+        if_electricity_mix_wcf: Water consumption factor off-site, water consumption to electricity cosnumption. 
+            Depends on the data center's location.
         provider_wue_onsite: Water consumption factor on-site. Depends on the data center.
-        provider: the provider of AI that we are measuring
+        provider: The provider of AI that we are measuring
         provider_pue: Power usage efficiency. Depends on the data center provider.
         ai_company_to_data_center_provider: A dictionary mapping AI providers to their data center providers.
     Returns:
         The water usage impact of the request in liters.
     """
-        
 
 
-    output = request_energy * (provider_wue_onsite[ai_company_to_data_center_provider[provider]] + provider_pue[ai_company_to_data_center_provider[provider]] * if_electricity_mix_wcf )
-    
+
+    output = request_energy * (provider_wue_onsite[ai_company_to_data_center_provider[provider]] +
+    provider_pue[ai_company_to_data_center_provider[provider]] * if_electricity_mix_wcf )
+
     return output
 
 
@@ -469,22 +458,12 @@ def request_embodied_water(
         generation_latency: Token generation latency in seconds.
         water_fabricating_gpu: The amount of water used in fabricating a gpu.
         gpus_in_server: The number of GPUs in a server.
-        batching_size: The number of requests handled concurrently by the server. 
-        
+        batching_size: The number of requests handled concurrently by the server.
+
     Returns:
-        The PE embodied impact of the request in MJ.
+        The water embodied impact of the request in liters.
     """
-    
 
-    #https://oecd.ai/en/wonk/how-much-water-does-ai-consume
-    #"For example, to produce a microchip takes approximately 2,200 gallons of Ultra-Pure Water (UPW)."
-    #assuming a server of 8 gpu's 
-    #8327.906 liters * 8 = 66623.248
-
-    #with a batching size of 16 as the industry standard (see source below) and 8 gpu per server, we devide the water consumption of the server by 16
-    #source https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices?utm_source=chatgpt.com
-    #here
-    
     output = generation_latency *water_fabricating_gpu * gpus_in_server/ (server_lifetime * batching_size)
 
     return output
@@ -522,7 +501,7 @@ def compute_llm_impacts_dag(
         provider_pue: Optional[dict] = PROVIDER_PUE,
         ai_company_to_data_center_provider: Optional[dict] = AI_COMPANY_TO_DATA_CENTER_PROVIDER,
         water_fabricating_gpu: Optional[float] = WATER_FABRICATING_GPU,
-        gpus_in_server: Optional[float] = GPUS_IN_SERVER, 
+        gpus_in_server: Optional[float] = GPUS_IN_SERVER,
         batching_size: Optional[float] =  BATCHING_SIZE
 ) -> dict[str, ValueOrRange]:
     """
@@ -537,7 +516,7 @@ def compute_llm_impacts_dag(
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
-        if_electricity_mix_wcf: water consumption factor, water consumption to electricity consumption in liters / kWh.
+        if_electricity_mix_wcf: Water consumption factor, water consumption to electricity consumption in liters / kWh.
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
         gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
@@ -617,14 +596,14 @@ def compute_llm_impacts(
     Compute the impacts of an LLM generation request.
 
     Args:
-        provider: the provider of the model
+        provider: The provider of the model
         model_active_parameter_count: Number of active parameters of the model (in billion).
         model_total_parameter_count: Number of total parameters of the model (in billion).
         output_token_count: Number of generated tokens.
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
-        if_electricity_mix_wcf: water consumption factor, water consumption to electricity consumption in liters / kwh.
+        if_electricity_mix_wcf: Water consumption factor, water consumption to electricity consumption in liters / kWh.
         request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
 
