@@ -226,8 +226,8 @@ def request_energy(
     Returns:
         The energy consumption of the request in kWh.
     """
-    results = {provider_pue[ai_company_to_data_center_provider[provider]] *
-               (server_energy + gpu_required_count * gpu_energy)}
+    results = (provider_pue[ai_company_to_data_center_provider[provider]] *
+               (server_energy + gpu_required_count * gpu_energy))
     return results
 
 
