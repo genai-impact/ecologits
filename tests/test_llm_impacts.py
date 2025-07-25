@@ -4,22 +4,21 @@ import numpy as np
 import pytest
 
 from ecologits.impacts.llm import compute_llm_impacts
-from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
-
+from ecologits.impacts.modeling import Impacts, Energy, GWP, ADPe, PE, Usage, Embodied
 
 @pytest.mark.parametrize(
-    ["model_active_parameter_count", "model_total_parameter_count", "output_token_count", "request_latency", "if_electricity_mix_adpe", "if_electricity_mix_pe", "if_electricity_mix_gwp"],
+    ['model_active_parameter_count', 'model_total_parameter_count', 'output_token_count', 'request_latency', 'if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp'],
     [
-        (7.3, 7.3, 200, 5, 0.0000000737708, 9.988, 0.590478),         # Mistral 7B with World mix
-        (12.9, 46.7, 200, 10, 0.0000000737708, 9.988, 0.590478)       # Mixtral 8x7B with world mix
+        (7.3, 7.3, 200, 5, 0.0000000737708, 9.988, 0.590478, 5.04),         # Mistral 7B with World mix
+        (12.9, 46.7, 200, 10, 0.0000000737708, 9.988, 0.590478, 5.04)       # Mixtral 8x7B with world mix
     ]
 )
 def test_compute_llm_impacts(model_active_parameter_count: float,
                              model_total_parameter_count: float,
                              output_token_count: int,
-                             request_latency: float,
-                             if_electricity_mix_adpe: float,
-                             if_electricity_mix_pe: float,
+                             request_latency: float, 
+                             if_electricity_mix_adpe: float, 
+                             if_electricity_mix_pe: float, 
                              if_electricity_mix_gwp: float) -> None:
     impacts = compute_llm_impacts(
         model_active_parameter_count=model_active_parameter_count,
@@ -29,25 +28,29 @@ def test_compute_llm_impacts(model_active_parameter_count: float,
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe,
         if_electricity_mix_gwp=if_electricity_mix_gwp,
+        if_electricity_mix_wcf=if_electricity_mix_wcf,
     )
     assert impacts.energy.value > 0
     assert impacts.gwp.value > 0
     assert impacts.adpe.value > 0
     assert impacts.pe.value > 0
+    assert impacts.water.value > 0
     assert impacts.usage.energy.value > 0
     assert impacts.usage.gwp.value > 0
     assert impacts.usage.adpe.value > 0
     assert impacts.usage.pe.value > 0
+    assert impacts.usage.water.value > 0
     assert impacts.embodied.gwp.value > 0
     assert impacts.embodied.adpe.value > 0
     assert impacts.embodied.pe.value > 0
-
+    assert impacts.embodied.water.value > 0
 
 def compare_impacts(impacts: Impacts, prev_impacts: Impacts, op=gt):
     assert op(impacts.energy, prev_impacts.energy)
     assert op(impacts.gwp, prev_impacts.gwp)
     assert op(impacts.adpe, prev_impacts.adpe)
     assert op(impacts.pe, prev_impacts.pe)
+    assert op(impacts.water, prev_impacts.water)
     assert op(impacts.usage.energy, prev_impacts.usage.energy)
     assert op(impacts.usage.gwp, prev_impacts.usage.gwp)
     assert op(impacts.usage.adpe, prev_impacts.usage.adpe)
@@ -58,29 +61,32 @@ def compare_impacts(impacts: Impacts, prev_impacts: Impacts, op=gt):
 
 
 @pytest.mark.parametrize(
-    ["if_electricity_mix_adpe", "if_electricity_mix_pe", "if_electricity_mix_gwp"],
+    ['if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp'],
     [
-        (0.0000000737708, 9.988, 0.590478),         # Mistral 7B with World mix
+        (0.0000000737708, 9.988, 0.590478, 5.04),         # Mistral 7B with World mix
     ]
 )
-def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe: float,
-                                                        if_electricity_mix_pe: float,
+def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe: float, 
+                                                        if_electricity_mix_pe: float, 
                                                         if_electricity_mix_gwp: float):
     zero_impacts = Impacts(
         energy=Energy(value=0),
         gwp=GWP(value=0),
         adpe=ADPe(value=0),
         pe=PE(value=0),
+        water=Water(value=0),
         usage=Usage(
             energy=Energy(value=0),
             gwp=GWP(value=0),
             adpe=ADPe(value=0),
-            pe=PE(value=0)
+            pe=PE(value=0),
+            water=Water(value=0)
         ),
         embodied=Embodied(
             gwp=GWP(value=0),
             adpe=ADPe(value=0),
-            pe=PE(value=0)
+            pe=PE(value=0),
+            water=Water(value=0)
         )
     )
     prev_impacts = zero_impacts.model_copy(deep=True)
@@ -93,6 +99,7 @@ def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe:
             if_electricity_mix_adpe=if_electricity_mix_adpe,
             if_electricity_mix_pe=if_electricity_mix_pe,
             if_electricity_mix_gwp=if_electricity_mix_gwp,
+            if_electricity_mix_wcf=if_electricity_mix_wcf,
         )
 
         compare_impacts(impacts, prev_impacts, op=gt)
@@ -107,6 +114,7 @@ def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe:
                 if_electricity_mix_adpe=if_electricity_mix_adpe,
                 if_electricity_mix_pe=if_electricity_mix_pe,
                 if_electricity_mix_gwp=if_electricity_mix_gwp,
+                if_electricity_mix_wcf=if_electricity_mix_wcf,
             )
 
             compare_impacts(impacts_moe, prev_impacts_moe, op=gt)

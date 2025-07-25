@@ -115,7 +115,9 @@ class EcoLogits:
     class _Config:
         electricity_mix_zone: str = field(default="WOR")
         providers: list[str] = field(default_factory=list)
+
         opentelemetry: OpenTelemetry | None = None
+        provider_selected: str = field(default="openai")
 
     config = _Config()
 
@@ -134,7 +136,15 @@ class EcoLogits:
             opentelemetry_endpoint: enable OpenTelemetry with the URL endpoint.
         """
         if isinstance(providers, str):
+            EcoLogits.config.provider_selected = providers
             providers = [providers]
+        if EcoLogits.config.provider_selected == "litellm":
+            warnings.warn(
+                "With litellm, the water usage efficiency (WUE) and power usage efficiency (PUE)"
+                "of Amazon Web Services are used",
+                UserWarning,
+                stacklevel=2
+            )
         if providers is None:
             warnings.warn(
                 "Initializing EcoLogits without defining providers will soon no longer be supported. For example "
@@ -205,6 +215,7 @@ class EcoLogits:
         from ecologits.utils.opentelemetry import OpenTelemetryLabels
 
         return OpenTelemetryLabels(**labels)
+
 
 
 def init_instruments(providers: list[str]) -> None:
