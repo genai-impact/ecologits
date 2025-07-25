@@ -163,3 +163,8 @@ cython_debug/
 
 # Precommit hooks: ruff cache
 .ruff_cache
+
+#Chieh encountered issues when using pre-commit-config. 
+#The modified files should not be committed. 
+run_safety.bat
+.pre-commit-config.yaml.pre-commit-config.yaml 
