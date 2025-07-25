@@ -298,7 +298,7 @@ def request_usage_water(
 
     Args:
         request_energy: Energy consumption of the request in kWh.
-        if_electricity_mix_wcf: Water consumption factor off-site, water consumption to electricity cosnumption. 
+        if_electricity_mix_wcf: Water consumption factor off-site, water consumption to electricity cosnumption.
             Depends on the data center's location.
         provider_wue_onsite: Water consumption factor on-site. Depends on the data center.
         provider: The provider of AI that we are measuring
