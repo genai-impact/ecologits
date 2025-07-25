@@ -98,7 +98,6 @@ def llm_impacts(
     if_electricity_mix_gwp=electricity_mix.gwp
     if_electricity_mix_wcf=electricity_mix.wcf
     impacts = compute_llm_impacts(
-        provider=provider,
         model_active_parameter_count=model_active_params,
         model_total_parameter_count=model_total_params,
         output_token_count=output_token_count,

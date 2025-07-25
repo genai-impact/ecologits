@@ -2,6 +2,7 @@ import math
 from math import ceil
 from typing import Any, Optional, Union, cast
 
+from ecologits._ecologits import EcoLogits
 from ecologits.impacts.dag import DAG
 from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage, Water
 from ecologits.utils.range_value import RangeValue, ValueOrRange
@@ -56,11 +57,12 @@ AI_COMPANY_TO_DATA_CENTER_PROVIDER = {
     "cohere"	: "AWS",
     "databricks" : "Microsoft",
     "meta"	: "Meta",
-    "azureopenai" : "Microsoft", #traité comme Openai
-    "huggingfacehub" : "AWS",
+    "azureopenai" : "Microsoft", #treated the same way as OpenAI
+    "huggingface_hub" : "AWS",
     "google" : "Google",
     "microsoft"	: "Microsoft",
     "openai" : "Microsoft",
+    "litellm" : "AWS" #need a way to identify provider from model inputed
 }
 
 BATCHING_SIZE = 16
@@ -579,9 +581,7 @@ def compute_llm_impacts_dag(
     )
     return results
 
-
 def compute_llm_impacts(
-        provider: str,
         model_active_parameter_count: ValueOrRange,
         model_total_parameter_count: ValueOrRange,
         output_token_count: float,
@@ -629,10 +629,9 @@ def compute_llm_impacts(
     results: dict[str, Union[RangeValue, float, int]] = {}
     fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe", "request_usage_water",
               "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe", "request_embodied_water"]
-
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
-            provider=provider,
+            provider=EcoLogits.config.provider_selected,
             model_active_parameter_count=act_param,
             model_total_parameter_count=tot_param,
             output_token_count=output_token_count,

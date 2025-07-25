@@ -240,7 +240,9 @@ The $WUE_{on-site}$ of each datacenter provider:
 | Equinix             | 1.07  | [source](https://www.equinix.com/resources/infopapers/2023-corporate-sustainability-report) |
   
 Finally, for $WUE_{off-site}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used. 
-
+  
+Note: If the provider selected is LiteLLM, we currently use data from Amazon Web Services as the default. 
+  
 
 ## Embodied impacts
 
