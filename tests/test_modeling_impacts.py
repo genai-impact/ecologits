@@ -2,7 +2,7 @@ import operator
 
 import pytest
 
-from ecologits.impacts.modeling import BaseImpact, Energy, GWP, ADPe, PE
+from ecologits.impacts.modeling import BaseImpact, Energy, GWP, ADPe, PE, Water
 from ecologits.exceptions import ModelingError
 from ecologits.utils.range_value import RangeValue
 
@@ -34,6 +34,7 @@ impact_config = dict(
     (GWP(value=1), GWP(value=1), GWP(value=2)),
     (ADPe(value=1), ADPe(value=1), ADPe(value=2)),
     (PE(value=1), PE(value=1), PE(value=2)),
+    (Water(value=1), Water(value=1), Water(value=2))
 ])
 def test_impact_add(impact_1, impact_2, result):
     impact_sum = impact_1 + impact_2
@@ -125,6 +126,7 @@ def test_impact_compare(impact_1, impact_2, op):
     (GWP(value=1), ADPe(value=1), operator.eq),
     (GWP(value=1), PE(value=1), operator.ge),
     (ADPe(value=1), PE(value=1), operator.le),
+    (Water(value=1), PE(value=1), operator.ne)
 ])
 def test_impact_cannot_compare(impact_1, impact_2, op):
     with pytest.raises(ModelingError):
