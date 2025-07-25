@@ -177,6 +177,72 @@ Note that the user can still chose another electricity mix from the [ADEME Base 
     | 🇨🇳 China                                                                | $1,057$            | $8.515 \times 10^{-8}$   | $14.1$  |
     | 🇫🇷 France                                                               | $81.3$            | $4.858 \times 10^{-8}$   | $11.3$     |
 
+### Modeling request usage water impact
+
+- Water Use (water): Water consumption from this request. The formula for quantifying this is:
+
+$$
+\begin{equation*}
+WCF_{\text{request}} = E_{\text{server}} \times \left( \text{WUE}_{\text{on-site}} + \text{PUE} \times \text{WUE}_{\text{off-site}} \right) + \frac{\Delta T \times WCF_{\text{embodied}}}{\Delta L \times N_{\text{requests}}}
+\end{equation*}
+$$
+
+Where
+
+* $WCF_{request}$ : Water consumption footprint for the request
+* $E_{\text{server}}$ : Energy cost at the server for the request 
+* $WUE_{on-site}$ : Water usage efficiency at the data center 
+* $PUE$: Power usage efficiency at the data center 
+* $WUE_{off-site}$ : Water usage efficiency of the local electricity mix 
+* ${\Delta T}$ : Generation latency, or the time it takes for the server to process the request, in seconds
+* ${\Delta L}$ : Server lifespan in seconds
+* ${N_{requests}}$ : Number of simultanous reqeusts handled by the server
+* ${WCF_{embodied}}$ : Embodied water consumption footprint for manufacturing the server
+
+A table of the AI providers and thier datacenter providers is given by:  
+
+| AI Provider      | Datacenter Provider |
+|------------------|---------------------|
+| Anthropic        | Google              |
+| MistralAI        | OVHCloud            |
+| Cohere           | AWS                 |
+| Databricks       | Microsoft           |
+| Meta             | Meta                |
+| Azure OpenAI     | Microsoft           |
+| Hugging Face Hub | AWS                 |
+| Google           | Google              |
+| Microsoft        | Microsoft           |
+| OpenAI           | Microsoft           |
+
+  
+For each datacenter provider, we use their globally averaged PUE number.  
+  
+| Datacenter Provider | PUE  | Source |
+|---------------------|------|--------|
+| Google              | 1.09 | [source](https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf) |
+| Meta                | 1.09 | [source](https://sustainability.atmeta.com/data-centers/) |
+| Microsoft           | 1.18 | [source](https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/) |
+| OVHCloud            | 1.26 | [source](https://corporate.ovhcloud.com/en/sustainability/environment/) |
+| Scaleway            | 1.37 | [source](https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf) |
+| AWS                 | 1.15 | [source](https://sustainability.aboutamazon.com/products-services/aws-cloud) |
+| Equinix             | 1.42 | [source](https://www.equinix.com/content/dam/eqxcorp/en_us/documents/resources/infopapers/ip_2023_sustainability_en.pdf) |
+  
+The $WUE_{on-site}$ of each datacenter provider:
+  
+| Datacenter Provider | WUE   | Source |
+|---------------------|-------|--------|
+| Google              | 0.916 | [source](https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf) |
+| Meta                | 0.18  | [source](https://sustainability.atmeta.com/wp-content/uploads/2024/08/Meta-2024-Sustainability-Report.pdf) |
+| Microsoft           | 0.49  | [source](https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/) |
+| OVHCloud            | 0.37  | [source](https://corporate.ovhcloud.com/en/sustainability/environment/) |
+| Scaleway            | 0.216 | [source](https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf) |
+| AWS                 | 0.18  | [source](https://sustainability.aboutamazon.com/2023-report) |
+| Equinix             | 1.07  | [source](https://www.equinix.com/resources/infopapers/2023-corporate-sustainability-report) |
+  
+Finally, for $WUE_{off-site}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used. 
+  
+Note: If the provider selected is LiteLLM, we currently use data from Amazon Web Services as the default. 
+  
 
 ## Embodied impacts
 
@@ -254,6 +320,14 @@ $$
 I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\text{server}}.
 $$
 
+## Modeling water embodied impacts
+
+We draw from the [ESG report](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf) of [Taiwan Semiconductor Manufacturing Company](https://www.tsmc.com/english) that states that each 12-inch wafer layer consumes about 176.4 liters to produce. According to this [article](https://waferpro.com/how-many-chips-can-be-cut-from-a-silicon-wafer/?srsltid=AfmBOoriSA25IQoHzZsc2-7QC8kMqAn8GRsnDFlA0OcSnvNFPFH0zUH8), assuming a 15mm x 15mm chip size:  
+300mm wafer: ~70,685 mm² area (π * (150mm)²)  
+15mm x 15mm chip: 225 mm²  
+Which brings us to
+70,685 mm2 / 225 mm2 ​≈ 314 chips per wafer.  
+Using the 176.4 liters per wafer divided by 314 chips per wafer, this brings us to 0.562 L/chip. According to this [article](https://massedcompute.com/faq-answers/?question=How%20many%20NVIDIA%20L40S%20GPUs%20can%20be%20installed%20in%20a%20single%20server?#:~:text=1U%20Servers%3A%20Typically%20support%201,for%20AI%20training%20and%20inference.), there are around 8 GPUs in a specialized inference server. So we assume that each server has 8 GPUs, and each GPU handles 16 requests in a batch. There is no definitive source on the batching, but this [article](https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices?utm_source=chatgpt.com) indicates that 16 might be a common industry practice.
 
 ## Assumptions and limitations
 
@@ -302,11 +376,8 @@ We estimate the **required infrastructure** to run the service in terms of hardw
 
 The type of services we model rely on high-end hardware that we consider is hosted by cloud service providers. Thus, we model data centers impacts as well and especially the overhead for cooling equipments.
 
-We consider the **Power Usage Effectiveness** (PUE) metric from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. That's why we prefer to rely on a global average for PUE that can be overridden for providers that disclose more precise data.
+We consider the **Power Usage Effectiveness** (PUE) metric from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. For each datacenter provider, we use the PUE number published by them on a global average.
 
-**Assumptions:**
-
-* PUE = 1.2 (arbitrary value, [valid for hyperscalers](https://semianalysis.com/2024/03/13/ai-datacenter-energy-dilemma-race/#datacenter-math))
 
 **Limitations:**
 
@@ -314,6 +385,8 @@ We consider the **Power Usage Effectiveness** (PUE) metric from data centers. Th
 * We do not account for the specific infrastructure or way to cooldown servers in data centers.
 * We do not account for the local electricity generation (private power plants) specific to the data center.
 * We do not account for the overhead of the cloud provider for internal services like backing up or monitoring.
+
+The water consumption for the production of electricity varies widely by regions, and you could consider checking out our [environmental impact simulator](https://huggingface.co/spaces/genai-impact/ecologits-calculator) to find out about regional differences.  
 
 
 ### On impact factors
@@ -344,7 +417,12 @@ We aim at covering the largest scope possible when assessing the environmental i
 Please cite **GenAI Impact** non-profit organization and **link to this documentation page**. 
 
 ```bibtex
-Coming soon...
+"""
+@software{ecologits,
+  author = {Samuel Rincé, Adrien Banse, Vinh Nguyen, Luc Berton, and Chieh Hsu},
+  publisher = {GenAI Impact},
+  title = {EcoLogits: track the energy consumption and environmental footprint of using generative AI models through APIs.},
+}"""
 ```
 
 ## :material-scale-balance: License
