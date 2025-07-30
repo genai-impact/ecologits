@@ -48,16 +48,16 @@ EcoLogits will automatically report the following metrics when OpenTelemetry is 
     Notice that the units used for impacts differ from the original [`ImpactsOutput`][tracers.utils.ImpactsOutput] object, in order to respect [OpenTelemetry guidelines](https://opentelemetry.io/docs/specs/semconv/general/metrics/#units).
 
 
-| Metric name                               | Description                                         |
-|-------------------------------------------|-----------------------------------------------------|
-| `ecologits_requests_total`                | Number of requests                                  |
-| `ecologits_input_tokens_total`            | Number of input tokens                              |
-| `ecologits_output_tokens_total`           | Number of output tokens                             |
-| `ecologits_request_latency_seconds_total` | Request latency in seconds                          |
-| `ecologits_energy_joules_total`           | Average energy consumption of the request in joules |
-| `ecologits_gwp_gCO2eq_total`              | Average GWP impacts of the request in gCO2eq        |
-| `ecologits_adpe_gSbeq_total`              | Average ADPe impacts of the request in gSbeq        |
-| `ecologits_pe_joules_total`               | Average PE impacts of the request in joules         |
+| Metric name                         | Type    | Description                                         |
+|-------------------------------------|---------|-----------------------------------------------------|
+| `ecologits_requests_total`          | Counter | Number of requests                                  |
+| `ecologits_input_tokens_ratio`      | Gauge   | Number of input tokens                              |
+| `ecologits_output_tokens_ratio`     | Gauge   | Number of output tokens                             |
+| `ecologits_request_latency_seconds` | Gauge   | Request latency in seconds                          |
+| `ecologits_energy_joules`           | Gauge   | Average energy consumption of the request in joules |
+| `ecologits_gwp_gCO2eq`              | Gauge   | Average GWP impacts of the request in gCO2eq        |
+| `ecologits_adpe_gSbeq`              | Gauge   | Average ADPe impacts of the request in gSbeq        |
+| `ecologits_pe_joules`               | Gauge   | Average PE impacts of the request in joules         |
 
 
 ## Labels
@@ -115,7 +115,3 @@ def summarize(text: str) -> str:
 ```
 
 1. Also work with asynchronous functions with `async def` syntax.
-
-
-
-    
