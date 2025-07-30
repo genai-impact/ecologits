@@ -89,6 +89,7 @@ pytest-asyncio = "^0.23.6"
 numpy = "^2.0.0"
 toml = "^0.10.2"
 mypy = "^1.13.0"
+setuptools = "^80.9.0"
 
 
 [tool.poetry.group.docs]
