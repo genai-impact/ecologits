@@ -82,39 +82,39 @@ class OpenTelemetry:
             description="Total number of AI requests",
             unit="1"
         )
-        self.input_tokens = meter.create_counter(
+        self.input_tokens = meter.create_gauge(
             name="ecologits_input_tokens",
-            description="Total input tokens",
+            description="Input tokens",
             unit="1"
         )
-        self.output_tokens = meter.create_counter(
+        self.output_tokens = meter.create_gauge(
             name="ecologits_output_tokens",
-            description="Total output tokens",
+            description="Output tokens",
             unit="1"
         )
-        self.request_latency = meter.create_counter(
+        self.request_latency = meter.create_gauge(
             name="ecologits_request_latency",
             description="Request latency in seconds",
             unit="s"
         )
-        self.energy_value = meter.create_counter(
+        self.energy_value = meter.create_gauge(
             name="ecologits_energy",
-            description="Total energy consumption",
+            description="Energy consumption in joules",
             unit="joules"
         )
-        self.gwp_value = meter.create_counter(
+        self.gwp_value = meter.create_gauge(
             name="ecologits_gwp",
-            description="Total Global Warming Potential",
+            description="Global Warming Potential in grams of CO2 equivalent",
             unit="gCO2eq"
         )
-        self.adpe_value = meter.create_counter(
+        self.adpe_value = meter.create_gauge(
             name="ecologits_adpe",
-            description="Total Abiotic Depletion Potential for Elements",
+            description="Abiotic Depletion Potential for Elements in grams of Sb equivalent",
             unit="gSbeq"
         )
-        self.pe_value = meter.create_counter(
+        self.pe_value = meter.create_gauge(
             name="ecologits_pe",
-            description="Total Primary Energy",
+            description="Primary Energy in joules",
             unit="joules"
         )
 
@@ -161,10 +161,10 @@ class OpenTelemetry:
         pe_value *= 1_000_000  # convert MJ to J
 
         self.request_counter.add(1, labels)
-        self.input_tokens.add(input_tokens, labels)
-        self.output_tokens.add(output_tokens, labels)
-        self.request_latency.add(request_latency, labels)
-        self.energy_value.add(energy_value, labels)
-        self.gwp_value.add(gwp_value, labels)
-        self.adpe_value.add(adpe_value, labels)
-        self.pe_value.add(pe_value, labels)
+        self.input_tokens.set(input_tokens, labels)
+        self.output_tokens.set(output_tokens, labels)
+        self.request_latency.set(request_latency, labels)
+        self.energy_value.set(energy_value, labels)
+        self.gwp_value.set(gwp_value, labels)
+        self.adpe_value.set(adpe_value, labels)
+        self.pe_value.set(pe_value, labels)
