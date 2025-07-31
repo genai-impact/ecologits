@@ -32,8 +32,8 @@ EcoLogits relies on key libraries to provide essential functionalities:
     <label for="cohere">Cohere</label>
 </span>
 <span class="provider-item">
-    <input type="checkbox" id="google-generativeai" value="google-generativeai" class="provider-option">
-    <label for="google-generativeai">Google Gemini</label>
+    <input type="checkbox" id="google-genai" value="google-genai" class="provider-option">
+    <label for="google-genai">Google Gemini</label>
 </span>
 <span class="provider-item">
     <input type="checkbox" id="huggingface-hub" value="huggingface-hub" class="provider-option">
