@@ -39,7 +39,6 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     EcoLogits.init(providers=["google"])
 
     # Ask something to Google Gemini
-    genai.configure(api_key="<GOOGLE_API_KEY>")
     model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content("Write a story about a magic backpack.")
     
@@ -59,7 +58,6 @@ Integrating EcoLogits with your applications does not alter the standard outputs
 
     # Ask something to Google Gemini in async mode
     async def main() -> None:
-        genai.configure(api_key="<GOOGLE_API_KEY>")
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = await model.generate_content_async(
             "Write a story about a magic backpack."
@@ -85,7 +83,6 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     EcoLogits.init(providers=["google"])
 
     # Ask something to Google Gemini in streaming mode
-    genai.configure(api_key="<GOOGLE_API_KEY>")
     model = genai.GenerativeModel("gemini-1.5-flash")
     stream = model.generate_content(
         "Write a story about a magic backpack.", 
@@ -109,7 +106,6 @@ Integrating EcoLogits with your applications does not alter the standard outputs
 
     # Ask something to Google Gemini in streaming and async mode
     async def main() -> None:
-        genai.configure(api_key="<GOOGLE_API_KEY>")
         model = genai.GenerativeModel("gemini-1.5-flash")
         stream = await model.generate_content_async(
             "Write a story about a magic backpack.", 

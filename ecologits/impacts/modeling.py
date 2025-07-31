@@ -130,6 +130,23 @@ class PE(BaseImpact):
     name: str = "Primary Energy"
     unit: str = "MJ"
 
+class WCF(BaseImpact):
+    """
+    Water (WCF) impact.
+
+    Info:
+        Total water consumption.
+
+    Attributes:
+        type: WCF
+        name: Water Consumption Footprint
+        value: WCF value
+        unit: Liter (L)
+    """
+    type: str = "WCF"
+    name: str = "Water Consumption Footprint"
+    unit: str = "L"
+
 
 class Phase(BaseModel):
     """
@@ -164,6 +181,7 @@ class Usage(Phase):
     gwp: GWP
     adpe: ADPe
     pe: PE
+    water: WCF
 
 
 class Embodied(Phase):
@@ -185,6 +203,7 @@ class Embodied(Phase):
     gwp: GWP
     adpe: ADPe
     pe: PE
+    water: WCF
 
 
 class Impacts(BaseModel):
@@ -203,5 +222,6 @@ class Impacts(BaseModel):
     gwp: GWP
     adpe: ADPe
     pe: PE
+    water: WCF
     usage: Usage
     embodied: Embodied

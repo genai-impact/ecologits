@@ -1,4 +1,5 @@
 import os
+import warnings
 from csv import DictReader
 from dataclasses import dataclass
 from typing import Optional
@@ -19,6 +20,7 @@ class ElectricityMix:
     adpe: float
     pe: float
     gwp: float
+    wue: float
 
 
 class ElectricityMixRepository:
@@ -29,9 +31,26 @@ class ElectricityMixRepository:
     def __init__(self, electricity_mixes: list[ElectricityMix]) -> None:
         self.__electricity_mixes = electricity_mixes
 
-    def find_electricity_mix(self, zone: str) -> Optional[ElectricityMix]:
+    def find_electricity_mix(self, zone: str, filepath: Optional[str] = None) -> Optional[ElectricityMix]:
+        if filepath is None:
+            filepath = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "data", "electricity_mixes.csv"
+            )
+        with open(filepath) as fd:
+            csv = DictReader(fd)
+            for row in csv:
+                if row["name"].upper() == "WOR":
+                    wue_wor_value = row.get("wue", "")
+                    wue_wor_value_record = float(wue_wor_value)
+
         for electricity_mix in self.__electricity_mixes:
             if electricity_mix.zone == zone:
+                if electricity_mix.wue == wue_wor_value_record and zone != "WOR":
+                    warnings.warn(
+                        f"Local wue data on {zone} not found. Using world average instead.",
+                        UserWarning,
+                        stacklevel=2
+                    )
                 return electricity_mix
         return None
 
@@ -45,15 +64,21 @@ class ElectricityMixRepository:
         with open(filepath) as fd:
             csv = DictReader(fd)
             for row in csv:
+                if row["name"].upper() == "WOR":
+                    wue_wor_value = row.get("wue", "")
+                    wue_wor_value_record = float(wue_wor_value)
+                wue_value = row.get("wue", "") # remove spaces if they appear
+                wue = float(wue_value) if wue_value else wue_wor_value_record
+
                 electricity_mixes.append(
                     ElectricityMix(
                         zone=row["name"],
                         adpe=float(row["adpe"]),
                         pe=float(row["pe"]),
                         gwp=float(row["gwp"]),
+                        wue=wue
                     )
                 )
         return cls(electricity_mixes)
-
 
 electricity_mixes = ElectricityMixRepository.from_csv()

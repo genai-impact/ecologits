@@ -37,9 +37,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["openai"])
-    
-    client = OpenAI(api_key="<OPENAI_API_KEY>")
-    
+        
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
@@ -60,9 +58,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["openai"])
-    
-    client = AsyncOpenAI(api_key="<OPENAI_API_KEY>")
-    
+        
     async def main() -> None:
         response = await client.chat.completions.create(
             model="gpt-4o-mini",
@@ -90,9 +86,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["openai"])
-    
-    client = OpenAI(api_key="<OPENAI_API_KEY>")
-    
+        
     stream = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": "Hello World!"}],
@@ -113,9 +107,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["openai"])
-    
-    client = AsyncOpenAI(api_key="<OPENAI_API_KEY>")
-    
+        
     async def main() -> None:
         stream = await client.chat.completions.create(
             model="gpt-4o-mini",
@@ -145,13 +137,6 @@ from openai import AzureOpenAI
 
 # Initialize EcoLogits
 EcoLogits.init(providers=["openai"])
-
-client = AzureOpenAI(
-    azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"), 
-    api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
-    api_version="2024-02-01"
-)
-
 
 response = client.chat.completions.create(
     model="gpt-35-turbo",
