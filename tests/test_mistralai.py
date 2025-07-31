@@ -1,5 +1,5 @@
-import pytest
 import mistralai
+import pytest
 
 
 @pytest.mark.vcr

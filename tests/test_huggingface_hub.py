@@ -1,6 +1,5 @@
 import pytest
-
-from huggingface_hub import InferenceClient, AsyncInferenceClient
+from huggingface_hub import AsyncInferenceClient, InferenceClient
 
 
 @pytest.mark.vcr

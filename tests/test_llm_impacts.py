@@ -1,7 +1,7 @@
-import pytest
+from operator import ge, gt
 
 import numpy as np
-from operator import gt, ge
+import pytest
 
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Energy, GWP, ADPe, PE, WCF, Usage, Embodied
@@ -25,8 +25,8 @@ def test_compute_llm_impacts(model_active_parameter_count: float,
         model_active_parameter_count=model_active_parameter_count,
         model_total_parameter_count=model_total_parameter_count,
         output_token_count=output_token_count,
-        request_latency=request_latency, 
-        if_electricity_mix_adpe=if_electricity_mix_adpe, 
+        request_latency=request_latency,
+        if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe,
         if_electricity_mix_gwp=if_electricity_mix_gwp,
         if_electricity_mix_wue=if_electricity_mix_wue,
@@ -98,7 +98,7 @@ def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe:
             model_active_parameter_count=total_parameters,
             model_total_parameter_count=total_parameters,
             output_token_count=100,
-            if_electricity_mix_adpe=if_electricity_mix_adpe, 
+            if_electricity_mix_adpe=if_electricity_mix_adpe,
             if_electricity_mix_pe=if_electricity_mix_pe,
             if_electricity_mix_gwp=if_electricity_mix_gwp,
             if_electricity_mix_wue=if_electricity_mix_wue,
@@ -113,7 +113,7 @@ def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe:
                 model_active_parameter_count=active_parameters,
                 model_total_parameter_count=total_parameters,
                 output_token_count=100,
-                if_electricity_mix_adpe=if_electricity_mix_adpe, 
+                if_electricity_mix_adpe=if_electricity_mix_adpe,
                 if_electricity_mix_pe=if_electricity_mix_pe,
                 if_electricity_mix_gwp=if_electricity_mix_gwp,
                 if_electricity_mix_wue=if_electricity_mix_wue,
