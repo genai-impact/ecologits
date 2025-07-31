@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 from ecologits.electricity_mix_repository import electricity_mixes
 from ecologits.impacts.llm import compute_llm_impacts
-from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Usage, Water
+from ecologits.impacts.modeling import GWP, PE, WCF, ADPe, Embodied, Energy, Usage
 from ecologits.log import logger
 from ecologits.model_repository import ParametersMoE, models
 from ecologits.status_messages import ErrorMessage, ModelNotRegisteredError, WarningMessage, ZoneNotRegisteredError
@@ -28,7 +28,7 @@ class ImpactsOutput(BaseModel):
     gwp: Optional[GWP] = None
     adpe: Optional[ADPe] = None
     pe: Optional[PE] = None
-    water: Optional[Water] = None
+    water: Optional[WCF] = None
     usage: Optional[Usage] = None
     embodied: Optional[Embodied] = None
     warnings: Optional[list[WarningMessage]] = None
@@ -96,8 +96,9 @@ def llm_impacts(
     if_electricity_mix_adpe=electricity_mix.adpe
     if_electricity_mix_pe=electricity_mix.pe
     if_electricity_mix_gwp=electricity_mix.gwp
-    if_electricity_mix_wcf=electricity_mix.wcf
+    if_electricity_mix_wue=electricity_mix.wue
     impacts = compute_llm_impacts(
+        provider=provider,
         model_active_parameter_count=model_active_params,
         model_total_parameter_count=model_total_params,
         output_token_count=output_token_count,
@@ -105,7 +106,7 @@ def llm_impacts(
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe,
         if_electricity_mix_gwp=if_electricity_mix_gwp,
-        if_electricity_mix_wcf=if_electricity_mix_wcf
+        if_electricity_mix_wue=if_electricity_mix_wue
     )
     impacts = ImpactsOutput.model_validate(impacts.model_dump())
 
