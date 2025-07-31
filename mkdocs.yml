@@ -19,7 +19,7 @@ nav:
       - 'Providers':
           - 'Anthropic': tutorial/providers/anthropic.md
           - 'Cohere': tutorial/providers/cohere.md
-          - 'Google Gemini': tutorial/providers/google.md
+          - 'Google Gemini': tutorial/providers/google_genai.md
           - 'Hugging Face Hub': tutorial/providers/huggingface_hub.md
           - 'LiteLLM': tutorial/providers/litellm.md
           - 'Mistral AI': tutorial/providers/mistralai.md

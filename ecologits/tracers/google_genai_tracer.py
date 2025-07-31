@@ -13,6 +13,9 @@ PROVIDER = "google_genai"
 
 
 class GenerateContentResponse(_GenerateContentResponse):
+    """
+    Wrapper of `google.genai.types.GenerateContentResponse` with `ImpactsOutput`
+    """
     impacts: Optional[ImpactsOutput] = None
 
 
@@ -22,6 +25,18 @@ def google_genai_content_wrapper(
     args: Any,
     kwargs: Any
 ) -> GenerateContentResponse:
+    """
+    Function that wraps Google GenAI answer with computed impacts
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `GenerateContentResponse` with impacts
+    """
     timer_start = time.perf_counter()
     response = wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
@@ -58,6 +73,18 @@ def google_genai_content_stream_wrapper(
     args: Any,
     kwargs: Any
 ) -> Iterator[GenerateContentResponse]:
+    """
+    Function that wraps Google GenAI answer with computed impacts in streaming mode.
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Yields:
+        A wrapped `GenerateContentResponse` with impacts
+    """
     timer_start = time.perf_counter()
     stream = wrapped(*args, **kwargs)
     for chunk in stream:
@@ -99,6 +126,18 @@ async def google_genai_async_content_wrapper(
     args: Any,
     kwargs: Any
 ) -> GenerateContentResponse:
+    """
+    Function that wraps Google GenAI answer with computed impacts in async mode.
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Returns:
+        A wrapped `GenerateContentResponse` with impacts
+    """
     timer_start = time.perf_counter()
     response = await wrapped(*args, **kwargs)
     request_latency = time.perf_counter() - timer_start
@@ -172,6 +211,18 @@ async def google_genai_async_content_stream_wrapper(
     args: Any,
     kwargs: Any
 ) -> AsyncIterator[GenerateContentResponse]:
+    """
+    Function that wraps Google GenAI answer with computed impacts in async and streaming mode.
+
+    Args:
+        wrapped: Callable that returns the LLM response
+        instance: Never used - for compatibility with `wrapt`
+        args: Arguments of the callable
+        kwargs: Keyword arguments of the callable
+
+    Yields:
+        A wrapped `GenerateContentResponse` with impacts
+    """
     timer_start = time.perf_counter()
     stream = await wrapped(*args, **kwargs)
     return _generator(stream, timer_start=timer_start, model_name=kwargs["model"])
