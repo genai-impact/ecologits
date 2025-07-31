@@ -125,7 +125,7 @@ def test_impact_compare(impact_1, impact_2, op):
     (GWP(value=1), ADPe(value=1), operator.eq),
     (GWP(value=1), PE(value=1), operator.ge),
     (ADPe(value=1), PE(value=1), operator.le),
-    (Water(value=1), PE(value=1), operator.ne)
+    (WCF(value=1), PE(value=1), operator.ne)
 ])
 def test_impact_cannot_compare(impact_1, impact_2, op):
     with pytest.raises(ModelingError):
