@@ -34,15 +34,10 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     ```python
     from ecologits import EcoLogits
     import litellm
-    import os
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["litellm"])
 
-    #set ENV variables
-    os.environ["OPENAI_API_KEY"] = "your-openai-key" #or any other provider, such as
-    os.environ["ANTHROPIC_API_KEY"] = "your-anthropic-key"
-    
     response = litellm.completion(
         model="gpt-4o-2024-05-13",
         messages=[{ "content": "Hello, how are you?","role": "user"}]
@@ -58,15 +53,10 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     import asyncio
     import litellm
     from ecologits import EcoLogits
-    import os
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["litellm"])
 
-    #set ENV variables
-    os.environ["OPENAI_API_KEY"] = "your-openai-key" #or any other provider, such as
-    os.environ["ANTHROPIC_API_KEY"] = "your-anthropic-key"
-    
     async def main() -> None:
         response = await litellm.acompletion(
             model="gpt-3.5-turbo",
