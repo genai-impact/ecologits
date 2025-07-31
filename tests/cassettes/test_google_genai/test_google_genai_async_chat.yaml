@@ -5,9 +5,9 @@ interactions:
       Content-Type:
       - application/json
       user-agent:
-      - google-genai-sdk/1.26.0 gl-python/3.9.18
+      - google-genai-sdk/1.28.0 gl-python/3.9.18
       x-goog-api-client:
-      - google-genai-sdk/1.26.0 gl-python/3.9.18
+      - google-genai-sdk/1.28.0 gl-python/3.9.18
     method: post
     uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent
   response:
@@ -16,12 +16,12 @@ interactions:
         [\n          {\n            \"text\": \"Why don't scientists trust atoms?\\n\\nBecause
         they make up everything!\\n\"\n          }\n        ],\n        \"role\":
         \"model\"\n      },\n      \"finishReason\": \"STOP\",\n      \"avgLogprobs\":
-        -0.00900435633957386\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
+        -0.124321848154068\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
         5,\n    \"candidatesTokenCount\": 16,\n    \"totalTokenCount\": 21,\n    \"promptTokensDetails\":
         [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 5\n      }\n
         \   ],\n    \"candidatesTokensDetails\": [\n      {\n        \"modality\":
         \"TEXT\",\n        \"tokenCount\": 16\n      }\n    ]\n  },\n  \"modelVersion\":
-        \"gemini-2.0-flash-001\",\n  \"responseId\": \"FgKAaKvbD8Tp1PIPxfDn6QQ\"\n}\n"
+        \"gemini-2.0-flash-001\",\n  \"responseId\": \"kWeLaI6GMeKT1PIPs9rriAQ\"\n}\n"
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
@@ -30,11 +30,11 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Tue, 22 Jul 2025 21:26:46 GMT
+      - Thu, 31 Jul 2025 12:54:42 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=297
+      - gfet4t7; dur=390
       Transfer-Encoding:
       - chunked
       Vary:

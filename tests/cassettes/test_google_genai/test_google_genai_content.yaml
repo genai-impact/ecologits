@@ -15,21 +15,21 @@ interactions:
       host:
       - generativelanguage.googleapis.com
       user-agent:
-      - google-genai-sdk/1.26.0 gl-python/3.9.18
+      - google-genai-sdk/1.28.0 gl-python/3.9.18
       x-goog-api-client:
-      - google-genai-sdk/1.26.0 gl-python/3.9.18
+      - google-genai-sdk/1.28.0 gl-python/3.9.18
     method: POST
     uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAC/61RwU7CQBC99yvWvXihpKVQxYsB5YBIJNKIiXhY6dBuaHeb7pTYEP7dbUuh1at7
-        2GzmvX1v5s3BIIRumPC5zxAUvSMfukLIobwLTAoEgRqoS7qYsBQv3OocGm9NQfguPtFVmBNfimsk
-        asO1EFeoCKaZQsJQxup+LdZiDBuWKSAYQk5itgOSJQT2kOYYchFcrQVtqB/P78/OpadURlAYxtKH
-        qKYfawLdcsFV+ApMSVHQlt7Lgp5Rtg+eZZCk8qsYy7S6ljW0rL4zcB1nOLhxbl2jdi49aaZYAHNA
-        pmNj53CoVogT9OQOxIPMytgGlUkj5BZsuyccJbKoBfXszh9V9ag9edQMv7EXPTuLOObFgN7k3aON
-        fLDVVJ2P0Yjxd4v/5GW7bTPjtJZqU2+QKl6tJIBYL8nsdS1zGzEVmpZll6o0BZVIoWDqF7xJMBux
-        ubl86q9m9mK6cAf5eDWixtH4AYKzem7OAgAA
+        H4sIAAAAAAAC/61RwU6DQBC98xXrXryUBlqJ1ItR20NNjcQSNbHGrGUKa2GXsENTbPrvLlBa0Kt7
+        2GzmvX1v5s3OIIQumQh4wBAUvSJvukLIrrpLTAoEgRpoSrqYsgxP3PrsWm9NQdiWn+hLVJBAinMk
+        asm1EFeoCGa5QsJQJuqaLMRC3MKS5QoIRlCQhK2B5CmBDWQFRlyEZwtBW/L74/u9d2oqkzGUjokM
+        IG7o+4ZAV1xwFT0BU1KUtLn/6NEjyjbhTIZpJj/LuUyrb9ujkTNyraHtus6FO3SNxrnypLliITwA
+        Mp0bO6ZDtUKSoi/XIO5kXuXm1CatlDuwfXnAUSKLO9Bg0Pujqsbak8ft9FuL0bOzmGNRDuhPXn3a
+        ygc7TTX5GK0Yf7f4T172ZdfMOKyl3tQzZIrXKwkh0UsyB33LXMVMRaZl2ZUqzUClUiiYBiXvK4EZ
+        876tifMxtr2pl93Pt8nNlBp74wepS2fk0AIAAA==
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
@@ -38,11 +38,11 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Tue, 22 Jul 2025 21:26:43 GMT
+      - Thu, 31 Jul 2025 12:54:38 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=456
+      - gfet4t7; dur=421
       Transfer-Encoding:
       - chunked
       Vary:

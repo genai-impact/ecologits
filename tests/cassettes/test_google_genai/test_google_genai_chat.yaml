@@ -15,21 +15,21 @@ interactions:
       host:
       - generativelanguage.googleapis.com
       user-agent:
-      - google-genai-sdk/1.26.0 gl-python/3.9.18
+      - google-genai-sdk/1.28.0 gl-python/3.9.18
       x-goog-api-client:
-      - google-genai-sdk/1.26.0 gl-python/3.9.18
+      - google-genai-sdk/1.28.0 gl-python/3.9.18
     method: POST
     uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAC/61RwU6DQBC98xXrXryUZqmRgBejVpOmGqkSNbEe1jKFTWGXsENT0vTfXaC0VK/u
-        YbOZ9/a9mTdbixC64DISEUfQ9Ip8mgoh2+auMSURJBqgK5lizgs8ctuz7b0NBWFTf6LvSUUiJc+R
-        6IUwQkKjJliUGglHlenruZzLW1jwUgPBBCqS8RWQMiewhqLCRMj4bC5pT313eH8Njj0VKoXaMFMR
-        pB191xHoUkihkxfgWsma9ho+B/SA8nX8qOK8UN/1WDYbMuZ7vsd833Fc33PYhdU5N5601DyGJ0Bu
-        YuOHcKhRyHIM1QrknSqb2C5bk17IJ7Dj7nFUyNMTaOQM/qjqsfEUaT/83l7M7DwVWNUDhvcfIe3l
-        gydNdflYvRh/t/hPXo57ambt19Ju6g0KLdqVxJCZJdmjIbOXKdeJzZjTqNICdK6khklU8x5m0xs+
-        CdjUC3MnmASb5Vi6sxm1dtYPd9Sgns8CAAA=
+        H4sIAAAAAAAC/61Ry07DMBC85yuML1yaKgl9EC6IAoeKohaIKBLlYJptYjWxI3tTiKr+O07StClc
+        8cGydsYzu7NbixC6ZCLkIUPQ9Iq8mwoh2+ouMSkQBBqgKZlixhQeufXZtt6GgvBdfqLzuCChFOdI
+        9JIbIa5RE1S5RsJQpvp6IRZiBEuWayAYQ0FStgaSZwQ2oAqMuYjOFoK21HeH90fn2JOSCZSGqQwh
+        aei7hkBXXHAdPwPTUpS0l2A6oweUbaKJjDIlP8uxbKfruH3Hd4d+r9/z/MGlN7ywGuvKlOaaRfAI
+        yExu7JAONRJphoFcg7iVeZVbv3ZppXwCu4M9jhJZcgJ5buePqr4znjxpp99ajBmeJRyLcsLg/i2g
+        rYDwpKkmIKuV4+8W/8nLHZyaWfu91Kt6BaV5vZMIUrMl2+s69iphOrYdx61UqQKdSaFhHJa89Rwm
+        bMq+RvAQuLPxTPtK8Zsnau2sH3iyPpvQAgAA
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
@@ -38,11 +38,11 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Tue, 22 Jul 2025 21:26:45 GMT
+      - Thu, 31 Jul 2025 12:54:41 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=298
+      - gfet4t7; dur=402
       Transfer-Encoding:
       - chunked
       Vary:
