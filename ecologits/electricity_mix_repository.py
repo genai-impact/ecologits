@@ -20,7 +20,7 @@ class ElectricityMix:
     adpe: float
     pe: float
     gwp: float
-    wcf: float
+    wue: float
 
 
 class ElectricityMixRepository:
@@ -40,14 +40,14 @@ class ElectricityMixRepository:
             csv = DictReader(fd)
             for row in csv:
                 if row["name"].upper() == "WOR":
-                    wcf_wor_value = row.get("wcf", "")
-                    wcf_wor_value_record = float(wcf_wor_value)
+                    wue_wor_value = row.get("wue", "")
+                    wue_wor_value_record = float(wue_wor_value)
 
         for electricity_mix in self.__electricity_mixes:
             if electricity_mix.zone == zone:
-                if electricity_mix.wcf == wcf_wor_value_record and zone != "WOR":
+                if electricity_mix.wue == wue_wor_value_record and zone != "WOR":
                     warnings.warn(
-                        f"Local WCF data on {zone} not found. Using world average instead.",
+                        f"Local wue data on {zone} not found. Using world average instead.",
                         UserWarning,
                         stacklevel=2
                     )
@@ -65,10 +65,10 @@ class ElectricityMixRepository:
             csv = DictReader(fd)
             for row in csv:
                 if row["name"].upper() == "WOR":
-                    wcf_wor_value = row.get("wcf", "")
-                    wcf_wor_value_record = float(wcf_wor_value)
-                wcf_value = row.get("wcf", "") # remove spaces if they appear
-                wcf = float(wcf_value) if wcf_value else wcf_wor_value_record
+                    wue_wor_value = row.get("wue", "")
+                    wue_wor_value_record = float(wue_wor_value)
+                wue_value = row.get("wue", "") # remove spaces if they appear
+                wue = float(wue_value) if wue_value else wue_wor_value_record
 
                 electricity_mixes.append(
                     ElectricityMix(
@@ -76,7 +76,7 @@ class ElectricityMixRepository:
                         adpe=float(row["adpe"]),
                         pe=float(row["pe"]),
                         gwp=float(row["gwp"]),
-                        wcf=wcf
+                        wue=wue
                     )
                 )
         return cls(electricity_mixes)
