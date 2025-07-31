@@ -36,6 +36,17 @@ def google_genai_content_wrapper(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone,
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=input_tokens,
+                output_tokens=output_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=model_name,
+                endpoint=f"/v1beta/models/{model_name}:generateContent"
+            )
+
         return GenerateContentResponse(**response.model_dump(), impacts=impacts)
     else:
         return response
@@ -66,6 +77,17 @@ def google_genai_content_stream_wrapper(
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone,
             )
             if impacts is not None:
+                if EcoLogits.config.opentelemetry:
+                    EcoLogits.config.opentelemetry.record_request(
+                        input_tokens=input_tokens,
+                        output_tokens=output_tokens,
+                        request_latency=request_latency,
+                        impacts=impacts,
+                        provider=PROVIDER,
+                        model=model_name,
+                        endpoint=f"/v1beta/models/{model_name}:generateContent"
+                    )
+
                 yield GenerateContentResponse(**chunk.model_dump(), impacts=impacts)
             else:
                 yield GenerateContentResponse(**chunk.model_dump(), impacts=None)
@@ -91,6 +113,17 @@ async def google_genai_async_content_wrapper(
         electricity_mix_zone=EcoLogits.config.electricity_mix_zone,
     )
     if impacts is not None:
+        if EcoLogits.config.opentelemetry:
+            EcoLogits.config.opentelemetry.record_request(
+                input_tokens=input_tokens,
+                output_tokens=output_tokens,
+                request_latency=request_latency,
+                impacts=impacts,
+                provider=PROVIDER,
+                model=model_name,
+                endpoint=f"/v1beta/models/{model_name}:generateContent"
+            )
+
         return GenerateContentResponse(**response.model_dump(), impacts=impacts)
     else:
         return response
@@ -117,6 +150,17 @@ async def _generator(
                 electricity_mix_zone=EcoLogits.config.electricity_mix_zone,
             )
             if impacts is not None:
+                if EcoLogits.config.opentelemetry:
+                    EcoLogits.config.opentelemetry.record_request(
+                        input_tokens=input_tokens,
+                        output_tokens=output_tokens,
+                        request_latency=request_latency,
+                        impacts=impacts,
+                        provider=PROVIDER,
+                        model=model_name,
+                        endpoint=f"/v1beta/models/{model_name}:generateContent"
+                    )
+
                 yield GenerateContentResponse(**chunk.model_dump(), impacts=impacts)
             else:
                 yield GenerateContentResponse(**chunk.model_dump(), impacts=None)
