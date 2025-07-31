@@ -8,28 +8,28 @@
       
       
       
-        <link rel="canonical" href="https://ecologits.ai/latest/why/">
+        <link rel="canonical" href="https://ecologits.ai/latest/tutorial/opentelemetry/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../providers/">
       
       
-        <link rel="next" href="../tutorial/providers/">
+        <link rel="next" href="../providers/anthropic/">
       
       
-      <link rel="icon" href="../assets/leaf.svg">
+      <link rel="icon" href="../../assets/leaf.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
-        <title>Why use EcoLogits - EcoLogits</title>
+        <title>OpenTelemetry - EcoLogits</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,13 +48,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../css/extra.css">
+      <link rel="stylesheet" href="../../css/extra.css">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -63,11 +63,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Why use EcoLogits - EcoLogits" >
+        <meta  property="og:title"  content="OpenTelemetry - EcoLogits" >
       
         <meta  property="og:description"  content="None" >
       
-        <meta  property="og:image"  content="https://ecologits.ai/latest/assets/images/social/why.png" >
+        <meta  property="og:image"  content="https://ecologits.ai/latest/assets/images/social/tutorial/opentelemetry.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -75,15 +75,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://ecologits.ai/latest/why/" >
+        <meta  property="og:url"  content="https://ecologits.ai/latest/tutorial/opentelemetry/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Why use EcoLogits - EcoLogits" >
+        <meta  name="twitter:title"  content="OpenTelemetry - EcoLogits" >
       
         <meta  name="twitter:description"  content="None" >
       
-        <meta  name="twitter:image"  content="https://ecologits.ai/latest/assets/images/social/why.png" >
+        <meta  name="twitter:image"  content="https://ecologits.ai/latest/assets/images/social/tutorial/opentelemetry.png" >
       
     
     
@@ -106,7 +106,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#why-use-ecologits" class="md-skip">
+        <a href="#opentelemetry-support" class="md-skip">
           Skip to content
         </a>
       
@@ -141,9 +141,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="EcoLogits" class="md-header__button md-logo" aria-label="EcoLogits" data-md-component="logo">
+    <a href="../.." title="EcoLogits" class="md-header__button md-logo" aria-label="EcoLogits" data-md-component="logo">
       
-  <img src="../assets/leaf.svg" alt="logo">
+  <img src="../../assets/leaf.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -160,7 +160,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Why use EcoLogits
+              OpenTelemetry
             
           </span>
         </div>
@@ -269,13 +269,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href=".." class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
           
   
   
@@ -291,11 +289,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../tutorial/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -315,7 +315,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../methodology/" class="md-tabs__link">
+        <a href="../../methodology/" class="md-tabs__link">
           
   
   
@@ -335,7 +335,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../reference/status_messages/" class="md-tabs__link">
+        <a href="../../reference/status_messages/" class="md-tabs__link">
           
   
   
@@ -388,9 +388,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="EcoLogits" class="md-nav__button md-logo" aria-label="EcoLogits" data-md-component="logo">
+    <a href="../.." title="EcoLogits" class="md-nav__button md-logo" aria-label="EcoLogits" data-md-component="logo">
       
-  <img src="../assets/leaf.svg" alt="logo">
+  <img src="../../assets/leaf.svg" alt="logo">
 
     </a>
     EcoLogits
@@ -409,6 +409,171 @@
     </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Get Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Get Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome to EcoLogits
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../why/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Why use EcoLogits
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supported providers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
     
       
       
@@ -435,15 +600,15 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
-    Get Started
+    Tutorial
     
   </span>
   
@@ -451,10 +616,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_1">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Get Started
+            Tutorial
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -465,12 +630,81 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Welcome to EcoLogits
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../impacts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Environmental Impacts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../warnings_and_errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Warnings and Errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supported providers
     
   </span>
   
@@ -502,7 +736,7 @@
   
   
   <span class="md-ellipsis">
-    Why use EcoLogits
+    OpenTelemetry
     
   </span>
   
@@ -515,7 +749,7 @@
   
   
   <span class="md-ellipsis">
-    Why use EcoLogits
+    OpenTelemetry
     
   </span>
   
@@ -538,47 +772,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#which-is-bigger-training-or-inference-impacts" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Which is bigger: training or inference impacts?
+      Installation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-assess-impacts-properly" class="md-nav__link">
+  <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      How to assess impacts properly?
+      Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-difficult-is-it" class="md-nav__link">
+  <a href="#metrics" class="md-nav__link">
     <span class="md-ellipsis">
-      How difficult is it?
+      Metrics
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#easy-to-use" class="md-nav__link">
+  <a href="#labels" class="md-nav__link">
     <span class="md-ellipsis">
-      Easy to use
+      Labels
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Labels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-custom-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure custom labels
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configure custom labels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-a-context-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      With a context manager
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#have-more-questions" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#with-a-function-decorator" class="md-nav__link">
     <span class="md-ellipsis">
-      Have more questions?
+      With a function decorator
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -597,258 +861,27 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../tutorial/providers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Supported providers
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../faq/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    FAQ
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../contributing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Contributing
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    Tutorial
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            Tutorial
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tutorial/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Introduction
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tutorial/impacts/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Environmental Impacts
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tutorial/warnings_and_errors/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Warnings and Errors
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tutorial/providers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Supported providers
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tutorial/opentelemetry/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    OpenTelemetry
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
+          
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
             
   
   
@@ -875,7 +908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorial/providers/anthropic/" class="md-nav__link">
+      <a href="../providers/anthropic/" class="md-nav__link">
         
   
   
@@ -898,7 +931,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorial/providers/cohere/" class="md-nav__link">
+      <a href="../providers/cohere/" class="md-nav__link">
         
   
   
@@ -921,7 +954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorial/providers/google/" class="md-nav__link">
+      <a href="../providers/google/" class="md-nav__link">
         
   
   
@@ -944,7 +977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorial/providers/huggingface_hub/" class="md-nav__link">
+      <a href="../providers/huggingface_hub/" class="md-nav__link">
         
   
   
@@ -967,7 +1000,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorial/providers/litellm/" class="md-nav__link">
+      <a href="../providers/litellm/" class="md-nav__link">
         
   
   
@@ -990,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorial/providers/mistralai/" class="md-nav__link">
+      <a href="../providers/mistralai/" class="md-nav__link">
         
   
   
@@ -1013,7 +1046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorial/providers/openai/" class="md-nav__link">
+      <a href="../providers/openai/" class="md-nav__link">
         
   
   
@@ -1094,7 +1127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../methodology/" class="md-nav__link">
+      <a href="../../methodology/" class="md-nav__link">
         
   
   
@@ -1117,7 +1150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../methodology/proprietary_models/" class="md-nav__link">
+      <a href="../../methodology/proprietary_models/" class="md-nav__link">
         
   
   
@@ -1140,7 +1173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../methodology/llm_inference/" class="md-nav__link">
+      <a href="../../methodology/llm_inference/" class="md-nav__link">
         
   
   
@@ -1213,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/status_messages/" class="md-nav__link">
+      <a href="../../reference/status_messages/" class="md-nav__link">
         
   
   
@@ -1236,7 +1269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/exceptions/" class="md-nav__link">
+      <a href="../../reference/exceptions/" class="md-nav__link">
         
   
   
@@ -1259,7 +1292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/model_repository/" class="md-nav__link">
+      <a href="../../reference/model_repository/" class="md-nav__link">
         
   
   
@@ -1282,7 +1315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/electricity_mix_repository/" class="md-nav__link">
+      <a href="../../reference/electricity_mix_repository/" class="md-nav__link">
         
   
   
@@ -1305,7 +1338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/_ecologits/" class="md-nav__link">
+      <a href="../../reference/_ecologits/" class="md-nav__link">
         
   
   
@@ -1328,7 +1361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/log/" class="md-nav__link">
+      <a href="../../reference/log/" class="md-nav__link">
         
   
   
@@ -1394,7 +1427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/tracers/openai_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/openai_tracer/" class="md-nav__link">
         
   
   
@@ -1417,7 +1450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/tracers/litellm_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/litellm_tracer/" class="md-nav__link">
         
   
   
@@ -1440,7 +1473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/tracers/mistralai_tracer_v0/" class="md-nav__link">
+      <a href="../../reference/tracers/mistralai_tracer_v0/" class="md-nav__link">
         
   
   
@@ -1463,7 +1496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/tracers/anthropic_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/anthropic_tracer/" class="md-nav__link">
         
   
   
@@ -1486,7 +1519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/tracers/cohere_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/cohere_tracer/" class="md-nav__link">
         
   
   
@@ -1509,7 +1542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/tracers/huggingface_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/huggingface_tracer/" class="md-nav__link">
         
   
   
@@ -1532,7 +1565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/tracers/utils/" class="md-nav__link">
+      <a href="../../reference/tracers/utils/" class="md-nav__link">
         
   
   
@@ -1555,7 +1588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/tracers/google_tracer/" class="md-nav__link">
+      <a href="../../reference/tracers/google_tracer/" class="md-nav__link">
         
   
   
@@ -1578,7 +1611,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/tracers/mistralai_tracer_v1/" class="md-nav__link">
+      <a href="../../reference/tracers/mistralai_tracer_v1/" class="md-nav__link">
         
   
   
@@ -1652,7 +1685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/impacts/modeling/" class="md-nav__link">
+      <a href="../../reference/impacts/modeling/" class="md-nav__link">
         
   
   
@@ -1675,7 +1708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/impacts/dag/" class="md-nav__link">
+      <a href="../../reference/impacts/dag/" class="md-nav__link">
         
   
   
@@ -1698,7 +1731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/impacts/llm/" class="md-nav__link">
+      <a href="../../reference/impacts/llm/" class="md-nav__link">
         
   
   
@@ -1772,7 +1805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/utils/range_value/" class="md-nav__link">
+      <a href="../../reference/utils/range_value/" class="md-nav__link">
         
   
   
@@ -1795,7 +1828,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/utils/opentelemetry/" class="md-nav__link">
+      <a href="../../reference/utils/opentelemetry/" class="md-nav__link">
         
   
   
@@ -1875,47 +1908,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#which-is-bigger-training-or-inference-impacts" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Which is bigger: training or inference impacts?
+      Installation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-assess-impacts-properly" class="md-nav__link">
+  <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      How to assess impacts properly?
+      Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-difficult-is-it" class="md-nav__link">
+  <a href="#metrics" class="md-nav__link">
     <span class="md-ellipsis">
-      How difficult is it?
+      Metrics
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#easy-to-use" class="md-nav__link">
+  <a href="#labels" class="md-nav__link">
     <span class="md-ellipsis">
-      Easy to use
+      Labels
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Labels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-custom-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure custom labels
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configure custom labels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-a-context-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      With a context manager
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#have-more-questions" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#with-a-function-decorator" class="md-nav__link">
     <span class="md-ellipsis">
-      Have more questions?
+      With a function decorator
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1938,25 +2001,141 @@
   
 
 
-<h1 id="why-use-ecologits">Why use EcoLogits?</h1>
-<p>Generative AI significantly impacts our environment, consuming electricity and contributing to global greenhouse gas emissions. In 2020, the ICT sector accounted for 2.1% to 3.9% of global emissions, with projections suggesting an increase to 6%-8% by 2025 due to continued growth and adoption <a href="https://doi.org/10.1016/j.patter.2021.100340">Freitag et al., 2021</a>. The advent of GenAI technologies like ChatGPT has further exacerbated this trend, causing a sharp rise in energy, water, and hardware costs for major tech companies. [<a href="https://www.theguardian.com/technology/article/2024/jul/02/google-ai-emissions">0</a>, <a href="https://www.bloomberg.com/news/articles/2024-05-15/microsoft-s-ai-investment-imperils-climate-goal-as-emissions-jump-30">1</a>].</p>
-<h2 id="which-is-bigger-training-or-inference-impacts">Which is bigger: training or inference impacts?</h2>
-<p>The field of Green AI focuses on evaluating the environmental impacts of AI models. While many studies have concentrated on training impacts [<a href="https://github.com/samuelrince/awesome-green-ai?tab=readme-ov-file">2</a>], they often overlook other critical phases like data collection, storage and processing phases, research experiments and inference. For GenAI, the inference phase can significantly overshadow training impacts when models are deployed at scale [<a href="https://www.seldon.io/the-environmental-impact-of-ml-inference">3</a>]. EcoLogits specifically addresses this gap by focusing on the inference impacts of GenAI.</p>
-<h2 id="how-to-assess-impacts-properly">How to assess impacts properly?</h2>
-<p>EcoLogits employs state-of-the-art methodologies based on Life Cycle Assessment and open data to assess environmental impacts across multiple phases and criteria. This includes usage impacts from electricity consumption and embodied impacts from the production and transportation of hardware. Our multi-criteria approach also evaluates carbon emissions, abiotic resource depletion, and primary energy consumption, providing a comprehensive view that informs decisions like model selection, hardware upgrades and cloud deployments.</p>
-<h2 id="how-difficult-is-it">How difficult is it?</h2>
-<p>Assessing environmental impacts can be challenging with external providers due to lack of control over the execution environment. Meaning you can easily estimate usage impact regarding energy consumption with <a href="https://github.com/mlco2/codecarbon">CodeCarbon</a> and also embodied impacts with <a href="https://github.com/Boavizta/boaviztapi">BoaviztAPI</a>, but these tools become less relevant with external service providers. EcoLogits simplifies this by basing calculations on well-founded assumptions about hardware, model size, and operational practices, making it easier to estimate impacts accurately. For more details, see our <a href="../methodology/">methodology section</a>.</p>
-<h2 id="easy-to-use">Easy to use</h2>
-<p>EcoLogits integrates seamlessly into existing GenAI providers, allowing you to assess the environmental impact of each API request with minimal code adjustments:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>    
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Then, you can make request to any supported provider.</span>
+<h1 id="opentelemetry-support">OpenTelemetry support</h1>
+<p>With the support of <a href="https://opentelemetry.io/">OpenTelemetry <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> in EcoLogits you can monitor request metrics such as the number of input/output tokens or the environmental impacts in time.</p>
+<h2 id="installation">Installation</h2>
+<p>To install EcoLogits along with all necessary dependencies for compatibility with OpenTelemetry, please use the <code>opentelemetry</code> extra-dependency option as follows:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ecologits<span class="o">[</span>opentelemetry<span class="o">]</span><span class="w"> </span><span class="c1"># (1)!</span>
 </span></code></pre></div>
-<p>See the list of supported providers and more code snippets in the <a href="../tutorial/">tutorial section</a>.</p>
-<h2 id="have-more-questions">Have more questions?</h2>
-<p>Feel free to ask question in our <a href="https://github.com/genai-impact/ecologits/discussions/categories/q-a">GitHub discussions</a> forum!</p>
+<ol>
+<li>Also include the provider you use in the installation command.</li>
+</ol>
+<p>This installation command ensures that EcoLogits is set up with the specific libraries required to work seamlessly with OpenTelemetry.</p>
+<h2 id="configuration">Configuration</h2>
+<p>To configure OpenTelemetry with EcoLogits, you will need to provide the URL endpoint at the initialization.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Configure OpenTelemetry endpoint in EcoLogits</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">providers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;openai&quot;</span><span class="p">],</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">opentelemetry_endpoint</span><span class="o">=</span><span class="s1">&#39;https://localhost:4318/v1/metrics&#39;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="c1"># All requests will log ecologits metrics</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}]</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="metrics">Metrics</h2>
+<p>EcoLogits will automatically report the following metrics when OpenTelemetry is enabled. </p>
+<div class="admonition warning">
+<p class="admonition-title">Different units for impact metrics</p>
+<p>Notice that the units used for impacts differ from the original <a class="autorefs autorefs-internal" href="../../reference/tracers/utils/#tracers.utils.ImpactsOutput"><code>ImpactsOutput</code></a> object, in order to respect <a href="https://opentelemetry.io/docs/specs/semconv/general/metrics/#units">OpenTelemetry guidelines</a>.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Metric name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ecologits_requests_total</code></td>
+<td>Counter</td>
+<td>Number of requests</td>
+</tr>
+<tr>
+<td><code>ecologits_input_tokens_ratio</code></td>
+<td>Gauge</td>
+<td>Number of input tokens</td>
+</tr>
+<tr>
+<td><code>ecologits_output_tokens_ratio</code></td>
+<td>Gauge</td>
+<td>Number of output tokens</td>
+</tr>
+<tr>
+<td><code>ecologits_request_latency_seconds</code></td>
+<td>Gauge</td>
+<td>Request latency in seconds</td>
+</tr>
+<tr>
+<td><code>ecologits_energy_joules</code></td>
+<td>Gauge</td>
+<td>Average energy consumption of the request in joules</td>
+</tr>
+<tr>
+<td><code>ecologits_gwp_gCO2eq</code></td>
+<td>Gauge</td>
+<td>Average <abbr title="Global Warming Potential">GWP</abbr> impacts of the request in <abbr title="Grams of CO2 (carbon dioxide) equivalent">gCO2eq</abbr></td>
+</tr>
+<tr>
+<td><code>ecologits_adpe_gSbeq</code></td>
+<td>Gauge</td>
+<td>Average <abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> impacts of the request in <abbr title="Grams of Sb (antimony) equivalent">gSbeq</abbr></td>
+</tr>
+<tr>
+<td><code>ecologits_pe_joules</code></td>
+<td>Gauge</td>
+<td>Average <abbr title="Primary Energy">PE</abbr> impacts of the request in joules</td>
+</tr>
+</tbody>
+</table>
+<h2 id="labels">Labels</h2>
+<p>By default, EcoLogits will report three labels:</p>
+<ul>
+<li><code>provider</code>: Name of the provider</li>
+<li><code>model</code>: Name of the model used</li>
+<li><code>endpoint</code>: API endpoint of the request</li>
+</ul>
+<h3 id="configure-custom-labels">Configure custom labels</h3>
+<p>It is possible to add custom labels to any request using the <a class="autorefs autorefs-internal" href="../../reference/_ecologits/#_ecologits.EcoLogits.label"><code>EcoLogits.label</code></a> method.</p>
+<h4 id="with-a-context-manager">With a context manager</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">providers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;openai&quot;</span><span class="p">],</span> 
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">opentelemetry_endpoint</span><span class="o">=</span><span class="s2">&quot;http://localhost:4318/v1/metrics&quot;</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="hll"><span class="k">with</span> <span class="n">EcoLogits</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">my_custom_label</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">):</span> <span class="c1"># (1)! </span>
+</span></span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke&quot;</span><span class="p">}]</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ol>
+<li>Also works with asynchronous code with <code>async with</code> syntax.</li>
+</ol>
+<h4 id="with-a-function-decorator">With a function decorator</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ecologits</span><span class="w"> </span><span class="kn">import</span> <span class="n">EcoLogits</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">EcoLogits</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">providers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;openai&quot;</span><span class="p">],</span> 
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">opentelemetry_endpoint</span><span class="o">=</span><span class="s2">&quot;http://localhost:4318/v1/metrics&quot;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="hll"><span class="nd">@EcoLogits</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="s2">&quot;summarization&quot;</span><span class="p">)</span>  <span class="c1"># (1)! </span>
+</span></span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">summarize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Summarize this:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}]</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="p">)</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+</span></code></pre></div>
+<ol>
+<li>Also works with asynchronous functions with <code>async def</code> syntax.</li>
+</ol>
 
 
 
@@ -2030,12 +2209,12 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "content.tabs.link", "content.code.copy", "content.code.annotate", "content.tooltips", "announce.dismiss"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "content.tabs.link", "content.code.copy", "content.code.annotate", "content.tooltips", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      <script src="../../assets/javascripts/bundle.50899def.min.js"></script>
       
-        <script src="../js/katex.js"></script>
+        <script src="../../js/katex.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
       
