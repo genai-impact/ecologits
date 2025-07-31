@@ -14,7 +14,7 @@ def test_create_electricity_mix_repository_from_scratch():
             adpe=0.,
             pe=0.,
             gwp=0.,
-            wcf=0.
+            wue=0.
         )
     ])
     assert electricity_mixes.find_electricity_mix(zone="wonderland") is not None

@@ -179,27 +179,30 @@ Note that the user can still chose another electricity mix from the [ADEME Base 
 
 ### Modeling request usage water impact
 
-- Water Use (water): Water consumption from this request. The formula for quantifying this is:
+- Water Use (WCF): Water consumption from this request. The formula for quantifying this is:
 
 $$
-\begin{equation*}
-WCF_{\text{request}} = E_{\text{server}} \times \left( \text{WUE}_{\text{on-site}} + \text{PUE} \times \text{WUE}_{\text{off-site}} \right) + \frac{\Delta T \times WCF_{\text{embodied}}}{\Delta L \times N_{\text{requests}}}
-\end{equation*}
+\begin{equation}
+\begin{aligned}
+\text{WCF}_{\text{request}} &= \frac{E_\text{server}}{N_\text{requests}} \times \left[\text{WUE}_{\text{on-site}} + \text{PUE} \times \text{WUE}_\text{off-site} \right] \\
+&\quad + \frac{\Delta T}{\Delta L} \times \frac{\text{WCF}_\text{embodied}}{N_\text{requests}}
+\end{aligned}
+\end{equation}
 $$
 
 Where
 
 * $WCF_{request}$ : Water consumption footprint for the request
 * $E_{\text{server}}$ : Energy cost at the server for the request 
+* ${N_{requests}}$ : Number of simultanous reqeusts handled by the server
 * $WUE_{on-site}$ : Water usage efficiency at the data center 
 * $PUE$: Power usage efficiency at the data center 
 * $WUE_{off-site}$ : Water usage efficiency of the local electricity mix 
 * ${\Delta T}$ : Generation latency, or the time it takes for the server to process the request, in seconds
 * ${\Delta L}$ : Server lifespan in seconds
-* ${N_{requests}}$ : Number of simultanous reqeusts handled by the server
 * ${WCF_{embodied}}$ : Embodied water consumption footprint for manufacturing the server
 
-A table of the AI providers and thier datacenter providers is given by:  
+A table of the AI providers and the datacenter providers whose PUE and WUE we use to calculate their WCF is given by:  
 
 | AI Provider      | Datacenter Provider |
 |------------------|---------------------|
@@ -239,10 +242,7 @@ The $WUE_{on-site}$ of each datacenter provider:
 | AWS                 | 0.18  | [source](https://sustainability.aboutamazon.com/2023-report) |
 | Equinix             | 1.07  | [source](https://www.equinix.com/resources/infopapers/2023-corporate-sustainability-report) |
   
-Finally, for $WUE_{off-site}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used. 
-  
-Note: If the provider selected is LiteLLM, we currently use data from Amazon Web Services as the default. 
-  
+Finally, for $WUE_{off-site}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used.   
 
 ## Embodied impacts
 
@@ -327,7 +327,7 @@ We draw from the [ESG report](https://esg.tsmc.com/en-US/file/public/e-all_2023.
 15mm x 15mm chip: 225 mm²  
 Which brings us to
 70,685 mm2 / 225 mm2 ​≈ 314 chips per wafer.  
-Using the 176.4 liters per wafer divided by 314 chips per wafer, this brings us to 0.562 L/chip. According to this [article](https://massedcompute.com/faq-answers/?question=How%20many%20NVIDIA%20L40S%20GPUs%20can%20be%20installed%20in%20a%20single%20server?#:~:text=1U%20Servers%3A%20Typically%20support%201,for%20AI%20training%20and%20inference.), there are around 8 GPUs in a specialized inference server. So we assume that each server has 8 GPUs, and each GPU handles 16 requests in a batch. There is no definitive source on the batching, but this [article](https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices?utm_source=chatgpt.com) indicates that 16 might be a common industry practice.
+Using the 176.4 liters per wafer divided by 314 chips per wafer, this brings us to 0.562 L/chip. According to this [article](https://massedcompute.com/faq-answers/?question=How%20many%20NVIDIA%20L40S%20GPUs%20can%20be%20installed%20in%20a%20single%20server?#:~:text=1U%20Servers%3A%20Typically%20support%201,for%20AI%20training%20and%20inference.), there are around 8 GPUs in a specialized inference server. We are still working on integrating batching size; right now the placeholder value is one. 
 
 ## Assumptions and limitations
 
