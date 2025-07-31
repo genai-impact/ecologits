@@ -36,9 +36,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["cohere"])
-    
-    client = Client(api_key="<COHERE_API_KEY>")
-    
+        
     response = client.chat(
         message="Tell me a funny joke!", 
         max_tokens=100
@@ -57,9 +55,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["cohere"])
-    
-    client = AsyncClient(api_key="<COHERE_API_KEY>")
-    
+        
     async def main() -> None:
         response = await client.chat(
             message="Tell me a funny joke!", 
@@ -85,9 +81,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["cohere"])
-    
-    client = Client(api_key="<COHERE_API_KEY>")
-    
+        
     stream = client.chat_stream(
         message="Tell me a funny joke!", 
         max_tokens=100
@@ -108,9 +102,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["cohere"])
-    
-    client = AsyncClient(api_key="<COHERE_API_KEY>")
-    
+        
     async def main() -> None:
         stream = client.chat_stream(
             message="Tell me a funny joke!", 

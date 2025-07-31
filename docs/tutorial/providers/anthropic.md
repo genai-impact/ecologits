@@ -35,9 +35,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["anthropic"])
-    
-    client = Anthropic(api_key="<ANTHROPIC_API_KEY>")
-    
+        
     response = client.messages.create(
         max_tokens=100,
         messages=[{"role": "user", "content": "Tell me a funny joke!"}],
@@ -57,9 +55,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["anthropic"])
-    
-    client = AsyncAnthropic(api_key="<ANTHROPIC_API_KEY>")
-    
+        
     async def main() -> None:
         response = await client.messages.create(
             max_tokens=100,
@@ -87,9 +83,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["anthropic"])
-    
-    client = Anthropic(api_key="<ANTHROPIC_API_KEY>")
-    
+        
     with client.messages.stream(
         max_tokens=100,
         messages=[{"role": "user", "content": "Tell me a funny joke!"}],
@@ -110,9 +104,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["anthropic"])
-    
-    client = AsyncAnthropic(api_key="<ANTHROPIC_API_KEY>")
-    
+        
     async def main() -> None:
         async with client.messages.stream(
             max_tokens=100,
