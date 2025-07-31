@@ -91,7 +91,7 @@ with EcoLogits.label(my_custom_label="test"): # (1)!
     )
 ```
 
-1. Also work with asynchronous code with `async with` syntax.
+1. Also works with asynchronous code with `async with` syntax.
 
 #### With a function decorator
 
@@ -114,4 +114,4 @@ def summarize(text: str) -> str:
     return response.choices[0].message.content
 ```
 
-1. Also work with asynchronous functions with `async def` syntax.
+1. Also works with asynchronous functions with `async def` syntax.
