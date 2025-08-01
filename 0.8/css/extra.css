@@ -1,0 +1,95 @@
+/*:root {*/
+/*  --md-primary-fg-color: #0b3b36;*/
+/*  !*--md-primary-fg-color: #0b3b36;*!*/
+/*  !*--md-primary-fg-color--light: #ff0000;*!*/
+/*  !*--md-primary-fg-color--dark: #ffea00;*!*/
+/*  --md-primary-bg-color--light: #0b3b36*/
+/*}*/
+
+/*
+Dark green: 0b3b36
+Light green: 00bf63
+*/
+
+
+[data-md-color-scheme="ecologits"] {
+  --md-primary-fg-color: #0b3b36;
+  --md-typeset-a-color: #00914b;
+  --md-accent-fg-color: #00bf63;
+  --md-primary-fg-color--dark: #062522;
+}
+
+[data-md-color-scheme="ecologits"] img[src$="#only-dark"],
+[data-md-color-scheme="ecologits"] img[src$="#gh-dark-mode-only"] {
+  display: none; /* Hide dark images in light mode */
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #0b3b36;
+  --md-hue: 200;
+  --md-default-fg-color: hsla(var(--md-hue), 15%, 95%, 1);
+  --md-typeset-a-color: #00bf63 !important;
+  --md-accent-fg-color: #008343;
+  --md-primary-fg-color--dark: #062522;
+}
+
+
+.provider-item {
+  display: inline-block;
+  margin: 4px 4px;
+  border-radius: 5px;
+}
+
+.provider-item:hover {
+  background: #0000000c;
+}
+
+[data-md-color-scheme="slate"] {
+  .provider-item:hover {
+    background: #0000005f;
+  }
+}
+
+.provider-item label {
+  padding: 1px 4px 1px 0;
+  /*padding-right: 4px;*/
+}
+
+.provider-item input {
+  accent-color: var(--md-accent-fg-color);
+}
+
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: var(--md-accent-fg-color);
+  border-radius: 2px;
+  padding: 0;
+  height: 22px;
+}
+
+.badge__icon {
+  margin: 0 2px;
+  font-size: 16px;
+}
+
+.badge__text {
+  padding: 0 4px;
+  border-bottom: 1px solid var(--md-accent-fg-color);
+  border-top: 1px solid var(--md-accent-fg-color);
+  border-right: 1px solid var(--md-accent-fg-color);
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  line-height: 20px;
+  background: #fff;
+}
+
+[data-md-color-scheme="slate"] {
+  .badge__text {
+    background-color: rgb(30, 37, 41);
+  }
+}
