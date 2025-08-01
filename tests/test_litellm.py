@@ -13,9 +13,9 @@ from ecologits.tracers.litellm_tracer import litellm_match_model
     ("mistral/mistral-large-latest", ("mistralai", "mistral-large-latest")),
     ("command-r", ("cohere", "command-r")),
     ("huggingface/meta-llama/Llama-2-7b", ("huggingface_hub", "meta-llama/Llama-2-7b")),
-    ("gemini/gemini-pro", ("google_genai", "gemini-1.0-pro")),
-    ("gemini/gemini-pro-vision", ("google_genai", "gemini-1.0-pro-vision")),
-    ("gemini/gemini-1.5-pro-latest", ("google_genai", "gemini-1.5-pro"))
+    ("gemini/gemini-2.5-pro", ("google_genai", "gemini-2.5-pro")),
+    ("gemini/gemini-2.5-flash", ("google_genai", "gemini-2.5-flash")),
+    ("gemini/gemini-2.5-flash-lite", ("google_genai", "gemini-2.5-flash-lite"))
 ])
 def test_litellm_match_model(model_name, expected_tuple):
     assert litellm_match_model(model_name) == expected_tuple

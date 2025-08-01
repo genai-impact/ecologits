@@ -9,19 +9,17 @@ interactions:
       x-goog-api-client:
       - google-genai-sdk/1.28.0 gl-python/3.9.18
     method: post
-    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent
+    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent
   response:
     body:
       string: "{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\":
         [\n          {\n            \"text\": \"Why don't scientists trust atoms?\\n\\nBecause
-        they make up everything!\\n\"\n          }\n        ],\n        \"role\":
-        \"model\"\n      },\n      \"finishReason\": \"STOP\",\n      \"avgLogprobs\":
-        -0.011689227074384689\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\":
-        5,\n    \"candidatesTokenCount\": 16,\n    \"totalTokenCount\": 21,\n    \"promptTokensDetails\":
-        [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 5\n      }\n
-        \   ],\n    \"candidatesTokensDetails\": [\n      {\n        \"modality\":
-        \"TEXT\",\n        \"tokenCount\": 16\n      }\n    ]\n  },\n  \"modelVersion\":
-        \"gemini-2.0-flash-001\",\n  \"responseId\": \"j2eLaOLvAdiR1PIP0di7wA0\"\n}\n"
+        they make up everything!\"\n          }\n        ],\n        \"role\": \"model\"\n
+        \     },\n      \"finishReason\": \"STOP\",\n      \"index\": 0\n    }\n  ],\n
+        \ \"usageMetadata\": {\n    \"promptTokenCount\": 6,\n    \"candidatesTokenCount\":
+        15,\n    \"totalTokenCount\": 21,\n    \"promptTokensDetails\": [\n      {\n
+        \       \"modality\": \"TEXT\",\n        \"tokenCount\": 6\n      }\n    ]\n
+        \ },\n  \"modelVersion\": \"gemini-2.5-flash-lite\",\n  \"responseId\": \"Q3-MaM2YB8eBkdUP-qjgaA\"\n}\n"
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
@@ -30,11 +28,11 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Thu, 31 Jul 2025 12:54:39 GMT
+      - Fri, 01 Aug 2025 08:48:03 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=418
+      - gfet4t7; dur=230
       Transfer-Encoding:
       - chunked
       Vary:
