@@ -64,7 +64,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from google import genai
     
     # Initialize EcoLogits
-    EcoLogits.init(providers=["google"])
+    EcoLogits.init(providers=["google_genai"])
 
     # Make generate content request
     async def main() -> None:
@@ -98,7 +98,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from google import genai
 
     # Initialize EcoLogits
-    EcoLogits.init(providers=["google"])
+    EcoLogits.init(providers=["google_genai"])
 
     # Make generate content request
     client = genai.Client()
@@ -130,7 +130,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     from google import genai
 
     # Initialize EcoLogits
-    EcoLogits.init(providers=["google"])
+    EcoLogits.init(providers=["google_genai"])
 
     # Ask something to Google Gemini in streaming and async mode
     async def main() -> None:

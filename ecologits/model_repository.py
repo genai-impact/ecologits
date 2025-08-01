@@ -15,7 +15,6 @@ class Providers(Enum):
     openai = "openai"
     huggingface_hub = "huggingface_hub"
     cohere = "cohere"
-    google = "google"
     google_genai = "google_genai"
 
 
