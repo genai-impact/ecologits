@@ -19,23 +19,18 @@ interactions:
       x-goog-api-client:
       - google-genai-sdk/1.28.0 gl-python/3.9.18
     method: POST
-    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:streamGenerateContent?alt=sse
+    uri: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:streamGenerateContent?alt=sse
   response:
     body:
       string: "data: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"Why\"}],\"role\":
-        \"model\"}}],\"usageMetadata\": {\"promptTokenCount\": 6,\"totalTokenCount\":
-        6,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 6}]},\"modelVersion\":
-        \"gemini-2.0-flash-001\",\"responseId\": \"j2eLaPzBMaOVmecPsvP4iAc\"}\r\n\r\ndata:
-        {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \" don't\"}],\"role\":
-        \"model\"}}],\"usageMetadata\": {\"promptTokenCount\": 6,\"totalTokenCount\":
-        6,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 6}]},\"modelVersion\":
-        \"gemini-2.0-flash-001\",\"responseId\": \"j2eLaPzBMaOVmecPsvP4iAc\"}\r\n\r\ndata:
-        {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \" scientists trust
-        atoms?\\n\\nBecause they make up everything!\\n\"}],\"role\": \"model\"},\"finishReason\":
-        \"STOP\"}],\"usageMetadata\": {\"promptTokenCount\": 5,\"candidatesTokenCount\":
-        16,\"totalTokenCount\": 21,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\":
-        5}],\"candidatesTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\":
-        16}]},\"modelVersion\": \"gemini-2.0-flash-001\",\"responseId\": \"j2eLaPzBMaOVmecPsvP4iAc\"}\r\n\r\n"
+        \"model\"},\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 6,\"candidatesTokenCount\":
+        1,\"totalTokenCount\": 7,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\":
+        6}]},\"modelVersion\": \"gemini-2.5-flash-lite\",\"responseId\": \"Q3-MaNOIKpjkvdIP3euZgQU\"}\r\n\r\ndata:
+        {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \" don't scientists
+        trust atoms?\\n\\nBecause they make up everything!\"}],\"role\": \"model\"},\"finishReason\":
+        \"STOP\",\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 6,\"candidatesTokenCount\":
+        15,\"totalTokenCount\": 21,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\":
+        6}]},\"modelVersion\": \"gemini-2.5-flash-lite\",\"responseId\": \"Q3-MaNOIKpjkvdIP3euZgQU\"}\r\n\r\n"
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
@@ -44,11 +39,11 @@ interactions:
       Content-Type:
       - text/event-stream
       Date:
-      - Thu, 31 Jul 2025 12:54:40 GMT
+      - Fri, 01 Aug 2025 08:48:03 GMT
       Server:
       - scaffolding on HTTPServer2
       Server-Timing:
-      - gfet4t7; dur=373
+      - gfet4t7; dur=240
       Transfer-Encoding:
       - chunked
       Vary:
