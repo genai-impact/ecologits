@@ -2728,6 +2728,24 @@
         {
             "type": "model",
             "provider": "mistralai",
+            "name": "magistral-medium-2507",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 70,
+                    "max": 120
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
             "name": "magistral-medium-latest",
             "architecture": {
                 "type": "dense",
@@ -2747,6 +2765,19 @@
             "type": "model",
             "provider": "mistralai",
             "name": "magistral-small-2506",
+            "architecture": {
+                "type": "dense",
+                "parameters": 23.6
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
+            "name": "magistral-small-2507",
             "architecture": {
                 "type": "dense",
                 "parameters": 23.6
