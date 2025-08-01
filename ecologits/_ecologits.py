@@ -33,12 +33,7 @@ def init_anthropic_instrumentor() -> None:
 
 def init_mistralai_instrumentor() -> None:
     if importlib.util.find_spec("mistralai") is not None:
-        version = Version(importlib.metadata.version("mistralai"))
-        if version < Version("1.0.0"):
-            logger.warning("MistralAI client v0.*.* will soon no longer be supported by EcoLogits.")
-            from ecologits.tracers.mistralai_tracer_v0 import MistralAIInstrumentor
-        else:
-            from ecologits.tracers.mistralai_tracer_v1 import MistralAIInstrumentor  # type: ignore[assignment]
+        from ecologits.tracers.mistralai_tracer import MistralAIInstrumentor
 
         instrumentor = MistralAIInstrumentor()
         instrumentor.instrument()
