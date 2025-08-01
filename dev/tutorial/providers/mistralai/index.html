@@ -1465,29 +1465,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/tracers/mistralai_tracer_v0/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    mistralai_tracer_v0
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../reference/tracers/anthropic_tracer/" class="md-nav__link">
         
   
@@ -1534,6 +1511,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../reference/tracers/mistralai_tracer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    mistralai_tracer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../reference/tracers/huggingface_tracer/" class="md-nav__link">
         
   
@@ -1563,29 +1563,6 @@
   
   <span class="md-ellipsis">
     utils
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../reference/tracers/mistralai_tracer_v1/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    mistralai_tracer_v1
     
   </span>
   
@@ -1938,10 +1915,6 @@
 
 
 <h1 id="mistral-ai">Mistral AI</h1>
-<details class="warning">
-<summary>Deprecation of Mistral AI v0</summary>
-<p>Mistral AI python client with version <code>&lt;1.0.0</code> will no longer be supported by EcoLogits. See official <a href="https://github.com/mistralai/client-python/blob/main/MIGRATION.md">migration guide from v0 to v1 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. </p>
-</details>
 <div class="admonition warning">
 <p class="admonition-title">Lack of transparency</p>
 <p>Some models released by Mistral AI are not open-weights, plus there is no information on the inference infrastructure. Thus, the environmental impacts are estimated with a lower precision.</p>
@@ -1971,7 +1944,7 @@
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">client</span> <span class="o">=</span> <span class="n">Mistral</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&lt;MISTRAL_API_KEY&gt;&quot;</span><span class="p">)</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span><span class="c1"># (1)! </span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="p">],</span>
@@ -1981,9 +1954,6 @@
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># Get estimated environmental impacts of the inference</span>
 </span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">impacts</span><span class="p">)</span>
 </span></code></pre></div>
-<ol>
-<li>Use <code>client.chat</code> for Mistral AI v0.</li>
-</ol>
 </div>
 <div class="tabbed-block">
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
@@ -1996,7 +1966,7 @@
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">client</span> <span class="o">=</span> <span class="n">Mistral</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&lt;MISTRAL_API_KEY&gt;&quot;</span><span class="p">)</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">complete_async</span><span class="p">(</span><span class="c1"># (1)! </span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">complete_async</span><span class="p">(</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}</span>
 </span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="p">],</span>
@@ -2009,9 +1979,6 @@
 </span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
 </span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </span></code></pre></div>
-<ol>
-<li>Use <code>client.chat</code> for Mistral AI v0.</li>
-</ol>
 </div>
 </div>
 </div>
@@ -2028,7 +1995,7 @@
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">client</span> <span class="o">=</span> <span class="n">Mistral</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&lt;MISTRAL_API_KEY&gt;&quot;</span><span class="p">)</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">stream</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="c1"># (1)! </span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">stream</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}</span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="p">],</span>
@@ -2037,12 +2004,8 @@
 </span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
 </span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
 </span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="c1"># Get cumulative estimated environmental impacts of the inference</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">impacts</span><span class="p">)</span> <span class="c1"># (2)!  </span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">impacts</span><span class="p">)</span>
 </span></code></pre></div>
-<ol>
-<li>Use <code>client.chat_stream</code> for Mistral AI v0.</li>
-<li>Use <code>chunk.impacts</code> for Mistral AI v0.</li>
-</ol>
 </div>
 <div class="tabbed-block">
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
@@ -2055,7 +2018,7 @@
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">client</span> <span class="o">=</span> <span class="n">Mistral</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&lt;MISTRAL_API_KEY&gt;&quot;</span><span class="p">)</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
 </span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">stream</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">stream_async</span><span class="p">(</span><span class="c1"># (1)! </span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">stream</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">stream_async</span><span class="p">(</span>
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
 </span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Tell me a funny joke!&quot;</span><span class="p">}</span>
 </span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="p">],</span>
@@ -2064,15 +2027,11 @@
 </span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
 </span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="k">async</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
 </span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>        <span class="c1"># Get cumulative estimated environmental impacts of the inference</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">impacts</span><span class="p">)</span> <span class="c1"># (2)!  </span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">impacts</span><span class="p">)</span>
 </span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
 </span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
 </span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </span></code></pre></div>
-<ol>
-<li>Use <code>client.chat_stream</code> for Mistral AI v0.</li>
-<li>Use <code>chunk.impacts</code> for Mistral AI v0.</li>
-</ol>
 </div>
 </div>
 </div>
