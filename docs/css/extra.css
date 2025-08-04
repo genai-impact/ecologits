@@ -34,6 +34,169 @@ Light green: 00bf63
 }
 
 
+/* Home page */
+
+.hero-logo br {
+  display: none !important;
+}
+
+.hero-logo figcaption {
+  color: var(--md-typeset-color) !important;
+  font-style: normal !important;
+  max-width: 480px !important;
+}
+
+.hero-logo__tagline {
+  font-size: 1rem !important;
+}
+
+.hero-logo__team {
+  font-size: 0.875rem !important;
+}
+
+.project-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  /*margin-top: 6rem;*/
+  /*margin-bottom: 4rem;*/
+  max-width: 1000px;
+}
+
+.project-card {
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.project-card.calculator {
+  grid-row: span 2;
+}
+
+.project-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.project-card-header svg {
+  margin-right: 5px;
+  fill: var(--md-typeset-color);
+}
+
+.project-card-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--md-typeset-color);
+}
+
+.project-card p {
+  margin: 0.5rem 0;
+}
+
+.project-card .card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-card img {
+  margin: 0 auto;
+  border-radius: 6px;
+  max-width: 100%;
+}
+
+.code-snippet-container {
+  position: relative;
+  /*margin-top: auto;*/
+  /*margin: 0;*/
+}
+
+.project-card .code-snippet {
+  background-color: #f4f4f4;
+  border-radius: 6px;
+  padding: 0.5rem 2.5rem 0.5rem 0.5rem;
+  font-family: monospace;
+  word-break: break-all;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.copy-button {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.copy-button:hover {
+  opacity: 1;
+}
+
+.mdx-content {
+  width: 100%;
+  max-width: 1000px;
+}
+
+@media screen and (max-width: 768px) {
+  .mdx-hero__content .subtitle {
+      font-size: 0.8rem;
+      max-width: 70%;
+      font-weight: 700;
+  }
+
+  .project-cards {
+      grid-template-columns: 1fr;
+  }
+
+  .project-card.calculator {
+      grid-row: auto;
+  }
+}
+
+[data-md-color-scheme="slate"] {
+  .project-card {
+      border-color: #484848;
+  }
+
+  .project-card .code-snippet {
+      background-color: #293034;
+  }
+}
+
+@keyframes heart {
+  0%, 40%, 80%, 100% {
+    transform: scale(1);
+  }
+  20%, 60% {
+    transform: scale(1.15);
+  }
+}
+.heart {
+  animation: heart 1000ms infinite;
+}
+
+
+/* Get started page */
+
 .provider-item {
   display: inline-block;
   margin: 4px 4px;
@@ -58,7 +221,6 @@ Light green: 00bf63
 .provider-item input {
   accent-color: var(--md-accent-fg-color);
 }
-
 
 .badge {
   display: inline-flex;

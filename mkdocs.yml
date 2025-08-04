@@ -77,6 +77,8 @@ extra_css:
 
 extra_javascript:
   - js/katex.js
+  - js/installer.js
+  - js/clipboard_copy.js
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
 
