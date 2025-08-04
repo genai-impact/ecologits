@@ -85,6 +85,36 @@
         {
             "type": "model",
             "provider": "cohere",
+            "name": "command-a-03-2025",
+            "architecture": {
+                "type": "dense",
+                "parameters": 111
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereLabs/c4ai-command-a-03-2025"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
+            "name": "command-a-vision-07-2025",
+            "architecture": {
+                "type": "dense",
+                "parameters": 112
+            },
+            "warnings": [
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://docs.cohere.com/docs/models",
+                "https://huggingface.co/CohereLabs/command-a-vision-07-2025"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "cohere",
             "name": "command",
             "architecture": {
                 "type": "dense",
@@ -2621,6 +2651,20 @@
         {
             "type": "model",
             "provider": "mistralai",
+            "name": "codestral-2508",
+            "architecture": {
+                "type": "dense",
+                "parameters": 22.2
+            },
+            "warnings": null,
+            "sources": [
+                "https://docs.mistral.ai/getting-started/models/",
+                "https://mistral.ai/news/codestral"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "mistralai",
             "name": "codestral-latest",
             "architecture": {
                 "type": "dense",
@@ -3695,6 +3739,28 @@
         {
             "type": "model",
             "provider": "google_genai",
+            "name": "gemini-2.0-flash-exp-image-generation",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://ai.google.dev/gemini-api/docs/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google_genai",
             "name": "gemini-2.0-flash-lite",
             "architecture": {
                 "type": "dense",
@@ -3758,6 +3824,28 @@
                 "parameters": {
                     "min": 8,
                     "max": 28
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://ai.google.dev/gemini-api/docs/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "google_genai",
+            "name": "gemini-2.0-flash-preview-image-generation",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 440,
+                    "active": {
+                        "min": 55,
+                        "max": 220
+                    }
                 }
             },
             "warnings": [
@@ -5110,50 +5198,6 @@
             ],
             "sources": [
                 "https://platform.openai.com/docs/models#o1-mini"
-            ]
-        },
-        {
-            "type": "model",
-            "provider": "openai",
-            "name": "o1-preview",
-            "architecture": {
-                "type": "moe",
-                "parameters": {
-                    "total": 440,
-                    "active": {
-                        "min": 55,
-                        "max": 220
-                    }
-                }
-            },
-            "warnings": [
-                "model-arch-not-released",
-                "model-arch-multimodal"
-            ],
-            "sources": [
-                "https://platform.openai.com/docs/models#o1"
-            ]
-        },
-        {
-            "type": "model",
-            "provider": "openai",
-            "name": "o1-preview-2024-09-12",
-            "architecture": {
-                "type": "moe",
-                "parameters": {
-                    "total": 440,
-                    "active": {
-                        "min": 55,
-                        "max": 220
-                    }
-                }
-            },
-            "warnings": [
-                "model-arch-not-released",
-                "model-arch-multimodal"
-            ],
-            "sources": [
-                "https://platform.openai.com/docs/models#o1"
             ]
         },
         {
