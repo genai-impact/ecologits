@@ -28,7 +28,7 @@ class ImpactsOutput(BaseModel):
     gwp: Optional[GWP] = None
     adpe: Optional[ADPe] = None
     pe: Optional[PE] = None
-    water: Optional[WCF] = None
+    wcf: Optional[WCF] = None
     usage: Optional[Usage] = None
     embodied: Optional[Embodied] = None
     warnings: Optional[list[WarningMessage]] = None
@@ -97,8 +97,11 @@ def llm_impacts(
     if_electricity_mix_pe=electricity_mix.pe
     if_electricity_mix_gwp=electricity_mix.gwp
     if_electricity_mix_wue=electricity_mix.wue
+
+    datacenter_pue = DATACENTER_PUE[provider]
+    datacenter_wue = DATACENTER_WUE[provider]
+
     impacts = compute_llm_impacts(
-        provider=provider,
         model_active_parameter_count=model_active_params,
         model_total_parameter_count=model_total_params,
         output_token_count=output_token_count,
@@ -106,7 +109,9 @@ def llm_impacts(
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe,
         if_electricity_mix_gwp=if_electricity_mix_gwp,
-        if_electricity_mix_wue=if_electricity_mix_wue
+        if_electricity_mix_wue=if_electricity_mix_wue,
+        datacenter_pue=datacenter_pue,
+        datacenter_wue=datacenter_wue,
     )
     impacts = ImpactsOutput.model_validate(impacts.model_dump())
 
@@ -121,3 +126,29 @@ def llm_impacts(
     return impacts
 
 
+DATACENTER_PUE = {
+    "anthropic"	: 1.09,
+    "mistralai"	: 1.26,
+    "cohere"	: 1.15,
+    "databricks" : 1.18,
+    "meta"	: 1.09,
+    "azureopenai" : 1.18, #treated the same way as OpenAI
+    "huggingface_hub" : 1.15,
+    "google_genai" : 1.09,
+    "microsoft"	: 1.18,
+    "openai" : 1.18
+}
+
+DATACENTER_WUE = {
+    "anthropic"	: 0.916,
+    "mistralai"	: 0.37, #2024
+    "cohere"	: 0.18, #2023
+    "databricks" : 0.49, #2022
+    "meta"	: 0.18,    # L/kWh, 2023
+    "azureopenai" : 0.49, #2022 #treated the same way as OpenAI
+    "huggingface_hub" : 0.18, #2023
+    "google_genai" : 0.916,
+    "microsoft"	: 0.49, #2022
+    "openai" : 0.49, #2022
+    "litellm" : 0.18, #2023 #need a way to identify provider from model inputed
+}
