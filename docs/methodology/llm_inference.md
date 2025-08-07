@@ -179,7 +179,7 @@ Note that the user can still chose another electricity mix from the [ADEME Base 
 
 ### Modeling request usage water impact
 
-- Water Use (WCF): Water consumption from this request. The formula for quantifying this is:
+- Water Consumption Footprint (WCF): Water consumption from this request. The formula for quantifying this is:
 
 $$
 \begin{equation}

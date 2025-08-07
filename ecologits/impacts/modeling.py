@@ -132,7 +132,7 @@ class PE(BaseImpact):
 
 class WCF(BaseImpact):
     """
-    Water (WCF) impact.
+    Water Consumption Footprint (WCF) impact.
 
     Info:
         Total water consumption.
@@ -181,7 +181,7 @@ class Usage(Phase):
     gwp: GWP
     adpe: ADPe
     pe: PE
-    water: WCF
+    wcf: WCF
 
 
 class Embodied(Phase):
@@ -203,7 +203,7 @@ class Embodied(Phase):
     gwp: GWP
     adpe: ADPe
     pe: PE
-    water: WCF
+    wcf: WCF
 
 
 class Impacts(BaseModel):
@@ -222,6 +222,6 @@ class Impacts(BaseModel):
     gwp: GWP
     adpe: ADPe
     pe: PE
-    water: WCF
+    wcf: WCF
     usage: Usage
     embodied: Embodied
