@@ -31,7 +31,7 @@ HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 BATCHING_SIZE = 1 #Using 1 as placeholder. Will be changed once more research on batching size is done.
 
 
-WATER_FABRICATING_GPU = 0.56178343949
+WATER_FABRICATING_GPU = 2.0314012874
 
 
 dag = DAG()

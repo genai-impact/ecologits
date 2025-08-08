@@ -204,20 +204,20 @@ Where
 
 A table of the AI providers and the datacenter providers whose PUE and WUE we use to calculate their WCF is given by:  
 
-| AI Provider      | Datacenter Provider |
-|------------------|---------------------|
-| Anthropic        | Google              |
-| MistralAI        | OVHCloud            |
-| Cohere           | AWS                 |
-| Databricks       | Microsoft           |
-| Meta             | Meta                |
-| Azure OpenAI     | Microsoft           |
-| Hugging Face Hub | AWS                 |
-| Google           | Google              |
-| Microsoft        | Microsoft           |
-| OpenAI           | Microsoft           |
+| AI Provider      | Datacenter Provider | Source |
+|------------------|---------------------|--------|
+| Anthropic        | Google              |[source](https://www.aboutamazon.com/news/company-news/amazon-aws-anthropic-ai)|
+| MistralAI        | Unsure > EU average |        |
+| Cohere           | Unsure > EU average |        |
+| Databricks       | AWS and Google      |[source](https://www.databricks.com/legal/cloud-provider-directory#:~:text=Azure%20Databricks%20)|
+| Meta             | Meta                |[source](https://www.theguardian.com/technology/2025/jul/16/zuckerberg-meta-data-center-ai-manhattan)|
+| Azure OpenAI     | Microsoft           |[source](https://datacenters.microsoft.com/)|
+| Hugging Face Hub | AWS                 |[source](https://huggingface.co/docs/sagemaker/index)|
+| Google           | Google              |[source](https://deepmind.google/discover/blog/deepmind-ai-reduces-google-data-centre-cooling-bill-by-40/?utm_source=chatgpt.com)|
+| Microsoft        | Microsoft           |[source](https://azure.microsoft.com/en-us/products/phi?utm_source=chatgpt.com)|
+| OpenAI           | Unsure > EU average |        |
 
-  
+In the case that the datacenter provider is unsure, we use the EU average.  
 For each datacenter provider, we use their globally averaged PUE number.  
   
 | Datacenter Provider | PUE  | Source |
@@ -229,19 +229,23 @@ For each datacenter provider, we use their globally averaged PUE number.
 | Scaleway            | 1.37 | [source](https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf) |
 | AWS                 | 1.15 | [source](https://sustainability.aboutamazon.com/products-services/aws-cloud) |
 | Equinix             | 1.42 | [source](https://www.equinix.com/content/dam/eqxcorp/en_us/documents/resources/infopapers/ip_2023_sustainability_en.pdf) |
+| EU Average          | 1.56 | [source](https://www.europeanlawblog.eu/pub/1jb3tzus/release/2#:~:text=According%20to%20the%20current%20state,source%20of%20its%20GHG%20emissions.) |
   
 The $WUE_{on-site}$ of each datacenter provider:
   
-| Datacenter Provider | WUE   | Source |
-|---------------------|-------|--------|
-| Google              | 0.916 | [source](https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf) |
-| Meta                | 0.18  | [source](https://sustainability.atmeta.com/wp-content/uploads/2024/08/Meta-2024-Sustainability-Report.pdf) |
-| Microsoft           | 0.49  | [source](https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/) |
-| OVHCloud            | 0.37  | [source](https://corporate.ovhcloud.com/en/sustainability/environment/) |
-| Scaleway            | 0.216 | [source](https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf) |
-| AWS                 | 0.18  | [source](https://sustainability.aboutamazon.com/2023-report) |
-| Equinix             | 1.07  | [source](https://www.equinix.com/resources/infopapers/2023-corporate-sustainability-report) |
-  
+| Datacenter Provider   | WUE   | Source |
+|-----------------------|-------|--------|
+| Google                | 0.916 | [source](https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf) |
+| Meta                  | 0.18  | [source](https://sustainability.atmeta.com/wp-content/uploads/2024/08/Meta-2024-Sustainability-Report.pdf) |
+| Microsoft             | 0.49  | [source](https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/) |
+| OVHCloud              | 0.37  | [source](https://corporate.ovhcloud.com/en/sustainability/environment/) |
+| Scaleway              | 0.216 | [source](https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf) |
+| AWS                   | 0.18  | [source](https://sustainability.aboutamazon.com/2023-report) |
+| Equinix               | 1.07  | [source](https://www.equinix.com/resources/infopapers/2023-corporate-sustainability-report) |
+| EU Colocation Average | 0.31  | [source](https://www.eudca.org/documents/content/E8VdyUuATTC_BmbNp4nhAwo89?download=0) |
+
+We could not find the number for the EU averaged hyperscaler WUE, so we use the number for EU colocation average.
+
 Finally, for $WUE_{off-site}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used.   
 
 ## Embodied impacts
@@ -322,12 +326,12 @@ $$
 
 ## Modeling water embodied impacts
 
-We draw from the [ESG report](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf) of [Taiwan Semiconductor Manufacturing Company](https://www.tsmc.com/english) that states that each 12-inch wafer layer consumes about 176.4 liters to produce. According to this [article](https://waferpro.com/how-many-chips-can-be-cut-from-a-silicon-wafer/?srsltid=AfmBOoriSA25IQoHzZsc2-7QC8kMqAn8GRsnDFlA0OcSnvNFPFH0zUH8), assuming a 15mm x 15mm chip size:  
+We draw from the [ESG report](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf) of [Taiwan Semiconductor Manufacturing Company](https://www.tsmc.com/english) that states that each 12-inch wafer layer consumes about 176.4 liters to produce. 
 300mm wafer: ~70,685 mm² area (π * (150mm)²)  
-15mm x 15mm chip: 225 mm²  
+surface area of a NVIDIA H100 SXM5 80 GB chip: 814 mm² [source](https://www.techpowerup.com/gpu-specs/h100-sxm5-80-gb.c3900) 
 Which brings us to
-70,685 mm2 / 225 mm2 ​≈ 314 chips per wafer.  
-Using the 176.4 liters per wafer divided by 314 chips per wafer, this brings us to 0.562 L/chip. According to this [article](https://massedcompute.com/faq-answers/?question=How%20many%20NVIDIA%20L40S%20GPUs%20can%20be%20installed%20in%20a%20single%20server?#:~:text=1U%20Servers%3A%20Typically%20support%201,for%20AI%20training%20and%20inference.), there are around 8 GPUs in a specialized inference server. We are still working on integrating batching size; right now the placeholder value is one. 
+70,685 mm2 / 814 mm2 ​≈ 86.837 chips per wafer.  
+Using the 176.4 liters per wafer divided by 86.837 chips per wafer, this brings us to 2.03 L/chip. According to this [article](https://massedcompute.com/faq-answers/?question=How%20many%20NVIDIA%20L40S%20GPUs%20can%20be%20installed%20in%20a%20single%20server?#:~:text=1U%20Servers%3A%20Typically%20support%201,for%20AI%20training%20and%20inference.), there are around 8 GPUs in a specialized inference server. We are still working on integrating batching size; right now the placeholder value is one. 
 
 ## Assumptions and limitations
 
