@@ -35,10 +35,10 @@ class ElectricityMixRepository:
     def find_electricity_mix(self, zone: str) -> Optional[ElectricityMix]:
         for electricity_mix in self.__electricity_mixes:
             if electricity_mix.zone == "WOR":
-                wue_wor_value_record = float(electricity_mix.wue) #to clear out white space
+                wue_wor_value_record = float(electricity_mix.wue) 
 
             if electricity_mix.zone == zone:
-                if electricity_mix.wue == 0:
+                if electricity_mix.wue == -20:
                     logger.warning_once(f"Local wue data on {zone} not found. Using world average instead.")
                     electricity_mix.wue = float(wue_wor_value_record)
                 else:
@@ -58,7 +58,7 @@ class ElectricityMixRepository:
             csv = DictReader(fd)
             for row in csv:
                 if row["wue"] == "":
-                    row["wue"] = 0
+                    row["wue"] = -20 #not using 0 because it conflicts with test_create_electricity_mix_repository_from_scratch
                 electricity_mixes.append(
                     ElectricityMix(
                         zone=row["name"],
