@@ -3,6 +3,8 @@ from csv import DictReader
 from dataclasses import dataclass
 from typing import Optional
 
+from ecologits.log import logger
+
 
 @dataclass
 class ElectricityMix:
@@ -19,6 +21,7 @@ class ElectricityMix:
     adpe: float
     pe: float
     gwp: float
+    wue: float
 
 
 class ElectricityMixRepository:
@@ -31,7 +34,16 @@ class ElectricityMixRepository:
 
     def find_electricity_mix(self, zone: str) -> Optional[ElectricityMix]:
         for electricity_mix in self.__electricity_mixes:
+            if electricity_mix.zone == "WOR":
+                wue_wor_value_record = float(electricity_mix.wue)
+
             if electricity_mix.zone == zone:
+                if electricity_mix.wue == WUE_MISSING_VALUE:
+                    logger.warning_once(f"Local wue data on {zone} not found. Using world average instead.")
+                    electricity_mix.wue = float(wue_wor_value_record)
+                else:
+                    electricity_mix.wue = float(electricity_mix.wue)
+
                 return electricity_mix
         return None
 
@@ -45,15 +57,19 @@ class ElectricityMixRepository:
         with open(filepath) as fd:
             csv = DictReader(fd)
             for row in csv:
+                if row["wue"] == "":
+                    row["wue"] = WUE_MISSING_VALUE #not using 0 because it
+                    #conflicts with test_create_electricity_mix_repository_from_scratch
                 electricity_mixes.append(
                     ElectricityMix(
                         zone=row["name"],
                         adpe=float(row["adpe"]),
                         pe=float(row["pe"]),
                         gwp=float(row["gwp"]),
+                        wue=float(row["wue"])
                     )
                 )
         return cls(electricity_mixes)
-
+WUE_MISSING_VALUE = -20
 
 electricity_mixes = ElectricityMixRepository.from_csv()

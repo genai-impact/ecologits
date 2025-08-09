@@ -37,7 +37,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["litellm"])
-    
+
     response = litellm.completion(
         model="gpt-4o-2024-05-13",
         messages=[{ "content": "Hello, how are you?","role": "user"}]
@@ -56,7 +56,7 @@ Integrating EcoLogits with your applications does not alter the standard outputs
     
     # Initialize EcoLogits
     EcoLogits.init(providers=["litellm"])
-    
+
     async def main() -> None:
         response = await litellm.acompletion(
             model="gpt-3.5-turbo",
