@@ -70,7 +70,6 @@ class ElectricityMixRepository:
                     )
                 )
         return cls(electricity_mixes)
+WUE_MISSING_VALUE = -20
 
 electricity_mixes = ElectricityMixRepository.from_csv()
-
-WUE_MISSING_VALUE = -20
