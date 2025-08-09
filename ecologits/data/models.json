@@ -1,5 +1,6 @@
 {
     "aliases": [
+        
         {
             "type": "alias",
             "provider": "openai",
@@ -5312,6 +5313,42 @@
             ],
             "sources": [
                 "https://platform.openai.com/docs/models#o3-mini"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "openai/gpt-oss-120b",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 116.8,
+                    "active": 5.1
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/openai/gpt-oss-120b",
+                "https://platform.openai.com/docs/models/gpt-oss-120b",
+                "https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "huggingface_hub",
+            "name": "openai/gpt-oss-20b",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 20.9,
+                    "active": 3.6
+                }
+            },
+            "warnings": null,
+            "sources": [
+                "https://huggingface.co/openai/gpt-oss-20b",
+                "https://platform.openai.com/docs/models/gpt-oss-20b",
+                "https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf"
             ]
         }
     ]
