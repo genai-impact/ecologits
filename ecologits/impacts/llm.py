@@ -8,12 +8,17 @@ from ecologits.utils.range_value import RangeValue, ValueOrRange
 
 MODEL_QUANTIZATION_BITS = 4
 
-GPU_ENERGY_ALPHA = 8.91e-8
-GPU_ENERGY_BETA = 1.43e-6
-GPU_ENERGY_STDEV = 5.19e-7
-GPU_LATENCY_ALPHA = 8.02e-4
-GPU_LATENCY_BETA = 2.23e-2
-GPU_LATENCY_STDEV = 7.00e-6
+GPU_ENERGY_SIZE_FACTOR = 4.36721332e-06
+GPU_ENERGY_BS_FACTOR = -2.93169910e-07
+GPU_ENERGY_SIZE_BS_FACTOR = -2.43903034e-09
+GPU_ENERGY_BS_BS_FACTOR = 2.43579304e-10
+GPU_ENERGY_INTERCEPT = 6.022359169837927e-05
+
+LATENCY_SIZE_FACTOR = 3.50538183e-04
+LATENCY_BS_FACTOR = 3.53385969e-04
+LATENCY_SIZE_BS_FACTOR = 5.91090638e-08
+LATENCY_BS_BS_FACTOR = -1.10469802e-07
+LATENCY_INTERCEPT = 0.02774930415145832
 
 GPU_MEMORY = 80  # GB
 GPU_EMBODIED_IMPACT_GWP = 143
@@ -28,7 +33,7 @@ SERVER_EMBODIED_IMPACT_PE = 38000
 
 HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
 
-BATCHING_SIZE = 1 #Using 1 as placeholder. Will be changed once more research on batching size is done.
+BATCHING_SIZE = 64 
 
 
 WATER_FABRICATING_GPU = 2.0314012874
@@ -41,9 +46,12 @@ dag = DAG()
 def gpu_energy(
         model_active_parameter_count: float,
         output_token_count: float,
-        gpu_energy_alpha: float,
-        gpu_energy_beta: float,
-        gpu_energy_stdev: float
+        batching_size: int, 
+        gpu_energy_size_factor: float, 
+        gpu_energy_bs_factor: float, 
+        gpu_energy_size_bs_factor: float, 
+        gpu_energy_bs_bs_factor: float,
+        gpu_energy_intercept: float,
 ) -> ValueOrRange:
     """
     Compute energy consumption of a single GPU.
@@ -51,26 +59,33 @@ def gpu_energy(
     Args:
         model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
-        gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
-        gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
-        gpu_energy_stdev: Standard deviation of the GPU linear power consumption profile.
-
+        batching_size: The number of requests handled concurrently by the server.
+        gpu_energy_size_factor: Coefficient of the "model size" monomial of the regression. 
+        gpu_energy_bs_factor: Coefficient of the "batch size" monomial of the regression. 
+        gpu_energy_size_bs_factor: Coefficient of the "(model size) x (batch size)" monomial of the regression. 
+        gpu_energy_bs_bs_factor: Coefficient of the "(batch size)^2" monomial of the regression. 
+        gpu_energy_intercept: Intercept of the regression. 
+    
     Returns:
-        The 95% confidence interval of energy consumption of a single GPU in kWh.
+        The energy consumption of a single GPU in kWh.
     """
-    gpu_energy_per_token_mean = gpu_energy_alpha * model_active_parameter_count + gpu_energy_beta
-    gpu_energy_min = output_token_count * (gpu_energy_per_token_mean - 1.96 * gpu_energy_stdev)
-    gpu_energy_max = output_token_count * (gpu_energy_per_token_mean + 1.96 * gpu_energy_stdev)
-    return RangeValue(min=max(0, gpu_energy_min), max=gpu_energy_max)
+    gpu_energy_size_monomial = gpu_energy_size_factor * model_active_parameter_count
+    gpu_energy_bs_monomial = gpu_energy_bs_factor * batching_size
+    gpu_energy_size_bs_monomial = gpu_energy_size_bs_factor * model_active_parameter_count * batching_size
+    gpu_energy_bs_bs_monomial = gpu_energy_bs_bs_factor * batching_size * batching_size
+    gpu_energy_per_token = gpu_energy_size_monomial + gpu_energy_bs_monomial + gpu_energy_size_bs_monomial + gpu_energy_bs_bs_monomial + gpu_energy_intercept
+    return output_token_count * gpu_energy_per_token
 
 @dag.asset
 def generation_latency(
         model_active_parameter_count: float,
         output_token_count: float,
-        gpu_latency_alpha: float,
-        gpu_latency_beta: float,
-        gpu_latency_stdev: float,
-        request_latency: float,
+        batching_size: int, 
+        latency_size_factor: float, 
+        latency_bs_factor: float, 
+        latency_size_bs_factor: float, 
+        latency_bs_bs_factor: float,
+        latency_intercept: float,
 ) -> ValueOrRange:
     """
     Compute the token generation latency in seconds.
@@ -78,21 +93,22 @@ def generation_latency(
     Args:
         model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
-        gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.
-        gpu_latency_beta: Beta parameter of the GPU linear latency profile.
-        gpu_latency_stdev: Standard deviation of the GPU linear latency profile.
-        request_latency: Measured request latency (upper bound) in seconds.
-
+        batching_size: The number of requests handled concurrently by the server.
+        latency_size_factor: Coefficient of the "model size" monomial of the regression. 
+        latency_bs_factor: Coefficient of the "batch size" monomial of the regression. 
+        latency_size_bs_factor: Coefficient of the "(model size) x (batch size)" monomial of the regression. 
+        latency_bs_bs_factor: Coefficient of the "(batch size)^2" monomial of the regression. 
+        latency_intercept: Intercept of the regression. 
+    
     Returns:
         The token generation latency in seconds.
     """
-    gpu_latency_per_token_mean = gpu_latency_alpha * model_active_parameter_count + gpu_latency_beta
-    gpu_latency_min = output_token_count * (gpu_latency_per_token_mean - 1.96 * gpu_latency_stdev)
-    gpu_latency_max = output_token_count * (gpu_latency_per_token_mean + 1.96 * gpu_latency_stdev)
-    gpu_latency_interval = RangeValue(min=max(0, gpu_latency_min), max=gpu_latency_max)
-    if gpu_latency_interval < request_latency:
-        return gpu_latency_interval
-    return request_latency
+    lantecy_size_monomial = latency_size_factor * model_active_parameter_count
+    lantecy_bs_monomial = latency_bs_factor * batching_size
+    lantecy_size_bs_monomial = latency_size_bs_factor * model_active_parameter_count * batching_size
+    lantecy_bs_bs_monomial = latency_bs_bs_factor * batching_size * batching_size
+    latency_per_token = lantecy_size_monomial + lantecy_bs_monomial + lantecy_size_bs_monomial + lantecy_bs_bs_monomial + latency_intercept
+    return output_token_count * latency_per_token
 
 @dag.asset
 def model_required_memory(
@@ -423,12 +439,16 @@ def compute_llm_impacts_dag(
         datacenter_pue: float,
         datacenter_wue: float,
         model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
-        gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
-        gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
-        gpu_energy_stdev: Optional[float] = GPU_ENERGY_STDEV,
-        gpu_latency_alpha: Optional[float] = GPU_LATENCY_ALPHA,
-        gpu_latency_beta: Optional[float] = GPU_LATENCY_BETA,
-        gpu_latency_stdev: Optional[float] = GPU_LATENCY_STDEV,
+        gpu_energy_size_factor: Optional[float] = GPU_ENERGY_SIZE_FACTOR, 
+        gpu_energy_bs_factor: Optional[float] = GPU_ENERGY_BS_FACTOR, 
+        gpu_energy_size_bs_factor: Optional[float] = GPU_ENERGY_SIZE_BS_FACTOR, 
+        gpu_energy_bs_bs_factor: Optional[float] = GPU_ENERGY_BS_BS_FACTOR, 
+        gpu_energy_intercept: Optional[float] = GPU_ENERGY_INTERCEPT, 
+        latency_size_factor: Optional[float] = LATENCY_SIZE_FACTOR, 
+        latency_bs_factor: Optional[float] = LATENCY_BS_FACTOR, 
+        latency_size_bs_factor: Optional[float] = LATENCY_SIZE_BS_FACTOR, 
+        latency_bs_bs_factor: Optional[float] = LATENCY_BS_BS_FACTOR, 
+        latency_intercept: Optional[float] = LATENCY_INTERCEPT, 
         gpu_memory: Optional[float] = GPU_MEMORY,
         gpu_embodied_gwp: Optional[float] = GPU_EMBODIED_IMPACT_GWP,
         gpu_embodied_adpe: Optional[float] = GPU_EMBODIED_IMPACT_ADPE,
@@ -457,12 +477,16 @@ def compute_llm_impacts_dag(
         datacenter_wue: Water usage efficiency on-site in L/kWh
         datacenter_pue: Power usage efficiency, power used for data treatment at a datacenter divided by total use.
         model_quantization_bits: Number of bits used to represent the model weights.
-        gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
-        gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
-        gpu_energy_stdev: Standard deviation of the GPU linear power consumption profile.
-        gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.
-        gpu_latency_beta: Beta parameter of the GPU linear latency profile.
-        gpu_latency_stdev: Standard deviation of the GPU linear latency profile.
+        gpu_energy_size_factor: Coefficient of the "model size" monomial of the "GPU energy" regression. 
+        gpu_energy_bs_factor: Coefficient of the "batch size" monomial of the "GPU energy" regression. 
+        gpu_energy_size_bs_factor: Coefficient of the "(model size) x (batch size)" monomial of the "GPU energy" regression. 
+        gpu_energy_bs_bs_factor: Coefficient of the "(batch size)^2" monomial of the "GPU energy" regression. 
+        gpu_energy_intercept: Intercept of the "GPU energy" regression. 
+        latency_size_factor: Coefficient of the "model size" monomial of the "Latency" regression. 
+        latency_bs_factor: Coefficient of the "batch size" monomial of the "Latency" regression. 
+        latency_size_bs_factor: Coefficient of the "(model size) x (batch size)" monomial of the "Latency" regression. 
+        latency_bs_bs_factor: Coefficient of the "(batch size)^2" monomial of the "Latency" regression. 
+        latency_intercept: Intercept of the "Latency" regression. 
         gpu_memory: Amount of memory available on a single GPU.
         gpu_embodied_gwp: GWP embodied impact of a single GPU.
         gpu_embodied_adpe: ADPe embodied impact of a single GPU.
@@ -490,12 +514,16 @@ def compute_llm_impacts_dag(
         if_electricity_mix_wue=if_electricity_mix_wue,
         datacenter_wue=datacenter_wue,
         datacenter_pue=datacenter_pue,
-        gpu_energy_alpha=gpu_energy_alpha,
-        gpu_energy_beta=gpu_energy_beta,
-        gpu_energy_stdev=gpu_energy_stdev,
-        gpu_latency_alpha=gpu_latency_alpha,
-        gpu_latency_beta=gpu_latency_beta,
-        gpu_latency_stdev=gpu_latency_stdev,
+        gpu_energy_size_factor=gpu_energy_size_factor,
+        gpu_energy_bs_factor=gpu_energy_bs_factor,
+        gpu_energy_size_bs_factor=gpu_energy_size_bs_factor, 
+        gpu_energy_bs_bs_factor=gpu_energy_bs_bs_factor,
+        gpu_energy_intercept=gpu_energy_intercept,
+        latency_size_factor=latency_size_factor,
+        latency_bs_factor=latency_bs_factor,
+        latency_size_bs_factor=latency_size_bs_factor,
+        latency_bs_bs_factor=latency_bs_bs_factor,
+        latency_intercept=latency_intercept,
         gpu_memory=gpu_memory,
         gpu_embodied_gwp=gpu_embodied_gwp,
         gpu_embodied_adpe=gpu_embodied_adpe,
