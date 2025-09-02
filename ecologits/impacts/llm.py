@@ -343,7 +343,8 @@ def server_gpu_embodied_pe(
 def request_embodied_gwp(
         server_gpu_embodied_gwp: float,
         server_lifetime: float,
-        generation_latency: ValueOrRange
+        generation_latency: ValueOrRange, 
+        batching_size: int
 ) -> ValueOrRange:
     """
     Compute the Global Warming Potential (GWP) embodied impact of the request.
@@ -352,18 +353,20 @@ def request_embodied_gwp(
         server_gpu_embodied_gwp: GWP embodied impact of the server and the GPUs in kgCO2eq.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
+        batching_size: The number of requests handled concurrently by the server.
 
     Returns:
         The GWP embodied impact of the request in kgCO2eq.
     """
-    return (generation_latency / server_lifetime) * server_gpu_embodied_gwp
+    return generation_latency * server_gpu_embodied_gwp / (server_lifetime * batching_size)
 
 
 @dag.asset
 def request_embodied_adpe(
         server_gpu_embodied_adpe: float,
         server_lifetime: float,
-        generation_latency: ValueOrRange
+        generation_latency: ValueOrRange, 
+        batching_size: int
 ) -> ValueOrRange:
     """
     Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the request.
@@ -372,18 +375,20 @@ def request_embodied_adpe(
         server_gpu_embodied_adpe: ADPe embodied impact of the server and the GPUs in kgSbeq.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
+        batching_size: The number of requests handled concurrently by the server.
 
     Returns:
         The ADPe embodied impact of the request in kgSbeq.
     """
-    return (generation_latency / server_lifetime) * server_gpu_embodied_adpe
+    return generation_latency * server_gpu_embodied_adpe / (server_lifetime * batching_size)
 
 
 @dag.asset
 def request_embodied_pe(
         server_gpu_embodied_pe: float,
         server_lifetime: float,
-        generation_latency: ValueOrRange
+        generation_latency: ValueOrRange, 
+        batching_size: int
 ) -> ValueOrRange:
     """
     Compute the Primary Energy (PE) embodied impact of the request.
@@ -392,11 +397,12 @@ def request_embodied_pe(
         server_gpu_embodied_pe: PE embodied impact of the server and the GPUs in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
+        batching_size: The number of requests handled concurrently by the server.
 
     Returns:
         The PE embodied impact of the request in MJ.
     """
-    return (generation_latency / server_lifetime) * server_gpu_embodied_pe
+    return generation_latency * server_gpu_embodied_pe / (server_lifetime * batching_size)
 
 
 @dag.asset
@@ -421,7 +427,7 @@ def request_embodied_wcf(
         The water embodied impact of the request in liters.
     """
 
-    output = generation_latency * water_fabricating_gpu * server_gpu_count/ (server_lifetime * batching_size)
+    output = generation_latency * water_fabricating_gpu * server_gpu_count / (server_lifetime * batching_size)
 
     return output
 
