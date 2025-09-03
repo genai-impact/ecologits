@@ -254,15 +254,15 @@ To estimate the embodied impacts of IT hardware, we use the [BoaviztAPI](https:/
 
 #### Server embodied impacts without GPU
 
-To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the `p4de.24xlarge` instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA H100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as $I^{\text{e}}_{\text{server} \backslash \text{GPU}}$.
+To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the `p5.48xlarge` instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA H100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as $I^{\text{e}}_{\text{server} \backslash \text{GPU}}$.
 
 The embodied environmental impacts of the cloud instance are:
 
 |                 | Server (without GPU) |
 |-----------------|----------------------|
-| GWP (kgCO2eq)   | $3000$               |
-| ADPe (kgSbeq)   | $0.25$               |
-| PE (MJ)         | $39,000$             |
+| GWP (kgCO2eq)   | $5700$               |
+| ADPe (kgSbeq)   | $0.37$               |
+| PE (MJ)         | $70,000$             |
 
 !!! warning "These impacts do not take into account the eight GPUs. ([see below](#gpu-embodied-impacts))"
 
@@ -273,7 +273,7 @@ The embodied environmental impacts of the cloud instance are:
     ```json
     {
         "provider": "aws",
-        "instance_type": "p4de.24xlarge"
+        "instance_type": "p5.48xlarge"
     }
     ```
 
@@ -286,7 +286,7 @@ The embodied environmental impacts of the cloud instance are:
         -H 'Content-Type: application/json' \
         -d '{
         "provider": "aws",
-        "instance_type": "p4de.24xlarge"
+        "instance_type": "p5.48xlarge"
     }' | jq
     ```
 
@@ -362,7 +362,7 @@ We estimate the **required infrastructure** to run the service in terms of hardw
 **Assumptions:**
 
 * Models are deployed on NVIDIA H100 GPUs with 80GB of memory.
-* Base servers are similar to p4de.24xlarge AWS cloud instances.
+* Base servers are similar to p5.48xlarge AWS cloud instances.
 
 **Limitations:**
 
