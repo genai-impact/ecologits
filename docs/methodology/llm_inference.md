@@ -1,11 +1,5 @@
 # Environmental Impacts of LLM Inference
 
-<span class="badge" markdown>
-    <span class="badge__icon">:material-tag-outline:</span>
-    <span class="badge__text">v1.0</span>
-</span>
-
-
 ## Introduction
 
 The environmental impacts of a request, $I_{\text{request}}$ to a Large Language Model (LLM) can be divided into two components: the usage impacts, $I_{\text{request}}^{\text{u}}$, which account for energy consumption, and the embodied impacts, $I_{\text{request}}^{\text{e}}$, which account for resource extraction, hardware manufacturing, and transportation:
@@ -30,9 +24,13 @@ Subsequently, we can calculate the environmental impacts by using the $F_{\text{
 
 ### Modeling GPU energy consumption
 
-By leveraging the open dataset from the [LLM Perf Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard), produced by Hugging Face, we can estimate the energy consumption of the GPU using a parametric model.
+By leveraging the open dataset from the [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light), we can estimate the energy consumption of the GPU using a parametric model. This leaderboard aims at being as close as possible to production conditions (vLLM on NVIDIA H100 GPUs, see [the paper](https://arxiv.org/pdf/2505.06371) for more information). 
 
-We fit a linear regression model to the dataset, which models the energy consumption per output token as a function of the number of active parameters in the LLM, denoted as $P_{\text{active}}$.
+??? info "On the ML.ENERGY dataset filtering"
+    
+    We have filtered the dataset to keep only the benchmark on NVIDIA H100 80GB HBM3 GPUs. 
+
+We approximate energy consumption per output token as a function of the number of activate parameters, denoted as $P_{\text{active}}$, and the batching size, denoted as $B$. 
 
 ??? note "What are active parameters?"
 
@@ -41,39 +39,41 @@ We fit a linear regression model to the dataset, which models the energy consump
     * For a dense model: $P_{\text{active}} = P_{\text{total}}$
     * For a SMoE model: $P_{\text{active}} =  P_{\text{total}} / \text{number of active experts}$
 
-??? info "On the LLM Perf Leaderboard dataset filtering"
-    
-    We have filtered the dataset to keep relevant data points for the analysis. In particular we have applied the following conditions:
-    
-    * Model number of parameters >= 7B
-    * Keep dtype set to float16
-    * GPU model is "NVIDIA A100-SXM4-80GB"
-    * No optimization
-    * 8bit and 4bit quantization excluding bitsandbytes (bnb)
+??? note "What is the batching size "
 
+    The batching size $B$ is the number of requests that the server can handle concurrently. A large batching size decreases the energy used for a unique request, but increases the latency. The providers aim at finding a good tradeoff between energy efficiency and latency. 
+
+In order to being consistent with physics (and fit the data) while staying relatively simple, we opted for a function of the form 
+
+$$ 
+f_E(P_{\text{active}}, B) = \alpha P_{\text{active}} + \beta B + \gamma P_{\text{active}} B + \delta B^2 + \eta, 
+$$
+
+that is a function that is **linear** with $P_{\text{active}}$ and **quadratic** with $B$. We fitted such a model with the data, and got 
+
+- $\alpha = 4.36 \times 10^{-6}$, 
+- $\beta = -2.93 \times 10^{-7}$, 
+- $\gamma = -2.43 \times 10^{-9}$, 
+- $\delta = 2.43 \times 10^{-10}$, 
+- $\eta = 6.02 \times 10^{-5}$.
+
+The result is illustrated below. 
 
 <figure markdown="span">
   ![Figure: Energy consumption per output token vs. number of active parameters ](../assets/methodology/llm/figure_energy.png)
-  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions)</figcaption>
+  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batching sizes (64, 128, 256, 512, 1024).</figcaption>
 </figure>
 
-??? info "What is a 95% confidence interval?"
+!!! warning "From now on, we consider that the batching size fixed to $B = 64$."
 
-    The standard deviation $\delta$ of a linear regression measures "how close are the datapoints to the fitted line". A priori, the larger it is, the worse is the approximation. Consider a linear regression $Y(x) \approx \alpha x + \beta$. Given some assumptions, we can say that $Y(x) \in [\alpha x + \beta - 1.96\delta, \alpha x + \beta + 1.96\delta]$ with probability 95% (see [[1]](https://en.wikipedia.org/wiki/Linear_regression) and [[2]](https://en.wikipedia.org/wiki/97.5th_percentile_point) for more details).
 
-In our methodology, **in order to take into account approximation errors as much as possible**, we provide the **95% confidence interval** of our linear approximation. The computed linear regression gives a confidence interval of
+Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens $\#T_{\text{out}}$ and the number of active parameters $P_{\text{active}}$: 
 
+$$ 
+E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times f_E(P_{\text{active}}, 64), 
 $$
-\frac{E_{\text{GPU}}}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma, 
-$$
 
-with $\alpha = 8.91e-5$, $\beta = 1.43e-3$ and $\sigma = 5.19e-4$. 
-
-Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens $\#T_{\text{out}}$ and the number of active parameters $P_{\text{active}}$:
-
-$$
-E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma).
-$$
+where $f_E$ is the linear-quadratic model cited above. 
 
 If the model requires multiple GPUs to be loaded into VRAM, the energy consumption $E_{\text{GPU}}$ should be multiplied by the number of required GPUs, $\text{GPU}$ (see [below](#complete-server-energy-consumption)).
 
@@ -94,31 +94,27 @@ For a typical high-end GPU-accelerated cloud instance, we use $W_{\text{server} 
 
 #### Estimating the generation latency
 
-The generation latency, $\Delta T$, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the [LLM Perf Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard) dataset with the previously mentioned filters applied.
+The generation latency, $\Delta T$, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) dataset with the previously mentioned filters applied.
 
-We fit a linear regression model on the dataset modeling the generation latency per output token given the number of active parameters of the LLM $P_{\text{active}}$:
+We fit a function $f_L(P_{\text{active}}, B)$ (of the same form as $f_E$ above) on the dataset, and find 
+
+- $\alpha = 3.50 \times 10^{-4}$, 
+- $\beta = 3.53 \times 10^{-4}$, 
+- $\gamma = 5.91 \times 10^{-8}$, 
+- $\delta = -1.10 \times 10^{-7}$, 
+- $\eta = 0.027$.
+
+The result is illustrated below. 
 
 <figure markdown="span">
   ![Figure: Latency per output token vs. number of active parameters ](../assets/methodology/llm/figure_latency.png)
-  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions)</figcaption>
+  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batching sizes (64, 128, 256, 512, 1024)</figcaption>
 </figure>
 
-Again, we propagate 95% confidence intervals through our computations. The fit gives an interval of
+Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
 
 $$
-\frac{\Delta T}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96\delta, 
-$$
-
-with $\alpha = 8.02e-4$, $\beta = 2.23e-2$ and $\delta = 7.00e-6$. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
-
-$$
-\Delta T(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96\delta).
-$$
-
-With the request latency, the generation latency is defined as follows:
-
-$$
-\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \delta), \Delta T_{\text{request}} \right\}.
+\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times f_L(P_{\text{active}}, 64), \Delta T_{\text{request}} \right\}.
 $$
 
 #### Estimating the number of active GPUs
@@ -137,7 +133,7 @@ $$
 \text{GPU}(P_{\text{total}},Q,M_{\text{GPU}}) = \left\lceil \frac{M_{\text{model}}(P_{\text{total}},Q)}{M_{\text{GPU}}} \right\rceil.
 $$
 
-To stay consistent with previous assumptions based on LLM Perf Leaderboard data, we use $M_{\text{GPU}} = 80$ GB for an NVIDIA A100 80GB GPU.
+To stay consistent with previous assumptions based on [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) data, we use $M_{\text{GPU}} = 80$ GB for an NVIDIA H100 80GB GPU.
 
 #### Complete server energy consumption
 
@@ -258,7 +254,7 @@ To estimate the embodied impacts of IT hardware, we use the [BoaviztAPI](https:/
 
 #### Server embodied impacts without GPU
 
-To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the `p4de.24xlarge` instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA A100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as $I^{\text{e}}_{\text{server} \backslash \text{GPU}}$.
+To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the `p4de.24xlarge` instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA H100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as $I^{\text{e}}_{\text{server} \backslash \text{GPU}}$.
 
 The embodied environmental impacts of the cloud instance are:
 
@@ -296,11 +292,14 @@ The embodied environmental impacts of the cloud instance are:
 
 #### GPU embodied impacts
 
-Boavizta is currently developing a methodology to provide multicriteria embodied impacts for GPU cards. For this analysis, we use the embodied impact data they computed for a NVIDIA A100 80GB GPU. These values will be used to estimate the embodied impacts of a single GPU, denoted as $I^{\text{e}}_{\text{GPU}}$.
+According to this [NVIDIA datasheet](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-H100-PCF-Summary.pdf), a NVIDIA H100 80GB GPU has a GWP of 164 kgCO2eq. To approximate the ADPe and PE, we rely on the Boavizta methodology for previous A100 GPUs. These values will be used to estimate the embodied impacts of a single GPU, denoted as $I^{\text{e}}_{\text{GPU}}$.
 
-|                | NIDIA A100 80GB       |
+|                | NVIDIA H100 80GB      |
 |----------------|-----------------------|
-| GWP (kgCO2eq)  | $143$                 |
+| GWP (kgCO2eq)  | $164$                 |
+
+|                | NVIDIA A100 80GB      |
+|----------------|-----------------------|
 | ADPe (kgSbeq)  | $5.09 \times 10^{-3}$ |
 | PE (MJ)        | $1,828$               |
 
@@ -318,10 +317,10 @@ $$
 
 ### Modeling request embodied environmental impacts
 
-To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, $\frac{\Delta T}{\Delta L}$. In this case, $\Delta L$ represents the lifetime of the server and GPU, which we fix at 5 years:
+To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, $\frac{\Delta T}{B \times \Delta L}$. In this case, $\Delta L$ represents the lifetime of the server and GPU, which we fix at 3 years (according to [this NVIDIA report](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-H100-PCF-Summary.pdf)), and $B$ is the batching size such as above: 
 
 $$
-I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\text{server}}.
+I^{\text{e}}_{\text{request}}=\frac{\Delta T}{B \times  \Delta L} \times I^{\text{e}}_{\text{server}}.
 $$
 
 ## Modeling water embodied impacts
@@ -347,19 +346,14 @@ Assuming the **energy consumption** for AI models is done through benchmarking o
 
 **Assumptions:**
 
-* Models are deployed with pytorch backend.
+* Models are deployed with vLLM backend.
 * Models are quantized to 4 bits.
 
 **Limitations:**
 
-* We do not account for other inference optimizations such as flash attention, batching or parallelism.
-* We do not benchmark models bigger than 70 billion parameters.
+* We do not account for some inference optimizations such as flash attention. 
 * We do not have benchmarks for multi-GPU deployments.
 * We do not account for the multiple modalities of a model (only text-to-text generation).
-
-### On benchmarking data
-
-We use **linear regression models** to approximate energy consumption per token and latency per token as a function of the number of active parameters in the LLM. We represent the linear model as $Y = a \times X + b + \epsilon$, where $Y$ is the predicted value, $X$ is the input variable, $a$ and $b$ are the regression coefficients, and $\epsilon$ is the error term. We assume that the errors ($\epsilon$) follow a **normal distribution** with a mean of zero and a constant variance, represented as $\epsilon \sim \mathcal{N}(0, \sigma^2)$. This enables us to use the 95% confidence interval, calculated using the standard deviation of the errors ($\sigma$) and the 97.5th percentile point of the standard normal distribution (approximately 1.96).
 
 ### On hardware
 
@@ -367,7 +361,7 @@ We estimate the **required infrastructure** to run the service in terms of hardw
 
 **Assumptions:**
 
-* Models are deployed on NVIDIA A100 GPUs with 80GB of memory.
+* Models are deployed on NVIDIA H100 GPUs with 80GB of memory.
 * Base servers are similar to p4de.24xlarge AWS cloud instances.
 
 **Limitations:**
@@ -412,7 +406,7 @@ We aim at covering the largest scope possible when assessing the environmental i
 
 ## References
 
-- [LLM-Perf Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard) to estimate GPU energy consumption and latency based on the model architecture and number of output tokens.
+- [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) to estimate GPU energy consumption and latency based on the model architecture and number of output tokens.
 - [BoaviztAPI](https://github.com/Boavizta/boaviztapi) to estimate server embodied impacts and base energy consumption.
 - [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) for electricity mix impacts per country.
 
@@ -421,12 +415,16 @@ We aim at covering the largest scope possible when assessing the environmental i
 Please cite **GenAI Impact** non-profit organization and **link to this documentation page**. 
 
 ```bibtex
-"""
-@software{ecologits,
-  author = {Samuel Rincé, Adrien Banse, Vinh Nguyen, Luc Berton, and Chieh Hsu},
-  publisher = {GenAI Impact},
-  title = {EcoLogits: track the energy consumption and environmental footprint of using generative AI models through APIs.},
-}"""
+@article{ecologits, 
+    doi = {10.21105/joss.07471}, 
+    url = {https://doi.org/10.21105/joss.07471}, 
+    year = {2025}, 
+    publisher = {The Open Journal}, 
+    volume = {10}, number = {111}, pages = {7471}, 
+    author = {Rincé, Samuel and Banse, Adrien}, 
+    title = {EcoLogits: Evaluating the Environmental Impacts of Generative AI}, 
+    journal = {Journal of Open Source Software}
+}
 ```
 
 ## :material-scale-balance: License
