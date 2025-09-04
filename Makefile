@@ -18,3 +18,7 @@ pre-commit:
 .PHONY: docs
 docs:
 	poetry run mkdocs build
+
+.PHONY: serve-docs
+serve-docs:
+	poetry run mkdocs serve
