@@ -33,7 +33,7 @@ SERVER_EMBODIED_IMPACT_PE = 70000
 
 HARDWARE_LIFESPAN = 3 * 365 * 24 * 60 * 60
 
-BATCHING_SIZE = 64
+batch_size = 64
 
 
 WATER_FABRICATING_GPU = 2.0314012874
@@ -46,7 +46,7 @@ dag = DAG()
 def gpu_energy(
         model_active_parameter_count: float,
         output_token_count: float,
-        batching_size: int,
+        batch_size: int,
         gpu_energy_alpha: float,
         gpu_energy_beta: float,
         gpu_energy_gamma: float,
@@ -59,7 +59,7 @@ def gpu_energy(
     Args:
         model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
-        batching_size: The number of requests handled concurrently by the server.
+        batch_size: The number of requests handled concurrently by the server.
         gpu_energy_alpha: Coefficient of the "model size" monomial of the regression.
         gpu_energy_beta: Coefficient of the "batch size" monomial of the regression.
         gpu_energy_gamma: Coefficient of the "(model size) x (batch size)" monomial of the regression.
@@ -70,9 +70,9 @@ def gpu_energy(
         The energy consumption of a single GPU in kWh.
     """
     gpu_energy_size_monomial = gpu_energy_alpha * model_active_parameter_count
-    gpu_energy_bs_monomial = gpu_energy_beta * batching_size
-    gpu_energy_size_bs_monomial = gpu_energy_gamma * model_active_parameter_count * batching_size
-    gpu_energy_bs_bs_monomial = gpu_energy_delta * batching_size * batching_size
+    gpu_energy_bs_monomial = gpu_energy_beta * batch_size
+    gpu_energy_size_bs_monomial = gpu_energy_gamma * model_active_parameter_count * batch_size
+    gpu_energy_bs_bs_monomial = gpu_energy_delta * batch_size * batch_size
     gpu_energy_per_token = gpu_energy_size_monomial + gpu_energy_bs_monomial + \
         gpu_energy_size_bs_monomial + gpu_energy_bs_bs_monomial + gpu_energy_eta
     return output_token_count * gpu_energy_per_token
@@ -81,7 +81,7 @@ def gpu_energy(
 def generation_latency(
         model_active_parameter_count: float,
         output_token_count: float,
-        batching_size: int,
+        batch_size: int,
         latency_alpha: float,
         latency_beta: float,
         latency_gamma: float,
@@ -94,7 +94,7 @@ def generation_latency(
     Args:
         model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
-        batching_size: The number of requests handled concurrently by the server.
+        batch_size: The number of requests handled concurrently by the server.
         latency_alpha: Coefficient of the "model size" monomial of the regression.
         latency_beta: Coefficient of the "batch size" monomial of the regression.
         latency_gamma: Coefficient of the "(model size) x (batch size)" monomial of the regression.
@@ -105,9 +105,9 @@ def generation_latency(
         The token generation latency in seconds.
     """
     latency_size_monomial = latency_alpha * model_active_parameter_count
-    latency_bs_monomial = latency_beta * batching_size
-    latency_size_bs_monomial = latency_gamma * model_active_parameter_count * batching_size
-    latency_bs_bs_monomial = latency_delta * batching_size * batching_size
+    latency_bs_monomial = latency_beta * batch_size
+    latency_size_bs_monomial = latency_gamma * model_active_parameter_count * batch_size
+    latency_bs_bs_monomial = latency_delta * batch_size * batch_size
     latency_per_token = latency_size_monomial + latency_bs_monomial + \
         latency_size_bs_monomial + latency_bs_bs_monomial + latency_eta
     return output_token_count * latency_per_token
@@ -346,7 +346,7 @@ def request_embodied_gwp(
         server_gpu_embodied_gwp: float,
         server_lifetime: float,
         generation_latency: ValueOrRange,
-        batching_size: int
+        batch_size: int
 ) -> ValueOrRange:
     """
     Compute the Global Warming Potential (GWP) embodied impact of the request.
@@ -355,12 +355,12 @@ def request_embodied_gwp(
         server_gpu_embodied_gwp: GWP embodied impact of the server and the GPUs in kgCO2eq.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
-        batching_size: The number of requests handled concurrently by the server.
+        batch_size: The number of requests handled concurrently by the server.
 
     Returns:
         The GWP embodied impact of the request in kgCO2eq.
     """
-    return generation_latency * server_gpu_embodied_gwp / (server_lifetime * batching_size)
+    return generation_latency * server_gpu_embodied_gwp / (server_lifetime * batch_size)
 
 
 @dag.asset
@@ -368,7 +368,7 @@ def request_embodied_adpe(
         server_gpu_embodied_adpe: float,
         server_lifetime: float,
         generation_latency: ValueOrRange,
-        batching_size: int
+        batch_size: int
 ) -> ValueOrRange:
     """
     Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the request.
@@ -377,12 +377,12 @@ def request_embodied_adpe(
         server_gpu_embodied_adpe: ADPe embodied impact of the server and the GPUs in kgSbeq.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
-        batching_size: The number of requests handled concurrently by the server.
+        batch_size: The number of requests handled concurrently by the server.
 
     Returns:
         The ADPe embodied impact of the request in kgSbeq.
     """
-    return generation_latency * server_gpu_embodied_adpe / (server_lifetime * batching_size)
+    return generation_latency * server_gpu_embodied_adpe / (server_lifetime * batch_size)
 
 
 @dag.asset
@@ -390,7 +390,7 @@ def request_embodied_pe(
         server_gpu_embodied_pe: float,
         server_lifetime: float,
         generation_latency: ValueOrRange,
-        batching_size: int
+        batch_size: int
 ) -> ValueOrRange:
     """
     Compute the Primary Energy (PE) embodied impact of the request.
@@ -399,18 +399,18 @@ def request_embodied_pe(
         server_gpu_embodied_pe: PE embodied impact of the server and the GPUs in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
-        batching_size: The number of requests handled concurrently by the server.
+        batch_size: The number of requests handled concurrently by the server.
 
     Returns:
         The PE embodied impact of the request in MJ.
     """
-    return generation_latency * server_gpu_embodied_pe / (server_lifetime * batching_size)
+    return generation_latency * server_gpu_embodied_pe / (server_lifetime * batch_size)
 
 
 @dag.asset
 def request_embodied_wcf(
         server_lifetime: float,
-        batching_size: float,
+        batch_size: float,
         water_fabricating_gpu: float,
         server_gpu_count: float,
         generation_latency: ValueOrRange
@@ -423,13 +423,13 @@ def request_embodied_wcf(
         generation_latency: Token generation latency in seconds.
         water_fabricating_gpu: The amount of water used in fabricating a gpu.
         server_gpu_count: Number of available GPUs in the server.
-        batching_size: The number of requests handled concurrently by the server.
+        batch_size: The number of requests handled concurrently by the server.
 
     Returns:
         The water embodied impact of the request in liters.
     """
 
-    output = generation_latency * water_fabricating_gpu * server_gpu_count / (server_lifetime * batching_size)
+    output = generation_latency * water_fabricating_gpu * server_gpu_count / (server_lifetime * batch_size)
 
     return output
 
@@ -468,7 +468,7 @@ def compute_llm_impacts_dag(
         server_embodied_pe: Optional[float] = SERVER_EMBODIED_IMPACT_PE,
         server_lifetime: Optional[float] = HARDWARE_LIFESPAN,
         water_fabricating_gpu: Optional[float] = WATER_FABRICATING_GPU,
-        batching_size: Optional[float] =  BATCHING_SIZE
+        batch_size: Optional[float] =  batch_size
 ) -> dict[str, ValueOrRange]:
     """
     Compute the impacts dag of an LLM generation request.
@@ -506,7 +506,7 @@ def compute_llm_impacts_dag(
         server_embodied_pe: PE embodied impact of the server in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
         water_fabricating_gpu: The amount of water used in fabricating a gpu.
-        batching_size: The number of requests handled concurrently by the server, default set to 16.
+        batch_size: The number of requests handled concurrently by the server, default set to 16.
     Returns:
         The impacts dag with all intermediate states.
     """
@@ -543,7 +543,7 @@ def compute_llm_impacts_dag(
         server_embodied_pe=server_embodied_pe,
         server_lifetime=server_lifetime,
         water_fabricating_gpu=water_fabricating_gpu,
-        batching_size=batching_size
+        batch_size=batch_size
     )
     return results
 
