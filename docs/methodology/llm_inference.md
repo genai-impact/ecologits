@@ -20,6 +20,32 @@ where $E_{\text{request}}$ represents the energy consumption of the IT resources
 
 To assess the usage impacts of an LLM inference, we first need to estimate the energy consumption of the server, which is equipped with one or more GPUs. We will also take into account the energy consumption of cooling equipment integrated with the data center, using the Power Usage Effectiveness (PUE) metric.
 
+To compute the PUE and for subsequent computations, for each AI provider, we use the average data of its datacenter provider. In the case that the datacenter provider is unsure, we use the EU average. The corresponding datacenter provider and PUEs are given in the following tables. 
+
+| AI Provider      | Datacenter Provider | Source |
+|------------------|---------------------|--------|
+| Anthropic        | Google              |[source](https://www.aboutamazon.com/news/company-news/amazon-aws-anthropic-ai)|
+| MistralAI        | Unsure > EU average |        |
+| Cohere           | Unsure > EU average |        |
+| Databricks       | AWS and Google      |[source](https://www.databricks.com/legal/cloud-provider-directory#:~:text=Azure%20Databricks%20)|
+| Meta             | Meta                |[source](https://www.theguardian.com/technology/2025/jul/16/zuckerberg-meta-data-center-ai-manhattan)|
+| Azure OpenAI     | Microsoft           |[source](https://datacenters.microsoft.com/)|
+| Hugging Face Hub | AWS                 |[source](https://huggingface.co/docs/sagemaker/index)|
+| Google           | Google              |[source](https://deepmind.google/discover/blog/deepmind-ai-reduces-google-data-centre-cooling-bill-by-40/?utm_source=chatgpt.com)|
+| Microsoft        | Microsoft           |[source](https://azure.microsoft.com/en-us/products/phi?utm_source=chatgpt.com)|
+| OpenAI           | Unsure > EU average |        |
+  
+| Datacenter Provider | PUE  | Source |
+|---------------------|------|--------|
+| Google              | 1.09 | [source](https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf) |
+| Meta                | 1.09 | [source](https://sustainability.atmeta.com/data-centers/) |
+| Microsoft           | 1.18 | [source](https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/) |
+| OVHCloud            | 1.26 | [source](https://corporate.ovhcloud.com/en/sustainability/environment/) |
+| Scaleway            | 1.37 | [source](https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf) |
+| AWS                 | 1.15 | [source](https://sustainability.aboutamazon.com/products-services/aws-cloud) |
+| Equinix             | 1.42 | [source](https://www.equinix.com/content/dam/eqxcorp/en_us/documents/resources/infopapers/ip_2023_sustainability_en.pdf) |
+| EU Average          | 1.56 | [source](https://www.europeanlawblog.eu/pub/1jb3tzus/release/2#:~:text=According%20to%20the%20current%20state,source%20of%20its%20GHG%20emissions.) |
+
 Subsequently, we can calculate the environmental impacts by using the $F_{\text{em}}$ impact factor of the electricity mix. Ideally, $F_{\text{em}}$ should vary with location and time to accurately reflect the local energy mix.
 
 ### Modeling GPU energy consumption
@@ -39,7 +65,7 @@ We approximate energy consumption per output token as a function of the number o
     * For a dense model: $P_{\text{active}} = P_{\text{total}}$
     * For a SMoE model: $P_{\text{active}} =  P_{\text{total}} / \text{number of active experts}$
 
-??? note "What is the batch size "
+??? note "What is the batch size?"
 
     The batch size $B$ is the number of requests that the server can handle concurrently. A large batch size decreases the energy used for a unique request, but increases the latency. The providers aim at finding a good tradeoff between energy efficiency and latency. 
 
@@ -151,8 +177,6 @@ $$
 E_{\text{request}} = \text{PUE} \times E_{\text{server}}.
 $$
 
-We typically use a $\text{PUE} = 1.2$ for hyperscaler data centers or supercomputers.
-
 ### Modeling request usage environmental impacts
 
 To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, $F_{\text{em}}$, specific to the target country and time. **Unless otherwise stated, we currently use a worldwide average multicriteria impact factor from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/)**:
@@ -175,60 +199,31 @@ Note that the user can still chose another electricity mix from the [ADEME Base 
 
 ### Modeling request usage water impact
 
-- Water Consumption Footprint (WCF): Water consumption from this request. The formula for quantifying this is:
+In this section, we show how to compute the Water Consomption Footprint (WCF) of a request. It is given by 
 
 $$
 \begin{equation}
 \begin{aligned}
 \text{WCF}_{\text{request}} &= \frac{E_\text{server}}{N_\text{requests}} \times \left[\text{WUE}_{\text{on-site}} + \text{PUE} \times \text{WUE}_\text{off-site} \right] \\
-&\quad + \frac{\Delta T}{\Delta L} \times \frac{\text{WCF}_\text{embodied}}{N_\text{requests}}
+&\quad + \frac{\Delta T}{\Delta L} \times \frac{\text{WCF}_\text{embodied}}{B}
 \end{aligned}
 \end{equation}
 $$
 
 Where
 
-* $WCF_{request}$ : Water consumption footprint for the request
+* $\text{WCF}_{\text{request}}$ : Water consumption footprint for the request
 * $E_{\text{server}}$ : Energy cost at the server for the request 
-* ${N_{requests}}$ : Number of simultanous reqeusts handled by the server
-* $WUE_{on-site}$ : Water usage efficiency at the data center 
-* $PUE$: Power usage efficiency at the data center 
-* $WUE_{off-site}$ : Water usage efficiency of the local electricity mix 
+* ${B}$ : Batch size
+* $\text{WUE}_{\text{on-site}}$ : Water usage efficiency at the data center 
+* $\text{PUE}$: Power usage efficiency at the data center 
+* $\text{WUE}_\text{off-site}$ : Water usage efficiency of the local electricity mix 
 * ${\Delta T}$ : Generation latency, or the time it takes for the server to process the request, in seconds
 * ${\Delta L}$ : Server lifespan in seconds
-* ${WCF_{embodied}}$ : Embodied water consumption footprint for manufacturing the server
-
-A table of the AI providers and the datacenter providers whose PUE and WUE we use to calculate their WCF is given by:  
-
-| AI Provider      | Datacenter Provider | Source |
-|------------------|---------------------|--------|
-| Anthropic        | Google              |[source](https://www.aboutamazon.com/news/company-news/amazon-aws-anthropic-ai)|
-| MistralAI        | Unsure > EU average |        |
-| Cohere           | Unsure > EU average |        |
-| Databricks       | AWS and Google      |[source](https://www.databricks.com/legal/cloud-provider-directory#:~:text=Azure%20Databricks%20)|
-| Meta             | Meta                |[source](https://www.theguardian.com/technology/2025/jul/16/zuckerberg-meta-data-center-ai-manhattan)|
-| Azure OpenAI     | Microsoft           |[source](https://datacenters.microsoft.com/)|
-| Hugging Face Hub | AWS                 |[source](https://huggingface.co/docs/sagemaker/index)|
-| Google           | Google              |[source](https://deepmind.google/discover/blog/deepmind-ai-reduces-google-data-centre-cooling-bill-by-40/?utm_source=chatgpt.com)|
-| Microsoft        | Microsoft           |[source](https://azure.microsoft.com/en-us/products/phi?utm_source=chatgpt.com)|
-| OpenAI           | Unsure > EU average |        |
-
-In the case that the datacenter provider is unsure, we use the EU average.  
-For each datacenter provider, we use their globally averaged PUE number.  
+* ${\text{WCF}_\text{embodied}}$ : Embodied water consumption footprint for manufacturing the server
   
-| Datacenter Provider | PUE  | Source |
-|---------------------|------|--------|
-| Google              | 1.09 | [source](https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf) |
-| Meta                | 1.09 | [source](https://sustainability.atmeta.com/data-centers/) |
-| Microsoft           | 1.18 | [source](https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/) |
-| OVHCloud            | 1.26 | [source](https://corporate.ovhcloud.com/en/sustainability/environment/) |
-| Scaleway            | 1.37 | [source](https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf) |
-| AWS                 | 1.15 | [source](https://sustainability.aboutamazon.com/products-services/aws-cloud) |
-| Equinix             | 1.42 | [source](https://www.equinix.com/content/dam/eqxcorp/en_us/documents/resources/infopapers/ip_2023_sustainability_en.pdf) |
-| EU Average          | 1.56 | [source](https://www.europeanlawblog.eu/pub/1jb3tzus/release/2#:~:text=According%20to%20the%20current%20state,source%20of%20its%20GHG%20emissions.) |
-  
-The $WUE_{on-site}$ of each datacenter provider:
-  
+The $\text{WUE}_{\text{on-site}}$ of each datacenter provider is given by the following table: 
+
 | Datacenter Provider   | WUE   | Source |
 |-----------------------|-------|--------|
 | Google                | 0.916 | [source](https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf) |
@@ -242,7 +237,7 @@ The $WUE_{on-site}$ of each datacenter provider:
 
 We could not find the number for the EU averaged hyperscaler WUE, so we use the number for EU colocation average.
 
-Finally, for $WUE_{off-site}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used.   
+Finally, to find $\text{WUE}_{\text{off-site}}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For the sake of brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used.   
 
 ## Embodied impacts
 
@@ -326,11 +321,12 @@ $$
 ## Modeling water embodied impacts
 
 We draw from the [ESG report](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf) of [Taiwan Semiconductor Manufacturing Company](https://www.tsmc.com/english) that states that each 12-inch wafer layer consumes about 176.4 liters to produce. 
-300mm wafer: ~70,685 mm² area (π * (150mm)²)  
-surface area of a NVIDIA H100 SXM5 80 GB chip: 814 mm² [source](https://www.techpowerup.com/gpu-specs/h100-sxm5-80-gb.c3900) 
-Which brings us to
-70,685 mm2 / 814 mm2 ​≈ 86.837 chips per wafer.  
-Using the 176.4 liters per wafer divided by 86.837 chips per wafer, this brings us to 2.03 L/chip. According to this [article](https://massedcompute.com/faq-answers/?question=How%20many%20NVIDIA%20L40S%20GPUs%20can%20be%20installed%20in%20a%20single%20server?#:~:text=1U%20Servers%3A%20Typically%20support%201,for%20AI%20training%20and%20inference.), there are around 8 GPUs in a specialized inference server. 
+
+By computing the number of chips per wafer, we conclude that a single chip uses 2.03L of water. 
+
+??? info "Why does a single chip use 2.03L of water?"
+
+    Since each wafer has a 300mm diameter, we know that its area is ~70,685 mm². The area of a NVIDIA H100 SXM5 80 GB chip is 814mm² ([source](https://www.techpowerup.com/gpu-specs/h100-sxm5-80-gb.c3900)), which yields approximately 86.837 chips per wafer. Since a wafer uses 176.4L ([source](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf)), a single chip must use 2.03L of water. 
 
 ## Assumptions and limitations
 
