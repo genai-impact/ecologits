@@ -30,7 +30,7 @@ By leveraging the open dataset from the [ML.ENERGY Leaderboard](https://ml.energ
     
     We have filtered the dataset to keep only the benchmark on NVIDIA H100 80GB HBM3 GPUs. 
 
-We approximate energy consumption per output token as a function of the number of activate parameters, denoted as $P_{\text{active}}$, and the batching size, denoted as $B$. 
+We approximate energy consumption per output token as a function of the number of activate parameters, denoted as $P_{\text{active}}$, and the batch size, denoted as $B$. 
 
 ??? note "What are active parameters?"
 
@@ -39,9 +39,9 @@ We approximate energy consumption per output token as a function of the number o
     * For a dense model: $P_{\text{active}} = P_{\text{total}}$
     * For a SMoE model: $P_{\text{active}} =  P_{\text{total}} / \text{number of active experts}$
 
-??? note "What is the batching size "
+??? note "What is the batch size "
 
-    The batching size $B$ is the number of requests that the server can handle concurrently. A large batching size decreases the energy used for a unique request, but increases the latency. The providers aim at finding a good tradeoff between energy efficiency and latency. 
+    The batch size $B$ is the number of requests that the server can handle concurrently. A large batch size decreases the energy used for a unique request, but increases the latency. The providers aim at finding a good tradeoff between energy efficiency and latency. 
 
 In order to being consistent with physics (and fit the data) while staying relatively simple, we opted for a function of the form 
 
@@ -61,10 +61,10 @@ The result is illustrated below.
 
 <figure markdown="span">
   ![Figure: Energy consumption per output token vs. number of active parameters ](../assets/methodology/llm/figure_energy.png)
-  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batching sizes (64, 128, 256, 512, 1024).</figcaption>
+  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256, 512, 1024).</figcaption>
 </figure>
 
-!!! warning "From now on, we consider that the batching size fixed to $B = 64$."
+!!! warning "From now on, we consider that the batch size fixed to $B = 64$."
 
 
 Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens $\#T_{\text{out}}$ and the number of active parameters $P_{\text{active}}$: 
@@ -108,7 +108,7 @@ The result is illustrated below.
 
 <figure markdown="span">
   ![Figure: Latency per output token vs. number of active parameters ](../assets/methodology/llm/figure_latency.png)
-  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batching sizes (64, 128, 256, 512, 1024)</figcaption>
+  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256, 512, 1024)</figcaption>
 </figure>
 
 Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
@@ -317,7 +317,7 @@ $$
 
 ### Modeling request embodied environmental impacts
 
-To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, $\frac{\Delta T}{B \times \Delta L}$. In this case, $\Delta L$ represents the lifetime of the server and GPU, which we fix at 3 years (according to [this NVIDIA report](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-H100-PCF-Summary.pdf)), and $B$ is the batching size such as above: 
+To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, $\frac{\Delta T}{B \times \Delta L}$. In this case, $\Delta L$ represents the lifetime of the server and GPU, which we fix at 3 years (according to [this NVIDIA report](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-H100-PCF-Summary.pdf)), and $B$ is the batch size such as above: 
 
 $$
 I^{\text{e}}_{\text{request}}=\frac{\Delta T}{B \times  \Delta L} \times I^{\text{e}}_{\text{server}}.
@@ -330,7 +330,7 @@ We draw from the [ESG report](https://esg.tsmc.com/en-US/file/public/e-all_2023.
 surface area of a NVIDIA H100 SXM5 80 GB chip: 814 mm² [source](https://www.techpowerup.com/gpu-specs/h100-sxm5-80-gb.c3900) 
 Which brings us to
 70,685 mm2 / 814 mm2 ​≈ 86.837 chips per wafer.  
-Using the 176.4 liters per wafer divided by 86.837 chips per wafer, this brings us to 2.03 L/chip. According to this [article](https://massedcompute.com/faq-answers/?question=How%20many%20NVIDIA%20L40S%20GPUs%20can%20be%20installed%20in%20a%20single%20server?#:~:text=1U%20Servers%3A%20Typically%20support%201,for%20AI%20training%20and%20inference.), there are around 8 GPUs in a specialized inference server. We are still working on integrating batching size; right now the placeholder value is one. 
+Using the 176.4 liters per wafer divided by 86.837 chips per wafer, this brings us to 2.03 L/chip. According to this [article](https://massedcompute.com/faq-answers/?question=How%20many%20NVIDIA%20L40S%20GPUs%20can%20be%20installed%20in%20a%20single%20server?#:~:text=1U%20Servers%3A%20Typically%20support%201,for%20AI%20training%20and%20inference.), there are around 8 GPUs in a specialized inference server. 
 
 ## Assumptions and limitations
 
