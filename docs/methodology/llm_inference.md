@@ -124,8 +124,10 @@ The generation latency, $\Delta T$, is the duration of the inference measured on
 Again, in order to being consistent with physics (and fit the data) while staying relatively simple, we opted for a function of the form 
 
 $$ 
-f_L(P_{\text{active}}, B) = \alpha P_{\text{active}} + \beta B + \gamma
+f_L(P_{\text{active}}, B) = \alpha P_{\text{active}} + \beta B + \gamma, 
 $$
+
+that is, linear in both the number of parameters and the batch size. 
 
 We find the values : 
 
