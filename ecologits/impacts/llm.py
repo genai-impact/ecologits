@@ -61,7 +61,8 @@ def gpu_energy(
     Returns:
         The energy consumption of a single GPU in kWh.
     """
-    gpu_energy_per_token = gpu_energy_alpha * math.exp(gpu_energy_beta * batch_size) * model_active_parameter_count + gpu_energy_gamma
+    gpu_energy_per_token = gpu_energy_alpha * math.exp(gpu_energy_beta * batch_size) * model_active_parameter_count + \
+        gpu_energy_gamma
     return output_token_count * gpu_energy_per_token
 
 @dag.asset
