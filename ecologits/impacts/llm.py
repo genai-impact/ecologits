@@ -87,7 +87,7 @@ def generation_latency(
     Returns:
         The token generation latency in seconds.
     """
-    latency_per_token = latency_alpha * model_active_parameter_count + latency_beta * batch_size + latency_gamma 
+    latency_per_token = latency_alpha * model_active_parameter_count + latency_beta * batch_size + latency_gamma
     return output_token_count * latency_per_token
 
 @dag.asset
