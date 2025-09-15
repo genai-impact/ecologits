@@ -28,7 +28,7 @@ By leveraging the open dataset from the [ML.ENERGY Leaderboard](https://ml.energ
 
 ??? info "On the ML.ENERGY dataset filtering"
     
-    We have filtered the dataset to keep only the benchmark on NVIDIA H100 80GB HBM3 GPUs. 
+    In order to have relevant data and avoid outlies, we have filtered the dataset to keep only (1) the benchmark on NVIDIA H100 80GB HBM3 GPUs, (2) batch sizes no larger than 512 and (3) models no larger than 200B parameters. 
 
 We approximate energy consumption per output token as a function of the number of activate parameters, denoted as $P_{\text{active}}$, and the batch size, denoted as $B$. 
 
@@ -46,22 +46,20 @@ We approximate energy consumption per output token as a function of the number o
 In order to being consistent with physics (and fit the data) while staying relatively simple, we opted for a function of the form 
 
 $$ 
-f_E(P_{\text{active}}, B) = \alpha P_{\text{active}} + \beta B + \gamma P_{\text{active}} B + \delta B^2 + \eta, 
+f_E(P_{\text{active}}, B) = \alpha e^{\beta B} P_{\text{active}} + \gamma
 $$
 
-that is a function that is **linear** with $P_{\text{active}}$ and **quadratic** with $B$. We fitted such a model with the data, and got 
+that is a function that is **linear** with $P_{\text{active}}$ and **exponential** with $B$. We fitted such a model with the data, and got 
 
-- $\alpha = 4.36 \times 10^{-6}$, 
-- $\beta = -2.93 \times 10^{-7}$, 
-- $\gamma = -2.43 \times 10^{-9}$, 
-- $\delta = 2.43 \times 10^{-10}$, 
-- $\eta = 6.02 \times 10^{-5}$.
+- $\alpha = 6.47 \times 10^{-6}$, 
+- $\beta = -2.60 \times 10^{-3}$, 
+- $\gamma = 1.04 \times 10^{-5}$, 
 
 The result is illustrated below. 
 
 <figure markdown="span">
   ![Figure: Energy consumption per output token vs. number of active parameters ](../assets/methodology/llm/figure_energy.png)
-  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256, 512, 1024).</figcaption>
+  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256).</figcaption>
 </figure>
 
 !!! warning "From now on, we consider that the batch size fixed to $B = 64$."
@@ -73,7 +71,7 @@ $$
 E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times f_E(P_{\text{active}}, 64), 
 $$
 
-where $f_E$ is the linear-quadratic model cited above. 
+where $f_E$ is the linear-exponential model cited above. 
 
 If the model requires multiple GPUs to be loaded into VRAM, the energy consumption $E_{\text{GPU}}$ should be multiplied by the number of required GPUs, $\text{GPU}$ (see [below](#complete-server-energy-consumption)).
 
@@ -96,19 +94,24 @@ For a typical high-end GPU-accelerated cloud instance, we use $W_{\text{server} 
 
 The generation latency, $\Delta T$, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) dataset with the previously mentioned filters applied.
 
-We fit a function $f_L(P_{\text{active}}, B)$ (of the same form as $f_E$ above) on the dataset, and find 
 
-- $\alpha = 3.50 \times 10^{-4}$, 
-- $\beta = 3.53 \times 10^{-4}$, 
-- $\gamma = 5.91 \times 10^{-8}$, 
-- $\delta = -1.10 \times 10^{-7}$, 
-- $\eta = 0.027$.
+Again, in order to being consistent with physics (and fit the data) while staying relatively simple, we opted for a function of the form 
+
+$$ 
+f_L(P_{\text{active}}, B) = \alpha P_{\text{active}} + \beta B + \gamma
+$$
+
+We find the values : 
+
+- $\alpha = 6.78 \times 10^{-4}$, 
+- $\beta = 3.12 \times 10^{-4}$, 
+- $\gamma = 1.94 \times 10^{-2}$, 
 
 The result is illustrated below. 
 
 <figure markdown="span">
   ![Figure: Latency per output token vs. number of active parameters ](../assets/methodology/llm/figure_latency.png)
-  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256, 512, 1024)</figcaption>
+  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256)</figcaption>
 </figure>
 
 Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
