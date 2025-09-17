@@ -237,7 +237,7 @@ The $\text{WUE}_{\text{on-site}}$ of each datacenter provider is given by the fo
 
 We could not find the number for the EU averaged hyperscaler WUE, so we use the number for EU colocation average.
 
-Finally, to find $\text{WUE}_{\text{off-site}}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For the sake of brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a userwarning along with the result telling them that the global average is used.   
+Finally, to find $\text{WUE}_{\text{off-site}}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For the sake of brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a user warning along with the result telling them that the global average is used.   
 
 ## Embodied impacts
 
