@@ -324,13 +324,15 @@ $$
 
 ## Modeling water embodied impacts
 
-We draw from the [ESG report](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf) of [Taiwan Semiconductor Manufacturing Company](https://www.tsmc.com/english) that states that each 12-inch wafer layer consumes about 176.4 liters to produce. 
+We draw from the [ESG report (page 114)](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf) of [Taiwan Semiconductor Manufacturing Company](https://www.tsmc.com/english) that states that each 12-inch wafer layer consumes about 176.4 liters to produce. For H100 GPU using 5nm EUV process the number of wafer layers can be up to 14.
 
-By computing the number of chips per wafer, we conclude that a single chip uses 2.03L of water. 
+By computing the number of chips per wafer, we conclude that a single chip uses 28.65L of water. 
 
-??? info "Why does a single chip use 2.03L of water?"
+??? info "Why does a single chip use 28.65L of water?"
 
-    Since each wafer has a 300mm diameter, we know that its area is ~70,685 mm². The area of a NVIDIA H100 SXM5 80 GB chip is 814mm² ([source](https://www.techpowerup.com/gpu-specs/h100-sxm5-80-gb.c3900)), which yields approximately 86.837 chips per wafer. Since a wafer uses 176.4L ([source](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf)), a single chip must use 2.03L of water. 
+    Since each wafer has a 300mm diameter, we know that its area is ~70,685 mm². The area of a NVIDIA H100 SXM5 80 GB chip is 814mm² ([source](https://www.techpowerup.com/gpu-specs/h100-sxm5-80-gb.c3900)), which yields approximately 86 chips per wafer (excluding defaults). Since a wafer has up to 14 layers ([source](https://www.tomshardware.com/news/tsmcs-wafer-prices-revealed-300mm-wafer-at-5nm-is-nearly-dollar17000)) and each layer uses 176.4L of water ([source](https://esg.tsmc.com/en-US/file/public/e-all_2023.pdf)). Then, a single chip uses at least 28.65L of water.
+
+    Note that we have not splitted the chip area in logic and DRAM, because this information is not available, we took the maximizing hypotesis. Also, we took the highest number of layers by default for the wafer. This estimation only account for the wafer creation and not the rest of the process.
 
 ## Assumptions and limitations
 
