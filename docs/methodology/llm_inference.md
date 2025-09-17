@@ -54,7 +54,7 @@ By leveraging the open dataset from the [ML.ENERGY Leaderboard](https://ml.energ
 
 ??? info "On the ML.ENERGY dataset filtering"
     
-    In order to have relevant data and avoid outlies, we have filtered the dataset to keep only (1) the benchmark on NVIDIA H100 80GB HBM3 GPUs, (2) batch sizes no larger than 512 and (3) models no larger than 200B parameters. 
+    In order to have relevant data and avoid outliers, we have filtered the dataset to keep only (1) the benchmark on NVIDIA H100 80GB HBM3 GPUs, (2) batch sizes no larger than 512 and (3) models no larger than 200B parameters. 
 
 We approximate energy consumption per output token as a function of the number of activate parameters, denoted as $P_{\text{active}}$, and the batch size, denoted as $B$. 
 
@@ -69,13 +69,13 @@ We approximate energy consumption per output token as a function of the number o
 
     The batch size $B$ is the number of requests that the server can handle concurrently. A large batch size decreases the energy used for a unique request, but increases the latency. The providers aim at finding a good tradeoff between energy efficiency and latency. 
 
-In order to being consistent with physics (and fit the data) while staying relatively simple, we opted for a function of the form 
+To be consistent with observed behaviors while staying relatively simple we opted to fit a function of the form
 
 $$ 
 f_E(P_{\text{active}}, B) = \alpha e^{\beta B} P_{\text{active}} + \gamma
 $$
 
-that is a function that is **linear** with $P_{\text{active}}$ and **exponential** with $B$. We fitted such a model with the data, and got 
+that is **linear** with $P_{\text{active}}$ and **exponential** with $B$. We fitted such a model with the data, and got 
 
 - $\alpha = 6.47 \times 10^{-6}$, 
 - $\beta = -2.60 \times 10^{-3}$, 
@@ -120,14 +120,13 @@ For a typical high-end GPU-accelerated cloud instance, we use $W_{\text{server} 
 
 The generation latency, $\Delta T$, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) dataset with the previously mentioned filters applied.
 
-
-Again, in order to being consistent with physics (and fit the data) while staying relatively simple, we opted for a function of the form 
+To be consistent with observed behaviors while staying relatively simple we opted to fit a function of the form
 
 $$ 
 f_L(P_{\text{active}}, B) = \alpha P_{\text{active}} + \beta B + \gamma, 
 $$
 
-that is, linear in both the number of parameters and the batch size. 
+that is linear in both the number of parameters and the batch size. 
 
 We find the values : 
 
