@@ -20,32 +20,6 @@ where $E_{\text{request}}$ represents the energy consumption of the IT resources
 
 To assess the usage impacts of an LLM inference, we first need to estimate the energy consumption of the server, which is equipped with one or more GPUs. We will also take into account the energy consumption of cooling equipment integrated with the data center, using the Power Usage Effectiveness (PUE) metric.
 
-To compute the PUE and for subsequent computations, for each AI provider, we use the average data of its data center provider. In the case that the data center provider is unsure, we use the EU average. The corresponding data center provider and PUEs are given in the following tables. 
-
-| AI Provider      | Datacenter Provider | Source |
-|------------------|---------------------|--------|
-| Anthropic        | Google              |[source](https://www.aboutamazon.com/news/company-news/amazon-aws-anthropic-ai)|
-| MistralAI        | Unsure > EU average |        |
-| Cohere           | Unsure > EU average |        |
-| Databricks       | AWS and Google      |[source](https://www.databricks.com/legal/cloud-provider-directory#:~:text=Azure%20Databricks%20)|
-| Meta             | Meta                |[source](https://www.theguardian.com/technology/2025/jul/16/zuckerberg-meta-data-center-ai-manhattan)|
-| Azure OpenAI     | Microsoft           |[source](https://datacenters.microsoft.com/)|
-| Hugging Face Hub | AWS                 |[source](https://huggingface.co/docs/sagemaker/index)|
-| Google           | Google              |[source](https://deepmind.google/discover/blog/deepmind-ai-reduces-google-data-centre-cooling-bill-by-40/?utm_source=chatgpt.com)|
-| Microsoft        | Microsoft           |[source](https://azure.microsoft.com/en-us/products/phi?utm_source=chatgpt.com)|
-| OpenAI           | Unsure > EU average |        |
-  
-| Datacenter Provider | PUE  | Source |
-|---------------------|------|--------|
-| Google              | 1.09 | [source](https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf) |
-| Meta                | 1.09 | [source](https://sustainability.atmeta.com/data-centers/) |
-| Microsoft           | 1.18 | [source](https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/) |
-| OVHCloud            | 1.26 | [source](https://corporate.ovhcloud.com/en/sustainability/environment/) |
-| Scaleway            | 1.37 | [source](https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf) |
-| AWS                 | 1.15 | [source](https://sustainability.aboutamazon.com/products-services/aws-cloud) |
-| Equinix             | 1.42 | [source](https://www.equinix.com/content/dam/eqxcorp/en_us/documents/resources/infopapers/ip_2023_sustainability_en.pdf) |
-| EU Average          | 1.56 | [source](https://www.europeanlawblog.eu/pub/1jb3tzus/release/2#:~:text=According%20to%20the%20current%20state,source%20of%20its%20GHG%20emissions.) |
-
 Subsequently, we can calculate the environmental impacts by using the $F_{\text{em}}$ impact factor of the electricity mix. Ideally, $F_{\text{em}}$ should vary with location and time to accurately reflect the local energy mix.
 
 ### Modeling GPU energy consumption
@@ -278,6 +252,23 @@ I^{\text{e}}_{\text{request}}=\frac{\Delta T}{B \times  \Delta L} \times I^{\tex
 $$
 
 !!! warning "Water consumption (WCF) impact is not modeled for the embodied phase due to a lack of data."
+
+
+## Additional data
+
+### Data center configuration
+
+We use public data from AI providers to their **data center configuration** such as the default **deployment location** and the **PUE** and **WUE**. The table below outlines the different hypothesis we currently use. The full details and sources are available in the [supplemental material](https://docs.google.com/spreadsheets/d/1XkPTkrGxpwWpIVIxpVvgRJuInSZsqbndTQbFGcHhdd0/) in the "providers" tab. 
+
+| AI Provider     | Cloud Provider | Location | PUE         | WUE         |
+|-----------------|----------------|----------|-------------|-------------|
+| Anthropic       | AWS, Google    | USA      | 1.09 - 1.14 | 0.13 - 0.99 |
+| Cohere          | Google         | USA      | 1.09        | 0.99        |
+| Google          | Google         | USA      | 1.09        | 0.99        |
+| HuggingFace Hub | AWS, Google    | USA      | 1.09 - 1.14 | 0.13 - 0.99 |
+| Mistral AI      | Microsoft      | SWE, NOR | 1.16        | 0.09        |
+| OpenAI          | Microsoft      | USA      | 1.20        | 0.569       |
+| Azure OpenAI    | Microsoft      | USA      | 1.20        | 0.569       |
 
 
 ## Assumptions and limitations
