@@ -19,6 +19,7 @@ class ImpactsOutput(BaseModel):
         gwp: Total Global Warming Potential (GWP) impact
         adpe: Total Abiotic Depletion Potential for Elements (ADPe) impact
         pe: Total Primary Energy (PE) impact
+        wcf: Usage-only Water Consumption Footprint (WCF) impact
         usage: Impacts for the usage phase
         embodied: Impacts for the embodied phase
         warnings: List of warnings
