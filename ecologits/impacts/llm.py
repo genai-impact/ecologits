@@ -60,6 +60,7 @@ def gpu_energy(
     """
     gpu_energy_per_token = gpu_energy_alpha * math.exp(gpu_energy_beta * batch_size) * model_active_parameter_count + \
         gpu_energy_gamma
+    gpu_energy_per_token /= 1000    # convert to kWh
     return output_token_count * gpu_energy_per_token
 
 
