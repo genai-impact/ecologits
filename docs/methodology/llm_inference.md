@@ -183,48 +183,20 @@ $$
 
 ### Modeling request usage environmental impacts
 
-To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, $F_{\text{em}}$, specific to the target country and time. **Unless otherwise stated, we currently use a worldwide average multicriteria impact factor from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/)**:
+To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, $F_{\text{em}}$, specific to the target country and time. We use data from the [Our World in Data](https://ourworldindata.org/electricity-mix) for GWP impact and from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) for ADPe and PE impacts. It gives us:
 
 $$
 I^\text{u}_{\text{request}} = E_{\text{request}} \times F_{\text{em}}.
 $$
 
-Note that the user can still chose another electricity mix from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/).
-
-??? note "Some values of $F_{\text{em}}$ per geographical area"
-        
-    | Area or country                                                           | GWP (gCO2eq / kWh) | ADPe (kgSbeq / kWh) | PE (MJ / kWh) |
-    |---------------------------------------------------------------------------|--------------------|---------------------|---------------|
-    | 🌐 Worldwide                                                              | $590.4$            | $7.378 \times 10^{-8}$   | $9.99$  |
-    | 🇪🇺 Europe ([EEA](https://en.wikipedia.org/wiki/European_Economic_Area)) | $509.4$            | $6.423 \times 10^{-8}$   | $12.9$  |
-    | 🇺🇸 USA                                                                  | $679.8$            | $9.855 \times 10^{-8}$   | $11.4$  |
-    | 🇨🇳 China                                                                | $1,057$            | $8.515 \times 10^{-8}$   | $14.1$  |
-    | 🇫🇷 France                                                               | $81.3$            | $4.858 \times 10^{-8}$   | $11.3$     |
-
 #### Modeling request water consumption footprint for usage phase
 
-To assess the Water Consumption Footprint (WCF) for the usage phase we use the modeling from [Li et al. (2025)](https://arxiv.org/abs/2304.03271). It uses both $\text{WUE}_\text{on-site}$ and $\text{WUE}_\text{off-site}$ which model the water usage effectiveness of the data center (on-site) and from the local electricity mix (off-site). Which gives us:
+To assess the Water Consumption Footprint (WCF) for the usage phase we use the modeling from [Li et al. (2025)](https://arxiv.org/abs/2304.03271). It uses the Water Usage Effectiveness (WUE) of both the data center $\text{WUE}_\text{on-site}$ and of the local electricity mix $\text{WUE}_\text{off-site}$. On-site data is assessed for each provider individually, whereas off-site data is averaged from each country according to the [World Resource Institute methodology](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity). It gives us:
 
 $$
-\text{WCF}^{\text{u}}_\text{request} = E_\text{server} \times [\text{WUE}_\text{on-site} + \text{PUE} \times \text{WUE}_\text{off-site}]
+\text{WCF}^{\text{u}}_\text{request} = E_\text{server} \times [\text{WUE}_\text{on-site} + \text{PUE} \times \text{WUE}_\text{off-site}].
 $$
 
-The $\text{WUE}_{\text{on-site}}$ of each data center provider is given by the following table: 
-
-| Datacenter Provider   | WUE   | Source |
-|-----------------------|-------|--------|
-| Google                | 0.916 | [source](https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf) |
-| Meta                  | 0.18  | [source](https://sustainability.atmeta.com/wp-content/uploads/2024/08/Meta-2024-Sustainability-Report.pdf) |
-| Microsoft             | 0.49  | [source](https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/) |
-| OVHCloud              | 0.37  | [source](https://corporate.ovhcloud.com/en/sustainability/environment/) |
-| Scaleway              | 0.216 | [source](https://www-uploads.scaleway.com/Impact_Report2024_A4_EN_e63efcae20.pdf) |
-| AWS                   | 0.18  | [source](https://sustainability.aboutamazon.com/2023-report) |
-| Equinix               | 1.07  | [source](https://www.equinix.com/resources/infopapers/2023-corporate-sustainability-report) |
-| EU Colocation Average | 0.31  | [source](https://www.eudca.org/documents/content/E8VdyUuATTC_BmbNp4nhAwo89?download=0) |
-
-We could not find the number for the EU averaged hyperscaler WUE, so we use the number for EU colocation average.
-
-Finally, to find $\text{WUE}_{\text{off-site}}$, we take the data from a [report](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity) by the [World Resource Institue](https://www.wri.org). For the sake of brevity, we will not list the list of countries here. For the countries whose data is missing, the user will get a user warning along with the result telling them that the global average is used.   
 
 ## Embodied impacts
 
@@ -393,7 +365,7 @@ We aim at covering the largest scope possible when assessing the environmental i
 
 - [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) to estimate GPU energy consumption and latency based on the model architecture and number of output tokens.
 - [BoaviztAPI](https://github.com/Boavizta/boaviztapi) to estimate server embodied impacts and base energy consumption.
-- [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) for electricity mix impacts per country.
+- [Our World in Data](https://ourworldindata.org/), [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) and [World Resource Institute](https://www.wri.org/) for electricity mix impacts per country.
 
 ## :material-bookshelf: Citation
 
