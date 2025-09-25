@@ -390,8 +390,8 @@ def compute_llm_impacts_dag(
         if_electricity_mix_pe: float,
         if_electricity_mix_gwp: float,
         if_electricity_mix_wue: float,
-        datacenter_pue: float,
-        datacenter_wue: float,
+        datacenter_pue: ValueOrRange,
+        datacenter_wue: ValueOrRange,
         model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
         gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
         gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
@@ -485,9 +485,9 @@ def compute_llm_impacts(
         if_electricity_mix_adpe: float,
         if_electricity_mix_pe: float,
         if_electricity_mix_gwp: float,
-        if_electricity_mix_wue:float,
-        datacenter_pue:float,
-        datacenter_wue:float,
+        if_electricity_mix_wue: float,
+        datacenter_pue: ValueOrRange,
+        datacenter_wue: ValueOrRange,
         request_latency: Optional[float] = None,
         **kwargs: Any
 ) -> Impacts:
