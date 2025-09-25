@@ -32,9 +32,6 @@ HARDWARE_LIFESPAN = 3 * 365 * 24 * 60 * 60
 BATCH_SIZE = 64
 
 
-WATER_FABRICATING_GPU = 28.65
-
-
 dag = DAG()
 
 
@@ -65,6 +62,7 @@ def gpu_energy(
         gpu_energy_gamma
     return output_token_count * gpu_energy_per_token
 
+
 @dag.asset
 def generation_latency(
         model_active_parameter_count: float,
@@ -90,6 +88,7 @@ def generation_latency(
     """
     latency_per_token = latency_alpha * model_active_parameter_count + latency_beta * batch_size + latency_gamma
     return output_token_count * latency_per_token
+
 
 @dag.asset
 def model_required_memory(
@@ -226,6 +225,7 @@ def request_usage_pe(
     """
     return request_energy * if_electricity_mix_pe
 
+
 @dag.asset
 def request_usage_wcf(
         request_energy: ValueOrRange,
@@ -245,13 +245,7 @@ def request_usage_wcf(
     Returns:
         The water usage impact of the request in liters.
     """
-
-
-
-    output = request_energy * (datacenter_wue +
-        datacenter_pue * if_electricity_mix_wue )
-
-    return output
+    return request_energy * (datacenter_wue + datacenter_pue * if_electricity_mix_wue)
 
 
 @dag.asset
@@ -386,34 +380,6 @@ def request_embodied_pe(
     return generation_latency * server_gpu_embodied_pe / (server_lifetime * batch_size)
 
 
-@dag.asset
-def request_embodied_wcf(
-        server_lifetime: float,
-        batch_size: float,
-        water_fabricating_gpu: float,
-        server_gpu_count: float,
-        generation_latency: ValueOrRange
-) -> ValueOrRange:
-    """
-    Compute the water embodied impact of the request.
-
-    Args:
-        server_lifetime: Lifetime duration of the server in seconds.
-        generation_latency: Token generation latency in seconds.
-        water_fabricating_gpu: The amount of water used in fabricating a gpu.
-        server_gpu_count: Number of available GPUs in the server.
-        batch_size: The number of requests handled concurrently by the server.
-
-    Returns:
-        The water embodied impact of the request in liters.
-    """
-
-    output = generation_latency * water_fabricating_gpu * server_gpu_count / (server_lifetime * batch_size)
-
-    return output
-
-
-
 def compute_llm_impacts_dag(
         model_active_parameter_count: ValueOrRange,
         model_total_parameter_count: ValueOrRange,
@@ -442,7 +408,6 @@ def compute_llm_impacts_dag(
         server_embodied_adpe: Optional[float] = SERVER_EMBODIED_IMPACT_ADPE,
         server_embodied_pe: Optional[float] = SERVER_EMBODIED_IMPACT_PE,
         server_lifetime: Optional[float] = HARDWARE_LIFESPAN,
-        water_fabricating_gpu: Optional[float] = WATER_FABRICATING_GPU,
         batch_size: Optional[float] =  BATCH_SIZE
 ) -> dict[str, ValueOrRange]:
     """
@@ -476,7 +441,6 @@ def compute_llm_impacts_dag(
         server_embodied_adpe: ADPe embodied impact of the server in kgSbeq.
         server_embodied_pe: PE embodied impact of the server in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
-        water_fabricating_gpu: The amount of water used in fabricating a gpu.
         batch_size: The number of requests handled concurrently by the server, default set to 16.
     Returns:
         The impacts dag with all intermediate states.
@@ -509,7 +473,6 @@ def compute_llm_impacts_dag(
         server_embodied_adpe=server_embodied_adpe,
         server_embodied_pe=server_embodied_pe,
         server_lifetime=server_lifetime,
-        water_fabricating_gpu=water_fabricating_gpu,
         batch_size=batch_size
     )
     return results
@@ -563,7 +526,7 @@ def compute_llm_impacts(
 
     results: dict[str, Union[RangeValue, float, int]] = {}
     fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe", "request_usage_wcf",
-              "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe", "request_embodied_wcf"]
+              "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
             model_active_parameter_count=act_param,
@@ -598,14 +561,13 @@ def compute_llm_impacts(
     gwp_embodied = GWP(value=results["request_embodied_gwp"])
     adpe_embodied = ADPe(value=results["request_embodied_adpe"])
     pe_embodied = PE(value=results["request_embodied_pe"])
-    wcf_embodied = WCF(value=results["request_embodied_wcf"])
 
     return Impacts(
         energy=energy,
         gwp=gwp_usage + gwp_embodied,
         adpe=adpe_usage + adpe_embodied,
         pe=pe_usage + pe_embodied,
-        wcf=wcf_usage + wcf_embodied,
+        wcf=wcf_usage,
         usage=Usage(
             energy=energy,
             gwp=gwp_usage,
@@ -616,7 +578,6 @@ def compute_llm_impacts(
         embodied=Embodied(
             gwp=gwp_embodied,
             adpe=adpe_embodied,
-            pe=pe_embodied,
-            wcf=wcf_embodied
+            pe=pe_embodied
         )
     )

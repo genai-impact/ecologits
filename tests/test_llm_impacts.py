@@ -48,7 +48,7 @@ def test_compute_llm_impacts(model_active_parameter_count: float,
     assert impacts.embodied.gwp.value > 0
     assert impacts.embodied.adpe.value > 0
     assert impacts.embodied.pe.value > 0
-    assert impacts.embodied.wcf.value > 0
+
 
 def compare_impacts(impacts: Impacts, prev_impacts: Impacts, op=gt):
     assert op(impacts.energy, prev_impacts.energy)
@@ -94,7 +94,6 @@ def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe:
             gwp=GWP(value=0),
             adpe=ADPe(value=0),
             pe=PE(value=0),
-            wcf=WCF(value=0)
         )
     )
     prev_impacts = zero_impacts.model_copy(deep=True)
