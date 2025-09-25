@@ -20,7 +20,7 @@ where $E_{\text{request}}$ represents the energy consumption of the IT resources
 
 To assess the usage impacts of an LLM inference, we first need to estimate the energy consumption of the server, which is equipped with one or more GPUs. We will also take into account the energy consumption of cooling equipment integrated with the data center, using the Power Usage Effectiveness (PUE) metric.
 
-To compute the PUE and for subsequent computations, for each AI provider, we use the average data of its datacenter provider. In the case that the datacenter provider is unsure, we use the EU average. The corresponding datacenter provider and PUEs are given in the following tables. 
+To compute the PUE and for subsequent computations, for each AI provider, we use the average data of its data center provider. In the case that the data center provider is unsure, we use the EU average. The corresponding data center provider and PUEs are given in the following tables. 
 
 | AI Provider      | Datacenter Provider | Source |
 |------------------|---------------------|--------|
@@ -108,10 +108,10 @@ To estimate the energy consumption of the entire server, we will use the previou
 
 #### Server energy consumption without GPUs
 
-To model the energy consumption of the server without GPUs, we consider a fixed power consumption, $W_{\text{server} \backslash \text{GPU}}$, during inference (or generation latency), denoted as $\Delta T$. We assume that the server hosts multiple GPUs, but not all of them are actively used for the target inference. Therefore, we account for a portion of the energy consumption based on the number of required GPUs, $\text{GPU}$:
+To model the energy consumption of the server without GPUs, we consider a fixed power consumption, $W_{\text{server} \backslash \text{GPU}}$, during inference (or generation latency), denoted as $\Delta T$. We assume that the server hosts multiple GPUs, but not all of them are actively used for the target inference. Therefore, we account for a portion of the energy consumption based on the number of required GPUs, $\text{GPU}$. Finally, we divide by the batch size $B$ to account the server energy for a single request:
 
 $$
-E_{\text{server} \backslash \text{GPU}}(\Delta T) = \Delta T \times W_{\text{server} \backslash \text{GPU}} \times \frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}}.
+E_{\text{server} \backslash \text{GPU}}(\Delta T) = \Delta T \times W_{\text{server} \backslash \text{GPU}} \times \frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}} \times \frac{1}{B}.
 $$
 
 For a typical high-end GPU-accelerated cloud instance, we use $W_{\text{server} \backslash \text{GPU}} = 1$ kW and $\#\text{GPU}_{\text{installed}} = 8$.
@@ -359,7 +359,7 @@ We estimate the **required infrastructure** to run the service in terms of hardw
 
 The type of services we model rely on high-end hardware that we consider is hosted by cloud service providers. Thus, we model data centers impacts as well and especially the overhead for cooling equipments.
 
-We consider the **Power Usage Effectiveness** (PUE) metric from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. For each datacenter provider, we use the PUE number published by them on a global average.
+We consider the **Power Usage Effectiveness** (PUE) metric from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. For each data center provider, we use the PUE number published by them on a global average.
 
 
 **Limitations:**
