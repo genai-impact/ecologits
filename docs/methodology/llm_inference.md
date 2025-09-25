@@ -201,32 +201,15 @@ Note that the user can still chose another electricity mix from the [ADEME Base 
     | 🇨🇳 China                                                                | $1,057$            | $8.515 \times 10^{-8}$   | $14.1$  |
     | 🇫🇷 France                                                               | $81.3$            | $4.858 \times 10^{-8}$   | $11.3$     |
 
-### Modeling request usage water impact
+#### Modeling request water consumption footprint for usage phase
 
-In this section, we show how to compute the Water Consomption Footprint (WCF) of a request. It is given by 
+To assess the Water Consumption Footprint (WCF) for the usage phase we use the modeling from [Li et al. (2025)](https://arxiv.org/abs/2304.03271). It uses both $\text{WUE}_\text{on-site}$ and $\text{WUE}_\text{off-site}$ which model the water usage effectiveness of the data center (on-site) and from the local electricity mix (off-site). Which gives us:
 
 $$
-\begin{equation}
-\begin{aligned}
-\text{WCF}_{\text{request}} &= \frac{E_\text{server}}{N_\text{requests}} \times \left[\text{WUE}_{\text{on-site}} + \text{PUE} \times \text{WUE}_\text{off-site} \right] \\
-&\quad + \frac{\Delta T}{\Delta L} \times \frac{\text{WCF}_\text{embodied}}{B}
-\end{aligned}
-\end{equation}
+\text{WCF}^{\text{u}}_\text{request} = E_\text{server} \times [\text{WUE}_\text{on-site} + \text{PUE} \times \text{WUE}_\text{off-site}]
 $$
 
-Where
-
-* $\text{WCF}_{\text{request}}$ : Water consumption footprint for the request
-* $E_{\text{server}}$ : Energy cost at the server for the request 
-* ${B}$ : Batch size
-* $\text{WUE}_{\text{on-site}}$ : Water usage efficiency at the data center 
-* $\text{PUE}$: Power usage efficiency at the data center 
-* $\text{WUE}_\text{off-site}$ : Water usage efficiency of the local electricity mix 
-* ${\Delta T}$ : Generation latency, or the time it takes for the server to process the request, in seconds
-* ${\Delta L}$ : Server lifespan in seconds
-* ${\text{WCF}_\text{embodied}}$ : Embodied water consumption footprint for manufacturing the server
-  
-The $\text{WUE}_{\text{on-site}}$ of each datacenter provider is given by the following table: 
+The $\text{WUE}_{\text{on-site}}$ of each data center provider is given by the following table: 
 
 | Datacenter Provider   | WUE   | Source |
 |-----------------------|-------|--------|
