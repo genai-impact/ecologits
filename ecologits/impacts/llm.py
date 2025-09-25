@@ -131,7 +131,8 @@ def server_energy(
         generation_latency: float,
         server_power: float,
         server_gpu_count: int,
-        gpu_required_count: int
+        gpu_required_count: int,
+        batch_size: int
 ) -> float:
     """
     Compute the energy consumption of the server.
@@ -141,11 +142,12 @@ def server_energy(
         server_power: Power consumption of the server in kW.
         server_gpu_count: Number of available GPUs in the server.
         gpu_required_count: Number of required GPUs to load the model.
+        batch_size: The number of requests handled concurrently by the server.
 
     Returns:
         The energy consumption of the server (GPUs are not included) in kWh.
     """
-    return (generation_latency / 3600) * server_power * (gpu_required_count / server_gpu_count)
+    return (generation_latency / 3600) * server_power * (gpu_required_count / server_gpu_count) * (1 / batch_size)
 
 
 @dag.asset
@@ -167,9 +169,7 @@ def request_energy(
     Returns:
         The energy consumption of the request in kWh.
     """
-    results = (datacenter_pue *
-               (server_energy + gpu_required_count * gpu_energy))
-    return results
+    return datacenter_pue * (server_energy + gpu_required_count * gpu_energy)
 
 
 @dag.asset
