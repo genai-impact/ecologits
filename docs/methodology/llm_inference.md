@@ -88,7 +88,23 @@ $$
 E_{\text{server} \backslash \text{GPU}}(\Delta T) = \Delta T \times W_{\text{server} \backslash \text{GPU}} \times \frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}} \times \frac{1}{B}.
 $$
 
-For a typical high-end GPU-accelerated cloud instance, we use $W_{\text{server} \backslash \text{GPU}} = 1$ kW and $\#\text{GPU}_{\text{installed}} = 8$.
+For a typical high-end GPU-accelerated cloud instance, we use $W_{\text{server} \backslash \text{GPU}} = 1.2$ kW and $\#\text{GPU}_{\text{installed}} = 8$. 
+
+??? info "Server configuration and average power"
+    
+    We use as a reference the `p5.48xlarge` AWS cloud instance. With [BoaviztAPI](https://github.com/Boavizta/boaviztapi), we can estimate the average power of such instance with the following request:
+
+    ```shell
+    curl -X 'POST' \
+        'https://api.boavizta.org/v1/cloud/instance?verbose=true' \
+        -H 'accept: application/json' \
+        -H 'Content-Type: application/json' \
+        -d '{
+            "provider": "aws",
+            "instance_type": "p5.48xlarge"
+        }' | jq .verbose.avg_power
+    ```
+
 
 #### Estimating the generation latency
 
@@ -184,7 +200,7 @@ To estimate the embodied impacts of IT hardware, we use the [BoaviztAPI](https:/
 
 To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the `p5.48xlarge` instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA H100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as $I^{\text{e}}_{\text{server} \backslash \text{GPU}}$.
 
-The embodied environmental impacts of the cloud instance are:
+The embodied environmental impacts of the cloud instance **(excluding GPUs)** are:
 
 |                 | Server (without GPU) |
 |-----------------|----------------------|
@@ -192,47 +208,30 @@ The embodied environmental impacts of the cloud instance are:
 | ADPe (kgSbeq)   | $0.37$               |
 | PE (MJ)         | $70,000$             |
 
-!!! warning "These impacts do not take into account the eight GPUs. ([see below](#gpu-embodied-impacts))"
+??? info "Embodied impacts of the server (without GPUs)"
 
-??? info "Example request to reproduce this calculation"
-
-    On the cloud instance route (/v1/cloud/instance) you can POST the following JSON.
-    
-    ```json
-    {
-        "provider": "aws",
-        "instance_type": "p5.48xlarge"
-    }
-    ```
-
-    Or you can use the demo available demo API with this command using `curl` and parsing the JSON output with `jq`.
+    We use as a reference the `p5.48xlarge` AWS cloud instance. With [BoaviztAPI](https://github.com/Boavizta/boaviztapi), we can estimate the embodied impacts of such instance with the following request:
 
     ```shell
     curl -X 'POST' \
-        'https://api.boavizta.org/v1/cloud/instance?verbose=true&criteria=gwp&criteria=adp&criteria=pe' \
+        'https://api.boavizta.org/v1/cloud/instance' \
         -H 'accept: application/json' \
         -H 'Content-Type: application/json' \
         -d '{
-        "provider": "aws",
-        "instance_type": "p5.48xlarge"
-    }' | jq
+            "provider": "aws",
+            "instance_type": "p5.48xlarge"
+        }' | jq .impacts
     ```
 
 #### GPU embodied impacts
 
-According to this [NVIDIA datasheet](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-H100-PCF-Summary.pdf), a NVIDIA H100 80GB GPU has a GWP of 164 kgCO2eq. To approximate the ADPe and PE, we rely on the Boavizta methodology for previous A100 GPUs. These values will be used to estimate the embodied impacts of a single GPU, denoted as $I^{\text{e}}_{\text{GPU}}$.
+According to this [NVIDIA datasheet](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-H100-PCF-Summary.pdf), a NVIDIA H100 80GB GPU has a GWP of 164 kgCO2eq. To approximate the ADPe and PE, we rely on the [Boavizta methodology for previous A100 GPUs](https://github.com/Boavizta/boaviztapi/issues/65#issuecomment-1604242196). These values will be used to estimate the embodied impacts of a single GPU, denoted as $I^{\text{e}}_{\text{GPU}}$.
 
-|                | NVIDIA H100 80GB      |
-|----------------|-----------------------|
-| GWP (kgCO2eq)  | $164$                 |
-
-|                | NVIDIA A100 80GB      |
-|----------------|-----------------------|
-| ADPe (kgSbeq)  | $5.09 \times 10^{-3}$ |
-| PE (MJ)        | $1,828$               |
-
-!!! warning "The GPU embodied impacts will be soon available in the BoaviztAPI tool."
-
+|                | NVIDIA H100 80GB | NVIDIA A100 80GB      |
+|----------------|------------------|-----------------------|
+| GWP (kgCO2eq)  | $164$            | _Not used_            |
+| ADPe (kgSbeq)  | _Not available_  | $5.09 \times 10^{-3}$ |
+| PE (MJ)        | _Not available_  | $1,828$               |
 
 #### Complete server embodied impacts
 
@@ -245,7 +244,7 @@ $$
 
 ### Modeling request embodied environmental impacts
 
-To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, $\frac{\Delta T}{B \times \Delta L}$. In this case, $\Delta L$ represents the lifetime of the server and GPU, which we fix at 3 years (according to [this NVIDIA report](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-H100-PCF-Summary.pdf)), and $B$ is the batch size such as above: 
+To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, $\frac{\Delta T}{B \times \Delta L}$. In this case, $\Delta L$ represents the lifetime of the server and GPU, which we fix at 3 years ([Ostrouchov et al. (2020)](https://www.osti.gov/servlets/purl/1771896), [tomshardware.com](https://www.tomshardware.com/pc-components/gpus/datacenter-gpu-service-life-can-be-surprisingly-short-only-one-to-three-years-is-expected-according-to-unnamed-google-architect)), and $B$ is the batch size such as above: 
 
 $$
 I^{\text{e}}_{\text{request}}=\frac{\Delta T}{B \times  \Delta L} \times I^{\text{e}}_{\text{server}}.
