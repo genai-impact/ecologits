@@ -147,13 +147,13 @@ $$
 M_{\text{model}}(P_{\text{total}},Q)=1.2 \times \frac{P_{\text{total}} \times Q}{8}.
 $$
 
-We then estimate the number of required GPUs, rounded up:
+We then estimate the number of required GPUs, rounded up in base 2:
 
 $$
-\text{GPU}(P_{\text{total}},Q,M_{\text{GPU}}) = \left\lceil \frac{M_{\text{model}}(P_{\text{total}},Q)}{M_{\text{GPU}}} \right\rceil.
+\text{GPU}(P_{\text{total}},Q,M_{\text{GPU}}) = 2^{\large\frac{\log( \left\lceil M_{\text{model}}(P_{\text{total}},Q) / M_{\text{GPU}} \right\rceil)}{\log(2)}}.
 $$
 
-To stay consistent with previous assumptions based on [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) data, we use $M_{\text{GPU}} = 80$ GB for an NVIDIA H100 80GB GPU.
+To stay consistent with previous assumptions based on [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) data, we use $M_{\text{GPU}} = 80$ GB for an NVIDIA H100 80GB GPU and $Q = 16$ bits. We round up in base 2, to make sure we have coherent number of GPUs being deployed: 1, 2, 4, 8, 16...
 
 #### Complete server energy consumption
 
