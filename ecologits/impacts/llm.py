@@ -1,12 +1,11 @@
 import math
-from math import ceil
 from typing import Any, Optional, Union, cast
 
 from ecologits.impacts.dag import DAG
 from ecologits.impacts.modeling import GWP, PE, WCF, ADPe, Embodied, Energy, Impacts, Usage
 from ecologits.utils.range_value import RangeValue, ValueOrRange
 
-MODEL_QUANTIZATION_BITS = 4
+MODEL_QUANTIZATION_BITS = 16
 
 GPU_ENERGY_ALPHA = 6.472402541479419e-06
 GPU_ENERGY_BETA = -0.0026081117794857075
