@@ -123,7 +123,8 @@ def gpu_required_count(
     Returns:
         The number of required GPUs to load the model.
     """
-    return ceil(model_required_memory / gpu_memory)
+    gpu_nb = math.ceil(model_required_memory / gpu_memory)
+    return 2 ** math.ceil(math.log2(gpu_nb))    # Round-up in base two
 
 
 @dag.asset
