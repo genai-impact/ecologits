@@ -253,7 +253,7 @@ $$
 !!! warning "Water consumption (WCF) impact is not modeled for the embodied phase due to a lack of data."
 
 
-## Additional data
+## Supplemental material
 
 ### Data center configuration
 
@@ -265,7 +265,7 @@ We use public data from AI providers to their **data center configuration** such
 | Cohere          | Google         | USA      | 1.09        | 0.99        |
 | Google          | Google         | USA      | 1.09        | 0.99        |
 | HuggingFace Hub | AWS, Google    | USA      | 1.09 - 1.14 | 0.13 - 0.99 |
-| Mistral AI      | Microsoft      | SWE, NOR | 1.16        | 0.09        |
+| Mistral AI      | Microsoft      | SWE      | 1.16        | 0.09        |
 | OpenAI          | Microsoft      | USA      | 1.20        | 0.569       |
 | Azure OpenAI    | Microsoft      | USA      | 1.20        | 0.569       |
 
