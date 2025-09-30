@@ -1,4 +1,6 @@
-from typing import Optional
+from __future__ import annotations
+
+from dataclasses import dataclass
 
 from pydantic import BaseModel
 
@@ -26,15 +28,15 @@ class ImpactsOutput(BaseModel):
         warnings: List of warnings
         errors: List of errors
     """
-    energy: Optional[Energy] = None
-    gwp: Optional[GWP] = None
-    adpe: Optional[ADPe] = None
-    pe: Optional[PE] = None
-    wcf: Optional[WCF] = None
-    usage: Optional[Usage] = None
-    embodied: Optional[Embodied] = None
-    warnings: Optional[list[WarningMessage]] = None
-    errors: Optional[list[ErrorMessage]] = None
+    energy: Energy | None = None
+    gwp: GWP | None = None
+    adpe: ADPe | None = None
+    pe: PE | None = None
+    wcf: WCF | None = None
+    usage: Usage | None = None
+    embodied: Embodied | None = None
+    warnings: list[WarningMessage] | None = None
+    errors: list[ErrorMessage] | None = None
 
     @property
     def has_warnings(self) -> bool:
@@ -60,7 +62,7 @@ def llm_impacts(
     model_name: str,
     output_token_count: int,
     request_latency: float,
-    electricity_mix_zone: Optional[str] = None,
+    electricity_mix_zone: str | None  = None,
 ) -> ImpactsOutput:
     """
     High-level function to compute the impacts of an LLM generation request.
@@ -89,12 +91,14 @@ def llm_impacts(
         model_total_params = model.architecture.parameters
         model_active_params = model.architecture.parameters
 
-    datacenter_location = PROVIDER_CONFIG_MAP[provider]["datacenter_location"]
-    datacenter_pue = PROVIDER_CONFIG_MAP[provider]["datacenter_pue"]
-    datacenter_wue = PROVIDER_CONFIG_MAP[provider]["datacenter_wue"]
+    datacenter_location = PROVIDER_CONFIG_MAP[provider].datacenter_location
+    datacenter_pue = PROVIDER_CONFIG_MAP[provider].datacenter_pue
+    datacenter_wue = PROVIDER_CONFIG_MAP[provider].datacenter_wue
 
     if electricity_mix_zone is None:
-        electricity_mix_zone = datacenter_location or "WOR"
+        electricity_mix_zone = datacenter_location
+    if electricity_mix_zone is None:
+        electricity_mix_zone = "WOR"
     if_electricity_mix = electricity_mixes.find_electricity_mix(zone=electricity_mix_zone)
     if if_electricity_mix is None:
         error = ZoneNotRegisteredError(message=f"Could not find electricity mix for `{electricity_mix_zone}` zone.")
@@ -122,36 +126,43 @@ def llm_impacts(
 
     return impacts
 
+@dataclass
+class _ProviderConfig:
+    datacenter_location: str
+    datacenter_pue: float | RangeValue
+    datacenter_wue: float | RangeValue
+
 
 PROVIDER_CONFIG_MAP = {
-    "anthropic": {
-        "datacenter_location": "USA",
-        "datacenter_pue": RangeValue(min=1.09, max=1.14),
-        "datacenter_wue": RangeValue(min=0.13, max=0.999),
-    },
-    "cohere": {
-        "datacenter_location": "USA",
-        "datacenter_pue": 1.09,
-        "datacenter_wue": 0.999,
-    },
-    "google_genai": {
-        "datacenter_location": "USA",
-        "datacenter_pue": 1.09,
-        "datacenter_wue": 0.999,
-    },
-    "huggingface_hub": {
-        "datacenter_location": "USA",
-        "datacenter_pue": RangeValue(min=1.09, max=1.14),
-        "datacenter_wue": RangeValue(min=0.13, max=0.99),
-    },
-    "mistralai": {
-        "datacenter_location": "SWE",
-        "datacenter_pue": 1.16,
-        "datacenter_wue": 0.09,
-    },
-    "openai": {
-        "datacenter_location": "USA",
-        "datacenter_pue": 1.20,
-        "datacenter_wue": 0.569,
-    }
+    "anthropic": _ProviderConfig(
+        datacenter_location="USA",
+        datacenter_pue=RangeValue(min=1.09, max=1.14),
+        datacenter_wue=RangeValue(min=0.13, max=0.999),
+    ),
+    "cohere": _ProviderConfig(
+        datacenter_location="USA",
+        datacenter_pue=1.09,
+        datacenter_wue=0.999,
+    ),
+    "google_genai": _ProviderConfig(
+        datacenter_location="USA",
+        datacenter_pue=1.09,
+        datacenter_wue=0.999,
+    ),
+    "huggingface_hub": _ProviderConfig(
+        datacenter_location="USA",
+        datacenter_pue=RangeValue(min=1.09, max=1.14),
+        datacenter_wue=RangeValue(min=0.13, max=0.99),
+    ),
+    "mistralai": _ProviderConfig(
+        datacenter_location="SWE",
+        datacenter_pue=1.16,
+        datacenter_wue=0.09,
+    ),
+    "openai": _ProviderConfig(
+        datacenter_location="USA",
+        datacenter_pue=1.20,
+        datacenter_wue=0.569,
+    )
 }
+
