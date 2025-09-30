@@ -126,6 +126,7 @@ def llm_impacts(
 
     return impacts
 
+
 @dataclass
 class _ProviderConfig:
     datacenter_location: str
@@ -165,4 +166,3 @@ PROVIDER_CONFIG_MAP = {
         datacenter_wue=0.569,
     )
 }
-
