@@ -3,8 +3,6 @@ from csv import DictReader
 from dataclasses import dataclass
 from typing import Optional
 
-from ecologits.log import logger
-
 
 @dataclass
 class ElectricityMix:
@@ -58,5 +56,6 @@ class ElectricityMixRepository:
                     )
                 )
         return cls(electricity_mixes)
+
 
 electricity_mixes = ElectricityMixRepository.from_csv()
