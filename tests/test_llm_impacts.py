@@ -6,19 +6,22 @@ import pytest
 from ecologits.impacts.llm import compute_llm_impacts
 from ecologits.impacts.modeling import Impacts, Energy, GWP, ADPe, PE, WCF, Usage, Embodied
 
+
 @pytest.mark.parametrize(
-    ['model_active_parameter_count', 'model_total_parameter_count', 'output_token_count', 'request_latency', 'if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp', 'if_electricity_mix_wue', 'datacenter_pue', 'datacenter_wue'],
+    ['model_active_parameter_count', 'model_total_parameter_count', 'output_token_count', 'request_latency',
+     'if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp', 'if_electricity_mix_wue',
+     'datacenter_pue', 'datacenter_wue'],
     [
-        (7.3, 7.3, 200, 5, 0.0000000737708, 9.988, 0.590478, 5.04, 1.26, 0.37),         # Mistral 7B with World mix
-        (12.9, 46.7, 200, 10, 0.0000000737708, 9.988, 0.590478, 5.04, 1.26, 0.37)       # Mixtral 8x7B with world mix
+        (7.3, 7.3, 200, 5, 0.0000000737708, 9.988, 0.590478, 5.04, 1.26, 0.37),  # Mistral 7B with World mix
+        (12.9, 46.7, 200, 10, 0.0000000737708, 9.988, 0.590478, 5.04, 1.26, 0.37)  # Mixtral 8x7B with World mix
     ]
 )
 def test_compute_llm_impacts(model_active_parameter_count: float,
                              model_total_parameter_count: float,
                              output_token_count: int,
-                             request_latency: float, 
-                             if_electricity_mix_adpe: float, 
-                             if_electricity_mix_pe: float, 
+                             request_latency: float,
+                             if_electricity_mix_adpe: float,
+                             if_electricity_mix_pe: float,
                              if_electricity_mix_gwp: float,
                              if_electricity_mix_wue: float,
                              datacenter_pue: float,
@@ -66,17 +69,18 @@ def compare_impacts(impacts: Impacts, prev_impacts: Impacts, op=gt):
 
 
 @pytest.mark.parametrize(
-    ['if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp', 'if_electricity_mix_wue', 'datacenter_pue', 'datacenter_wue'],
+    ['if_electricity_mix_adpe', 'if_electricity_mix_pe', 'if_electricity_mix_gwp', 'if_electricity_mix_wue',
+     'datacenter_pue', 'datacenter_wue'],
     [
-        (0.0000000737708, 9.988, 0.590478, 5.04, 1.26, 0.37),         # Mistral 7B with World mix
+        (0.0000000737708, 9.988, 0.590478, 5.04, 1.26, 0.37),  # Mistral 7B with World mix
     ]
 )
-def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe: float, 
-                                                        if_electricity_mix_pe: float, 
+def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe: float,
+                                                        if_electricity_mix_pe: float,
                                                         if_electricity_mix_gwp: float,
                                                         if_electricity_mix_wue: float,
-                                                        datacenter_pue:float,
-                                                        datacenter_wue:float):
+                                                        datacenter_pue: float,
+                                                        datacenter_wue: float):
     zero_impacts = Impacts(
         energy=Energy(value=0),
         gwp=GWP(value=0),
@@ -115,7 +119,7 @@ def test_compute_llm_impacts_monotonicity_on_parameters(if_electricity_mix_adpe:
         prev_impacts = impacts.model_copy(deep=True)
 
         prev_impacts_moe = zero_impacts.model_copy(deep=True)
-        for active_parameters in np.linspace(start=total_parameters/10, stop=total_parameters, num=10):
+        for active_parameters in np.linspace(start=total_parameters / 10, stop=total_parameters, num=10):
             impacts_moe = compute_llm_impacts(
                 model_active_parameter_count=active_parameters,
                 model_total_parameter_count=total_parameters,
