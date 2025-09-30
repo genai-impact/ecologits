@@ -285,12 +285,10 @@ Assuming the **energy consumption** for AI models is done through benchmarking o
 **Assumptions:**
 
 * Models are deployed with vLLM backend.
-* Models are quantized to 4 bits.
+* Models are quantized to 16 bits.
 
 **Limitations:**
 
-* We do not account for some inference optimizations such as flash attention. 
-* We do not have benchmarks for multi-GPU deployments.
 * We do not account for the multiple modalities of a model (only text-to-text generation).
 
 ### On hardware
@@ -310,20 +308,16 @@ We estimate the **required infrastructure** to run the service in terms of hardw
 
 ### On data centers
 
-The type of services we model rely on high-end hardware that we consider is hosted by cloud service providers. Thus, we model data centers impacts as well and especially the overhead for cooling equipments.
+The AI services we model rely on high-end hardware that we consider is hosted by cloud service providers. Thus, we model data centers impacts as well and especially the overhead for cooling equipments.
 
-We consider the **Power Usage Effectiveness** (PUE) metric from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. For each data center provider, we use the PUE number published by them on a global average.
-
+We consider the PUE and WUE metrics from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. For each data center provider, we use the PUE and WUE numbers published by them on a global average.
 
 **Limitations:**
 
 * We do not know precisely where are located the data centers that run AI models.
 * We do not account for the specific infrastructure or way to cooldown servers in data centers.
 * We do not account for the local electricity generation (private power plants) specific to the data center.
-* We do not account for the overhead of the cloud provider for internal services like backing up or monitoring.
-
-The water consumption for the production of electricity varies widely by regions, and you could consider checking out our [environmental impact simulator](https://huggingface.co/spaces/genai-impact/ecologits-calculator) to find out about regional differences.  
-
+* We do not account for the overhead of the cloud provider for internal services like backing up, monitoring, or idle time.
 
 ### On impact factors
 
@@ -339,7 +333,7 @@ To transform physical values such as energy consumption into environmental impac
 
 ### On embodied impacts
 
-We aim at covering the largest scope possible when assessing the environmental impacts. That is why we rely extensively on the work done by [Boavizta](https://boavizta.org/) non-profit. Unfortunately, assessing the environmental impacts of resources extraction, hardware manufacturing and transportation is very challenging mainly due to a lack of transparency from all the organizations that are involved. Estimations of the inaccuracies are currently not supported within Boavizta's methodology and tool ([BoaviztAPI](https://doc.api.boavizta.org/)).
+We aim at covering the largest scope possible when assessing the environmental impacts. That is why we rely extensively on the work done by [Boavizta](https://boavizta.org/) non-profit. Unfortunately, assessing the environmental impacts of resources extraction, hardware manufacturing, and transportation is very challenging mainly due to a lack of transparency from all the organizations that are involved. Estimations of the inaccuracies are currently not supported within Boavizta's methodology and tool ([BoaviztAPI](https://doc.api.boavizta.org/)).
 
 
 ## References
