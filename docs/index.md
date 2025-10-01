@@ -198,7 +198,7 @@ And, **multiple criteria**:
 * **Global Warming Potential** (GWP): related to climate change, commonly known as GHG emissions in kgCO2eq.
 * **Abiotic Depletion Potential for Elements** (ADPe): related to the depletion of minerals and metals in kgSbeq.
 * **Primary Energy** (PE): related to the energy consumed from primary sources like oil, gas or coal in MJ. 
-* **Water Consumption Footprint** (WCF): Water consumption related to this request. 
+* **Water Consumption Footprint** (WCF): related to the water consumption of the data center and electricity generation power plant in liters.
 
 For detailed instructions on how to use the library, see our **[tutorial section](tutorial/index.md)**. If you want more details on the underlying impacts calculations, see our **[methodology section](methodology/index.md)**.
 
