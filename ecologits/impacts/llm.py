@@ -30,7 +30,6 @@ HARDWARE_LIFESPAN = 3 * 365 * 24 * 60 * 60
 
 BATCH_SIZE = 64
 
-
 dag = DAG()
 
 
@@ -49,7 +48,7 @@ def gpu_energy(
     Args:
         model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
-        batch_size: The number of requests handled concurrently by the server.
+        batch_size: Number of requests handled concurrently by the server.
         gpu_energy_alpha: Alpha coefficient of the energy regression.
         gpu_energy_beta: Beta coefficient of the energy regression.
         gpu_energy_gamma: Beta coefficient of the energy regression.
@@ -78,7 +77,7 @@ def generation_latency(
     Args:
         model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
-        batch_size: The number of requests handled concurrently by the server.
+        batch_size: Number of requests handled concurrently by the server.
         latency_alpha: Alpha coefficient of the latency regression.
         latency_beta: Beta coefficient of the latency regression.
         latency_gamma: Gamma coefficient of the latency regression.
@@ -143,7 +142,7 @@ def server_energy(
         server_power: Power consumption of the server in kW.
         server_gpu_count: Number of available GPUs in the server.
         gpu_required_count: Number of required GPUs to load the model.
-        batch_size: The number of requests handled concurrently by the server.
+        batch_size: Number of requests handled concurrently by the server.
 
     Returns:
         The energy consumption of the server (GPUs are not included) in kWh.
@@ -162,7 +161,7 @@ def request_energy(
     Compute the energy consumption of the request.
 
     Args:
-        datacenter_pue: Power usage efficiency, power used for data treatment at a datacenter divided by total use.
+        datacenter_pue: Power Usage Effectiveness of the data center.
         server_energy: Energy consumption of the server in kWh.
         gpu_required_count: Number of required GPUs to load the model.
         gpu_energy: Energy consumption of a single GPU in kWh.
@@ -239,10 +238,9 @@ def request_usage_wcf(
 
     Args:
         request_energy: Energy consumption of the request in kWh.
-        if_electricity_mix_wue: Water usage efficiency off-site, water consumption to electricity cosnumption.
-            Depends on the data center's location.
-        datacenter_wue: Water usage efficiency on-site in L/kWh
-        datacenter_pue: Power usage efficiency, power used for data treatment at a datacenter divided by total use.
+        if_electricity_mix_wue: WCF impact factor of electricity consumption in L / kWh.
+        datacenter_wue: Water Usage Effectiveness of the data center in L/kWh.
+        datacenter_pue: Power Usage Effectiveness of the data center.
     Returns:
         The water usage impact of the request in liters.
     """
@@ -329,7 +327,7 @@ def request_embodied_gwp(
         server_gpu_embodied_gwp: GWP embodied impact of the server and the GPUs in kgCO2eq.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
-        batch_size: The number of requests handled concurrently by the server.
+        batch_size: Number of requests handled concurrently by the server.
 
     Returns:
         The GWP embodied impact of the request in kgCO2eq.
@@ -351,7 +349,7 @@ def request_embodied_adpe(
         server_gpu_embodied_adpe: ADPe embodied impact of the server and the GPUs in kgSbeq.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
-        batch_size: The number of requests handled concurrently by the server.
+        batch_size: Number of requests handled concurrently by the server.
 
     Returns:
         The ADPe embodied impact of the request in kgSbeq.
@@ -373,7 +371,7 @@ def request_embodied_pe(
         server_gpu_embodied_pe: PE embodied impact of the server and the GPUs in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
-        batch_size: The number of requests handled concurrently by the server.
+        batch_size: Number of requests handled concurrently by the server.
 
     Returns:
         The PE embodied impact of the request in MJ.
@@ -419,12 +417,12 @@ def compute_llm_impacts_dag(
         model_total_parameter_count: Number of parameters of the model (in billion).
         output_token_count: Number of generated tokens.
         request_latency: Measured request latency in seconds.
-        if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
+        if_electricity_mix_adpe: ADPe impact factor of electricity consumption in kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
-        if_electricity_mix_wue: Water usage efficiency, water consumption to electricity consumption in liters / kWh.
-        datacenter_wue: Water usage efficiency on-site in L/kWh
-        datacenter_pue: Power usage efficiency, power used for data treatment at a datacenter divided by total use.
+        if_electricity_mix_wue: WCF impact factor of electricity consumption in L / kWh.
+        datacenter_wue: Water Usage Effectiveness of the data center in L/kWh.
+        datacenter_pue: Power Usage Effectiveness of the data center.
         model_quantization_bits: Number of bits used to represent the model weights.
         gpu_energy_alpha: Alpha coefficient of the "GPU energy" regression.
         gpu_energy_beta: Beta coefficient of the "GPU energy" regression.
@@ -444,7 +442,7 @@ def compute_llm_impacts_dag(
         server_lifetime: Lifetime duration of the server in seconds.
         batch_size: The number of requests handled concurrently by the server, default set to 16.
     Returns:
-        The impacts dag with all intermediate states.
+        The environmental impacts dag with all intermediate states.
     """
     results = dag.execute(
         model_active_parameter_count=model_active_parameter_count,
@@ -478,6 +476,7 @@ def compute_llm_impacts_dag(
     )
     return results
 
+
 def compute_llm_impacts(
         model_active_parameter_count: ValueOrRange,
         model_total_parameter_count: ValueOrRange,
@@ -501,9 +500,9 @@ def compute_llm_impacts(
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
-        if_electricity_mix_wue: Water usage efficiency, water consumption to electricity consumption in liters / kWh.
-        datacenter_pue: Power usage efficiency, power used for data treatment at a datacenter divided by total use.
-        datacenter_wue: Water usage efficiency on-site in L/kWh
+        if_electricity_mix_wue: WCF impact factor of electricity consumption in L / kWh.
+        datacenter_wue: Water Usage Effectiveness of the data center in L/kWh.
+        datacenter_pue: Power Usage Effectiveness of the data center.
         request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
     Returns:
