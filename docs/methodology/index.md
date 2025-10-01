@@ -21,7 +21,7 @@ Our assessment considers **four key environmental criteria**:
 - Global Warming Potential (GWP): Evaluates the impact on global warming in terms of CO2 equivalents.
 - Abiotic Resource Depletion for Elements (ADPe): Assesses the consumption of raw minerals and metals, expressed in antimony equivalents.
 - Primary Energy (PE): Calculates energy consumed from natural sources, expressed in megajoules.
-- Water Consumption Factor (WCF): Water consumption from this request. 
+- Water Consumption Factor (WCF): Water consumed by data centers and electricity generation power plants not returned to its original sources.
 
 Using a **bottom-up modeling approach**, we assess and aggregate the environmental impacts of all individual service components within scope. This method differs from top-down approaches by allowing precise allocation of each resource's impact to the overall environmental footprint. The key advantage of bottom-up modeling is that our methodology can be customized for each provider that share information.
 
