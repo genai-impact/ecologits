@@ -19,6 +19,7 @@ class ElectricityMix:
     adpe: float
     pe: float
     gwp: float
+    wue: float
 
 
 class ElectricityMixRepository:
@@ -51,6 +52,7 @@ class ElectricityMixRepository:
                         adpe=float(row["adpe"]),
                         pe=float(row["pe"]),
                         gwp=float(row["gwp"]),
+                        wue=float(row["wue"])
                     )
                 )
         return cls(electricity_mixes)

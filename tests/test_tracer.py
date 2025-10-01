@@ -59,18 +59,29 @@ def test_init_with_different_providers():
 @pytest.mark.vcr
 def test_init_with_different_mixes():
     seed = 0 # Define seed for having the same answers
-    EcoLogits.init(providers="openai") # World's mix
+
+    EcoLogits.init(providers="openai") # USA's mix for OpenAI (default)
+    openai_client = OpenAI()
+    openai_response_usa = openai_client.chat.completions.create(
+        model="gpt-4.1-nano",
+        messages=[{"role": "user", "content": "Hello World!"}],
+        seed=seed,
+    )
+
+    EcoLogits.init(providers="openai", electricity_mix_zone="WOR") # Switch to World's mix
     openai_client = OpenAI()
     openai_response_world = openai_client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4.1-nano",
         messages=[{"role": "user", "content": "Hello World!"}],
         seed=seed,
     )
+
     EcoLogits.init(providers="openai", electricity_mix_zone="FRA") # Switch to France's mix
     openai_response_france = openai_client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4.1-nano",
         messages=[{"role": "user", "content": "Hello World!"}],
         seed=seed,
     )
-    assert openai_response_france.choices == openai_response_world.choices
-    assert openai_response_france.impacts.gwp.value < openai_response_world.impacts.gwp.value
+    assert openai_response_usa.choices == openai_response_world.choices == openai_response_france.choices
+    assert openai_response_france.impacts.gwp.value.mean < openai_response_usa.impacts.gwp.value.mean
+    assert openai_response_usa.impacts.gwp.value.mean < openai_response_world.impacts.gwp.value.mean

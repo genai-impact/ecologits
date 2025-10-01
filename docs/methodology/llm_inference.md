@@ -1,11 +1,5 @@
 # Environmental Impacts of LLM Inference
 
-<span class="badge" markdown>
-    <span class="badge__icon">:material-tag-outline:</span>
-    <span class="badge__text">v1.0</span>
-</span>
-
-
 ## Introduction
 
 The environmental impacts of a request, $I_{\text{request}}$ to a Large Language Model (LLM) can be divided into two components: the usage impacts, $I_{\text{request}}^{\text{u}}$, which account for energy consumption, and the embodied impacts, $I_{\text{request}}^{\text{e}}$, which account for resource extraction, hardware manufacturing, and transportation:
@@ -30,9 +24,13 @@ Subsequently, we can calculate the environmental impacts by using the $F_{\text{
 
 ### Modeling GPU energy consumption
 
-By leveraging the open dataset from the [LLM Perf Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard), produced by Hugging Face, we can estimate the energy consumption of the GPU using a parametric model.
+By leveraging the open dataset from the [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light), we can estimate the energy consumption of the GPU using a parametric model. This leaderboard aims at being as close as possible to production conditions (vLLM on NVIDIA H100 GPUs, see [the paper](https://arxiv.org/pdf/2505.06371) for more information). 
 
-We fit a linear regression model to the dataset, which models the energy consumption per output token as a function of the number of active parameters in the LLM, denoted as $P_{\text{active}}$.
+??? info "On the ML.ENERGY dataset filtering"
+    
+    In order to have relevant data and avoid outliers, we have filtered the dataset to keep only (1) the benchmark on NVIDIA H100 80GB HBM3 GPUs, (2) batch sizes no larger than 512 and (3) models no larger than 200B parameters. 
+
+We approximate energy consumption per output token as a function of the number of activate parameters, denoted as $P_{\text{active}}$, and the batch size, denoted as $B$. 
 
 ??? note "What are active parameters?"
 
@@ -41,39 +39,39 @@ We fit a linear regression model to the dataset, which models the energy consump
     * For a dense model: $P_{\text{active}} = P_{\text{total}}$
     * For a SMoE model: $P_{\text{active}} =  P_{\text{total}} / \text{number of active experts}$
 
-??? info "On the LLM Perf Leaderboard dataset filtering"
-    
-    We have filtered the dataset to keep relevant data points for the analysis. In particular we have applied the following conditions:
-    
-    * Model number of parameters >= 7B
-    * Keep dtype set to float16
-    * GPU model is "NVIDIA A100-SXM4-80GB"
-    * No optimization
-    * 8bit and 4bit quantization excluding bitsandbytes (bnb)
+??? note "What is the batch size?"
 
+    The batch size $B$ is the number of requests that the server can handle concurrently. A large batch size decreases the energy used for a unique request, but increases the latency. The providers aim at finding a good tradeoff between energy efficiency and latency. 
+
+To be consistent with observed behaviors while staying relatively simple we opted to fit a function of the form
+
+$$ 
+f_E(P_{\text{active}}, B) = \alpha e^{\beta B} P_{\text{active}} + \gamma
+$$
+
+that is **linear** with $P_{\text{active}}$ and **exponential** with $B$. We fitted such a model with the data, and got 
+
+- $\alpha = 6.47 \times 10^{-6}$, 
+- $\beta = -2.60 \times 10^{-3}$, 
+- $\gamma = 1.04 \times 10^{-5}$, 
+
+The result is illustrated below. 
 
 <figure markdown="span">
   ![Figure: Energy consumption per output token vs. number of active parameters ](../assets/methodology/llm/figure_energy.png)
-  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions)</figcaption>
+  <figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256).</figcaption>
 </figure>
 
-??? info "What is a 95% confidence interval?"
+!!! warning "From now on, we consider that the batch size is fixed to $B = 64$."
 
-    The standard deviation $\delta$ of a linear regression measures "how close are the datapoints to the fitted line". A priori, the larger it is, the worse is the approximation. Consider a linear regression $Y(x) \approx \alpha x + \beta$. Given some assumptions, we can say that $Y(x) \in [\alpha x + \beta - 1.96\delta, \alpha x + \beta + 1.96\delta]$ with probability 95% (see [[1]](https://en.wikipedia.org/wiki/Linear_regression) and [[2]](https://en.wikipedia.org/wiki/97.5th_percentile_point) for more details).
 
-In our methodology, **in order to take into account approximation errors as much as possible**, we provide the **95% confidence interval** of our linear approximation. The computed linear regression gives a confidence interval of
+Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens $\#T_{\text{out}}$ and the number of active parameters $P_{\text{active}}$: 
 
+$$ 
+E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times f_E(P_{\text{active}}, 64), 
 $$
-\frac{E_{\text{GPU}}}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma, 
-$$
 
-with $\alpha = 8.91e-5$, $\beta = 1.43e-3$ and $\sigma = 5.19e-4$. 
-
-Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens $\#T_{\text{out}}$ and the number of active parameters $P_{\text{active}}$:
-
-$$
-E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma).
-$$
+where $f_E$ is the linear-exponential model cited above. 
 
 If the model requires multiple GPUs to be loaded into VRAM, the energy consumption $E_{\text{GPU}}$ should be multiplied by the number of required GPUs, $\text{GPU}$ (see [below](#complete-server-energy-consumption)).
 
@@ -84,41 +82,59 @@ To estimate the energy consumption of the entire server, we will use the previou
 
 #### Server energy consumption without GPUs
 
-To model the energy consumption of the server without GPUs, we consider a fixed power consumption, $W_{\text{server} \backslash \text{GPU}}$, during inference (or generation latency), denoted as $\Delta T$. We assume that the server hosts multiple GPUs, but not all of them are actively used for the target inference. Therefore, we account for a portion of the energy consumption based on the number of required GPUs, $\text{GPU}$:
+To model the energy consumption of the server without GPUs, we consider a fixed power consumption, $W_{\text{server} \backslash \text{GPU}}$, during inference (or generation latency), denoted as $\Delta T$. We assume that the server hosts multiple GPUs, but not all of them are actively used for the target inference. Therefore, we account for a portion of the energy consumption based on the number of required GPUs, $\text{GPU}$. Finally, we divide by the batch size $B$ to account the server energy for a single request:
 
 $$
-E_{\text{server} \backslash \text{GPU}}(\Delta T) = \Delta T \times W_{\text{server} \backslash \text{GPU}} \times \frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}}.
+E_{\text{server} \backslash \text{GPU}}(\Delta T) = \Delta T \times W_{\text{server} \backslash \text{GPU}} \times \frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}} \times \frac{1}{B}.
 $$
 
-For a typical high-end GPU-accelerated cloud instance, we use $W_{\text{server} \backslash \text{GPU}} = 1$ kW and $\#\text{GPU}_{\text{installed}} = 8$.
+For a typical high-end GPU-accelerated cloud instance, we use $W_{\text{server} \backslash \text{GPU}} = 1.2$ kW and $\#\text{GPU}_{\text{installed}} = 8$. 
+
+??? info "Server configuration and average power"
+    
+    We use as a reference the `p5.48xlarge` AWS cloud instance. With [BoaviztAPI](https://github.com/Boavizta/boaviztapi), we can estimate the average power of such instance with the following request:
+
+    ```shell
+    curl -X 'POST' \
+        'https://api.boavizta.org/v1/cloud/instance?verbose=true' \
+        -H 'accept: application/json' \
+        -H 'Content-Type: application/json' \
+        -d '{
+            "provider": "aws",
+            "instance_type": "p5.48xlarge"
+        }' | jq .verbose.avg_power
+    ```
+
 
 #### Estimating the generation latency
 
-The generation latency, $\Delta T$, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the [LLM Perf Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard) dataset with the previously mentioned filters applied.
+The generation latency, $\Delta T$, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) dataset with the previously mentioned filters applied.
 
-We fit a linear regression model on the dataset modeling the generation latency per output token given the number of active parameters of the LLM $P_{\text{active}}$:
+To be consistent with observed behaviors while staying relatively simple we opted to fit a function of the form
+
+$$ 
+f_L(P_{\text{active}}, B) = \alpha P_{\text{active}} + \beta B + \gamma, 
+$$
+
+that is linear in both the number of parameters and the batch size. 
+
+We find the values : 
+
+- $\alpha = 6.78 \times 10^{-4}$, 
+- $\beta = 3.12 \times 10^{-4}$, 
+- $\gamma = 1.94 \times 10^{-2}$, 
+
+The result is illustrated below. 
 
 <figure markdown="span">
   ![Figure: Latency per output token vs. number of active parameters ](../assets/methodology/llm/figure_latency.png)
-  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions)</figcaption>
+  <figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256)</figcaption>
 </figure>
 
-Again, we propagate 95% confidence intervals through our computations. The fit gives an interval of
+Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
 
 $$
-\frac{\Delta T}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96\delta, 
-$$
-
-with $\alpha = 8.02e-4$, $\beta = 2.23e-2$ and $\delta = 7.00e-6$. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, $\#T_{\text{out}}$, and the number of active parameters, $P_{\text{active}}$. When possible, we also measure the request latency, $\Delta T_{\text{request}}$, and use it as the maximum bound for the generation latency:
-
-$$
-\Delta T(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96\delta).
-$$
-
-With the request latency, the generation latency is defined as follows:
-
-$$
-\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \delta), \Delta T_{\text{request}} \right\}.
+\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times f_L(P_{\text{active}}, 64), \Delta T_{\text{request}} \right\}.
 $$
 
 #### Estimating the number of active GPUs
@@ -131,13 +147,13 @@ $$
 M_{\text{model}}(P_{\text{total}},Q)=1.2 \times \frac{P_{\text{total}} \times Q}{8}.
 $$
 
-We then estimate the number of required GPUs, rounded up:
+We then estimate the number of required GPUs, rounded up in base 2:
 
 $$
-\text{GPU}(P_{\text{total}},Q,M_{\text{GPU}}) = \left\lceil \frac{M_{\text{model}}(P_{\text{total}},Q)}{M_{\text{GPU}}} \right\rceil.
+\text{GPU}(P_{\text{total}},Q,M_{\text{GPU}}) = 2^{\large\frac{\log( \left\lceil M_{\text{model}}(P_{\text{total}},Q) / M_{\text{GPU}} \right\rceil)}{\log(2)}}.
 $$
 
-To stay consistent with previous assumptions based on LLM Perf Leaderboard data, we use $M_{\text{GPU}} = 80$ GB for an NVIDIA A100 80GB GPU.
+To stay consistent with previous assumptions based on [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) data, we use $M_{\text{GPU}} = 80$ GB for an NVIDIA H100 80GB GPU and $Q = 16$ bits. We round up in base 2, to make sure we have coherent number of GPUs being deployed: 1, 2, 4, 8, 16...
 
 #### Complete server energy consumption
 
@@ -155,27 +171,21 @@ $$
 E_{\text{request}} = \text{PUE} \times E_{\text{server}}.
 $$
 
-We typically use a $\text{PUE} = 1.2$ for hyperscaler data centers or supercomputers.
-
 ### Modeling request usage environmental impacts
 
-To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, $F_{\text{em}}$, specific to the target country and time. **Unless otherwise stated, we currently use a worldwide average multicriteria impact factor from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/)**:
+To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, $F_{\text{em}}$, specific to the target country and time. We use data from the [Our World in Data](https://ourworldindata.org/electricity-mix) for GWP impact and from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) for ADPe and PE impacts. It gives us:
 
 $$
 I^\text{u}_{\text{request}} = E_{\text{request}} \times F_{\text{em}}.
 $$
 
-Note that the user can still chose another electricity mix from the [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/).
+#### Modeling request water consumption footprint for usage phase
 
-??? note "Some values of $F_{\text{em}}$ per geographical area"
-        
-    | Area or country                                                           | GWP (gCO2eq / kWh) | ADPe (kgSbeq / kWh) | PE (MJ / kWh) |
-    |---------------------------------------------------------------------------|--------------------|---------------------|---------------|
-    | 🌐 Worldwide                                                              | $590.4$            | $7.378 \times 10^{-8}$   | $9.99$  |
-    | 🇪🇺 Europe ([EEA](https://en.wikipedia.org/wiki/European_Economic_Area)) | $509.4$            | $6.423 \times 10^{-8}$   | $12.9$  |
-    | 🇺🇸 USA                                                                  | $679.8$            | $9.855 \times 10^{-8}$   | $11.4$  |
-    | 🇨🇳 China                                                                | $1,057$            | $8.515 \times 10^{-8}$   | $14.1$  |
-    | 🇫🇷 France                                                               | $81.3$            | $4.858 \times 10^{-8}$   | $11.3$     |
+To assess the Water Consumption Footprint (WCF) for the usage phase we use the modeling from [Li et al. (2025)](https://arxiv.org/abs/2304.03271). It uses the Water Usage Effectiveness (WUE) of both the data center $\text{WUE}_\text{on-site}$ and of the local electricity mix $\text{WUE}_\text{off-site}$. On-site data is assessed for each provider individually, whereas off-site data is averaged from each country according to the [World Resource Institute methodology](https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity). It gives us:
+
+$$
+\text{WCF}^{\text{u}}_\text{request} = E_\text{server} \times [\text{WUE}_\text{on-site} + \text{PUE} \times \text{WUE}_\text{off-site}].
+$$
 
 
 ## Embodied impacts
@@ -188,54 +198,40 @@ To estimate the embodied impacts of IT hardware, we use the [BoaviztAPI](https:/
 
 #### Server embodied impacts without GPU
 
-To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the `p4de.24xlarge` instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA A100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as $I^{\text{e}}_{\text{server} \backslash \text{GPU}}$.
+To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the `p5.48xlarge` instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA H100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as $I^{\text{e}}_{\text{server} \backslash \text{GPU}}$.
 
-The embodied environmental impacts of the cloud instance are:
+The embodied environmental impacts of the cloud instance **(excluding GPUs)** are:
 
 |                 | Server (without GPU) |
 |-----------------|----------------------|
-| GWP (kgCO2eq)   | $3000$               |
-| ADPe (kgSbeq)   | $0.25$               |
-| PE (MJ)         | $39,000$             |
+| GWP (kgCO2eq)   | $5700$               |
+| ADPe (kgSbeq)   | $0.37$               |
+| PE (MJ)         | $70,000$             |
 
-!!! warning "These impacts do not take into account the eight GPUs. ([see below](#gpu-embodied-impacts))"
+??? info "Embodied impacts of the server (without GPUs)"
 
-??? info "Example request to reproduce this calculation"
-
-    On the cloud instance route (/v1/cloud/instance) you can POST the following JSON.
-    
-    ```json
-    {
-        "provider": "aws",
-        "instance_type": "p4de.24xlarge"
-    }
-    ```
-
-    Or you can use the demo available demo API with this command using `curl` and parsing the JSON output with `jq`.
+    We use as a reference the `p5.48xlarge` AWS cloud instance. With [BoaviztAPI](https://github.com/Boavizta/boaviztapi), we can estimate the embodied impacts of such instance with the following request:
 
     ```shell
     curl -X 'POST' \
-        'https://api.boavizta.org/v1/cloud/instance?verbose=true&criteria=gwp&criteria=adp&criteria=pe' \
+        'https://api.boavizta.org/v1/cloud/instance' \
         -H 'accept: application/json' \
         -H 'Content-Type: application/json' \
         -d '{
-        "provider": "aws",
-        "instance_type": "p4de.24xlarge"
-    }' | jq
+            "provider": "aws",
+            "instance_type": "p5.48xlarge"
+        }' | jq .impacts
     ```
 
 #### GPU embodied impacts
 
-Boavizta is currently developing a methodology to provide multicriteria embodied impacts for GPU cards. For this analysis, we use the embodied impact data they computed for a NVIDIA A100 80GB GPU. These values will be used to estimate the embodied impacts of a single GPU, denoted as $I^{\text{e}}_{\text{GPU}}$.
+According to this [NVIDIA datasheet](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-H100-PCF-Summary.pdf), a NVIDIA H100 80GB GPU has a GWP of 164 kgCO2eq. To approximate the ADPe and PE, we rely on the [Boavizta methodology for previous A100 GPUs](https://github.com/Boavizta/boaviztapi/issues/65#issuecomment-1604242196). These values will be used to estimate the embodied impacts of a single GPU, denoted as $I^{\text{e}}_{\text{GPU}}$.
 
-|                | NIDIA A100 80GB       |
-|----------------|-----------------------|
-| GWP (kgCO2eq)  | $143$                 |
-| ADPe (kgSbeq)  | $5.09 \times 10^{-3}$ |
-| PE (MJ)        | $1,828$               |
-
-!!! warning "The GPU embodied impacts will be soon available in the BoaviztAPI tool."
-
+|                | NVIDIA H100 80GB | NVIDIA A100 80GB      |
+|----------------|------------------|-----------------------|
+| GWP (kgCO2eq)  | $164$            | _Not used_            |
+| ADPe (kgSbeq)  | _Not available_  | $5.09 \times 10^{-3}$ |
+| PE (MJ)        | _Not available_  | $1,828$               |
 
 #### Complete server embodied impacts
 
@@ -248,11 +244,30 @@ $$
 
 ### Modeling request embodied environmental impacts
 
-To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, $\frac{\Delta T}{\Delta L}$. In this case, $\Delta L$ represents the lifetime of the server and GPU, which we fix at 5 years:
+To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, $\frac{\Delta T}{B \times \Delta L}$. In this case, $\Delta L$ represents the lifetime of the server and GPU, which we fix at 3 years ([Ostrouchov et al. (2020)](https://www.osti.gov/servlets/purl/1771896), [tomshardware.com](https://www.tomshardware.com/pc-components/gpus/datacenter-gpu-service-life-can-be-surprisingly-short-only-one-to-three-years-is-expected-according-to-unnamed-google-architect)), and $B$ is the batch size such as above: 
 
 $$
-I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\text{server}}.
+I^{\text{e}}_{\text{request}}=\frac{\Delta T}{B \times  \Delta L} \times I^{\text{e}}_{\text{server}}.
 $$
+
+!!! warning "Water consumption (WCF) impact is not modeled for the embodied phase due to a lack of data."
+
+
+## Supplemental material
+
+### Data center configuration
+
+We use public data from AI providers to their **data center configuration** such as the default **deployment location** and the **PUE** and **WUE**. The table below outlines the different hypothesis we currently use. The full details and sources are available in the [supplemental material](https://docs.google.com/spreadsheets/d/1XkPTkrGxpwWpIVIxpVvgRJuInSZsqbndTQbFGcHhdd0/) in the "providers" tab. 
+
+| AI Provider     | Cloud Provider | Location | PUE         | WUE         |
+|-----------------|----------------|----------|-------------|-------------|
+| Anthropic       | AWS, Google    | USA      | 1.09 - 1.14 | 0.13 - 0.99 |
+| Cohere          | Google         | USA      | 1.09        | 0.99        |
+| Google          | Google         | USA      | 1.09        | 0.99        |
+| HuggingFace Hub | AWS, Google    | USA      | 1.09 - 1.14 | 0.13 - 0.99 |
+| Mistral AI      | Microsoft      | SWE      | 1.16        | 0.09        |
+| OpenAI          | Microsoft      | USA      | 1.20        | 0.569       |
+| Azure OpenAI    | Microsoft      | USA      | 1.20        | 0.569       |
 
 
 ## Assumptions and limitations
@@ -269,19 +284,12 @@ Assuming the **energy consumption** for AI models is done through benchmarking o
 
 **Assumptions:**
 
-* Models are deployed with pytorch backend.
-* Models are quantized to 4 bits.
+* Models are deployed with vLLM backend.
+* Models are quantized to 16 bits.
 
 **Limitations:**
 
-* We do not account for other inference optimizations such as flash attention, batching or parallelism.
-* We do not benchmark models bigger than 70 billion parameters.
-* We do not have benchmarks for multi-GPU deployments.
 * We do not account for the multiple modalities of a model (only text-to-text generation).
-
-### On benchmarking data
-
-We use **linear regression models** to approximate energy consumption per token and latency per token as a function of the number of active parameters in the LLM. We represent the linear model as $Y = a \times X + b + \epsilon$, where $Y$ is the predicted value, $X$ is the input variable, $a$ and $b$ are the regression coefficients, and $\epsilon$ is the error term. We assume that the errors ($\epsilon$) follow a **normal distribution** with a mean of zero and a constant variance, represented as $\epsilon \sim \mathcal{N}(0, \sigma^2)$. This enables us to use the 95% confidence interval, calculated using the standard deviation of the errors ($\sigma$) and the 97.5th percentile point of the standard normal distribution (approximately 1.96).
 
 ### On hardware
 
@@ -289,8 +297,8 @@ We estimate the **required infrastructure** to run the service in terms of hardw
 
 **Assumptions:**
 
-* Models are deployed on NVIDIA A100 GPUs with 80GB of memory.
-* Base servers are similar to p4de.24xlarge AWS cloud instances.
+* Models are deployed on NVIDIA H100 GPUs with 80GB of memory.
+* Base servers are similar to p5.48xlarge AWS cloud instances.
 
 **Limitations:**
 
@@ -300,21 +308,16 @@ We estimate the **required infrastructure** to run the service in terms of hardw
 
 ### On data centers
 
-The type of services we model rely on high-end hardware that we consider is hosted by cloud service providers. Thus, we model data centers impacts as well and especially the overhead for cooling equipments.
+The AI services we model rely on high-end hardware that we consider is hosted by cloud service providers. Thus, we model data centers impacts as well and especially the overhead for cooling equipments.
 
-We consider the **Power Usage Effectiveness** (PUE) metric from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. That's why we prefer to rely on a global average for PUE that can be overridden for providers that disclose more precise data.
-
-**Assumptions:**
-
-* PUE = 1.2 (arbitrary value, [valid for hyperscalers](https://semianalysis.com/2024/03/13/ai-datacenter-energy-dilemma-race/#datacenter-math))
+We consider the PUE and WUE metrics from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. For each data center provider, we use the PUE and WUE numbers published by them on a global average.
 
 **Limitations:**
 
 * We do not know precisely where are located the data centers that run AI models.
 * We do not account for the specific infrastructure or way to cooldown servers in data centers.
 * We do not account for the local electricity generation (private power plants) specific to the data center.
-* We do not account for the overhead of the cloud provider for internal services like backing up or monitoring.
-
+* We do not account for the overhead of the cloud provider for internal services like backing up, monitoring, or idle time.
 
 ### On impact factors
 
@@ -330,21 +333,30 @@ To transform physical values such as energy consumption into environmental impac
 
 ### On embodied impacts
 
-We aim at covering the largest scope possible when assessing the environmental impacts. That is why we rely extensively on the work done by [Boavizta](https://boavizta.org/) non-profit. Unfortunately, assessing the environmental impacts of resources extraction, hardware manufacturing and transportation is very challenging mainly due to a lack of transparency from all the organizations that are involved. Estimations of the inaccuracies are currently not supported within Boavizta's methodology and tool ([BoaviztAPI](https://doc.api.boavizta.org/)).
+We aim at covering the largest scope possible when assessing the environmental impacts. That is why we rely extensively on the work done by [Boavizta](https://boavizta.org/) non-profit. Unfortunately, assessing the environmental impacts of resources extraction, hardware manufacturing, and transportation is very challenging mainly due to a lack of transparency from all the organizations that are involved. Estimations of the inaccuracies are currently not supported within Boavizta's methodology and tool ([BoaviztAPI](https://doc.api.boavizta.org/)).
 
 
 ## References
 
-- [LLM-Perf Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard) to estimate GPU energy consumption and latency based on the model architecture and number of output tokens.
+- [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/?__theme=light) to estimate GPU energy consumption and latency based on the model architecture and number of output tokens.
 - [BoaviztAPI](https://github.com/Boavizta/boaviztapi) to estimate server embodied impacts and base energy consumption.
-- [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) for electricity mix impacts per country.
+- [Our World in Data](https://ourworldindata.org/), [ADEME Base Empreinte®](https://base-empreinte.ademe.fr/) and [World Resource Institute](https://www.wri.org/) for electricity mix impacts per country.
 
 ## :material-bookshelf: Citation
 
 Please cite **GenAI Impact** non-profit organization and **link to this documentation page**. 
 
 ```bibtex
-Coming soon...
+@article{ecologits, 
+    doi = {10.21105/joss.07471}, 
+    url = {https://doi.org/10.21105/joss.07471}, 
+    year = {2025}, 
+    publisher = {The Open Journal}, 
+    volume = {10}, number = {111}, pages = {7471}, 
+    author = {Rincé, Samuel and Banse, Adrien}, 
+    title = {EcoLogits: Evaluating the Environmental Impacts of Generative AI}, 
+    journal = {Journal of Open Source Software}
+}
 ```
 
 ## :material-scale-balance: License

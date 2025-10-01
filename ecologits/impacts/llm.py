@@ -1,34 +1,34 @@
 import math
-from math import ceil
 from typing import Any, Optional, Union, cast
 
 from ecologits.impacts.dag import DAG
-from ecologits.impacts.modeling import GWP, PE, ADPe, Embodied, Energy, Impacts, Usage
+from ecologits.impacts.modeling import GWP, PE, WCF, ADPe, Embodied, Energy, Impacts, Usage
 from ecologits.utils.range_value import RangeValue, ValueOrRange
 
-MODEL_QUANTIZATION_BITS = 4
+MODEL_QUANTIZATION_BITS = 16
 
-GPU_ENERGY_ALPHA = 8.91e-8
-GPU_ENERGY_BETA = 1.43e-6
-GPU_ENERGY_STDEV = 5.19e-7
-GPU_LATENCY_ALPHA = 8.02e-4
-GPU_LATENCY_BETA = 2.23e-2
-GPU_LATENCY_STDEV = 7.00e-6
+GPU_ENERGY_ALPHA = 6.472402541479419e-06
+GPU_ENERGY_BETA = -0.0026081117794857075
+GPU_ENERGY_GAMMA = 1.0432177841728978e-05
+
+LATENCY_ALPHA = 0.0006785088094353663
+LATENCY_BETA = 0.0003119310311688259
+LATENCY_GAMMA = 0.019473717579473387
 
 GPU_MEMORY = 80  # GB
-GPU_EMBODIED_IMPACT_GWP = 143
-GPU_EMBODIED_IMPACT_ADPE = 5.1e-3
-GPU_EMBODIED_IMPACT_PE = 1828
+GPU_EMBODIED_IMPACT_GWP = 164
+GPU_EMBODIED_IMPACT_ADPE = 5.1e-3  # TODO (still A100)
+GPU_EMBODIED_IMPACT_PE = 1828      # TODO (still A100)
 
 SERVER_GPUS = 8
-SERVER_POWER = 1  # kW
-SERVER_EMBODIED_IMPACT_GWP = 3000
-SERVER_EMBODIED_IMPACT_ADPE = 0.24
-SERVER_EMBODIED_IMPACT_PE = 38000
+SERVER_POWER = 1.2  # kW
+SERVER_EMBODIED_IMPACT_GWP = 5700
+SERVER_EMBODIED_IMPACT_ADPE = 0.37
+SERVER_EMBODIED_IMPACT_PE = 70000
 
-HARDWARE_LIFESPAN = 5 * 365 * 24 * 60 * 60
+HARDWARE_LIFESPAN = 3 * 365 * 24 * 60 * 60
 
-DATACENTER_PUE = 1.2
+BATCH_SIZE = 64
 
 dag = DAG()
 
@@ -37,9 +37,10 @@ dag = DAG()
 def gpu_energy(
         model_active_parameter_count: float,
         output_token_count: float,
+        batch_size: int,
         gpu_energy_alpha: float,
         gpu_energy_beta: float,
-        gpu_energy_stdev: float
+        gpu_energy_gamma: float,
 ) -> ValueOrRange:
     """
     Compute energy consumption of a single GPU.
@@ -47,26 +48,28 @@ def gpu_energy(
     Args:
         model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
-        gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
-        gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
-        gpu_energy_stdev: Standard deviation of the GPU linear power consumption profile.
+        batch_size: Number of requests handled concurrently by the server.
+        gpu_energy_alpha: Alpha coefficient of the energy regression.
+        gpu_energy_beta: Beta coefficient of the energy regression.
+        gpu_energy_gamma: Beta coefficient of the energy regression.
 
     Returns:
-        The 95% confidence interval of energy consumption of a single GPU in kWh.
+        The energy consumption of a single GPU in kWh.
     """
-    gpu_energy_per_token_mean = gpu_energy_alpha * model_active_parameter_count + gpu_energy_beta
-    gpu_energy_min = output_token_count * (gpu_energy_per_token_mean - 1.96 * gpu_energy_stdev)
-    gpu_energy_max = output_token_count * (gpu_energy_per_token_mean + 1.96 * gpu_energy_stdev)
-    return RangeValue(min=max(0, gpu_energy_min), max=gpu_energy_max)
+    gpu_energy_per_token = gpu_energy_alpha * math.exp(gpu_energy_beta * batch_size) * model_active_parameter_count + \
+        gpu_energy_gamma
+    gpu_energy_per_token /= 1000    # convert to kWh
+    return output_token_count * gpu_energy_per_token
+
 
 @dag.asset
 def generation_latency(
         model_active_parameter_count: float,
         output_token_count: float,
-        gpu_latency_alpha: float,
-        gpu_latency_beta: float,
-        gpu_latency_stdev: float,
-        request_latency: float,
+        batch_size: int,
+        latency_alpha: float,
+        latency_beta: float,
+        latency_gamma: float,
 ) -> ValueOrRange:
     """
     Compute the token generation latency in seconds.
@@ -74,21 +77,17 @@ def generation_latency(
     Args:
         model_active_parameter_count: Number of active parameters of the model (in billion).
         output_token_count: Number of generated tokens.
-        gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.
-        gpu_latency_beta: Beta parameter of the GPU linear latency profile.
-        gpu_latency_stdev: Standard deviation of the GPU linear latency profile.
-        request_latency: Measured request latency (upper bound) in seconds.
+        batch_size: Number of requests handled concurrently by the server.
+        latency_alpha: Alpha coefficient of the latency regression.
+        latency_beta: Beta coefficient of the latency regression.
+        latency_gamma: Gamma coefficient of the latency regression.
 
     Returns:
         The token generation latency in seconds.
     """
-    gpu_latency_per_token_mean = gpu_latency_alpha * model_active_parameter_count + gpu_latency_beta
-    gpu_latency_min = output_token_count * (gpu_latency_per_token_mean - 1.96 * gpu_latency_stdev)
-    gpu_latency_max = output_token_count * (gpu_latency_per_token_mean + 1.96 * gpu_latency_stdev)
-    gpu_latency_interval = RangeValue(min=max(0, gpu_latency_min), max=gpu_latency_max)
-    if gpu_latency_interval < request_latency:
-        return gpu_latency_interval
-    return request_latency
+    latency_per_token = latency_alpha * model_active_parameter_count + latency_beta * batch_size + latency_gamma
+    return output_token_count * latency_per_token
+
 
 @dag.asset
 def model_required_memory(
@@ -123,7 +122,8 @@ def gpu_required_count(
     Returns:
         The number of required GPUs to load the model.
     """
-    return ceil(model_required_memory / gpu_memory)
+    gpu_nb = math.ceil(model_required_memory / gpu_memory)
+    return 2 ** math.ceil(math.log2(gpu_nb))    # Round-up in base two
 
 
 @dag.asset
@@ -131,7 +131,8 @@ def server_energy(
         generation_latency: float,
         server_power: float,
         server_gpu_count: int,
-        gpu_required_count: int
+        gpu_required_count: int,
+        batch_size: int
 ) -> float:
     """
     Compute the energy consumption of the server.
@@ -141,11 +142,12 @@ def server_energy(
         server_power: Power consumption of the server in kW.
         server_gpu_count: Number of available GPUs in the server.
         gpu_required_count: Number of required GPUs to load the model.
+        batch_size: Number of requests handled concurrently by the server.
 
     Returns:
         The energy consumption of the server (GPUs are not included) in kWh.
     """
-    return (generation_latency / 3600) * server_power * (gpu_required_count / server_gpu_count)
+    return (generation_latency / 3600) * server_power * (gpu_required_count / server_gpu_count) * (1 / batch_size)
 
 
 @dag.asset
@@ -159,7 +161,7 @@ def request_energy(
     Compute the energy consumption of the request.
 
     Args:
-        datacenter_pue: PUE of the datacenter.
+        datacenter_pue: Power Usage Effectiveness of the data center.
         server_energy: Energy consumption of the server in kWh.
         gpu_required_count: Number of required GPUs to load the model.
         gpu_energy: Energy consumption of a single GPU in kWh.
@@ -222,6 +224,27 @@ def request_usage_pe(
         The PE usage impact of the request in MJ.
     """
     return request_energy * if_electricity_mix_pe
+
+
+@dag.asset
+def request_usage_wcf(
+        request_energy: ValueOrRange,
+        if_electricity_mix_wue: float,
+        datacenter_wue: float,
+        datacenter_pue: float
+) -> ValueOrRange:
+    """
+    Compute the water usage impact of the request.
+
+    Args:
+        request_energy: Energy consumption of the request in kWh.
+        if_electricity_mix_wue: WCF impact factor of electricity consumption in L / kWh.
+        datacenter_wue: Water Usage Effectiveness of the data center in L/kWh.
+        datacenter_pue: Power Usage Effectiveness of the data center.
+    Returns:
+        The water usage impact of the request in liters.
+    """
+    return request_energy * (datacenter_wue + datacenter_pue * if_electricity_mix_wue)
 
 
 @dag.asset
@@ -294,7 +317,8 @@ def server_gpu_embodied_pe(
 def request_embodied_gwp(
         server_gpu_embodied_gwp: float,
         server_lifetime: float,
-        generation_latency: ValueOrRange
+        generation_latency: ValueOrRange,
+        batch_size: int
 ) -> ValueOrRange:
     """
     Compute the Global Warming Potential (GWP) embodied impact of the request.
@@ -303,18 +327,20 @@ def request_embodied_gwp(
         server_gpu_embodied_gwp: GWP embodied impact of the server and the GPUs in kgCO2eq.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
+        batch_size: Number of requests handled concurrently by the server.
 
     Returns:
         The GWP embodied impact of the request in kgCO2eq.
     """
-    return (generation_latency / server_lifetime) * server_gpu_embodied_gwp
+    return generation_latency * server_gpu_embodied_gwp / (server_lifetime * batch_size)
 
 
 @dag.asset
 def request_embodied_adpe(
         server_gpu_embodied_adpe: float,
         server_lifetime: float,
-        generation_latency: ValueOrRange
+        generation_latency: ValueOrRange,
+        batch_size: int
 ) -> ValueOrRange:
     """
     Compute the Abiotic Depletion Potential for Elements (ADPe) embodied impact of the request.
@@ -323,18 +349,20 @@ def request_embodied_adpe(
         server_gpu_embodied_adpe: ADPe embodied impact of the server and the GPUs in kgSbeq.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
+        batch_size: Number of requests handled concurrently by the server.
 
     Returns:
         The ADPe embodied impact of the request in kgSbeq.
     """
-    return (generation_latency / server_lifetime) * server_gpu_embodied_adpe
+    return generation_latency * server_gpu_embodied_adpe / (server_lifetime * batch_size)
 
 
 @dag.asset
 def request_embodied_pe(
         server_gpu_embodied_pe: float,
         server_lifetime: float,
-        generation_latency: ValueOrRange
+        generation_latency: ValueOrRange,
+        batch_size: int
 ) -> ValueOrRange:
     """
     Compute the Primary Energy (PE) embodied impact of the request.
@@ -343,11 +371,12 @@ def request_embodied_pe(
         server_gpu_embodied_pe: PE embodied impact of the server and the GPUs in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
         generation_latency: Token generation latency in seconds.
+        batch_size: Number of requests handled concurrently by the server.
 
     Returns:
         The PE embodied impact of the request in MJ.
     """
-    return (generation_latency / server_lifetime) * server_gpu_embodied_pe
+    return generation_latency * server_gpu_embodied_pe / (server_lifetime * batch_size)
 
 
 def compute_llm_impacts_dag(
@@ -358,13 +387,16 @@ def compute_llm_impacts_dag(
         if_electricity_mix_adpe: float,
         if_electricity_mix_pe: float,
         if_electricity_mix_gwp: float,
+        if_electricity_mix_wue: float,
+        datacenter_pue: ValueOrRange,
+        datacenter_wue: ValueOrRange,
         model_quantization_bits: Optional[int] = MODEL_QUANTIZATION_BITS,
         gpu_energy_alpha: Optional[float] = GPU_ENERGY_ALPHA,
         gpu_energy_beta: Optional[float] = GPU_ENERGY_BETA,
-        gpu_energy_stdev: Optional[float] = GPU_ENERGY_STDEV,
-        gpu_latency_alpha: Optional[float] = GPU_LATENCY_ALPHA,
-        gpu_latency_beta: Optional[float] = GPU_LATENCY_BETA,
-        gpu_latency_stdev: Optional[float] = GPU_LATENCY_STDEV,
+        gpu_energy_gamma: Optional[float] = GPU_ENERGY_GAMMA,
+        latency_alpha: Optional[float] = LATENCY_ALPHA,
+        latency_beta: Optional[float] = LATENCY_BETA,
+        latency_gamma: Optional[float] = LATENCY_GAMMA,
         gpu_memory: Optional[float] = GPU_MEMORY,
         gpu_embodied_gwp: Optional[float] = GPU_EMBODIED_IMPACT_GWP,
         gpu_embodied_adpe: Optional[float] = GPU_EMBODIED_IMPACT_ADPE,
@@ -375,7 +407,7 @@ def compute_llm_impacts_dag(
         server_embodied_adpe: Optional[float] = SERVER_EMBODIED_IMPACT_ADPE,
         server_embodied_pe: Optional[float] = SERVER_EMBODIED_IMPACT_PE,
         server_lifetime: Optional[float] = HARDWARE_LIFESPAN,
-        datacenter_pue: Optional[float] = DATACENTER_PUE,
+        batch_size: Optional[float] =  BATCH_SIZE
 ) -> dict[str, ValueOrRange]:
     """
     Compute the impacts dag of an LLM generation request.
@@ -385,16 +417,19 @@ def compute_llm_impacts_dag(
         model_total_parameter_count: Number of parameters of the model (in billion).
         output_token_count: Number of generated tokens.
         request_latency: Measured request latency in seconds.
-        if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
+        if_electricity_mix_adpe: ADPe impact factor of electricity consumption in kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
+        if_electricity_mix_wue: WCF impact factor of electricity consumption in L / kWh.
+        datacenter_wue: Water Usage Effectiveness of the data center in L/kWh.
+        datacenter_pue: Power Usage Effectiveness of the data center.
         model_quantization_bits: Number of bits used to represent the model weights.
-        gpu_energy_alpha: Alpha parameter of the GPU linear power consumption profile.
-        gpu_energy_beta: Beta parameter of the GPU linear power consumption profile.
-        gpu_energy_stdev: Standard deviation of the GPU linear power consumption profile.
-        gpu_latency_alpha: Alpha parameter of the GPU linear latency profile.
-        gpu_latency_beta: Beta parameter of the GPU linear latency profile.
-        gpu_latency_stdev: Standard deviation of the GPU linear latency profile.
+        gpu_energy_alpha: Alpha coefficient of the "GPU energy" regression.
+        gpu_energy_beta: Beta coefficient of the "GPU energy" regression.
+        gpu_energy_gamma: Gamma coefficient of the "GPU energy" regression.
+        latency_alpha: Alpha coefficient of the "Latency" regression.
+        latency_beta: Beta coefficient of the "Latency" regression.
+        latency_gamma: Gamma coefficient of the "Latency" regression.
         gpu_memory: Amount of memory available on a single GPU.
         gpu_embodied_gwp: GWP embodied impact of a single GPU.
         gpu_embodied_adpe: ADPe embodied impact of a single GPU.
@@ -405,10 +440,9 @@ def compute_llm_impacts_dag(
         server_embodied_adpe: ADPe embodied impact of the server in kgSbeq.
         server_embodied_pe: PE embodied impact of the server in MJ.
         server_lifetime: Lifetime duration of the server in seconds.
-        datacenter_pue: PUE of the datacenter.
-
+        batch_size: The number of requests handled concurrently by the server, default set to 16.
     Returns:
-        The impacts dag with all intermediate states.
+        The environmental impacts dag with all intermediate states.
     """
     results = dag.execute(
         model_active_parameter_count=model_active_parameter_count,
@@ -419,12 +453,15 @@ def compute_llm_impacts_dag(
         if_electricity_mix_gwp=if_electricity_mix_gwp,
         if_electricity_mix_adpe=if_electricity_mix_adpe,
         if_electricity_mix_pe=if_electricity_mix_pe,
+        if_electricity_mix_wue=if_electricity_mix_wue,
+        datacenter_wue=datacenter_wue,
+        datacenter_pue=datacenter_pue,
         gpu_energy_alpha=gpu_energy_alpha,
         gpu_energy_beta=gpu_energy_beta,
-        gpu_energy_stdev=gpu_energy_stdev,
-        gpu_latency_alpha=gpu_latency_alpha,
-        gpu_latency_beta=gpu_latency_beta,
-        gpu_latency_stdev=gpu_latency_stdev,
+        gpu_energy_gamma=gpu_energy_gamma,
+        latency_alpha=latency_alpha,
+        latency_beta=latency_beta,
+        latency_gamma=latency_gamma,
         gpu_memory=gpu_memory,
         gpu_embodied_gwp=gpu_embodied_gwp,
         gpu_embodied_adpe=gpu_embodied_adpe,
@@ -435,7 +472,7 @@ def compute_llm_impacts_dag(
         server_embodied_adpe=server_embodied_adpe,
         server_embodied_pe=server_embodied_pe,
         server_lifetime=server_lifetime,
-        datacenter_pue=datacenter_pue,
+        batch_size=batch_size
     )
     return results
 
@@ -447,6 +484,9 @@ def compute_llm_impacts(
         if_electricity_mix_adpe: float,
         if_electricity_mix_pe: float,
         if_electricity_mix_gwp: float,
+        if_electricity_mix_wue: float,
+        datacenter_pue: ValueOrRange,
+        datacenter_wue: ValueOrRange,
         request_latency: Optional[float] = None,
         **kwargs: Any
 ) -> Impacts:
@@ -460,9 +500,11 @@ def compute_llm_impacts(
         if_electricity_mix_adpe: ADPe impact factor of electricity consumption of kgSbeq / kWh (Antimony).
         if_electricity_mix_pe: PE impact factor of electricity consumption in MJ / kWh.
         if_electricity_mix_gwp: GWP impact factor of electricity consumption in kgCO2eq / kWh.
+        if_electricity_mix_wue: WCF impact factor of electricity consumption in L / kWh.
+        datacenter_wue: Water Usage Effectiveness of the data center in L/kWh.
+        datacenter_pue: Power Usage Effectiveness of the data center.
         request_latency: Measured request latency in seconds.
         **kwargs: Any other optional parameter.
-
     Returns:
         The impacts of an LLM generation request.
     """
@@ -483,9 +525,8 @@ def compute_llm_impacts(
             total_params = [model_total_parameter_count, model_total_parameter_count]
 
     results: dict[str, Union[RangeValue, float, int]] = {}
-    fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe",
+    fields = ["request_energy", "request_usage_gwp", "request_usage_adpe", "request_usage_pe", "request_usage_wcf",
               "request_embodied_gwp", "request_embodied_adpe", "request_embodied_pe"]
-
     for act_param, tot_param in zip(active_params, total_params):
         res = compute_llm_impacts_dag(
             model_active_parameter_count=act_param,
@@ -495,6 +536,9 @@ def compute_llm_impacts(
             if_electricity_mix_adpe=if_electricity_mix_adpe,
             if_electricity_mix_pe=if_electricity_mix_pe,
             if_electricity_mix_gwp=if_electricity_mix_gwp,
+            if_electricity_mix_wue=if_electricity_mix_wue,
+            datacenter_pue=datacenter_pue,
+            datacenter_wue=datacenter_wue,
             **kwargs
         )
         for field in fields:
@@ -513,19 +557,23 @@ def compute_llm_impacts(
     gwp_usage = GWP(value=results["request_usage_gwp"])
     adpe_usage = ADPe(value=results["request_usage_adpe"])
     pe_usage = PE(value=results["request_usage_pe"])
+    wcf_usage = WCF(value=results["request_usage_wcf"])
     gwp_embodied = GWP(value=results["request_embodied_gwp"])
     adpe_embodied = ADPe(value=results["request_embodied_adpe"])
     pe_embodied = PE(value=results["request_embodied_pe"])
+
     return Impacts(
         energy=energy,
         gwp=gwp_usage + gwp_embodied,
         adpe=adpe_usage + adpe_embodied,
         pe=pe_usage + pe_embodied,
+        wcf=wcf_usage,
         usage=Usage(
             energy=energy,
             gwp=gwp_usage,
             adpe=adpe_usage,
-            pe=pe_usage
+            pe=pe_usage,
+            wcf=wcf_usage
         ),
         embodied=Embodied(
             gwp=gwp_embodied,

@@ -39,11 +39,8 @@ requires-python = ">=3.9,<4"
 dependencies = [
     "wrapt (>=1.14.1,<2.0.0)",
     "pydantic >=1.9.0,<3",
-    "packaging (>=24.2,<25.0)",
-    "requests >=2.26.0",            # only needed for `poetry lock` to work with `poetry >2.0`
-    "httpx >=0.23.0,<1",            # only needed for `poetry lock` to work with `poetry >2.0`
-    "tqdm >4",                      # only needed for `poetry lock` to work with `poetry >2.0`
-]   
+    "packaging (>=24.2,<25.0)"
+]
 
 [project.optional-dependencies]
 openai = ["openai (>=1.61.1,<2.0.0)"]
@@ -153,8 +150,6 @@ select = [
 
 ignore = [
     "A003",
-    "ANN101",
-    "ANN102",
     "ANN401",
     "N805",
     "N818",
