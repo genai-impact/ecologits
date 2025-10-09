@@ -51,9 +51,9 @@ $$
 
 that is **linear** with $P_{\text{active}}$ and **exponential** with $B$. We fitted such a model with the data, and got 
 
-- $\alpha = 6.47 \times 10^{-6}$, 
-- $\beta = -2.60 \times 10^{-3}$, 
-- $\gamma = 1.04 \times 10^{-5}$, 
+- $\alpha = 1.17 \times 10^{-6}$, 
+- $\beta = -1.12 \times 10^{-2}$, 
+- $\gamma = 4.05 \times 10^{-5}$, 
 
 The result is illustrated below. 
 
