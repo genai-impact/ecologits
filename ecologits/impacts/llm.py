@@ -70,6 +70,7 @@ def generation_latency(
         latency_alpha: float,
         latency_beta: float,
         latency_gamma: float,
+        request_latency: float
 ) -> ValueOrRange:
     """
     Compute the token generation latency in seconds.
@@ -86,7 +87,10 @@ def generation_latency(
         The token generation latency in seconds.
     """
     latency_per_token = latency_alpha * model_active_parameter_count + latency_beta * batch_size + latency_gamma
-    return output_token_count * latency_per_token
+    gpu_latency = output_token_count * latency_per_token
+    if request_latency < gpu_latency:
+        return request_latency
+    return gpu_latency
 
 
 @dag.asset
