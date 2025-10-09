@@ -89,10 +89,7 @@ class RangeValue(BaseModel):
         else:
             return self.min > other
 
-    def __format__(self,format_spec:str)-> str:
-        return f"{format(self.min,format_spec)} to {format(self.max,format_spec)}"
-
-
-
+    def __format__(self, format_spec:str)-> str:
+        return f"{format(self.mean,format_spec)} [{format(self.min,format_spec)} - {format(self.max,format_spec)}]"
 
 ValueOrRange = Union[int, float, RangeValue]
