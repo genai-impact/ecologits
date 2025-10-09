@@ -1907,7 +1907,7 @@
 
 
 <h2 id="electricity_mix_repository.ElectricityMix" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">ElectricityMix</span><span class="p">(</span><span class="n">zone</span><span class="p">,</span> <span class="n">adpe</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="n">gwp</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">ElectricityMix</span><span class="p">(</span><span class="n">zone</span><span class="p">,</span> <span class="n">adpe</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="n">gwp</span><span class="p">,</span> <span class="n">wue</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
@@ -2017,9 +2017,9 @@
 
                   <details class="quote">
                     <summary>Source code in <code>ecologits/electricity_mix_repository.py</code></summary>
-                    <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-29">29</a></span>
-<span class="normal"><a href="#__codelineno-0-30">30</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">electricity_mixes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ElectricityMix</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">__electricity_mixes</span> <span class="o">=</span> <span class="n">electricity_mixes</span>
+                    <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">electricity_mixes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ElectricityMix</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">__electricity_mixes</span> <span class="o">=</span> <span class="n">electricity_mixes</span>
 </span></code></pre></div></td></tr></table></div>
                   </details>
 

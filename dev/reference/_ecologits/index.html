@@ -1986,7 +1986,7 @@
 
 
 <h3 id="_ecologits.EcoLogits.init" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">init</span><span class="p">(</span><span class="n">providers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">electricity_mix_zone</span><span class="o">=</span><span class="s1">&#39;WOR&#39;</span><span class="p">,</span> <span class="n">opentelemetry_endpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">init</span><span class="p">(</span><span class="n">providers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">electricity_mix_zone</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">opentelemetry_endpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
@@ -2028,15 +2028,15 @@
           <tr class="doc-section-item">
             <td><code>electricity_mix_zone</code></td>
             <td>
-                  <code><span title="str">str</span></code>
+                  <code><span title="str">str</span> | None</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).</p>
+                <p>ISO 3166-1 alpha-3 code of the electricity mix zone of the datacenter.</p>
               </div>
             </td>
             <td>
-                  <code>&#39;WOR&#39;</code>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -2101,7 +2101,7 @@
 <span class="normal"><a href="#__codelineno-0-162">162</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-122"><a id="__codelineno-0-122" name="__codelineno-0-122"></a><span class="nd">@staticmethod</span>
 </span><span id="__span-0-123"><a id="__codelineno-0-123" name="__codelineno-0-123"></a><span class="k">def</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span>
 </span><span id="__span-0-124"><a id="__codelineno-0-124" name="__codelineno-0-124"></a>    <span class="n">providers</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-125"><a id="__codelineno-0-125" name="__codelineno-0-125"></a>    <span class="n">electricity_mix_zone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;WOR&quot;</span><span class="p">,</span>
+</span><span id="__span-0-125"><a id="__codelineno-0-125" name="__codelineno-0-125"></a>    <span class="n">electricity_mix_zone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-0-126"><a id="__codelineno-0-126" name="__codelineno-0-126"></a>    <span class="n">opentelemetry_endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 </span><span id="__span-0-127"><a id="__codelineno-0-127" name="__codelineno-0-127"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-0-128"><a id="__codelineno-0-128" name="__codelineno-0-128"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2109,7 +2109,7 @@
 </span><span id="__span-0-130"><a id="__codelineno-0-130" name="__codelineno-0-130"></a>
 </span><span id="__span-0-131"><a id="__codelineno-0-131" name="__codelineno-0-131"></a><span class="sd">    Args:</span>
 </span><span id="__span-0-132"><a id="__codelineno-0-132" name="__codelineno-0-132"></a><span class="sd">        providers: list of providers to initialize (must select at least one provider).</span>
-</span><span id="__span-0-133"><a id="__codelineno-0-133" name="__codelineno-0-133"></a><span class="sd">        electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone (WOR by default).</span>
+</span><span id="__span-0-133"><a id="__codelineno-0-133" name="__codelineno-0-133"></a><span class="sd">        electricity_mix_zone: ISO 3166-1 alpha-3 code of the electricity mix zone of the datacenter.</span>
 </span><span id="__span-0-134"><a id="__codelineno-0-134" name="__codelineno-0-134"></a><span class="sd">        opentelemetry_endpoint: enable OpenTelemetry with the URL endpoint.</span>
 </span><span id="__span-0-135"><a id="__codelineno-0-135" name="__codelineno-0-135"></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="__span-0-136"><a id="__codelineno-0-136" name="__codelineno-0-136"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">providers</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>

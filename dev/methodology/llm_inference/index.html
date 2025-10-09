@@ -1197,6 +1197,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Modeling request usage environmental impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-request-water-consumption-footprint-for-usage-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling request water consumption footprint for usage phase
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1271,6 +1286,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#supplemental-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supplemental material
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supplemental material">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-center-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data center configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#assumptions-and-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       Assumptions and limitations
@@ -1284,15 +1323,6 @@
   <a href="#on-models" class="md-nav__link">
     <span class="md-ellipsis">
       On models
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#on-benchmarking-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      On benchmarking data
     </span>
   </a>
   
@@ -2165,6 +2195,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Modeling request usage environmental impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-request-water-consumption-footprint-for-usage-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modeling request water consumption footprint for usage phase
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2239,6 +2284,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#supplemental-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supplemental material
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supplemental material">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-center-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data center configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#assumptions-and-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       Assumptions and limitations
@@ -2252,15 +2321,6 @@
   <a href="#on-models" class="md-nav__link">
     <span class="md-ellipsis">
       On models
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#on-benchmarking-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      On benchmarking data
     </span>
   </a>
   
@@ -2354,10 +2414,6 @@
 
 
 <h1 id="environmental-impacts-of-llm-inference">Environmental Impacts of LLM Inference</h1>
-<p><span class="badge" markdown>
-    <span class="badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.41 11.58-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9A2 2 0 0 0 13 22a2 2 0 0 0 1.41-.59l7-7A2 2 0 0 0 22 13a2 2 0 0 0-.59-1.42M13 20l-9-9V4h7l9 9M6.5 5A1.5 1.5 0 1 1 5 6.5 1.5 1.5 0 0 1 6.5 5"/></svg></span></span>
-    <span class="badge__text">v1.0</span>
-</span></p>
 <h2 id="introduction">Introduction</h2>
 <p>The environmental impacts of a request, <span class="arithmatex">\(I_{\text{request}}\)</span> to a Large Language Model (LLM) can be divided into two components: the usage impacts, <span class="arithmatex">\(I_{\text{request}}^{\text{u}}\)</span>, which account for energy consumption, and the embodied impacts, <span class="arithmatex">\(I_{\text{request}}^{\text{e}}\)</span>, which account for resource extraction, hardware manufacturing, and transportation:</p>
 <div class="arithmatex">\[
@@ -2370,11 +2426,15 @@ I_{\text{request}}&amp;=I_{\text{request}}^{\text{u}}  + I_{\text{request}}^{\te
 \]</div>
 <p>where <span class="arithmatex">\(E_{\text{request}}\)</span> represents the energy consumption of the IT resources associated with the request. <span class="arithmatex">\(F_{\text{em}}\)</span> denotes the impact factor of electricity consumption, which varies depending on the location and time. Furthermore, <span class="arithmatex">\(I_{\text{server}}^{\text{e}}\)</span> captures the embodied impacts of the IT resources, and <span class="arithmatex">\(\frac{\Delta T}{\Delta L}\)</span> signifies the hardware utilization factor, calculated as the computation time divided by the lifetime of the hardware.</p>
 <h2 id="usage-impacts">Usage impacts</h2>
-<p>To assess the usage impacts of an LLM inference, we first need to estimate the energy consumption of the server, which is equipped with one or more GPUs. We will also take into account the energy consumption of cooling equipment integrated with the data center, using the Power Usage Effectiveness (PUE) metric.</p>
+<p>To assess the usage impacts of an LLM inference, we first need to estimate the energy consumption of the server, which is equipped with one or more GPUs. We will also take into account the energy consumption of cooling equipment integrated with the data center, using the Power Usage Effectiveness (<abbr title="Power Usage Efficiency">PUE</abbr>) metric.</p>
 <p>Subsequently, we can calculate the environmental impacts by using the <span class="arithmatex">\(F_{\text{em}}\)</span> impact factor of the electricity mix. Ideally, <span class="arithmatex">\(F_{\text{em}}\)</span> should vary with location and time to accurately reflect the local energy mix.</p>
 <h3 id="modeling-gpu-energy-consumption">Modeling GPU energy consumption</h3>
-<p>By leveraging the open dataset from the <a href="https://huggingface.co/spaces/optimum/llm-perf-leaderboard">LLM Perf Leaderboard</a>, produced by Hugging Face, we can estimate the energy consumption of the GPU using a parametric model.</p>
-<p>We fit a linear regression model to the dataset, which models the energy consumption per output token as a function of the number of active parameters in the LLM, denoted as <span class="arithmatex">\(P_{\text{active}}\)</span>.</p>
+<p>By leveraging the open dataset from the <a href="https://ml.energy/leaderboard/?__theme=light">ML.ENERGY Leaderboard</a>, we can estimate the energy consumption of the GPU using a parametric model. This leaderboard aims at being as close as possible to production conditions (vLLM on NVIDIA H100 GPUs, see <a href="https://arxiv.org/pdf/2505.06371">the paper</a> for more information). </p>
+<details class="info">
+<summary>On the ML.ENERGY dataset filtering</summary>
+<p>In order to have relevant data and avoid outliers, we have filtered the dataset to keep only (1) the benchmark on NVIDIA H100 80GB HBM3 GPUs, (2) batch sizes no larger than 512 and (3) models no larger than 200B parameters. </p>
+</details>
+<p>We approximate energy consumption per output token as a function of the number of activate parameters, denoted as <span class="arithmatex">\(P_{\text{active}}\)</span>, and the batch size, denoted as <span class="arithmatex">\(B\)</span>. </p>
 <details class="note">
 <summary>What are active parameters?</summary>
 <p>We distinguish between active parameters and total parameter count for Sparse Mixture-of-Experts (SMoE) models. The total parameter count is used to determine the number of required GPUs to load the model into memory. In contrast, the active parameter count is used to estimate the energy consumption of a single GPU. In practice, SMoE models exhibit lower energy consumption per GPU compared to dense models of equivalent size (in terms of total parameters).</p>
@@ -2383,63 +2443,78 @@ I_{\text{request}}&amp;=I_{\text{request}}^{\text{u}}  + I_{\text{request}}^{\te
 <li>For a SMoE model: <span class="arithmatex">\(P_{\text{active}} =  P_{\text{total}} / \text{number of active experts}\)</span></li>
 </ul>
 </details>
-<details class="info">
-<summary>On the LLM Perf Leaderboard dataset filtering</summary>
-<p>We have filtered the dataset to keep relevant data points for the analysis. In particular we have applied the following conditions:</p>
-<ul>
-<li>Model number of parameters &gt;= 7B</li>
-<li>Keep dtype set to float16</li>
-<li>GPU model is "NVIDIA A100-SXM4-80GB"</li>
-<li>No optimization</li>
-<li>8bit and 4bit quantization excluding bitsandbytes (bnb)</li>
-</ul>
+<details class="note">
+<summary>What is the batch size?</summary>
+<p>The batch size <span class="arithmatex">\(B\)</span> is the number of requests that the server can handle concurrently. A large batch size decreases the energy used for a unique request, but increases the latency. The providers aim at finding a good tradeoff between energy efficiency and latency. </p>
 </details>
+<p>To be consistent with observed behaviors while staying relatively simple we opted to fit a function of the form</p>
+<div class="arithmatex">\[ 
+f_E(P_{\text{active}}, B) = \alpha e^{\beta B} P_{\text{active}} + \gamma
+\]</div>
+<p>that is <strong>linear</strong> with <span class="arithmatex">\(P_{\text{active}}\)</span> and <strong>exponential</strong> with <span class="arithmatex">\(B\)</span>. We fitted such a model with the data, and got </p>
+<ul>
+<li><span class="arithmatex">\(\alpha = 1.17 \times 10^{-6}\)</span>, </li>
+<li><span class="arithmatex">\(\beta = -1.12 \times 10^{-2}\)</span>, </li>
+<li><span class="arithmatex">\(\gamma = 4.05 \times 10^{-5}\)</span>, </li>
+</ul>
+<p>The result is illustrated below. </p>
 <figure>
   <img alt="Figure: Energy consumption per output token vs. number of active parameters " src="../../assets/methodology/llm/figure_energy.png" />
 <br />
-<figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions)</figcaption>
+<figcaption>Figure: Energy consumption (in Wh) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256).</figcaption>
 </figure>
-<details class="info">
-<summary>What is a 95% confidence interval?</summary>
-<p>The standard deviation <span class="arithmatex">\(\delta\)</span> of a linear regression measures "how close are the datapoints to the fitted line". A priori, the larger it is, the worse is the approximation. Consider a linear regression <span class="arithmatex">\(Y(x) \approx \alpha x + \beta\)</span>. Given some assumptions, we can say that <span class="arithmatex">\(Y(x) \in [\alpha x + \beta - 1.96\delta, \alpha x + \beta + 1.96\delta]\)</span> with probability 95% (see <a href="https://en.wikipedia.org/wiki/Linear_regression">[1]</a> and <a href="https://en.wikipedia.org/wiki/97.5th_percentile_point">[2]</a> for more details).</p>
-</details>
-<p>In our methodology, <strong>in order to take into account approximation errors as much as possible</strong>, we provide the <strong>95% confidence interval</strong> of our linear approximation. The computed linear regression gives a confidence interval of</p>
-<div class="arithmatex">\[
-\frac{E_{\text{GPU}}}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma, 
+<div class="admonition warning">
+<p class="admonition-title">From now on, we consider that the batch size is fixed to <span class="arithmatex">\(B = 64\)</span>.</p>
+</div>
+<p>Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens <span class="arithmatex">\(\#T_{\text{out}}\)</span> and the number of active parameters <span class="arithmatex">\(P_{\text{active}}\)</span>: </p>
+<div class="arithmatex">\[ 
+E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times f_E(P_{\text{active}}, 64), 
 \]</div>
-<p>with <span class="arithmatex">\(\alpha = 8.91e-5\)</span>, <span class="arithmatex">\(\beta = 1.43e-3\)</span> and <span class="arithmatex">\(\sigma = 5.19e-4\)</span>. </p>
-<p>Using these values, we can estimate the energy consumption of a simple GPU for the entire request, given the number of output tokens <span class="arithmatex">\(\#T_{\text{out}}\)</span> and the number of active parameters <span class="arithmatex">\(P_{\text{active}}\)</span>:</p>
-<div class="arithmatex">\[
-E_{\text{GPU}}(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \sigma).
-\]</div>
+<p>where <span class="arithmatex">\(f_E\)</span> is the linear-exponential model cited above. </p>
 <p>If the model requires multiple GPUs to be loaded into VRAM, the energy consumption <span class="arithmatex">\(E_{\text{GPU}}\)</span> should be multiplied by the number of required GPUs, <span class="arithmatex">\(\text{GPU}\)</span> (see <a href="#complete-server-energy-consumption">below</a>).</p>
 <h3 id="modeling-server-energy-consumption">Modeling server energy consumption</h3>
 <p>To estimate the energy consumption of the entire server, we will use the previously estimated GPU energy model and separately estimate the energy consumption of the server itself (without GPUs), denoted as <span class="arithmatex">\(E_{\text{server} \backslash \text{GPU}}\)</span>.</p>
 <h4 id="server-energy-consumption-without-gpus">Server energy consumption without GPUs</h4>
-<p>To model the energy consumption of the server without GPUs, we consider a fixed power consumption, <span class="arithmatex">\(W_{\text{server} \backslash \text{GPU}}\)</span>, during inference (or generation latency), denoted as <span class="arithmatex">\(\Delta T\)</span>. We assume that the server hosts multiple GPUs, but not all of them are actively used for the target inference. Therefore, we account for a portion of the energy consumption based on the number of required GPUs, <span class="arithmatex">\(\text{GPU}\)</span>:</p>
+<p>To model the energy consumption of the server without GPUs, we consider a fixed power consumption, <span class="arithmatex">\(W_{\text{server} \backslash \text{GPU}}\)</span>, during inference (or generation latency), denoted as <span class="arithmatex">\(\Delta T\)</span>. We assume that the server hosts multiple GPUs, but not all of them are actively used for the target inference. Therefore, we account for a portion of the energy consumption based on the number of required GPUs, <span class="arithmatex">\(\text{GPU}\)</span>. Finally, we divide by the batch size <span class="arithmatex">\(B\)</span> to account the server energy for a single request:</p>
 <div class="arithmatex">\[
-E_{\text{server} \backslash \text{GPU}}(\Delta T) = \Delta T \times W_{\text{server} \backslash \text{GPU}} \times \frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}}.
+E_{\text{server} \backslash \text{GPU}}(\Delta T) = \Delta T \times W_{\text{server} \backslash \text{GPU}} \times \frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}} \times \frac{1}{B}.
 \]</div>
-<p>For a typical high-end GPU-accelerated cloud instance, we use <span class="arithmatex">\(W_{\text{server} \backslash \text{GPU}} = 1\)</span> kW and <span class="arithmatex">\(\#\text{GPU}_{\text{installed}} = 8\)</span>.</p>
+<p>For a typical high-end GPU-accelerated cloud instance, we use <span class="arithmatex">\(W_{\text{server} \backslash \text{GPU}} = 1.2\)</span> kW and <span class="arithmatex">\(\#\text{GPU}_{\text{installed}} = 8\)</span>. </p>
+<details class="info">
+<summary>Server configuration and average power</summary>
+<p>We use as a reference the <code>p5.48xlarge</code> AWS cloud instance. With <a href="https://github.com/Boavizta/boaviztapi">BoaviztAPI</a>, we can estimate the average power of such instance with the following request:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s1">&#39;https://api.boavizta.org/v1/cloud/instance?verbose=true&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="s1">        &quot;provider&quot;: &quot;aws&quot;,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="s1">        &quot;instance_type&quot;: &quot;p5.48xlarge&quot;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="s1">    }&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.verbose.avg_power
+</span></code></pre></div>
+</details>
 <h4 id="estimating-the-generation-latency">Estimating the generation latency</h4>
-<p>The generation latency, <span class="arithmatex">\(\Delta T\)</span>, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the <a href="https://huggingface.co/spaces/optimum/llm-perf-leaderboard">LLM Perf Leaderboard</a> dataset with the previously mentioned filters applied.</p>
-<p>We fit a linear regression model on the dataset modeling the generation latency per output token given the number of active parameters of the LLM <span class="arithmatex">\(P_{\text{active}}\)</span>:</p>
+<p>The generation latency, <span class="arithmatex">\(\Delta T\)</span>, is the duration of the inference measured on the server and is independent of networking latency. We estimate the generation latency using the <a href="https://ml.energy/leaderboard/?__theme=light">ML.ENERGY Leaderboard</a> dataset with the previously mentioned filters applied.</p>
+<p>To be consistent with observed behaviors while staying relatively simple we opted to fit a function of the form</p>
+<div class="arithmatex">\[ 
+f_L(P_{\text{active}}, B) = \alpha P_{\text{active}} + \beta B + \gamma, 
+\]</div>
+<p>that is linear in both the number of parameters and the batch size. </p>
+<p>We find the values : </p>
+<ul>
+<li><span class="arithmatex">\(\alpha = 6.78 \times 10^{-4}\)</span>, </li>
+<li><span class="arithmatex">\(\beta = 3.12 \times 10^{-4}\)</span>, </li>
+<li><span class="arithmatex">\(\gamma = 1.94 \times 10^{-2}\)</span>, </li>
+</ul>
+<p>The result is illustrated below. </p>
 <figure>
   <img alt="Figure: Latency per output token vs. number of active parameters " src="../../assets/methodology/llm/figure_latency.png" />
 <br />
-<figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions)</figcaption>
+<figcaption>Figure: Latency (in s) per output token vs. number of active parameters (in billions). The points are the datapoints from the ML.ENERGY leaderboard, and the lines are the result of our regression for fixed batch sizes (64, 128, 256)</figcaption>
 </figure>
-<p>Again, we propagate 95% confidence intervals through our computations. The fit gives an interval of</p>
+<p>Using these values, we can estimate the generation latency for the entire request given the number of output tokens, <span class="arithmatex">\(\#T_{\text{out}}\)</span>, and the number of active parameters, <span class="arithmatex">\(P_{\text{active}}\)</span>. When possible, we also measure the request latency, <span class="arithmatex">\(\Delta T_{\text{request}}\)</span>, and use it as the maximum bound for the generation latency:</p>
 <div class="arithmatex">\[
-\frac{\Delta T}{\#T_{\text{out}}} = \alpha \times P_{\text{active}} + \beta \pm 1.96\delta, 
-\]</div>
-<p>with <span class="arithmatex">\(\alpha = 8.02e-4\)</span>, <span class="arithmatex">\(\beta = 2.23e-2\)</span> and <span class="arithmatex">\(\delta = 7.00e-6\)</span>. Using these values, we can estimate the generation latency for the entire request given the number of output tokens, <span class="arithmatex">\(\#T_{\text{out}}\)</span>, and the number of active parameters, <span class="arithmatex">\(P_{\text{active}}\)</span>. When possible, we also measure the request latency, <span class="arithmatex">\(\Delta T_{\text{request}}\)</span>, and use it as the maximum bound for the generation latency:</p>
-<div class="arithmatex">\[
-\Delta T(\#T_{\text{out}}, P_{\text{active}}) = \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96\delta).
-\]</div>
-<p>With the request latency, the generation latency is defined as follows:</p>
-<div class="arithmatex">\[
-\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times (\alpha \times P_{\text{active}} + \beta \pm 1.96 \delta), \Delta T_{\text{request}} \right\}.
+\Delta T(\#T_{\text{out}}, P_{\text{active}}, \Delta T_{\text{request}}) = \min \left\{ \#T_{\text{out}} \times f_L(P_{\text{active}}, 64), \Delta T_{\text{request}} \right\}.
 \]</div>
 <h4 id="estimating-the-number-of-active-gpus">Estimating the number of active GPUs</h4>
 <p>To estimate the number of required GPUs, <span class="arithmatex">\(\text{GPU}\)</span>, to load the model in virtual memory, we divide the required memory to host the LLM for inference, noted <span class="arithmatex">\(M_{\text{model}}\)</span>, by the memory available on one GPU, noted <span class="arithmatex">\(M_{\text{GPU}}\)</span>.</p>
@@ -2447,80 +2522,38 @@ E_{\text{server} \backslash \text{GPU}}(\Delta T) = \Delta T \times W_{\text{ser
 <div class="arithmatex">\[
 M_{\text{model}}(P_{\text{total}},Q)=1.2 \times \frac{P_{\text{total}} \times Q}{8}.
 \]</div>
-<p>We then estimate the number of required GPUs, rounded up:</p>
+<p>We then estimate the number of required GPUs, rounded up in base 2:</p>
 <div class="arithmatex">\[
-\text{GPU}(P_{\text{total}},Q,M_{\text{GPU}}) = \left\lceil \frac{M_{\text{model}}(P_{\text{total}},Q)}{M_{\text{GPU}}} \right\rceil.
+\text{GPU}(P_{\text{total}},Q,M_{\text{GPU}}) = 2^{\large\frac{\log( \left\lceil M_{\text{model}}(P_{\text{total}},Q) / M_{\text{GPU}} \right\rceil)}{\log(2)}}.
 \]</div>
-<p>To stay consistent with previous assumptions based on LLM Perf Leaderboard data, we use <span class="arithmatex">\(M_{\text{GPU}} = 80\)</span> GB for an NVIDIA A100 80GB GPU.</p>
+<p>To stay consistent with previous assumptions based on <a href="https://ml.energy/leaderboard/?__theme=light">ML.ENERGY Leaderboard</a> data, we use <span class="arithmatex">\(M_{\text{GPU}} = 80\)</span> GB for an NVIDIA H100 80GB GPU and <span class="arithmatex">\(Q = 16\)</span> bits. We round up in base 2, to make sure we have coherent number of GPUs being deployed: 1, 2, 4, 8, 16...</p>
 <h4 id="complete-server-energy-consumption">Complete server energy consumption</h4>
 <p>The total server energy consumption for the request, <span class="arithmatex">\(E_{\text{server}}\)</span>, is computed as follows:</p>
 <div class="arithmatex">\[
 E_{\text{server}} = E_{\text{server} \backslash \text{GPU}} + \text{GPU} \times E_{\text{GPU}}.
 \]</div>
 <h3 id="modeling-request-energy-consumption">Modeling request energy consumption</h3>
-<p>To estimate the energy consumption of the request, we multiply the previously computed server energy by the Power Usage Effectiveness (PUE) to account for cooling equipment in the data center:</p>
+<p>To estimate the energy consumption of the request, we multiply the previously computed server energy by the Power Usage Effectiveness (<abbr title="Power Usage Efficiency">PUE</abbr>) to account for cooling equipment in the data center:</p>
 <div class="arithmatex">\[
 E_{\text{request}} = \text{PUE} \times E_{\text{server}}.
 \]</div>
-<p>We typically use a <span class="arithmatex">\(\text{PUE} = 1.2\)</span> for hyperscaler data centers or supercomputers.</p>
 <h3 id="modeling-request-usage-environmental-impacts">Modeling request usage environmental impacts</h3>
-<p>To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, <span class="arithmatex">\(F_{\text{em}}\)</span>, specific to the target country and time. <strong>Unless otherwise stated, we currently use a worldwide average multicriteria impact factor from the <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a></strong>:</p>
+<p>To assess the environmental impacts of the request for the usage phase, we multiply the estimated electricity consumption by the impact factor of the electricity mix, <span class="arithmatex">\(F_{\text{em}}\)</span>, specific to the target country and time. We use data from the <a href="https://ourworldindata.org/electricity-mix">Our World in Data</a> for <abbr title="Global Warming Potential">GWP</abbr> impact and from the <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a> for <abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> and <abbr title="Primary Energy">PE</abbr> impacts. It gives us:</p>
 <div class="arithmatex">\[
 I^\text{u}_{\text{request}} = E_{\text{request}} \times F_{\text{em}}.
 \]</div>
-<p>Note that the user can still chose another electricity mix from the <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a>.</p>
-<details class="note">
-<summary>Some values of <span class="arithmatex">\(F_{\text{em}}\)</span> per geographical area</summary>
-<table>
-<thead>
-<tr>
-<th>Area or country</th>
-<th><abbr title="Global Warming Potential">GWP</abbr> (<abbr title="Grams of CO2 (carbon dioxide) equivalent">gCO2eq</abbr> / kWh)</th>
-<th><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> (<abbr title="Kilograms of Sb (antimony) equivalent">kgSbeq</abbr> / kWh)</th>
-<th><abbr title="Primary Energy">PE</abbr> (MJ / kWh)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>🌐 Worldwide</td>
-<td><span class="arithmatex">\(590.4\)</span></td>
-<td><span class="arithmatex">\(7.378 \times 10^{-8}\)</span></td>
-<td><span class="arithmatex">\(9.99\)</span></td>
-</tr>
-<tr>
-<td>🇪🇺 Europe (<a href="https://en.wikipedia.org/wiki/European_Economic_Area">EEA</a>)</td>
-<td><span class="arithmatex">\(509.4\)</span></td>
-<td><span class="arithmatex">\(6.423 \times 10^{-8}\)</span></td>
-<td><span class="arithmatex">\(12.9\)</span></td>
-</tr>
-<tr>
-<td>🇺🇸 USA</td>
-<td><span class="arithmatex">\(679.8\)</span></td>
-<td><span class="arithmatex">\(9.855 \times 10^{-8}\)</span></td>
-<td><span class="arithmatex">\(11.4\)</span></td>
-</tr>
-<tr>
-<td>🇨🇳 China</td>
-<td><span class="arithmatex">\(1,057\)</span></td>
-<td><span class="arithmatex">\(8.515 \times 10^{-8}\)</span></td>
-<td><span class="arithmatex">\(14.1\)</span></td>
-</tr>
-<tr>
-<td>🇫🇷 France</td>
-<td><span class="arithmatex">\(81.3\)</span></td>
-<td><span class="arithmatex">\(4.858 \times 10^{-8}\)</span></td>
-<td><span class="arithmatex">\(11.3\)</span></td>
-</tr>
-</tbody>
-</table>
-</details>
+<h4 id="modeling-request-water-consumption-footprint-for-usage-phase">Modeling request water consumption footprint for usage phase</h4>
+<p>To assess the Water Consumption Footprint (<abbr title="Water Consumption Footprint">WCF</abbr>) for the usage phase we use the modeling from <a href="https://arxiv.org/abs/2304.03271">Li et al. (2025)</a>. It uses the Water Usage Effectiveness (<abbr title="Water Usage Efficiency">WUE</abbr>) of both the data center <span class="arithmatex">\(\text{WUE}_\text{on-site}\)</span> and of the local electricity mix <span class="arithmatex">\(\text{WUE}_\text{off-site}\)</span>. On-site data is assessed for each provider individually, whereas off-site data is averaged from each country according to the <a href="https://www.wri.org/research/guidance-calculating-water-use-embedded-purchased-electricity">World Resource Institute methodology</a>. It gives us:</p>
+<div class="arithmatex">\[
+\text{WCF}^{\text{u}}_\text{request} = E_\text{server} \times [\text{WUE}_\text{on-site} + \text{PUE} \times \text{WUE}_\text{off-site}].
+\]</div>
 <h2 id="embodied-impacts">Embodied impacts</h2>
 <p>To determine the embodied impacts of an LLM inference, we need to estimate the <strong>hardware configuration</strong> used to host the model and its lifetime. Embodied impacts account for resource extraction (e.g., minerals and metals), manufacturing, and transportation of the hardware.</p>
 <h3 id="modeling-server-embodied-impacts">Modeling server embodied impacts</h3>
 <p>To estimate the embodied impacts of IT hardware, we use the <a href="https://github.com/Boavizta/boaviztapi">BoaviztAPI</a> tool from the non-profit organization <a href="https://boavizta.org/en/">Boavizta</a>. This API embeds a bottom-up multicriteria environment impact estimation engine for embodied and usage phases of IT resources and services. We focus on estimating the embodied impacts of a server and a GPU. BoaviztAPI is an open-source project that relies on open databases and open research on environmental impacts of IT equipment.</p>
 <h4 id="server-embodied-impacts-without-gpu">Server embodied impacts without GPU</h4>
-<p>To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the <code>p4de.24xlarge</code> instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA A100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as <span class="arithmatex">\(I^{\text{e}}_{\text{server} \backslash \text{GPU}}\)</span>.</p>
-<p>The embodied environmental impacts of the cloud instance are:</p>
+<p>To assess the embodied environmental impacts of a high-end AI server, we use an AWS cloud instance as a reference. We selected the <code>p5.48xlarge</code> instance, as it corresponds to a server that can be used for LLM inference with eight NVIDIA H100 80GB GPU cards. The embodied impacts of this instance will be used to estimate the embodied impacts of the server without GPUs, denoted as <span class="arithmatex">\(I^{\text{e}}_{\text{server} \backslash \text{GPU}}\)</span>.</p>
+<p>The embodied environmental impacts of the cloud instance <strong>(excluding GPUs)</strong> are:</p>
 <table>
 <thead>
 <tr>
@@ -2531,77 +2564,137 @@ I^\text{u}_{\text{request}} = E_{\text{request}} \times F_{\text{em}}.
 <tbody>
 <tr>
 <td><abbr title="Global Warming Potential">GWP</abbr> (<abbr title="Kilograms of CO2 (carbon dioxide) equivalent">kgCO2eq</abbr>)</td>
-<td><span class="arithmatex">\(3000\)</span></td>
+<td><span class="arithmatex">\(5700\)</span></td>
 </tr>
 <tr>
 <td><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> (<abbr title="Kilograms of Sb (antimony) equivalent">kgSbeq</abbr>)</td>
-<td><span class="arithmatex">\(0.25\)</span></td>
+<td><span class="arithmatex">\(0.37\)</span></td>
 </tr>
 <tr>
 <td><abbr title="Primary Energy">PE</abbr> (MJ)</td>
-<td><span class="arithmatex">\(39,000\)</span></td>
+<td><span class="arithmatex">\(70,000\)</span></td>
 </tr>
 </tbody>
 </table>
-<div class="admonition warning">
-<p class="admonition-title">These impacts do not take into account the eight GPUs. (<a href="#gpu-embodied-impacts">see below</a>)</p>
-</div>
 <details class="info">
-<summary>Example request to reproduce this calculation</summary>
-<p>On the cloud instance route (/v1/cloud/instance) you can POST the following JSON.</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">&quot;provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aws&quot;</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;instance_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p4de.24xlarge&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>Or you can use the demo available demo API with this command using <code>curl</code> and parsing the JSON output with <code>jq</code>.</p>
+<summary>Embodied impacts of the server (without GPUs)</summary>
+<p>We use as a reference the <code>p5.48xlarge</code> AWS cloud instance. With <a href="https://github.com/Boavizta/boaviztapi">BoaviztAPI</a>, we can estimate the embodied impacts of such instance with the following request:</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="s1">&#39;https://api.boavizta.org/v1/cloud/instance?verbose=true&amp;criteria=gwp&amp;criteria=adp&amp;criteria=pe&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="s1">&#39;https://api.boavizta.org/v1/cloud/instance&#39;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="s1">    &quot;provider&quot;: &quot;aws&quot;,</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="s1">    &quot;instance_type&quot;: &quot;p4de.24xlarge&quot;</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="s1">}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="s1">        &quot;provider&quot;: &quot;aws&quot;,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="s1">        &quot;instance_type&quot;: &quot;p5.48xlarge&quot;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="s1">    }&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.impacts
 </span></code></pre></div>
 </details>
 <h4 id="gpu-embodied-impacts">GPU embodied impacts</h4>
-<p>Boavizta is currently developing a methodology to provide multicriteria embodied impacts for GPU cards. For this analysis, we use the embodied impact data they computed for a NVIDIA A100 80GB GPU. These values will be used to estimate the embodied impacts of a single GPU, denoted as <span class="arithmatex">\(I^{\text{e}}_{\text{GPU}}\)</span>.</p>
+<p>According to this <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-H100-PCF-Summary.pdf">NVIDIA datasheet</a>, a NVIDIA H100 80GB GPU has a <abbr title="Global Warming Potential">GWP</abbr> of 164 <abbr title="Kilograms of CO2 (carbon dioxide) equivalent">kgCO2eq</abbr>. To approximate the <abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> and <abbr title="Primary Energy">PE</abbr>, we rely on the <a href="https://github.com/Boavizta/boaviztapi/issues/65#issuecomment-1604242196">Boavizta methodology for previous A100 GPUs</a>. These values will be used to estimate the embodied impacts of a single GPU, denoted as <span class="arithmatex">\(I^{\text{e}}_{\text{GPU}}\)</span>.</p>
 <table>
 <thead>
 <tr>
 <th></th>
-<th>NIDIA A100 80GB</th>
+<th>NVIDIA H100 80GB</th>
+<th>NVIDIA A100 80GB</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><abbr title="Global Warming Potential">GWP</abbr> (<abbr title="Kilograms of CO2 (carbon dioxide) equivalent">kgCO2eq</abbr>)</td>
-<td><span class="arithmatex">\(143\)</span></td>
+<td><span class="arithmatex">\(164\)</span></td>
+<td><em>Not used</em></td>
 </tr>
 <tr>
 <td><abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr> (<abbr title="Kilograms of Sb (antimony) equivalent">kgSbeq</abbr>)</td>
+<td><em>Not available</em></td>
 <td><span class="arithmatex">\(5.09 \times 10^{-3}\)</span></td>
 </tr>
 <tr>
 <td><abbr title="Primary Energy">PE</abbr> (MJ)</td>
+<td><em>Not available</em></td>
 <td><span class="arithmatex">\(1,828\)</span></td>
 </tr>
 </tbody>
 </table>
-<div class="admonition warning">
-<p class="admonition-title">The GPU embodied impacts will be soon available in the BoaviztAPI tool.</p>
-</div>
 <h4 id="complete-server-embodied-impacts">Complete server embodied impacts</h4>
 <p>The final embodied impacts for the server, including the GPUs, are calculated as follows. Note that the embodied impacts of the server without GPUs are scaled by the number of GPUs required to host the model. This allocation is made to account for the fact that the remaining GPUs on the server can be used to host other models or multiple instances of the same model. As we are estimating the impacts of a single LLM inference, we need to exclude the embodied impacts that would be attributed to other services hosted on the same server:</p>
 <div class="arithmatex">\[
 I^{\text{e}}_{\text{server}}=\frac{\text{GPU}}{\#\text{GPU}_{\text{installed}}} \times I^{\text{e}}_{\text{server} \backslash \text{GPU}} + \text{GPU} \times I^{\text{e}}_{\text{GPU}}.
 \]</div>
 <h3 id="modeling-request-embodied-environmental-impacts">Modeling request embodied environmental impacts</h3>
-<p>To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, <span class="arithmatex">\(\frac{\Delta T}{\Delta L}\)</span>. In this case, <span class="arithmatex">\(\Delta L\)</span> represents the lifetime of the server and GPU, which we fix at 5 years:</p>
+<p>To allocate the server embodied impacts to the request, we use an allocation based on the hardware utilization factor, <span class="arithmatex">\(\frac{\Delta T}{B \times \Delta L}\)</span>. In this case, <span class="arithmatex">\(\Delta L\)</span> represents the lifetime of the server and GPU, which we fix at 3 years (<a href="https://www.osti.gov/servlets/purl/1771896">Ostrouchov et al. (2020)</a>, <a href="https://www.tomshardware.com/pc-components/gpus/datacenter-gpu-service-life-can-be-surprisingly-short-only-one-to-three-years-is-expected-according-to-unnamed-google-architect">tomshardware.com</a>), and <span class="arithmatex">\(B\)</span> is the batch size such as above: </p>
 <div class="arithmatex">\[
-I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\text{server}}.
+I^{\text{e}}_{\text{request}}=\frac{\Delta T}{B \times  \Delta L} \times I^{\text{e}}_{\text{server}}.
 \]</div>
+<div class="admonition warning">
+<p class="admonition-title">Water consumption (<abbr title="Water Consumption Footprint">WCF</abbr>) impact is not modeled for the embodied phase due to a lack of data.</p>
+</div>
+<h2 id="supplemental-material">Supplemental material</h2>
+<h3 id="data-center-configuration">Data center configuration</h3>
+<p>We use public data from AI providers to their <strong>data center configuration</strong> such as the default <strong>deployment location</strong> and the <strong><abbr title="Power Usage Efficiency">PUE</abbr></strong> and <strong><abbr title="Water Usage Efficiency">WUE</abbr></strong>. The table below outlines the different hypothesis we currently use. The full details and sources are available in the <a href="https://docs.google.com/spreadsheets/d/1XkPTkrGxpwWpIVIxpVvgRJuInSZsqbndTQbFGcHhdd0/">supplemental material</a> in the "providers" tab. </p>
+<table>
+<thead>
+<tr>
+<th>AI Provider</th>
+<th>Cloud Provider</th>
+<th>Location</th>
+<th><abbr title="Power Usage Efficiency">PUE</abbr></th>
+<th><abbr title="Water Usage Efficiency">WUE</abbr></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anthropic</td>
+<td>AWS, Google</td>
+<td>USA</td>
+<td>1.09 - 1.14</td>
+<td>0.13 - 0.99</td>
+</tr>
+<tr>
+<td>Cohere</td>
+<td>Google</td>
+<td>USA</td>
+<td>1.09</td>
+<td>0.99</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>Google</td>
+<td>USA</td>
+<td>1.09</td>
+<td>0.99</td>
+</tr>
+<tr>
+<td>HuggingFace Hub</td>
+<td>AWS, Google</td>
+<td>USA</td>
+<td>1.09 - 1.14</td>
+<td>0.13 - 0.99</td>
+</tr>
+<tr>
+<td>Mistral AI</td>
+<td>Microsoft</td>
+<td>SWE</td>
+<td>1.16</td>
+<td>0.09</td>
+</tr>
+<tr>
+<td>OpenAI</td>
+<td>Microsoft</td>
+<td>USA</td>
+<td>1.20</td>
+<td>0.569</td>
+</tr>
+<tr>
+<td>Azure OpenAI</td>
+<td>Microsoft</td>
+<td>USA</td>
+<td>1.20</td>
+<td>0.569</td>
+</tr>
+</tbody>
+</table>
 <h2 id="assumptions-and-limitations">Assumptions and limitations</h2>
 <p>To be able to estimate environmental impacts of LLMs at inference we took the approach of modeling the key components that compose the service. In this section we will list major assumptions we make when modeling environmental impacts as well as known limitations. When possible we will try to quantify the potential inaccuracies.</p>
 <h3 id="on-models">On models</h3>
@@ -2610,24 +2703,19 @@ I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\te
 <p>Assuming the <strong>energy consumption</strong> for AI models is done through benchmarking open models. We tend to rely on external sources for benchmarking, but we conduct our own experiments as well. Because of our limited capacity and the technical complexity to host very big AI models we extrapolate the consumption of smaller models to bigger models.</p>
 <p><strong>Assumptions:</strong></p>
 <ul>
-<li>Models are deployed with pytorch backend.</li>
-<li>Models are quantized to 4 bits.</li>
+<li>Models are deployed with vLLM backend.</li>
+<li>Models are quantized to 16 bits.</li>
 </ul>
 <p><strong>Limitations:</strong></p>
 <ul>
-<li>We do not account for other inference optimizations such as flash attention, batching or parallelism.</li>
-<li>We do not benchmark models bigger than 70 billion parameters.</li>
-<li>We do not have benchmarks for multi-GPU deployments.</li>
 <li>We do not account for the multiple modalities of a model (only text-to-text generation).</li>
 </ul>
-<h3 id="on-benchmarking-data">On benchmarking data</h3>
-<p>We use <strong>linear regression models</strong> to approximate energy consumption per token and latency per token as a function of the number of active parameters in the LLM. We represent the linear model as <span class="arithmatex">\(Y = a \times X + b + \epsilon\)</span>, where <span class="arithmatex">\(Y\)</span> is the predicted value, <span class="arithmatex">\(X\)</span> is the input variable, <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> are the regression coefficients, and <span class="arithmatex">\(\epsilon\)</span> is the error term. We assume that the errors (<span class="arithmatex">\(\epsilon\)</span>) follow a <strong>normal distribution</strong> with a mean of zero and a constant variance, represented as <span class="arithmatex">\(\epsilon \sim \mathcal{N}(0, \sigma^2)\)</span>. This enables us to use the 95% confidence interval, calculated using the standard deviation of the errors (<span class="arithmatex">\(\sigma\)</span>) and the 97.5th percentile point of the standard normal distribution (approximately 1.96).</p>
 <h3 id="on-hardware">On hardware</h3>
 <p>We estimate the <strong>required infrastructure</strong> to run the service in terms of hardware. We consider that the service is hosted in the cloud on servers equipped with high-end GPUs. </p>
 <p><strong>Assumptions:</strong></p>
 <ul>
-<li>Models are deployed on NVIDIA A100 GPUs with 80GB of memory.</li>
-<li>Base servers are similar to p4de.24xlarge AWS cloud instances.</li>
+<li>Models are deployed on NVIDIA H100 GPUs with 80GB of memory.</li>
+<li>Base servers are similar to p5.48xlarge AWS cloud instances.</li>
 </ul>
 <p><strong>Limitations:</strong></p>
 <ul>
@@ -2636,18 +2724,14 @@ I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\te
 <li>We do not account for infrastructure overheads or utilization factors.</li>
 </ul>
 <h3 id="on-data-centers">On data centers</h3>
-<p>The type of services we model rely on high-end hardware that we consider is hosted by cloud service providers. Thus, we model data centers impacts as well and especially the overhead for cooling equipments.</p>
-<p>We consider the <strong>Power Usage Effectiveness</strong> (PUE) metric from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. That's why we prefer to rely on a global average for PUE that can be overridden for providers that disclose more precise data.</p>
-<p><strong>Assumptions:</strong></p>
-<ul>
-<li>PUE = 1.2 (arbitrary value, <a href="https://semianalysis.com/2024/03/13/ai-datacenter-energy-dilemma-race/#datacenter-math">valid for hyperscalers</a>)</li>
-</ul>
+<p>The AI services we model rely on high-end hardware that we consider is hosted by cloud service providers. Thus, we model data centers impacts as well and especially the overhead for cooling equipments.</p>
+<p>We consider the <abbr title="Power Usage Efficiency">PUE</abbr> and <abbr title="Water Usage Efficiency">WUE</abbr> metrics from data centers. These values can be quite complicated to get from the providers themselves. A good amount of data is available for providers that build their own data centers (such as hyperscalers). But part of the AI workloads are also located in non-hyperscale data centers or in co-located data centers. For each data center provider, we use the <abbr title="Power Usage Efficiency">PUE</abbr> and <abbr title="Water Usage Efficiency">WUE</abbr> numbers published by them on a global average.</p>
 <p><strong>Limitations:</strong></p>
 <ul>
 <li>We do not know precisely where are located the data centers that run AI models.</li>
 <li>We do not account for the specific infrastructure or way to cooldown servers in data centers.</li>
 <li>We do not account for the local electricity generation (private power plants) specific to the data center.</li>
-<li>We do not account for the overhead of the cloud provider for internal services like backing up or monitoring.</li>
+<li>We do not account for the overhead of the cloud provider for internal services like backing up, monitoring, or idle time.</li>
 </ul>
 <h3 id="on-impact-factors">On impact factors</h3>
 <p>To transform physical values such as energy consumption into environmental impacts we use <strong>impact factors</strong>. These can be hard to estimate and precise and up-to-date data is rarely open to use.</p>
@@ -2660,16 +2744,25 @@ I^{\text{e}}_{\text{request}}=\frac{\Delta T}{\Delta L} \times I^{\text{e}}_{\te
 <li>We do not account for local electricity generation for data center or regional electricity mixes the smallest supported zone is a country.</li>
 </ul>
 <h3 id="on-embodied-impacts">On embodied impacts</h3>
-<p>We aim at covering the largest scope possible when assessing the environmental impacts. That is why we rely extensively on the work done by <a href="https://boavizta.org/">Boavizta</a> non-profit. Unfortunately, assessing the environmental impacts of resources extraction, hardware manufacturing and transportation is very challenging mainly due to a lack of transparency from all the organizations that are involved. Estimations of the inaccuracies are currently not supported within Boavizta's methodology and tool (<a href="https://doc.api.boavizta.org/">BoaviztAPI</a>).</p>
+<p>We aim at covering the largest scope possible when assessing the environmental impacts. That is why we rely extensively on the work done by <a href="https://boavizta.org/">Boavizta</a> non-profit. Unfortunately, assessing the environmental impacts of resources extraction, hardware manufacturing, and transportation is very challenging mainly due to a lack of transparency from all the organizations that are involved. Estimations of the inaccuracies are currently not supported within Boavizta's methodology and tool (<a href="https://doc.api.boavizta.org/">BoaviztAPI</a>).</p>
 <h2 id="references">References</h2>
 <ul>
-<li><a href="https://huggingface.co/spaces/optimum/llm-perf-leaderboard">LLM-Perf Leaderboard</a> to estimate GPU energy consumption and latency based on the model architecture and number of output tokens.</li>
+<li><a href="https://ml.energy/leaderboard/?__theme=light">ML.ENERGY Leaderboard</a> to estimate GPU energy consumption and latency based on the model architecture and number of output tokens.</li>
 <li><a href="https://github.com/Boavizta/boaviztapi">BoaviztAPI</a> to estimate server embodied impacts and base energy consumption.</li>
-<li><a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a> for electricity mix impacts per country.</li>
+<li><a href="https://ourworldindata.org/">Our World in Data</a>, <a href="https://base-empreinte.ademe.fr/">ADEME Base Empreinte®</a> and <a href="https://www.wri.org/">World Resource Institute</a> for electricity mix impacts per country.</li>
 </ul>
 <h2 id="citation"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg></span> Citation</h2>
 <p>Please cite <strong>GenAI Impact</strong> non-profit organization and <strong>link to this documentation page</strong>. </p>
-<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c">Coming soon...</span>
+<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nc">@article</span><span class="p">{</span><span class="nl">ecologits</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10.21105/joss.07471}</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://doi.org/10.21105/joss.07471}</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="na">publisher</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{The Open Journal}</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="na">volume</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10}</span><span class="p">,</span><span class="w"> </span><span class="na">number</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{111}</span><span class="p">,</span><span class="w"> </span><span class="na">pages</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{7471}</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Rincé, Samuel and Banse, Adrien}</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{EcoLogits: Evaluating the Environmental Impacts of Generative AI}</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Journal of Open Source Software}</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
 </span></code></pre></div>
 <h2 id="license"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-1.27 0-2.4.8-2.82 2H3v2h1.95L2 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3L6.05 7h3.12c.33.85.98 1.5 1.83 1.83V20H2v2h20v-2h-9V8.82c.85-.32 1.5-.97 1.82-1.82h3.13L15 14c-.47 2 1 3 3.5 3s4.06-1 3.5-3l-2.95-7H21V5h-6.17C14.4 3.8 13.27 3 12 3m0 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-6.5 5.25L7 14H4zm13 0L20 14h-3z"/></svg></span> License</h2>
 <p><strong>This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></strong>

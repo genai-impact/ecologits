@@ -1929,11 +1929,12 @@
 </ul>
 <h2 id="methodological-background">Methodological background</h2>
 <p>EcoLogits employs the <strong>Life Cycle Assessment (LCA) methodology</strong>, as defined by ISO 14044, to estimate the environmental impacts of requests made to generative AI inference services. This approach focuses on <strong>multiple phases</strong> of the lifecycle, specifically raw material extraction, manufacturing, transportation (denoted as embodied impacts), usage and end-of-life. Notably, we do not cover the end-of-life phase due to data limitations on e-waste recycling.</p>
-<p>Our assessment considers <strong>three key environmental criteria</strong>:</p>
+<p>Our assessment considers <strong>four key environmental criteria</strong>:</p>
 <ul>
 <li>Global Warming Potential (<abbr title="Global Warming Potential">GWP</abbr>): Evaluates the impact on global warming in terms of CO2 equivalents.</li>
 <li>Abiotic Resource Depletion for Elements (<abbr title="Abiotic Depletion Potential for Elements">ADPe</abbr>): Assesses the consumption of raw minerals and metals, expressed in antimony equivalents.</li>
 <li>Primary Energy (<abbr title="Primary Energy">PE</abbr>): Calculates energy consumed from natural sources, expressed in megajoules.</li>
+<li>Water Consumption Factor (<abbr title="Water Consumption Footprint">WCF</abbr>): Water consumed by data centers and electricity generation power plants not returned to its original sources.</li>
 </ul>
 <p>Using a <strong>bottom-up modeling approach</strong>, we assess and aggregate the environmental impacts of all individual service components within scope. This method differs from top-down approaches by allowing precise allocation of each resource's impact to the overall environmental footprint. The key advantage of bottom-up modeling is that our methodology can be customized for each provider that share information.</p>
 <p>Our method computes <strong>high-confidence approximation intervals</strong>, providing a range of values within which we are confident enough that the true consumption lies.</p>
