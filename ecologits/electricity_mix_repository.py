@@ -36,6 +36,9 @@ class ElectricityMixRepository:
                 return electricity_mix
         return None
 
+    def list_electricity_mixes(self) -> list[ElectricityMix]:
+        return self.__electricity_mixes
+
     @classmethod
     def from_csv(cls, filepath: Optional[str] = None) -> "ElectricityMixRepository":
         if filepath is None:
