@@ -3487,14 +3487,8 @@
             "architecture": {
                 "type": "dense",
                 "parameters": {
-                    "total": {
-                        "min": 8,
-                        "max": 28
-                    },
-                    "active": {
-                        "min": 8,
-                        "max": 28
-                    }
+                    "min": 8,
+                    "max": 28
                 }
             },
             "warnings": [
@@ -3511,14 +3505,8 @@
             "architecture": {
                 "type": "dense",
                 "parameters": {
-                    "total": {
-                        "min": 8,
-                        "max": 28
-                    },
-                    "active": {
-                        "min": 8,
-                        "max": 28
-                    }
+                    "min": 8,
+                    "max": 28
                 }
             },
             "warnings": [
@@ -3792,6 +3780,24 @@
                         "min": 44,
                         "max": 132
                     }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released"
+            ],
+            "sources": [
+                "https://docs.anthropic.com/en/docs/about-claude/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "anthropic",
+            "name": "claude-haiku-4-5-20251001",
+            "architecture": {
+                "type": "dense",
+                "parameters": {
+                    "min": 10,
+                    "max": 35
                 }
             },
             "warnings": [
@@ -5378,28 +5384,6 @@
         {
             "type": "model",
             "provider": "openai",
-            "name": "gpt-4o-transcribe",
-            "architecture": {
-                "type": "moe",
-                "parameters": {
-                    "total": 440,
-                    "active": {
-                        "min": 44,
-                        "max": 132
-                    }
-                }
-            },
-            "warnings": [
-                "model-arch-not-released",
-                "model-arch-multimodal"
-            ],
-            "sources": [
-                "https://platform.openai.com/docs/models#gpt-4o"
-            ]
-        },
-        {
-            "type": "model",
-            "provider": "openai",
             "name": "gpt-5",
             "architecture": {
                 "type": "moe",
@@ -5551,6 +5535,50 @@
                 "parameters": {
                     "min": 5,
                     "max": 18.5
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-5-search-api",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 300,
+                    "active": {
+                        "min": 30,
+                        "max": 90
+                    }
+                }
+            },
+            "warnings": [
+                "model-arch-not-released",
+                "model-arch-multimodal"
+            ],
+            "sources": [
+                "https://platform.openai.com/docs/models"
+            ]
+        },
+        {
+            "type": "model",
+            "provider": "openai",
+            "name": "gpt-5-search-api-2025-10-14",
+            "architecture": {
+                "type": "moe",
+                "parameters": {
+                    "total": 300,
+                    "active": {
+                        "min": 30,
+                        "max": 90
+                    }
                 }
             },
             "warnings": [
