@@ -4,9 +4,9 @@ repo_name: genai-impact/ecologits
 repo_url: https://github.com/genai-impact/ecologits
 
 nav:
-  - 'Home': home.md
+  - 'Home': index.md
   - 'Get Started':
-    - 'Welcome to EcoLogits': index.md
+    - 'Welcome to EcoLogits': get_started.md
     - 'Why use EcoLogits': why.md
     - 'Supported providers': tutorial/providers.md
     - 'FAQ': faq.md
