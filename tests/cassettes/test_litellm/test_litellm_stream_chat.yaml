@@ -1,147 +1,81 @@
 interactions:
 - request:
-    body: '{"messages": [{"role": "user", "content": [{"type": "text", "text": "Hello
-      World!"}]}], "max_tokens": 4096, "model": "claude-3-5-sonnet-20240620", "stream":
-      true}'
+    body: '{"model": "mistral-small", "messages": [{"role": "user", "content": "Hello
+      World!"}], "stream": true}'
     headers:
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '162'
-      User-Agent:
-      - python-requests/2.32.3
       accept:
-      - application/json
-      anthropic-version:
-      - '2023-06-01'
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '101'
       content-type:
       - application/json
+      cookie:
+      - __cf_bm=3O1y1CdhUpG1CYjNREBQP0ha7HmI2bsHdCrhXmozXxA-1762269425-1.0.1.1-WNTzRED5GBVcYEE7p0LJQs_0YmPtsMyq_HFu05qKTGWevaJNQB0Q5kbdi82TyFuC3KMMF.QhXQEOeF8_SNHCz.QY2n6PebmMPRS5LHKyeXM;
+        _cfuvid=aMOIh9nzo.VSggo6qj3a8T9ZTwRaoy5dbkE_MwHjk6k-1762269425925-0.0.1.1-604800000
+      host:
+      - api.mistral.ai
+      user-agent:
+      - litellm/1.79.1
     method: POST
-    uri: https://api.anthropic.com/v1/messages
+    uri: https://api.mistral.ai/v1/chat/completions
   response:
     body:
-      string: 'event: message_start
-
-        data: {"type":"message_start","message":{"id":"msg_01K8R7oa2MDmHMxNTXRdYwH1","type":"message","role":"assistant","model":"claude-3-5-sonnet-20240620","content":[],"stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":10,"output_tokens":5}}             }
-
-
-        event: content_block_start
-
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}           }
-
-
-        event: ping
-
-        data: {"type": "ping"}
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"Hello!
-        It''s great"}   }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        to meet you. How"}  }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        can"}     }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        I assist you today?"}          }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        Feel"}              }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        free to ask me anything"}         }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        you"}            }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"''d
-        like help"}           }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        with."}     }
-
-
-        event: content_block_stop
-
-        data: {"type":"content_block_stop","index":0          }
-
-
-        event: message_delta
-
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null},"usage":{"output_tokens":31}         }
-
-
-        event: message_stop
-
-        data: {"type":"message_stop"             }
-
-
-        '
+      string: "data: {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\ndata:
+        {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Hello\"},\"finish_reason\":null}],\"p\":\"a\"}\n\ndata:
+        {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"!\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwxyz01\"}\n\ndata:
+        {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        \U0001F60A\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwxyz012345678\"}\n\ndata:
+        {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        How\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwxyz01\"}\n\ndata:
+        {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        can\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvw\"}\n\ndata:
+        {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        I\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwx\"}\n\ndata:
+        {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        assist\"},\"finish_reason\":null}],\"p\":\"ab\"}\n\ndata: {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        you\"},\"finish_reason\":null}],\"p\":\"abcdefghij\"}\n\ndata: {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        today\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqr\"}\n\ndata: {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"?\"},\"finish_reason\":null}],\"p\":\"abcdefgh\"}\n\ndata:
+        {\"id\":\"9f4c8e2c3d354ad9aa39595108248378\",\"object\":\"chat.completion.chunk\",\"created\":1762269427,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\"},\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":6,\"total_tokens\":19,\"completion_tokens\":13},\"p\":\"abcdef\"}\n\ndata:
+        [DONE]\n\n"
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8be72d9dabb2b733-BRU
-      Cache-Control:
-      - no-cache
+      - 999513932b785d41-FRA
       Connection:
       - keep-alive
       Content-Type:
       - text/event-stream; charset=utf-8
       Date:
-      - Thu, 05 Sep 2024 15:16:03 GMT
+      - Tue, 04 Nov 2025 15:17:07 GMT
       Server:
       - cloudflare
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
       Transfer-Encoding:
       - chunked
-      X-Robots-Tag:
-      - none
-      anthropic-ratelimit-requests-limit:
+      X-Content-Type-Options:
+      - nosniff
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      mistral-correlation-id:
+      - 019a4f71-781a-777f-8e4e-2bccd582af89
+      x-envoy-upstream-service-time:
+      - '45'
+      x-kong-proxy-latency:
       - '5'
-      anthropic-ratelimit-requests-remaining:
-      - '3'
-      anthropic-ratelimit-requests-reset:
-      - '2024-09-05T15:16:43Z'
-      anthropic-ratelimit-tokens-limit:
-      - '20000'
-      anthropic-ratelimit-tokens-remaining:
-      - '16000'
-      anthropic-ratelimit-tokens-reset:
-      - '2024-09-05T15:16:15Z'
-      request-id:
-      - req_0126Z9CVAxnRKbK2ee7AVsYT
-      via:
-      - 1.1 google
+      x-kong-request-id:
+      - 019a4f71-781a-777f-8e4e-2bccd582af89
+      x-kong-upstream-latency:
+      - '46'
+      x-model-deprecation-timestamp:
+      - '2024-11-30T12:00:00+00:00'
     status:
       code: 200
       message: OK

@@ -1,213 +1,151 @@
 interactions:
 - request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - identity
-      Connection:
-      - keep-alive
-      X-Amzn-Trace-Id:
-      - 919dccf9-50b1-463b-86a7-51bcf6374cdc
-      user-agent:
-      - unknown/None; hf_hub/0.22.2; python/3.11.8
-    method: HEAD
-    uri: https://huggingface.co/claude-3-5-sonnet-20240620/resolve/main/tokenizer.json
-  response:
-    body:
-      string: ''
-    headers:
-      Access-Control-Allow-Origin:
-      - https://huggingface.co
-      Access-Control-Expose-Headers:
-      - X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '29'
-      Content-Type:
-      - text/plain; charset=utf-8
-      Date:
-      - Thu, 05 Sep 2024 15:16:04 GMT
-      ETag:
-      - W/"1d-DMkJvg8tpLoaQbsiq9Mz7l2CJyI"
-      Referrer-Policy:
-      - strict-origin-when-cross-origin
-      Vary:
-      - Origin
-      Via:
-      - 1.1 47b02788927e4a826aab9351e0c1b010.cloudfront.net (CloudFront)
-      WWW-Authenticate:
-      - Bearer realm="Authentication required", charset="UTF-8"
-      X-Amz-Cf-Id:
-      - esA3Lsz5S4PosGwthwT5XeOvzz7V1Mb5kae5uvS2mMgU2DOl_Gsy9Q==
-      X-Amz-Cf-Pop:
-      - BRU50-P1
-      X-Cache:
-      - Error from cloudfront
-      X-Error-Message:
-      - Invalid username or password.
-      X-Powered-By:
-      - huggingface-moon
-      X-Request-Id:
-      - Root=1-66d9cb34-31be3f7e505a144d1f5c48b0;919dccf9-50b1-463b-86a7-51bcf6374cdc
-      cross-origin-opener-policy:
-      - same-origin
-    status:
-      code: 401
-      message: Unauthorized
-- request:
-    body: '{"messages": [{"role": "user", "content": [{"type": "text", "text": "Hello
-      World!"}]}], "max_tokens": 4096, "model": "claude-3-5-sonnet-20240620", "stream":
-      true}'
+    body: '{"model": "mistral-small", "messages": [{"role": "user", "content": "Hello
+      World!"}], "stream": true}'
     headers:
       accept:
-      - application/json
+      - '*/*'
       accept-encoding:
       - gzip, deflate
-      anthropic-version:
-      - '2023-06-01'
       connection:
       - keep-alive
       content-length:
-      - '162'
+      - '101'
       content-type:
       - application/json
       host:
-      - api.anthropic.com
+      - api.mistral.ai
       user-agent:
-      - litellm/1.41.23
+      - litellm/1.79.1
     method: POST
-    uri: https://api.anthropic.com/v1/messages
+    uri: https://api.mistral.ai/v1/chat/completions
   response:
     body:
-      string: 'event: message_start
-
-        data: {"type":"message_start","message":{"id":"msg_013E68RoxptyPCc1kxArQ1Ne","type":"message","role":"assistant","model":"claude-3-5-sonnet-20240620","content":[],"stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":10,"output_tokens":5}}              }
-
-
-        event: content_block_start
-
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}   }
-
-
-        event: ping
-
-        data: {"type": "ping"}
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"Hello!
-        It''s nice"}      }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        to meet you. How"}          }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        can"}         }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        I assist you today?"}          }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        Is"}    }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        there anything specific"}          }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        you''d like to"}       }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        talk"}  }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        about or any questions"}              }
-
-
-        event: content_block_delta
-
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"
-        you have?"}               }
-
-
-        event: content_block_stop
-
-        data: {"type":"content_block_stop","index":0        }
-
-
-        event: message_delta
-
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null},"usage":{"output_tokens":35}      }
-
-
-        event: message_stop
-
-        data: {"type":"message_stop"               }
-
-
-        '
+      string: "data: {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\ndata:
+        {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Hello\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwx\"}\n\ndata:
+        {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"!\"},\"finish_reason\":null}],\"p\":\"abcdefghijklm\"}\n\ndata:
+        {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        \U0001F60A\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwxy\"}\n\ndata:
+        {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        How\"},\"finish_reason\":null}],\"p\":\"abcdefghi\"}\n\ndata: {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        can\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwxyz01234\"}\n\ndata:
+        {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        I\"},\"finish_reason\":null}],\"p\":\"abcdefghijk\"}\n\ndata: {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        assist\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwxyz012345678\"}\n\ndata:
+        {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        you\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwx\"}\n\ndata:
+        {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"
+        today\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqr\"}\n\ndata: {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"?\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstuvwxyz0123456\"}\n\ndata:
+        {\"id\":\"95475c819a0b40b59a9b14a05f4fa9fe\",\"object\":\"chat.completion.chunk\",\"created\":1762269428,\"model\":\"mistral-small\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\"},\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":6,\"total_tokens\":19,\"completion_tokens\":13},\"p\":\"ab\"}\n\ndata:
+        [DONE]\n\n"
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
+      Access-Control-Allow-Origin:
+      - '*'
       CF-RAY:
-      - 8be72da808002e1a-BRU
-      Cache-Control:
-      - no-cache
+      - 99951395f98318d3-FRA
       Connection:
       - keep-alive
       Content-Type:
       - text/event-stream; charset=utf-8
       Date:
-      - Thu, 05 Sep 2024 15:16:05 GMT
+      - Tue, 04 Nov 2025 15:17:08 GMT
       Server:
       - cloudflare
+      Set-Cookie:
+      - __cf_bm=fSYxd_btW6eGif1wK4srF_KBnrXhNq_S8Wv.D.UE63E-1762269428-1.0.1.1-4U.lnTBgxFcdsGUkIrAdfmLRHo6JbI490_8aOBbLLKoXphsRgWxBHGjwKFAZZ0MW.sQef5fM1wbGnD0WW8q8xR_lA3.MaPHwc9zrekRXcI4;
+        path=/; expires=Tue, 04-Nov-25 15:47:08 GMT; domain=.mistral.ai; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=DHcXu.DRJLYueG6eKBNwF1ovPWOUpiEXPDpOga0itUg-1762269428255-0.0.1.1-604800000;
+        path=/; domain=.mistral.ai; HttpOnly; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
       Transfer-Encoding:
       - chunked
-      X-Robots-Tag:
-      - none
-      anthropic-ratelimit-requests-limit:
-      - '5'
-      anthropic-ratelimit-requests-remaining:
-      - '2'
-      anthropic-ratelimit-requests-reset:
-      - '2024-09-05T15:16:43Z'
-      anthropic-ratelimit-tokens-limit:
-      - '20000'
-      anthropic-ratelimit-tokens-remaining:
-      - '16000'
-      anthropic-ratelimit-tokens-reset:
-      - '2024-09-05T15:16:16Z'
-      request-id:
-      - req_01Y5WYxkzR42ZiuMUddXZyHx
-      via:
-      - 1.1 google
+      X-Content-Type-Options:
+      - nosniff
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      mistral-correlation-id:
+      - 019a4f71-79d2-77f2-b7e7-89aa31ffc5b9
+      x-envoy-upstream-service-time:
+      - '54'
+      x-kong-proxy-latency:
+      - '4'
+      x-kong-request-id:
+      - 019a4f71-79d2-77f2-b7e7-89aa31ffc5b9
+      x-kong-upstream-latency:
+      - '55'
+      x-model-deprecation-timestamp:
+      - '2024-11-30T12:00:00+00:00'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "mistral-small", "messages": [{"role": "user", "content": "Hello
+      World!"}], "stream": true}'
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-length:
+      - '101'
+      content-type:
+      - application/json
+      host:
+      - api.mistral.ai
+      user-agent:
+      - litellm/1.79.1
+    method: POST
+    uri: https://api.mistral.ai/v1/chat/completions
+  response:
+    body:
+      string: ''
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      CF-RAY:
+      - 99951395f98318d3-FRA
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Date:
+      - Tue, 04 Nov 2025 15:17:08 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - __cf_bm=fSYxd_btW6eGif1wK4srF_KBnrXhNq_S8Wv.D.UE63E-1762269428-1.0.1.1-4U.lnTBgxFcdsGUkIrAdfmLRHo6JbI490_8aOBbLLKoXphsRgWxBHGjwKFAZZ0MW.sQef5fM1wbGnD0WW8q8xR_lA3.MaPHwc9zrekRXcI4;
+        path=/; expires=Tue, 04-Nov-25 15:47:08 GMT; domain=.mistral.ai; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=DHcXu.DRJLYueG6eKBNwF1ovPWOUpiEXPDpOga0itUg-1762269428255-0.0.1.1-604800000;
+        path=/; domain=.mistral.ai; HttpOnly; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      mistral-correlation-id:
+      - 019a4f71-79d2-77f2-b7e7-89aa31ffc5b9
+      x-envoy-upstream-service-time:
+      - '54'
+      x-kong-proxy-latency:
+      - '4'
+      x-kong-request-id:
+      - 019a4f71-79d2-77f2-b7e7-89aa31ffc5b9
+      x-kong-upstream-latency:
+      - '55'
+      x-model-deprecation-timestamp:
+      - '2024-11-30T12:00:00+00:00'
     status:
       code: 200
       message: OK
