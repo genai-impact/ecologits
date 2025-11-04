@@ -29,13 +29,13 @@ classifiers = [
     "Operating System :: POSIX",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
-requires-python = ">=3.9,<4"
+requires-python = ">=3.10,<4"
 dependencies = [
     "wrapt (>=1.14.1,<2.0.0)",
     "pydantic >=1.9.0,<3",
